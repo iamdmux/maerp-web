@@ -18,12 +18,13 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'DavideM',
             'email' => 'davidemarchiori.dev@gmail.com',
-            'password' => Hash::make('password0'),
-        ],[
+            'password' => '$2y$10$hItalZfJJ5TnmRER/euBX.vM000uMUhGfSj0H9D7fqivmRD/K5B96',
+        ]);
+        
+        DB::table('users')->insert([
             'name' => 'Diego de Maio',
             'email' => 'ceo@gymia.io',
-            'password' => Hash::make('password0'),
-        ]
-    );
+            'password' => Hash::make('$2y$10$JjBSQ2GBhyFY3Ce5qIT2AeF3jOaWJs6YPU0av5JFqq2pMqVNIst86'),
+        ]);
     }
 }
