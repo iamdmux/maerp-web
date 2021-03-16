@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Magazzino\Marca;
 use App\Http\Controllers\Controller;
 
+
 class MarcaController extends Controller
 {
     public function index(){
