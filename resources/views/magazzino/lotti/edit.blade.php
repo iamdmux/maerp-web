@@ -2,16 +2,25 @@
 
 @section('content')
 
-<div class="mb-4">
-    <a href="{{route('lotti.index')}}"
-        class="px-2 py-1 bg-gray-600 rounded-md text-white font-bold hover:bg-gray-500"
-    >
-        &larr;
-    </a>
-</div>
+<x-back-to-page-button route="{{route('lotti.index')}}" />
+
 
 <h3 class="text-gray-700 text-3xl font-bold">Modifica lotto</h3>
 <p>Stai modificando il lotto {{$lotto->id}}</p>
+
+<div class="mt-4">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+</div>
+
+
 <form action="{{route('lotti.update', $lotto->id)}}" method="POST">
 
     @csrf
@@ -22,7 +31,7 @@
             Marca
         </p>
         
-        <select class="rounded-md border-gray-300" name="marca_id">
+        <select name="marca_id">
             <option disabled> -- seleziona -- </option>
             @foreach ($marche as $marca)
             <option
@@ -49,7 +58,7 @@
             'nessuna'
          ]   
         @endphp
-        <select class="rounded-md border-gray-300" name="stagione">
+        <select name="stagione">
             <option disabled > -- seleziona -- </option>
 
             @foreach ($stagioni as $stagione)
@@ -66,7 +75,7 @@
         <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Tipologia
         </p>
-        <select class="rounded-md border-gray-300" name="tipologia">
+        <select name="tipologia">
             <option disabled value> -- seleziona -- </option>
             @foreach ($tipoogia as $tipo)
                 <option {{ old('tipologia') == $tipo['val'] ? 'selected' : ($lotto->tipologia == $tipo['val'] ? 'selected' : '')}}
@@ -80,20 +89,20 @@
         <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Kg Lotto
         </p>
-        <input class="rounded-md border-gray-300" type="number" name="kg" step="0.5" min="0" placeholder="Kg Lotto" value="{{old('kg') ? old('kg') : $lotto->kg}}">
+        <input type="number" name="kg" step="0.5" min="0" placeholder="Kg Lotto" value="{{old('kg') ? old('kg') : $lotto->kg}}">
     </div>
     <div>
         <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Quantità
         </p>
-        <input class="rounded-md border-gray-300" type="number" name="quantita" min="0" placeholder="Quantità di Pezzi" value="{{old('quantita') ? old('quantita') : $lotto->quantita}}">
+        <input type="number" name="quantita" min="0" placeholder="Quantità di Pezzi" value="{{old('quantita') ? old('quantita') : $lotto->quantita}}">
     </div>
 
     <div>
         <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Venditore
         </p>
-        <input class="rounded-md border-gray-300" type="text" name="venditore" placeholder="Venditore"
+        <input type="text" name="venditore" placeholder="Venditore"
         value="{{old('venditore') ? old('venditore') : $lotto->venditore}}"
         >
     </div>
@@ -102,7 +111,7 @@
         <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Codice Articolo
         </p>
-        <input class="rounded-md border-gray-300" type="text" name="codice_articolo" placeholder="Codice Articolo"
+        <input type="text" name="codice_articolo" placeholder="Codice Articolo"
             value="{{old('codice_articolo') ? old('codice_articolo') : $lotto->codice_articolo}}">
     </div>
 
@@ -119,17 +128,7 @@
     </button>
 </form>
 
-<div class="mt-4">
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-</div>
+
 
 
 

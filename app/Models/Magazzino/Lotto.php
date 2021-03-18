@@ -9,7 +9,7 @@ class Lotto extends Model
 {
     use HasFactory;
 
-    protected $table= "magazzino_lotti";
+    protected $table = "magazzino_lotti";
 
     protected $fillable = [
         'marca_id',

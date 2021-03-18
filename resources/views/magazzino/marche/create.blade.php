@@ -2,13 +2,8 @@
 
 @section('content')
 
-<div class="mb-4">
-    <a href="{{route('marche.index')}}"
-        class="px-2 py-1 bg-gray-600 rounded-md text-white font-bold hover:bg-gray-500"
-    >
-        &larr;
-    </a>
-</div>
+<x-back-to-page-button route="{{route('marche.index')}}" />
+
 
 <h3 class="text-gray-700 text-3xl font-bold">Crea nuova marca</h3>
 
@@ -17,7 +12,10 @@
     @csrf
 
     <div>
-        <input autocomplete="off" type="text" name="nome" class="mt-8 rounded-md" placeholder="nome marca">
+        <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Nome
+        </p>
+        <input autocomplete="off" type="text" name="nome" class="mt-8" placeholder="nome marca">
     </div>
 
     <button class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">

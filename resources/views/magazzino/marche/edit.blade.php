@@ -2,13 +2,7 @@
 
 @section('content')
 
-<div class="mb-4">
-    <a href="{{route('marche.index')}}"
-        class="px-2 py-1 bg-gray-600 rounded-md text-white font-bold hover:bg-gray-500"
-    >
-        &larr;
-    </a>
-</div>
+<x-back-to-page-button route="{{route('marche.index')}}" />
 
 <h3 class="text-gray-700 text-3xl font-bold">Modifica nome marca</h3>
 <p>Stai modificando la marca <span class="font-bold">'{{$marca->nome}}'</span></p>
@@ -18,7 +12,7 @@
     @method('PATCH')
 
     <div>
-        <input autocomplete="off" type="text" name="nome" class="mt-8 rounded-md" value="{{old('marca') ? old('marca') : $marca->nome}}">
+        <input autocomplete="off" type="text" name="nome" class="mt-8" value="{{old('marca') ? old('marca') : $marca->nome}}">
     </div>
 
     <div class="flex">
