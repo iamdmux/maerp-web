@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Diego de Maio',
             'email' => 'ceo@gymia.io',
-            'password' => Hash::make('$2y$10$JjBSQ2GBhyFY3Ce5qIT2AeF3jOaWJs6YPU0av5JFqq2pMqVNIst86'),
+            'password' => '$2y$10$.OV88ZUL4ZU3nziGUmKas.FyvmeBgqAwpFR6UXRO6MHJsYSwN/3L.',
         ]);
     }
 }
