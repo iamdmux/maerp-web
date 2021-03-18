@@ -42,7 +42,8 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->email}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->telefono}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                <a href="{{ route('clienti.show', $cliente->id) }}" class="text-indigo-600 hover:text-indigo-900">Vedi</a>
+                                <a href="{{ route('clienti.edit', $cliente->id) }}" class="text-indigo-600 hover:text-indigo-900">Modifica</a>
                             </td>
                         </tr>
                     @empty

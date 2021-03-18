@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cliente extends Model
 {
@@ -12,4 +13,14 @@ class Cliente extends Model
     protected $table = "clienti";
     protected $guarded = [];
 
+    const TIPOLOGIA = [
+        ['val' => 'azienda',                'show'=> 'Azienda'],
+        ['val' => 'persona_fisica',         'show'=> 'Persona Fisica'],
+        ['val' => 'pubblica_amministrazione', 'show'=> 'Pubblica Amministrazione'],
+        ['val' => 'condominio',             'show'=> 'Condominio'],
+    ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

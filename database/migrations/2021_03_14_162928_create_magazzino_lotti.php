@@ -15,7 +15,7 @@ class CreateMagazzinoLotti extends Migration
     {
         Schema::create('magazzino_lotti', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('marca_id');
+            $table->unsignedBigInteger('marca_id')->index()->nullable();
             $table->string('stagione');
             $table->string('tipologia');
             $table->integer('quantita');
@@ -26,7 +26,7 @@ class CreateMagazzinoLotti extends Migration
             $table->string('codice_articolo')->nullable();
             $table->timestamps();
 
-            $table->foreign('marca_id')->references('id')->on('magazzino_marche')->onDelete('cascade');
+            $table->foreign('marca_id')->references('id')->on('magazzino_marche')->onDelete('set null');
         });
     }
 

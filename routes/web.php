@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/', function () { return view('homepage'); })->name('home.page');
 
     // Clienti
-    Route::resource('/clienti', ClienteController::class, ['except' => ['show']]);
+    Route::resource('/clienti', ClienteController::class);
 
     // MAGAZZINO
     // Lotti
