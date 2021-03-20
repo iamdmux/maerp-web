@@ -22,5 +22,19 @@ select,
 select[multiple],
 textarea
 {
-    @apply rounded-md border-gray-200;
+    @apply rounded-md border-gray-200 placeholder-gray-500 placeholder-opacity-50;
+}
+input:focus,
+select:focus,
+textarea:focus
+{
+    @apply focus:ring-2 focus:ring-gray-400 focus:border-transparent;
+}
+
+
+.input-small{
+    @apply h-8 text-sm;
+}
+input.input-small::-webkit-input-placeholder {
+    @apply text-sm;
 }

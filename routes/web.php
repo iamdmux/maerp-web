@@ -4,27 +4,22 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\Magazzino\LottoController;
 use App\Http\Controllers\Magazzino\MarcaController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\Vendite\FatturaController;
 
 
 Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/', function () { return view('homepage'); })->name('home.page');
 
-    // Clienti
-    Route::resource('/clienti', ClienteController::class);
 
-    // MAGAZZINO
+// VENDITE
+    // Clienti
+    Route::resource('/vendite/clienti', ClienteController::class);
+
+    // Fatture
+    Route::resource('/vendite/fatture', FatturaController::class);
+
+// MAGAZZINO
     // Lotti
     Route::resource('/magazzino/lotti', LottoController::class, ['except' => ['show']]);
 

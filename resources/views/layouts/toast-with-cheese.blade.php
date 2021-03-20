@@ -8,7 +8,7 @@
 @endif
 
 
-@push('scripts')
+{{-- @push('scripts') --}}
 <script>
     (function toast() {
       setTimeout(() => {
@@ -33,4 +33,4 @@
       e.target.parentElement.classList.remove('show');
     }
 </script>
-@endpush
+{{-- @endpush --}}

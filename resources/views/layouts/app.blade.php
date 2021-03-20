@@ -15,6 +15,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -23,7 +24,7 @@
             <main>
                 @include('layouts.toast-with-cheese')
                 @include('layouts.navigation')
-                <div class="flex-1 flex flex-col overflow-hidden"> {{-- div wrapper--}}
+                <div id="app" class="flex-1 flex flex-col overflow-hidden"> {{-- div wrapper--}}
                     @include('layouts.top-header') {{-- div navigation --}}
                     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                         <div class="container mx-auto px-6 py-8">
