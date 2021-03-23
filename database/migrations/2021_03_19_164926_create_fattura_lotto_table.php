@@ -22,9 +22,11 @@ class CreateFatturaLottoTable extends Migration
             $table->integer('quantita')->default(1);
             $table->string('unita_di_misura');
             $table->integer('prezzo_netto');
+            $table->text('descrizione');
             $table->integer('iva');
             $table->integer('sconto')->default(0);
             $table->boolean('non_imponibile')->default(false);
+            $table->integer('importo_totale');
             $table->boolean('applica_ritenute_contributi')->default(false);
             
             $table->foreign('fattura_id')->references('id')->on('fatture')->onDelete('cascade');

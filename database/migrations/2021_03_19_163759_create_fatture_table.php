@@ -70,6 +70,7 @@ class CreateFattureTable extends Migration
             $table->string('stato')->default('non-saldato');
 
             $table->text('note_documento')->nullable();
+            $table->boolean('usa_prezzi_lordi')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });

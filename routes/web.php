@@ -5,6 +5,8 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\Magazzino\LottoController;
 use App\Http\Controllers\Magazzino\MarcaController;
 use App\Http\Controllers\Vendite\FatturaController;
+use App\Http\Controllers\Vendite\FatturaPdfController;
+
 
 
 Route::group(['middleware' => 'auth'], function(){
@@ -17,7 +19,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('/vendite/clienti', ClienteController::class);
 
     // Fatture
+    Route::get('/vendite/fatture/pdf', [FatturaPdfController::class, 'get']);
+    Route::post('/vendite/fatture/pdf', [FatturaPdfController::class, 'show'])->name('fatturapdf.view');
     Route::resource('/vendite/fatture', FatturaController::class);
+
+   
 
 // MAGAZZINO
     // Lotti
