@@ -19,7 +19,7 @@ class CreateFattureTable extends Migration
             $table->boolean('is_fattura_elettronica')->defalut(false);
             $table->timestamp('saldata_il')->nullable();
             // dati documento
-            $table->timestamp('data');
+            $table->timestamp('data')->nullable();
             $table->integer('numero');
             $table->string('lingua')->default('it');
             $table->string('valuta')->default('eur');
@@ -66,7 +66,7 @@ class CreateFattureTable extends Migration
 
             //termini pagamento, ora qui (in fattureincloud possono essere dei multipli)
             $table->string('termini_pagamento')->default('30gg');
-            $table->timestamp('scadenza');
+            $table->timestamp('scadenza')->nullable();
             $table->string('stato')->default('non-saldato');
 
             $table->text('note_documento')->nullable();
