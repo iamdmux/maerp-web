@@ -67,6 +67,7 @@ class ClienteController extends Controller
             'tipologia' => '',
             'referente' => '',
             'partita_iva' => '',
+            'codice_fiscale' => '',
             'paese' => '',
             'indirizzo' => '',
             'citta' => '',

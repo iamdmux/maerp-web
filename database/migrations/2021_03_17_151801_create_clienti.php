@@ -20,6 +20,7 @@ class CreateClienti extends Migration
             $table->string('tipologia')->nullable();
             $table->string('referente')->nullable();
             $table->string('partita_iva')->nullable();
+            $table->string('codice_fiscale')->nullable();
             $table->string('paese')->nullable();
             $table->string('indirizzo')->nullable();
             $table->string('citta')->nullable();

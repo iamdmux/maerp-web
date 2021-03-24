@@ -5,6 +5,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\Magazzino\LottoController;
 use App\Http\Controllers\Magazzino\MarcaController;
 use App\Http\Controllers\Vendite\FatturaController;
+use App\Http\Controllers\Vendite\FatturaJsonResponse;
 use App\Http\Controllers\Vendite\FatturaPdfController;
 
 
@@ -23,6 +24,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/vendite/fatture/pdf', [FatturaPdfController::class, 'show'])->name('fatturapdf.view');
     Route::resource('/vendite/fatture', FatturaController::class);
 
+    Route::get('/api/clienti', [FatturaJsonResponse::class, 'getClienti']);
+    Route::get('/api/articoli', [FatturaJsonResponse::class, 'getArticoli']);
    
 
 // MAGAZZINO
