@@ -1,4 +1,4 @@
-<div x-data="navigation()" class="flex h-screen bg-gray-200 font-roboto">
+<div x-data="navigation()" @sidebar-open="sidebarOpen = !sidebarOpen" class="flex h-screen bg-gray-200 font-roboto">
     
     <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
 
@@ -46,7 +46,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
 
-                    <span class="mx-3">Fatture</span>
+                    <span class="mx-3">Fatture / doc</span>
                 </a>
 
             {{-- MAGAZZINO --}}

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Vendite;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model\Vendite;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Fattura extends Model
 {

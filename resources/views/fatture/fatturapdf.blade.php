@@ -65,15 +65,33 @@
     .bottom-left-table td, .bottom-left-table td *{
       vertical-align: top;
     }
-    
-    
-
 </style>
+
+
 
 </head>
 <body>
   <div class="top">
-  <p style="text-align:right; font-size:14px; margin:0;">FATTURA nr. 1/2021 del 19/03/2021</p>
+    @if($documento_di_trasporto)
+      <p style="text-align:right; font-size:14px; margin:0;">DOCUMENTO DI TRASPORTO<br> N° {{$numero_ddt}}/{{date('Y', strtotime($data_ddt))}} del {{date('d-m-Y', strtotime($data_ddt))}}</p>
+    @else
+      @php
+          $dicitura = '';
+
+          if($tipo_documento == 'preventivo'){
+            $dicitura = 'PREVENTIVO';
+          } elseif($tipo_documento == 'ordine'){
+            $dicitura = 'ORDINE';
+          } elseif($tipo_documento == 'proforma'){
+            $dicitura = 'PROFORMA';
+          } elseif ($tipo_documento == 'fattura') {
+            $dicitura = 'FATTURA';
+          }
+      @endphp
+      
+      <p style="text-align:right; font-size:14px; margin:0;">{{$dicitura}} N° {{$numero}}/{{date('Y', strtotime($data))}} del {{date('d-m-Y', strtotime($data))}}</p>
+    @endif
+
   <table width="100%">
     <tr>
     	<td align="left" width="50%">
@@ -96,21 +114,44 @@
       </td>
     	<td align="right" width="50%">
 
-          DESTINATARIO<br>
+          <b>DESTINATARIO</b><br>
           <b>{{$cliente->denominazione}}</b><br>
           @if($cliente->partita_iva)
           {{$cliente->partita_iva}}<br>
           @endif
           {{$cliente->indirizzo}} {{$cliente->cap}} {{$cliente->provincia}}<br>
           {{$cliente->email}}<br>
-          {{$cliente->telefono}}
+          {{$cliente->telefono}}<br>
+          {{$cliente->paese}}<br>
 
+          <br>
+
+          @if($documento_di_trasporto)
+            <b>LUOGO DI DESTINAZIONE</b><br>
+            @if($luogo_destinazione)
+              {{$luogo_destinazione}}
+              @else
+              {{$cliente->indirizzo}}<br>
+              {{$cliente->cap}}<br>
+              {{$cliente->provincia}}<br>
+              @if($cliente->codice_interno)
+                {{$cliente->codice_interno}}<br>
+              @endif
+              {{$cliente->paese}}<br>
+              @if($cliente->note_extra)
+                {{$cliente->note_extra}}<br>
+              @endif
+            @endif
+          @endif
       </td>
     </tr>
 </table>
  
 
-  <br>
+@if($documento_di_trasporto && $casuale_trasporto)
+<p><b>CASUALE DEL TRASPORTO</p></p>
+<p>{{$casuale_trasporto}}</p>
+@endif
 
   <table class="fattura" width="100%" style="margin-top:20px;">
     <thead>
@@ -134,11 +175,11 @@
         <tr>
           <td>{{$art['codice']}}</td>
           <td align="left">{{$art['descrizione']}}</td>
-          <td align="center">{{$art['prezzo_netto']}}</td>
+          <td align="center">€ {{$art['prezzo_netto']}}</td>
           <td align="center">{{$art['quantita']}} {{$art['unita_di_misura']}}</td>
-          <td align="center">{{$art['importo_netto']}}</td>
-          <td align="center">{{$art['iva']}}</td>
-          <td align="center">{{$art['importo_totale']}}</td>
+          <td align="center">€ {{$art['importo_netto']}}</td>
+          <td align="center">€ {{$art['iva']}}</td>
+          <td align="center">€ {{$art['importo_totale']}}</td>
         </tr>
         
     @endforeach
@@ -146,44 +187,80 @@
   </table>
 </div>
 
+@if($note_documento)
+<p>NOTE: {{$note_documento}}</p>
+@endif
+
+@if($tipo_documento == 'proforma')
+<p>Il presente documento non costituisce fattura, che verrà emessa al momento del pagamento.</p>
+@endif
+
+@if($includi_metodo_pagamento && $metodo_pagamento && $tipo_documento == 'fattura')
+<p>MODALITÀ DI PAGAMENTO: {{$metodo_pagamento}}</p>
+@endif
+
+@if(!$documento_di_trasporto)
 <div class="bottom">
   <table class="bottom-table" style="width:100%">
     <tr>
-      {{-- <td style="vertical-align:top;">
-      <table style="width:100%">
-        <tr>
-          <td class="title-small" style="width:65%; padding-top: 8px;">MODALITÀ DI PAGAMENTO</td>
-          <td align="right" style="padding-top: 8px;"class="title-small">CONTANTI</td>
-          <td align="right" style="padding-top: 8px; padding-right: 8px;"class="title-small">totale SALDATI IN DATA 18/03/2021</td>
-        </tr>
-        <tr>
-          <td>20%</td>
-          <td align="right">78,00</td>
-          <td align="right" style="padding-right: 8px;">€ 15,60</td>
-        </tr>
-        </table>
-      </td> --}}
-
-      <table style="width:100%; margin-top:20px;">
+      <table style="width:100%; margin-top:10px;">
         <tr>
           <td align="right">Imponibile</td>
-          <td style="width: 120px; padding-right: 8px" align="right">{{$totaleImponibile}}</td>
+          <td style="width: 120px; padding-right: 8px" align="right">€ {{$totaleImponibile}}</td>
         </tr>
         <tr>
-          <td align="right">Iva 22% su {{$totaleImponibile}}</td>
-          <td style="width: 120px; padding-right: 8px" align="right">{{$totaleIva}}</td>
+          <td align="right">Iva 22% su € {{$totaleImponibile}}</td>
+          <td style="width: 120px; padding-right: 8px" align="right">€ {{$totaleIva}}</td>
         </tr>
-        {{-- <tr>
+        @if($includi_marca_da_bollo)
+        <tr>
           <td align="right">Non imponibile</td>
-          <td style="width: 120px; padding-right: 8px" align="right">€ 2,00</td>
-        </tr> --}}
+          <td style="width: 120px; padding-right: 8px" align="right">€ {{$costo_bollo}}</td>
+        </tr>
+        @endif
+        <tr>
+          <p style="margin-top:5px; padding-right: 8px; text-align: right; font-size: 2rem">€ {{$totale}}</p>
+        </tr>
       </table>
-      <p style="margin:0; padding-right: 8px; text-align: right; font-size: 2rem">{{$totale}}</p>
+      
      </td>
   
     </tr>
   </table>
 </div>
+@endif
 
+
+@if($documento_di_trasporto && $casuale_trasporto)
+<table class="fattura" width="100%" style="margin-top:20px;">
+  <thead>
+    <tr>
+      <th align="left">NUMERO DI COLLI</th>
+      <th align="left">PESO</th>
+      <th align="left">TRASPORTO</th>
+      <th align="left">ANNOTAZIONI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{$numero_colli_ddt}}</td>
+      <td>{{$peso_ddt}}</td>
+      <td>{{$trasporto_a_cura_di}}</td>
+      <td>{{$annotazioni}}</td>
+    </tr>
+  </tbody>
+</table>
+@endif
+
+@if($documento_di_trasporto)
+<table width="100%" style="margin-top:20px;">
+  <tr>
+    <th>Data e firma mittente</th>
+    <th>Data e firma corriere</th>
+    <th>Data e firma destinatario</th>
+  </tr>
+</table>
+
+@endif
 </body>
 </html>
