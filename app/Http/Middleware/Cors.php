@@ -20,7 +20,7 @@ class Cors
         
         if (App::environment() === 'production') {
             return $next($request)
-                ->header('Access-Control-Allow-Origin', 'https://example.com')
+                ->header('Access-Control-Allow-Origin', 'https://api-sandbox.acubeapi.com')
                 ->header('Vary', "Origin")
                 ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
         } else {
