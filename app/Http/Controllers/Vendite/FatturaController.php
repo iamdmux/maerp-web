@@ -48,7 +48,7 @@ class FatturaController extends Controller
                 'luogo_destinazione', 'annotazioni'
             ]),
                 ['importo_totale' =>  $fatturazione->totale],
-                ['uuid' =>  $fatturazione->$invoicePostUiid]
+                ['uuid' =>  $invoicePostUiid]
             )
         );
         // aggiungere l'importo totle alla fattura
