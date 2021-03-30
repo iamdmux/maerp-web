@@ -72,24 +72,24 @@
 </head>
 <body>
   <div class="top">
-    @if($documento_di_trasporto)
-      <p style="text-align:right; font-size:14px; margin:0;">DOCUMENTO DI TRASPORTO<br> N° {{$numero_ddt}}/{{date('Y', strtotime($data_ddt))}} del {{date('d-m-Y', strtotime($data_ddt))}}</p>
+    @if($fattura->documento_di_trasporto)
+      <p style="text-align:right; font-size:14px; margin:0;">DOCUMENTO DI TRASPORTO<br> N° {{$fattura->numero_ddt}}/{{date('Y', strtotime($fattura->data_ddt))}} del {{date('d-m-Y', strtotime($fattura->data_ddt))}}</p>
     @else
       @php
           $dicitura = '';
 
-          if($tipo_documento == 'preventivo'){
+          if($fattura->tipo_documento == 'preventivo'){
             $dicitura = 'PREVENTIVO';
-          } elseif($tipo_documento == 'ordine'){
+          } elseif($fattura->tipo_documento == 'ordine'){
             $dicitura = 'ORDINE';
-          } elseif($tipo_documento == 'proforma'){
+          } elseif($fattura->tipo_documento == 'proforma'){
             $dicitura = 'PROFORMA';
-          } elseif ($tipo_documento == 'fattura') {
+          } elseif ($fattura->tipo_documento == 'fattura') {
             $dicitura = 'FATTURA';
           }
       @endphp
       
-      <p style="text-align:right; font-size:14px; margin:0;">{{$dicitura}} N° {{$numero}}/{{date('Y', strtotime($data))}} del {{date('d-m-Y', strtotime($data))}}</p>
+      <p style="text-align:right; font-size:14px; margin:0;">{{$dicitura}} N° {{$fattura->numero}}/{{date('Y', strtotime($fattura->data))}} del {{date('d-m-Y', strtotime($fattura->data))}}</p>
     @endif
 
   <table width="100%">
@@ -126,9 +126,9 @@
 
           <br>
 
-          @if($documento_di_trasporto)
+          @if($fattura->documento_di_trasporto)
             <b>LUOGO DI DESTINAZIONE</b><br>
-            @if($luogo_destinazione)
+            @if($fattura->luogo_destinazione)
               {{$luogo_destinazione}}
               @else
               {{$cliente->indirizzo}}<br>
@@ -148,9 +148,9 @@
 </table>
  
 
-@if($documento_di_trasporto && $casuale_trasporto)
+@if($fattura->documento_di_trasporto && $fattura->casuale_trasporto)
 <p><b>CASUALE DEL TRASPORTO</p></p>
-<p>{{$casuale_trasporto}}</p>
+<p>{{$fattura->casuale_trasporto}}</p>
 @endif
 
   <table class="fattura" width="100%" style="margin-top:20px;">
@@ -171,7 +171,7 @@
           $totali = [];
           $ive = [];
       @endphp
-    @foreach ($articoli as $art)
+    @foreach ($fattura->articoli as $art)
         <tr>
           <td>{{$art['codice']}}</td>
           <td align="left">{{$art['descrizione']}}</td>
@@ -187,39 +187,41 @@
   </table>
 </div>
 
-@if($note_documento)
-<p>NOTE: {{$note_documento}}</p>
+@if($fattura->note_documento)
+<p>NOTE: {{$fattura->note_documento}}</p>
 @endif
 
-@if($tipo_documento == 'proforma')
+@if($fattura->tipo_documento == 'proforma')
 <p>Il presente documento non costituisce fattura, che verrà emessa al momento del pagamento.</p>
 @endif
 
-@if($includi_metodo_pagamento && $metodo_pagamento && $tipo_documento == 'fattura')
-<p>MODALITÀ DI PAGAMENTO: {{$metodo_pagamento}}</p>
+@if($fattura->includi_metodo_pagamento && $fattura->metodo_pagamento && $fattura->tipo_documento == 'fattura')
+<p>MODALITÀ DI PAGAMENTO: {{$fattura->metodo_pagamento}}</p>
 @endif
 
-@if(!$documento_di_trasporto)
+@if(!$fattura->documento_di_trasporto)
 <div class="bottom">
   <table class="bottom-table" style="width:100%">
     <tr>
       <table style="width:100%; margin-top:10px;">
         <tr>
           <td align="right">Imponibile</td>
-          <td style="width: 120px; padding-right: 8px" align="right">€ {{$totaleImponibile}}</td>
+          <td style="width: 120px; padding-right: 8px" align="right">€ {{$fattura->totaleImponibile}}</td>
         </tr>
         <tr>
-          <td align="right">Iva 22% su € {{$totaleImponibile}}</td>
-          <td style="width: 120px; padding-right: 8px" align="right">€ {{$totaleIva}}</td>
+          <td align="right">Iva 22% su € {{$fattura->totaleImponibile}}</td>
+          <td style="width: 120px; padding-right: 8px" align="right">€ {{$fattura->totaleIva}}</td>
+          
         </tr>
-        @if($includi_marca_da_bollo)
+        
+        @if($fattura->includi_marca_da_bollo == 'on')
         <tr>
-          <td align="right">Non imponibile</td>
-          <td style="width: 120px; padding-right: 8px" align="right">€ {{$costo_bollo}}</td>
+          <td align="right">Non imponibile, bollo</td>
+          <td style="width: 120px; padding-right: 8px" align="right">€ {{$fattura->costo_bollo}}</td>
         </tr>
         @endif
         <tr>
-          <p style="margin-top:5px; padding-right: 8px; text-align: right; font-size: 2rem">€ {{$totale}}</p>
+          <p style="margin-top:5px; padding-right: 8px; text-align: right; font-size: 2rem">€ {{$fattura->totale}}</p>
         </tr>
       </table>
       
@@ -231,7 +233,7 @@
 @endif
 
 
-@if($documento_di_trasporto && $casuale_trasporto)
+@if($fattura->documento_di_trasporto && $fattura->casuale_trasporto)
 <table class="fattura" width="100%" style="margin-top:20px;">
   <thead>
     <tr>
@@ -243,16 +245,16 @@
   </thead>
   <tbody>
     <tr>
-      <td>{{$numero_colli_ddt}}</td>
-      <td>{{$peso_ddt}}</td>
-      <td>{{$trasporto_a_cura_di}}</td>
-      <td>{{$annotazioni}}</td>
+      <td>{{$fattura->numero_colli_ddt}}</td>
+      <td>{{$fattura->peso_ddt}}</td>
+      <td>{{$fattura->trasporto_a_cura_di}}</td>
+      <td>{{$fattura->annotazioni}}</td>
     </tr>
   </tbody>
 </table>
 @endif
 
-@if($documento_di_trasporto)
+@if($fattura->documento_di_trasporto)
 <table width="100%" style="margin-top:20px;">
   <tr>
     <th>Data e firma mittente</th>

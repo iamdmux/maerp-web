@@ -18,10 +18,8 @@
 
 <h3 class="text-gray-700 text-2xl font-semibold mb-6">Crea nuova fattura / doc</h3>
 
-<create-fattura method="create" route="{{route('fatturapdf.view')}}"
-acubeuser="{{env('ACUBEAPI_SANDBOX_USER')}}"
-acubepass="{{env('ACUBEAPI_SANDBOX_PASSWORD')}}"
-acubeurl="{{env('ACUBEAPI_SANDBOX_URL')}}"
+<create-fattura method="create" pdf-url="{{route('fatturapdf.view')}}" form-url="{{route('fatture.store')}}"
+
 >
 </create-fattura>
 

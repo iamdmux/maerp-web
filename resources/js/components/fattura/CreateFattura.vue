@@ -1,5 +1,5 @@
 <template>
-<form target="viewpdf" :action="route" method="POST">
+<form ref="form" method="POST">
     <input type="hidden" name="_token" :value="csrf">
 
 <div class="flex flex-wrap mb-2">
@@ -74,7 +74,7 @@
             <input :disabled="method == 'create'" v-model="provincia" class="input-small w-36" autocomplete="off" type="text" name="provincia">
           </div>
         </div>
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap mt-2">
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 paese
@@ -144,7 +144,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   valuta
               </p>
-              <select class="input-small rounded-md border-gray-200" name="lingua">
+              <select class="input-small rounded-md border-gray-200" name="valuta">
                 <option class="px-3" value="euro">euro</option>
               </select>
           </div>
@@ -179,7 +179,7 @@
             </p>
             <input v-model="el_codice_destinatario" class="input-small w-36" autocomplete="off" type="text" name="el_codice_destinatario">
           </div>
-          <div>
+          <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 indirizzo PEC
             </p>
@@ -196,7 +196,7 @@
               <option class="px-3" value="nd">non specificato</option>
             </select>
           </div>
-          <div>
+          <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 emesso in seguito a
             </p>
@@ -213,7 +213,7 @@
           <select class="input-small rounded-md border-gray-200" name="el_metodo_pagamento">
             <option class="px-3" value="contanti">contanti</option>
           </select>
-          <div>
+          <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 nome istituto di credito
             </p>
@@ -228,7 +228,7 @@
             </p>
             <input class="input-small w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_iban">
           </div>
-          <div>
+          <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 nome beneficiario
             </p>
@@ -375,25 +375,6 @@
   </div>
 
 
-  <!-- NOTE DOCUMENTO -->
-  <!-- <div class="relative w-full bg-gray-100 rounded p-4 mb-4">
-    <h1>NOTE DOCUMENTO</h1>
-      <button @click.prevent="tab_show_note_doc = !tab_show_note_doc" class="absolute top-0 right-0 p-4">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
-      </button>
-    <div v-show="tab_show_note_doc">
-      <div class="m-6">
-        <div class="my-3">
-          <p class="mt-4 pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-              note documento
-          </p>
-          <textarea rows="4" cols="100" autocomplete="off" class="text-sm" name="note_documento"></textarea>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-
 <h1 class="mt-12 mb-6"><b>LISTA ARTICOLI</b></h1>
 
   <div style="max-width: 1113px;">
@@ -411,20 +392,23 @@
   </div>
 
 
-  <button class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
+<div class="flex justify-between">
+  <button @click="submitForm('action')" class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
+      salva fattura
+  </button>
+    <button @click="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
       vedi fattura pdf
   </button>
+</div>
 
-  <button @click.prevent="clickElettronica" class="mt-4 px-6 py-3 bg-red-200 ">TEST ELETTRONICA </button>
 </form>
-  storeArticoli: {{storeArticoli}}
 </template>
 
 <script>
 import { ref } from '@vue/reactivity'
-import { computed } from '@vue/runtime-core'
+// import { computed } from '@vue/runtime-core'
 import AggiungiArticolo from './AggiungiArticolo.vue'
-import storeArticoli from '../../composable/storeArticoli'
+// import storeArticoli from '../../composable/storeArticoli'
 
 export default {
   props: {
@@ -432,19 +416,11 @@ export default {
       type: String,
       required: true
     },
-    route: {
+    pdfUrl: {
       type: String,
       required: true
     },
-    acubeuser: {
-      type: String,
-      required: true
-    },
-    acubepass: {
-      type: String,
-      required: true
-    },
-    acubeurl: {
+    formUrl: {
       type: String,
       required: true
     }
@@ -458,9 +434,7 @@ export default {
     const method = ref(props.method)
     const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     const route = ref(props.route)
-    const acubeuser = ref(props.acubeuser)
-    const acubepass = ref(props.acubepass)
-    const acubeurl = ref(props.acubeurl)
+
 
     const tab_show_cliente = ref(true)
     const tab_show_dati_documento = ref(true)
@@ -502,6 +476,23 @@ export default {
     const el_iban = ref('')
     const el_nome_beneficiario = ref('')
 
+    // form
+    const form = ref(null)
+    const formAction = ref('')
+    const submitForm = (type) => {
+
+      if(type == 'pdf'){
+        form.value.action = props.pdfUrl
+        form.value.target = "viewpdf" 
+        // form.value.submit()
+      }
+      else if(type == 'action'){
+        form.value.action = props.formUrl
+        form.value.target = "_self"
+        // form.value.submit()
+      }
+    }
+
     // cerca cliente
     const filterCliente = ref('')
     const searchCliente = () => {
@@ -534,48 +525,25 @@ export default {
         }
     }
     axios.defaults.withCredentials = true;
-    const clickElettronica = () => {
-      // console.log(acubeuser.value, acubepass.value, acubeurl.value)
-      // const url = `${acubeurl.value}/login_check
-      // axios.get('https://api-sandbox.acubeapi.com/')
-      // .then(res => console.log(res))
-      // .catch( e => console.log(e))
-      axios.post('https://api-sandbox.acubeapi.com/login_check', {
-        "email": acubeuser.value,
-        "password":acubepass.value,
-        'csrf': csrf
-      }
-      // ,{  withCredentials: true,
-      //     headers: {
-      //       // 'Content-Type': 'application/json',      'Access-Control-Allow-Origin': '*',
-      //       'Content-Type': 'application/json',
-      //       'Access-Control-Allow-Origin': 'https://api-sandbox.acubeapi.com/login_check',
-      //       'Crossorigin': 'true',
-      //       "Access-Control-Allow-Headers": "Content-Type, Accept"
-      //     }
-      // }
-      )
-      .then(res => console.log(res))
-      .catch( e => console.log(e))
-    }
     
 
     return {
+      //form
+      form, submitForm, formAction,
       // basics_and_switch
       method, route, csrf, tab_show_cliente, tab_show_fattura_elettronica, tab_show_dati_documento, tab_show_contributi_ritenute, tab_show_opzioni_avanzate, tab_show_personalizzazione, tab_show_note_doc,
       // methods/computed
       searchCliente, confermaCliente,
       // otherObjects
-      listaClienti, filterCliente, quantiArticoli, clickElettronica,
+      listaClienti, filterCliente, quantiArticoli,
       // vmodels
       clienteId, fattura_elettronica, denominazione, indirizzo, citta, data, data_ddt, numero_ddt, cap, provincia, note_indirizzo, paese, partita_iva,
-      codice_fiscale, includi_marca_da_bollo, documento_di_trasporto,
-      //acube
-      acubeuser, acubepass, acubeurl, includi_metodo_pagamento,
+      codice_fiscale, includi_marca_da_bollo, documento_di_trasporto, includi_metodo_pagamento,
+
       // elettronica v-model
       el_codice_destinatario, el_indirizzo_pec, el_esigibilita_iva, el_emesso_in_seguito_a, el_metodo_pagamento, el_nome_istituto_di_credito, el_iban, el_nome_beneficiario,
       //articoli
-      storeArticoli
+      // storeArticoli
     }
   }
 }
