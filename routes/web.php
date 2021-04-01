@@ -20,8 +20,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('/vendite/clienti', ClienteController::class);
 
     // Fatture
-    Route::get('/vendite/fatture/pdf', [FatturaPdfController::class, 'get']);
-    Route::post('/vendite/fatture/pdf', [FatturaPdfController::class, 'show'])->name('fatturapdf.view');
+    Route::get('/vendite/fatture/pdf', [FatturaPdfController::class, 'get']); // forbidden
+    Route::post('/vendite/fatture/pdf', [FatturaPdfController::class, 'post'])->name('fatturapdf.postView');
     Route::resource('/vendite/fatture', FatturaController::class);
 
     Route::get('/api/clienti', [FatturaJsonResponse::class, 'getClienti']);

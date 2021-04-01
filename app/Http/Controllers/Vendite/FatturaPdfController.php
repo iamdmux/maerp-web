@@ -15,7 +15,7 @@ use App\Http\Requests\FatturaPostRequest;
 
 class FatturaPdfController extends Controller
 {
-    public function show(FatturaPostRequest $request) {
+    public function post(FatturaPostRequest $request) {
         $cliente = Cliente::findOrFail($request->cliente_id);
 
         // Fatturazione

@@ -7,7 +7,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   codice articolo
               </p>
-              <input required v-model="codice" @input="searchArticolo" class="input-small w-36" autocomplete="off" type="text" name="codice[]">
+              <input :disabled="method == 'show'" required v-model="codice" @input="searchArticolo" class="input-small w-36" autocomplete="off" type="text" name="codice[]">
                 <div v-if="filterArticolo.length" class="z-10 text-sm p-4 bg-white rounded border border-gray-400">
                   <div v-for="articolo in filterArticolo" :key="articolo.id">
                     <p @click="confermaArticolo(articolo.id)" class="hover:bg-blue-400 cursor-pointer">{{articolo.codice_articolo}}</p> 
@@ -19,19 +19,19 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   quantita
               </p>
-              <input v-model="quantita" class="input-small w-24" min="0" name="quantita[]" autocomplete="off" type="number"><!--  min="0" :max="quantitaMax" -->
+              <input :disabled="method == 'show'" v-model="quantita" class="input-small w-24" min="0" name="quantita[]" autocomplete="off" type="number"><!--  min="0" :max="quantitaMax" -->
             </div>
             <div class="mr-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   unita di misura
               </p>
-              <input v-model="unita_di_misura" class="input-small w-28" name="unita_di_misura[]" autocomplete="off" type="text">
+              <input :disabled="method == 'show'" v-model="unita_di_misura" class="input-small w-28" name="unita_di_misura[]" autocomplete="off" type="text">
             </div>
             <div class="mr-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   prezzo_netto
               </p>
-              <input v-model="prezzo_netto" name="prezzo_netto[]" class="input-small w-24" autocomplete="off" type="text">
+              <input :disabled="method == 'show'" v-model="prezzo_netto" name="prezzo_netto[]" class="input-small w-24" autocomplete="off" type="text">
             </div>
         </div>
         <div class="m-6 flex flex-wrap">
@@ -39,7 +39,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 descrizione
             </p>
-            <textarea v-model="descrizione" rows="4" cols="50" name="descrizione[]" class="text-sm"></textarea>
+            <textarea :disabled="method == 'show'" v-model="descrizione" rows="4" cols="50" name="descrizione[]" class="text-sm"></textarea>
           </div>
 
               <!-- <div class="flex mt-6">
@@ -56,7 +56,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 iva
             </p>
-            <select v-model="iva" name="iva[]" autocomplete="off" class="input-small rounded-md border-gray-200">
+            <select :disabled="method == 'show'" v-model="iva" name="iva[]" autocomplete="off" class="input-small rounded-md border-gray-200">
               <option :selected="iva == 22" value="22">22</option>
             </select>
           </div>
@@ -96,6 +96,9 @@ export default {
   props:{
     numeroArticolo:{
       type: Number,
+      required: true
+    },
+    method:{
       required: true
     },
     lotto_id:{

@@ -1,25 +1,25 @@
 <template>
 <form ref="form" method="POST">
-    <input type="hidden" name="_token" :value="csrf">
+<input type="hidden" name="_token" :value="csrf">
 
 <div class="flex flex-wrap mb-2">
   <label class="p-3 mr-2 bg-gray-100 rounded">preventivo
-    <input v-model="tipo_documento" type="radio" name="tipo_documento" value="preventivo" checked>
+    <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="preventivo" checked>
   </label>
   <label class="p-3 mr-2 bg-gray-100 rounded">ordine
-    <input v-model="tipo_documento" type="radio" name="tipo_documento" value="ordine">
+    <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="ordine">
   </label>
   <label class="p-3 mr-2 bg-gray-100 rounded">proforma
-    <input v-model="tipo_documento" type="radio" name="tipo_documento" value="proforma">
+    <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="proforma">
   </label>
   <label class="p-3 mr-2 bg-gray-100 rounded">fattura
-    <input v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
+    <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
   </label>
 </div>
 
 <div class="my-5">
   <label class="p-3 bg-gray-100 rounded">fattura elettronica
-    <input v-model="fattura_elettronica" type="checkbox" value="true" name="fattura_elettronica">
+    <input :disabled="method == 'show'" v-model="fattura_elettronica" type="checkbox" value="true" name="fattura_elettronica">
   </label>
 </div>
 
@@ -48,7 +48,7 @@
           <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               ragione sociale / nome
           </p>
-          <input required v-model="denominazione" @input="searchCliente" class="input-small w-36" autocomplete="off" type="text" name="denominazione">
+          <input :disabled="method == 'show'" required v-model="denominazione" @input="searchCliente" class="input-small w-36" autocomplete="off" type="text" name="denominazione">
           <div v-if="filterCliente.length" class="z-10 text-sm p-4 bg-white rounded border border-gray-400">
             <div v-for="cliente in filterCliente" :key="cliente.id">
               <p @click="confermaCliente(cliente.id)" class="hover:bg-blue-400 cursor-pointer">{{cliente.denominazione}}</p> 
@@ -61,28 +61,28 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 indirizzo
             </p>
-            <input :disabled="method == 'create'" v-model="indirizzo" class="input-small w-36" autocomplete="off" type="text" name="indirizzo">
+            <input disabled v-model="indirizzo" class="input-small w-36" autocomplete="off" type="text" name="indirizzo">
             <input :value="indirizzo" class="input-small w-36" autocomplete="off" type="hidden" name="indirizzo">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 città
             </p>
-            <input :disabled="method == 'create'" v-model="citta" class="input-small w-36" autocomplete="off" type="text" name="citta">
+            <input disabled v-model="citta" class="input-small w-36" autocomplete="off" type="text" name="citta">
             <input :value="citta" class="input-small w-36" autocomplete="off" type="hidden" name="citta">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 cap
             </p>
-            <input :disabled="method == 'create'" v-model="cap" class="input-small w-36" autocomplete="off" type="text" name="cap">
+            <input disabled v-model="cap" class="input-small w-36" autocomplete="off" type="text" name="cap">
             <input :value="cap" class="input-small w-36" autocomplete="off" type="hidden" name="cap">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 provincia
             </p>
-            <input :disabled="method == 'create'" v-model="provincia" class="input-small w-36" autocomplete="off" type="text" name="provincia">
+            <input disabled v-model="provincia" class="input-small w-36" autocomplete="off" type="text" name="provincia">
             <input :value="provincia" class="input-small w-36" autocomplete="off" type="hidden" name="provincia">
           </div>
         </div>
@@ -91,28 +91,28 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 paese
             </p>
-            <input :disabled="method == 'create'" v-model="paese" class="input-small w-36" autocomplete="off" type="text" name="paese">
+            <input disabled v-model="paese" class="input-small w-36" autocomplete="off" type="text" name="paese">
             <input :value="paese" class="input-small w-36" autocomplete="off" type="hidden" name="paese">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 partita iva
             </p>
-            <input :disabled="method == 'create'" v-model="partita_iva" class="input-small w-36" autocomplete="off" type="text" name="partita_iva">
+            <input disabled v-model="partita_iva" class="input-small w-36" autocomplete="off" type="text" name="partita_iva">
             <input :value="partita_iva" class="input-small w-36" autocomplete="off" type="hidden" name="partita_iva">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 codice fiscale
             </p>
-            <input :disabled="method == 'create'" v-model="codice_fiscale" class="input-small w-36" autocomplete="off" type="text" name="codice_fiscale">
+            <input disabled v-model="codice_fiscale" class="input-small w-36" autocomplete="off" type="text" name="codice_fiscale">
             <input :value="codice_fiscale" class="input-small w-36" autocomplete="off" type="hidden" name="codice_fiscale">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 note indirizzo
             </p>
-            <textarea :disabled="method == 'create'" v-model="note_indirizzo" rows="2" cols="15" class="text-sm" name="note_indirizzo"></textarea>
+            <textarea disabled v-model="note_indirizzo" rows="2" cols="15" class="text-sm" name="note_indirizzo"></textarea>
             <input :value="note_indirizzo" class="input-small w-36" autocomplete="off" type="hidden" name="note_indirizzo">
           </div>
         </div>
@@ -137,13 +137,13 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   numero
               </p>
-              <input required v-model="numero" class="input-small w-24" autocomplete="off" type="text" name="numero">
+              <input :disabled="method == 'show'" v-model="numero" class="input-small w-24" autocomplete="off" type="text" name="numero">
           </div>
           <div class="mb-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   data
               </p>
-              <input v-model="data" class="input-small" type="date" name="data">
+              <input :disabled="method == 'show'" v-model="data" class="input-small" type="date" name="data">
           </div>
         </div>
 
@@ -152,7 +152,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   lingua
               </p>
-              <select v-model="lingua" class="input-small rounded-md border-gray-200" name="lingua">
+              <select :disabled="method == 'show'" v-model="lingua" class="input-small rounded-md border-gray-200" name="lingua">
                 <option class="px-3" value="ita">italiano</option>
               </select>
           </div>
@@ -160,7 +160,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   valuta
               </p>
-              <select v-model="valuta" class="input-small rounded-md border-gray-200" name="valuta">
+              <select :disabled="method == 'show'" v-model="valuta" class="input-small rounded-md border-gray-200" name="valuta">
                 <option class="px-3" value="euro">euro</option>
               </select>
           </div>
@@ -171,7 +171,7 @@
           <p class="mt-4 pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               note documento
           </p>
-          <textarea v-model="note_documento" rows="3" cols="35" class="text-sm" name="note_documento"></textarea>
+          <textarea :disabled="method == 'show'" v-model="note_documento" rows="3" cols="35" class="text-sm" name="note_documento"></textarea>
         </div>
       </div>
     </div>
@@ -273,13 +273,13 @@
           <div class="mb-2"> 
             <div class="flex mb-2">
               <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input v-model="documento_di_trasporto" type="checkbox" value="true" name="documento_di_trasporto">
+                  <input :disabled="method == 'show'" v-model="documento_di_trasporto" type="checkbox" value="true" name="documento_di_trasporto">
                   documento di trasporto
               </label>
             </div>
             <div class="flex mb-1">
               <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input v-model="includi_marca_da_bollo" type="checkbox" value="true" name="includi_marca_da_bollo">
+                  <input :disabled="method == 'show'" v-model="includi_marca_da_bollo" type="checkbox" value="true" name="includi_marca_da_bollo">
                   includi marca da_bollo
               </label>
             </div>
@@ -289,12 +289,12 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   costo bollo
               </p>
-              <input v-model="costo_bollo" autocomplete="off" class="input-small" type="text" name="costo_bollo">
+              <input :disabled="method == 'show'" v-model="costo_bollo" autocomplete="off" class="input-small" type="text" name="costo_bollo">
             </div>
           </div>
             <div class="flex mb-1">
               <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input v-model="includi_metodo_pagamento" type="checkbox" value="true" name="includi_metodo_pagamento">
+                  <input :disabled="method == 'show'" v-model="includi_metodo_pagamento" type="checkbox" value="true" name="includi_metodo_pagamento">
                   includi metodo di pagamento
               </label>
             </div>
@@ -302,7 +302,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   metodo di pagamento
               </p>
-              <select v-model="metodo_pagamento" class="input-small rounded-md border-gray-200" name="metodo_pagamento">
+              <select :disabled="method == 'show'" v-model="metodo_pagamento" class="input-small rounded-md border-gray-200" name="metodo_pagamento">
                 <option class="px-3" value="non_specificato">non specificato</option>
                 <option class="px-3" value="contanti">contanti</option>
               </select>
@@ -325,7 +325,7 @@
                   <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                       numero ddt
                   </p>
-                  <input v-model="numero_ddt" autocomplete="off" class="input-small" type="text" name="numero_ddt">
+                  <input :disabled="method == 'show'" v-model="numero_ddt" autocomplete="off" class="input-small" type="text" name="numero_ddt">
                 </div>
               </div>
               <div>
@@ -333,7 +333,7 @@
                   <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                       data ddt
                   </p>
-                  <input v-model="data_ddt" autocomplete="off" class="input-small" type="date" name="data_ddt">
+                  <input :disabled="method == 'show'" v-model="data_ddt" autocomplete="off" class="input-small" type="date" name="data_ddt">
                 </div>
               </div>
             </div>
@@ -342,13 +342,13 @@
                 <p class="text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     numero di colli
                 </p>
-                <input v-model="numero_colli_ddt" autocomplete="off" class="input-small" type="text" name="numero_colli_ddt" placeholder="es. 3 BANCALI">
+                <input :disabled="method == 'show'" v-model="numero_colli_ddt" autocomplete="off" class="input-small" type="text" name="numero_colli_ddt" placeholder="es. 3 BANCALI">
               </div>
               <div class="mb-4">
                 <p class="text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     peso
                 </p>
-                <input v-model="peso_ddt" autocomplete="off" class="input-small" type="text" name="peso_ddt">
+                <input :disabled="method == 'show'" v-model="peso_ddt" autocomplete="off" class="input-small" type="text" name="peso_ddt">
               </div>
             </div>
 
@@ -361,13 +361,13 @@
                 <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     casuale trasporto
                 </p>
-                <textarea v-model="casuale_trasporto" rows="4" cols="15" autocomplete="off" class="text-sm" name="casuale_trasporto"></textarea>
+                <textarea :disabled="method == 'show'" v-model="casuale_trasporto" rows="4" cols="15" autocomplete="off" class="text-sm" name="casuale_trasporto"></textarea>
               </div>
               <div class="mr-2 mb-2">
                 <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     trasporto a cura di
                 </p>
-                <textarea v-model="trasporto_a_cura_di" rows="4" cols="15" autocomplete="off" class="text-sm" name="trasporto_a_cura_di"></textarea>
+                <textarea :disabled="method == 'show'" v-model="trasporto_a_cura_di" rows="4" cols="15" autocomplete="off" class="text-sm" name="trasporto_a_cura_di"></textarea>
               </div>
             </div>
             <div>
@@ -375,13 +375,13 @@
                 <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     luogo di destinazione
                 </p>
-                <textarea v-model="luogo_destinazione" rows="4" cols="15" autocomplete="off" class="text-sm" name="luogo_destinazione"></textarea>
+                <textarea :disabled="method == 'show'" v-model="luogo_destinazione" rows="4" cols="15" autocomplete="off" class="text-sm" name="luogo_destinazione"></textarea>
               </div>
               <div>
                 <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     annotazioni
                 </p>
-                <textarea v-model="annotazioni" rows="4" cols="15" autocomplete="off" class="text-sm" name="annotazioni"></textarea>
+                <textarea :disabled="method == 'show'" v-model="annotazioni" rows="4" cols="15" autocomplete="off" class="text-sm" name="annotazioni"></textarea>
               </div>
             </div>
           </div>
@@ -396,6 +396,7 @@
   <div style="max-width: 1113px;">
     <aggiungi-articolo v-for="numero in quantiArticoli"
     :numero-articolo="quantiArticoli"
+    :method="method"
     :lotto_id="lotto_id_arr[numero-1]"
     :codice="codice_arr[numero-1]"
     :quantita="quantita_arr[numero-1]"
@@ -406,7 +407,7 @@
     :key="numero" />
   </div>
 
-  <div class="my-8 flex">
+  <div v-if="method != 'show'" class="my-8 flex">
     <button @click.prevent="quantiArticoli++" class="px-3 py-2 bg-green-500 rounded-md text-white font-medium hover:bg-blue-300">
       aggiungi articolo
     </button>
@@ -417,7 +418,7 @@
   </div>
 
 
-<div class="flex justify-between">
+<div v-if="method != 'show'" class="flex justify-between">
   <button @click="submitForm('action')" class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
       salva fattura
   </button>
@@ -425,6 +426,13 @@
       vedi fattura pdf
   </button>
 </div>
+<!-- <div v-else> la action non funziona bene
+    <button @click.prevent="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
+      vedi fattura pdf
+    </button>
+</div> -->
+
+
 
 </form>
 </template>
@@ -448,7 +456,7 @@ export default {
     },
     formUrl: {
       type: String,
-      required: true
+      required: false
     },
     old:{
       type: Object,
@@ -537,37 +545,54 @@ export default {
 
     const note_documento = ref(old.value.note_documento ? old.value.note_documento : '')
     
-    //articoli ->saranno props on aggiongiArticoli
-    const lotto_id_arr  = ref(old.value.lotto_id ? old.value.lotto_id : [''])
-    const codice_arr = ref(old.value.codice ? old.value.codice : [''])
-    const quantita_arr = ref(old.value.quantita ? old.value.quantita : [1])
-    const unita_di_misura_arr = ref(old.value.unita_di_misura ? old.value.unita_di_misura : [''])
-    const prezzo_netto_arr = ref(old.value.prezzo_netto ? old.value.prezzo_netto : [0.00])
-    const descrizione_arr = ref(old.value.descrizione ? old.value.descrizione : [''])
-    const iva_arr = ref(old.value.iva ? old.value.iva : [22])
+
+    // Articoli da show - 
+    let lotto_id_show = []
+    let codice_show = []
+    let quantita_show = []
+    let unita_di_misura_show = []
+    let prezzo_netto_show = []
+    let importo_netto_show = []
+    let descrizione_show = []
+    let iva_show = []
+
+    if(method.value == 'show'){
+      old.value.articoli.forEach((el, i) => {
+        
+        if(el.codice)         {codice_show.push(el.codice)}
+        if(el.lotto_id)       {lotto_id_show.push(el.lotto_id)}
+        if(el.quantita)       {quantita_show.push(el.quantita)}
+        if(el.unita_di_misura){unita_di_misura_show.push(el.unita_di_misura)}
+        if(el.prezzo_netto)   {prezzo_netto_show.push(el.prezzo_netto)}
+        if(el.importo_netto)  {importo_netto_show.push(el.importo_netto)}
+        if(el.descrizione)    {descrizione_show.push(el.descrizione)}
+        if(el.iva)            {iva_show.push(el.iva)}
+        // costo_iva costo_iva importo_totale
+      });
+      quantiArticoli.value = (codice_show.length)
+    }
+
+    const lotto_id_arr  =       method.value == 'show' ? ref(lotto_id_show) : (ref(old.value.lotto_id ? old.value.lotto_id : ['']))
+    const codice_arr =          method.value == 'show' ? ref(codice_show) : (ref(old.value.codice ? old.value.codice : ['']))
+    const quantita_arr =        method.value == 'show' ? ref(quantita_show) : (ref(old.value.quantita ? old.value.quantita : [1]))
+    const unita_di_misura_arr = method.value == 'show' ? ref(unita_di_misura_show) : (ref(old.value.unita_di_misura ? old.value.unita_di_misura : ['']))
+    const prezzo_netto_arr =    method.value == 'show' ? ref(prezzo_netto_show) : (ref(old.value.prezzo_netto ? old.value.prezzo_netto : [0.00]))
+    const descrizione_arr =     method.value == 'show' ? ref(descrizione_show) : (ref(old.value.descrizione ? old.value.descrizione : ['']))
+    const iva_arr =             method.value == 'show' ? ref(iva_show) : (ref(old.value.iva ? old.value.iva : [22]))
 
 
     //
-    // importo_netto
-    // costo_iva
-    // importo_totale
-    ///
-     const log = async () => {
-        console.log(old.value)
-        // for (let index = 0; index < 1; index++) {
-        //   console.log(index)
-        //   console.log(codice_arr.value[index])
-        //   console.log(lotto_id_arr.value[index])
-        //   console.log(lotto_id_arr.value[index])
-          
-        //   console.log(quantita_arr.value[index])
-        //   console.log(unita_di_misura_arr.value[index])
-        //   console.log(prezzo_netto_arr.value[index])
-        //   console.log(descrizione_arr.value[index])
-        //   console.log(iva_arr.value[index])
-        // }
+    // mounted
+     const settingOnmounting = async () => {
+       if(method.value == 'show'){
+          form.value.action = props.pdfUrl
+          form.value.target = "viewpdf"
+       }
       }
-    onMounted(log)
+    onMounted(settingOnmounting)
+
+
+
     // form
     const form = ref(null)
     const formAction = ref('')
@@ -575,8 +600,13 @@ export default {
 
       if(type == 'pdf'){
         form.value.action = props.pdfUrl
-        form.value.target = "viewpdf" 
-        // form.value.submit()
+        form.value.target = "viewpdf"
+        form.value.method = "POST"
+        console.log(form.value.action, form.value.target)
+        if(method.value == 'show'){
+          form.value.submit()
+        }
+        // 
       }
       else if(type == 'action'){
         form.value.action = props.formUrl
