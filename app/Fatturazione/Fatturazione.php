@@ -7,12 +7,11 @@ use Illuminate\Support\Str;
 class Fatturazione {
 
     public $request;
-    public $articoliArray = [];
 
     public $totaleImponibile = 0.00;
     public $totaleIva = 0.00;
     public $totale = 0.00;
-    public $articoli;
+    public $articoli = [];
 
     public $note_documento;
     public $includi_metodo_pagamento;
@@ -31,6 +30,8 @@ class Fatturazione {
     public $numero_colli_ddt;
     public $annotazioni;
 
+
+
     public function __construct($request){
 
         $this->request = $request;
@@ -42,7 +43,7 @@ class Fatturazione {
         $this->includi_metodo_pagamento = $request->includi_metodo_pagamento;
         $this->metodo_pagamento = $request->metodo_pagamento;
 
-        // //bollo
+        // bollo
         $this->includi_marca_da_bollo = $request->includi_marca_da_bollo;
         $this->costo_bollo = $request->costo_bollo;
 
@@ -61,57 +62,50 @@ class Fatturazione {
         $this->numero_colli_ddt = $request->numero_colli_ddt;
         $this->annotazioni = $request->annotazioni;
     }
-    
+
+
     public function handle(){
-        $i = 0;
-        foreach ($this->request->all() as $field => $val) {
-            // if(Str::of($field)->startsWith('articolo_id-')){
-            //     $exp = explode("-", $field);
-            //     $this->articoliArray[$exp[1]]['articolo_id'] = $val;
-            // } lo prende da $nuovaFattura->articoli()->createMany
-            if(Str::of($field)->startsWith('codice-')){
-                $exp = explode("-", $field);
-                $this->articoliArray[$exp[1]]['codice'] = $val;
-            }
-            if(Str::of($field)->startsWith('quantita-')){
-                $exp = explode("-", $field);
-                $this->articoliArray[$exp[1]]['quantita'] = $val;
-            }
-            if(Str::of($field)->startsWith('unita_di_misura-')){
-                $exp = explode("-", $field);
-                $this->articoliArray[$exp[1]]['unita_di_misura'] = $val;
-            }
-            if(Str::of($field)->startsWith('prezzo_netto-')){
-                $exp = explode("-", $field);
-                $this->articoliArray[$exp[1]]['prezzo_netto'] = $val;
-            }
-            if(Str::of($field)->startsWith('importo_netto-')){
-                $exp = explode("-", $field);
-                $this->articoliArray[$exp[1]]['importo_netto'] = $val;
-                // tot imponibile
-                $this->totaleImponibile = ($this->totaleImponibile + $val);
-            }
-            if(Str::of($field)->startsWith('descrizione-')){
-                $exp = explode("-", $field);
-                $this->articoliArray[$exp[1]]['descrizione'] = $val;
-            }
-            if(Str::of($field)->startsWith('iva-')){
-                $exp = explode("-", $field);
-                $this->articoliArray[$exp[1]]['iva'] = $val;
-            }
-            if(Str::of($field)->startsWith('costo_iva-')){
-                $exp = explode("-", $field);
-                $this->articoliArray[$exp[1]]['costo_iva'] = $val;
-                // tot iva
-                $this->totaleIva = ($this->totaleIva + $val);
-            }
-            if(Str::of($field)->startsWith('importo_totale-')){
-                $exp = explode("-", $field);
-                $this->articoliArray[$exp[1]]['importo_totale'] = $val;
-                // totale
-                $this->totale = $this->totale+$val;
-            }
-            $i++;
+        // $articoliLenght = count($this->request->codice);
+
+        foreach ($this->request->codice as $key => $value) {
+            $this->articoli[$key]['codice'] = $value;
+        }
+        foreach ($this->request->lotto_id as $key => $value) {
+            $this->articoli[$key]['lotto_id'] = $value;
+        }
+        foreach ($this->request->quantita as $key => $value) {
+            $this->articoli[$key]['quantita'] = $value;
+        }
+        foreach ($this->request->unita_di_misura as $key => $value) {
+            $this->articoli[$key]['unita_di_misura'] = $value;
+        }
+        foreach ($this->request->prezzo_netto as $key => $value) {
+            $this->articoli[$key]['prezzo_netto'] = $value;
+
+            // $test
+            // tot imponibile
+            $this->totaleImponibile = ($this->totaleImponibile+(float)$value);
+        }
+        foreach ($this->request->importo_netto as $key => $value) {
+            $this->articoli[$key]['importo_netto'] = $value;
+        }
+        foreach ($this->request->descrizione as $key => $value) {
+            $this->articoli[$key]['descrizione'] = $value;
+        }
+        foreach ($this->request->iva as $key => $value) {
+            $this->articoli[$key]['iva'] = $value;
+        }
+        foreach ($this->request->costo_iva as $key => $value) {
+            $this->articoli[$key]['costo_iva'] = $value;
+
+            // tot iva
+            $this->totaleIva = ($this->totaleIva+$value);
+        }
+        foreach ($this->request->importo_totale as $key => $value) {
+            $this->articoli[$key]['importo_totale'] = $value;
+
+            // totale
+            $this->totale = ($this->totale+$value);
         }
 
         //bollo
@@ -120,10 +114,10 @@ class Fatturazione {
                 $this->totale = ($this->totale+$bol);
             }
         }
-        $this->articoli = collect();
-        $this->articoli->push($this->articoliArray);
-        $this->articoli = $this->articoli->flatten(1);
-        $this->articoli = $this->articoli->values()->all();
+        // $this->articoli = collect();
+        // $this->articoli->push($this->articoliArray);
+        // $this->articoli = $this->articoli->flatten(1);
+        // $this->articoli = $this->articoli->values()->all();
 
     }
 }

@@ -32,11 +32,11 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fattura->articoli->count()}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fattura->importo_totale}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                <a href="{{ route('fatture.show', $fattura->id)}}" class="text-indigo-600 hover:text-indigo-900">Vedi</a>
                             </td>
                         </tr>
                     @empty
-                        <p>Nessuna fattura trovata</p>
+                    
                     @endforelse
                 </tbody>
             </table>

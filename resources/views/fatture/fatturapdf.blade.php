@@ -96,7 +96,7 @@
     <tr>
     	<td align="left" width="50%">
         <div>
-          <img src="https://via.placeholder.com/75" alt="M&A EXPORT" />
+          <img src="https://via.placeholder.com/80" alt="M&A EXPORT" />
         </div>
         <div style="margin-top:20px;">
           <strong>M&A EXPORT s.r.l</strong><br>

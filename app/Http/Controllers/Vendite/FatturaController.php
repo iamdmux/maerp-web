@@ -28,9 +28,14 @@ class FatturaController extends Controller
         // Acube
         $invoicePostUiid = null;
         if($request->fattura_elettronica == 'on'){
+            // setto true per DB
+            $request['fattura_elettronica'] = 1;
+
             if($acube){
                 if( $acube->creaFatturaElettronica($request) ){
                     $invoicePostUiid = $acube->invoicePostUiid;
+                } else {
+                    return back()->withErrors(['error' => ['Errore nella creazione della fattura elettronica']]);
                 };
             }
         }
@@ -51,10 +56,16 @@ class FatturaController extends Controller
                 ['uuid' =>  $invoicePostUiid]
             )
         );
-        // aggiungere l'importo totle alla fattura
-        
+    
         $nuovaFattura->articoli()->createMany($fatturazione->articoli);
 
         return redirect()->route('fatture.index')->with('success', 'La fattura è stata creata');
+    }
+
+    public function show($id){
+        $fattura = Fattura::with('articoli', 'cliente')->findOrFail($id);
+        return view('fatture.show', [
+            'fattura' => $fattura
+        ]);
     }
 }

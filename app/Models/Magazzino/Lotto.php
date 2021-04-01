@@ -2,8 +2,9 @@
 
 namespace App\Models\Magazzino;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Magazzino\Marca;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Lotto extends Model
 {
@@ -43,4 +44,8 @@ class Lotto extends Model
         ['val' => 'difettato-bambino', 'show'=> 'Difettato-Bambino'],
         ['val' => 'costumi',          'show'=> 'Donna'],
     ];
+
+    public function marca(){
+        return $this->belongsTo(Marca::class);
+    }
 }

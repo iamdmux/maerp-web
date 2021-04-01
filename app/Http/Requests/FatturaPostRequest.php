@@ -30,6 +30,25 @@ class FatturaPostRequest extends FormRequest
         // https://ericlbarnes.com/2015/04/04/laravel-array-validation/
         $rules =  [
             'tipo_documento' => '',
+            'tab_show_cliente' => '',
+            'tab_show_dati_documento' => '',
+            'tab_show_contributi_ritenute' => '',
+            'tab_show_opzioni_avanzate' => '',
+            'tab_show_personalizzazione' => '',
+            'tab_show_note_doc' => '',
+            'quantiArticoli' => '',
+            // cliente, solo per old()
+            'denominazione' => '',
+            'indirizzo' => '',
+            'citta' => '',
+            'cap' => '',
+            'provincia' => '',
+            'note_indirizzo' => '',
+            'paese' => '',
+            'partita_iva' => '',
+            'codice_fiscale' => '',
+            'tipo_documento' => '',
+
             'fattura_elettronica' => '',
             'cliente_id' => 'required',
             'numero' => 'required',
@@ -58,17 +77,17 @@ class FatturaPostRequest extends FormRequest
             'trasporto_a_cura_di' =>'',
             'luogo_destinazione' =>'',
             'annotazioni' =>'',
-
-            'articolo_id-*' => 'required',
-            'codice-*' => 'required',
-            'quantita-*' =>'',
-            'unita_di_misura-*' =>'',
-            'prezzo_netto-*' =>'',
-            'importo_netto-*' =>'',
-            'descrizione-*' =>'',
-            'iva-*' =>'',
-            'costo_iva-*' =>'',
-            'importo_totale-*' =>'',
+            
+            'lotto_id.*' => '',
+            'codice.*' => 'required',
+            'quantita.*' =>'',
+            'unita_di_misura.*' =>'',
+            'prezzo_netto.*' =>'',
+            'descrizione.*' =>'',
+            'importo_netto.*' =>'',
+            'iva.*' =>'',
+            'costo_iva.*' =>'',
+            'importo_totale.*' =>'',
         ];
         return $rules;
     }

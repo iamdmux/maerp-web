@@ -4,24 +4,32 @@
 
 <div class="flex flex-wrap mb-2">
   <label class="p-3 mr-2 bg-gray-100 rounded">preventivo
-    <input type="radio" name="tipo_documento" value="preventivo" checked>
+    <input v-model="tipo_documento" type="radio" name="tipo_documento" value="preventivo" checked>
   </label>
   <label class="p-3 mr-2 bg-gray-100 rounded">ordine
-    <input type="radio" name="tipo_documento" value="ordine">
+    <input v-model="tipo_documento" type="radio" name="tipo_documento" value="ordine">
   </label>
   <label class="p-3 mr-2 bg-gray-100 rounded">proforma
-    <input type="radio" name="tipo_documento" value="proforma">
+    <input v-model="tipo_documento" type="radio" name="tipo_documento" value="proforma">
   </label>
   <label class="p-3 mr-2 bg-gray-100 rounded">fattura
-    <input type="radio" name="tipo_documento" value="fattura">
+    <input v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
   </label>
 </div>
 
 <div class="my-5">
   <label class="p-3 bg-gray-100 rounded">fattura elettronica
-    <input v-model="fattura_elettronica" type="checkbox" name="fattura_elettronica">
+    <input v-model="fattura_elettronica" type="checkbox" value="true" name="fattura_elettronica">
   </label>
 </div>
+
+<input type="hidden" v-model="tab_show_cliente" name="tab_show_cliente">
+<input type="hidden" v-model="tab_show_dati_documento" name="tab_show_dati_documento">
+<input type="hidden" v-model="tab_show_contributi_ritenute" name="tab_show_contributi_ritenute">
+<input type="hidden" v-model="tab_show_opzioni_avanzate" name="tab_show_opzioni_avanzate">
+<input type="hidden" v-model="tab_show_personalizzazione" name="tab_show_personalizzazione">
+<input type="hidden" v-model="tab_show_note_doc" name="tab_show_note_doc">
+<input type="hidden" v-model="quantiArticoli" name="quantiArticoli">
 
 <!-- wrapper 1 -->
 <div class="flex flex-wrap">
@@ -54,24 +62,28 @@
                 indirizzo
             </p>
             <input :disabled="method == 'create'" v-model="indirizzo" class="input-small w-36" autocomplete="off" type="text" name="indirizzo">
+            <input :value="indirizzo" class="input-small w-36" autocomplete="off" type="hidden" name="indirizzo">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 città
             </p>
             <input :disabled="method == 'create'" v-model="citta" class="input-small w-36" autocomplete="off" type="text" name="citta">
+            <input :value="citta" class="input-small w-36" autocomplete="off" type="hidden" name="citta">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 cap
             </p>
             <input :disabled="method == 'create'" v-model="cap" class="input-small w-36" autocomplete="off" type="text" name="cap">
+            <input :value="cap" class="input-small w-36" autocomplete="off" type="hidden" name="cap">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 provincia
             </p>
             <input :disabled="method == 'create'" v-model="provincia" class="input-small w-36" autocomplete="off" type="text" name="provincia">
+            <input :value="provincia" class="input-small w-36" autocomplete="off" type="hidden" name="provincia">
           </div>
         </div>
         <div class="flex flex-wrap mt-2">
@@ -79,25 +91,29 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 paese
             </p>
-            <input :disabled="method == 'create'" v-model="paese" class="input-small w-36" autocomplete="off" type="text" name="provincia">
+            <input :disabled="method == 'create'" v-model="paese" class="input-small w-36" autocomplete="off" type="text" name="paese">
+            <input :value="paese" class="input-small w-36" autocomplete="off" type="hidden" name="paese">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 partita iva
             </p>
             <input :disabled="method == 'create'" v-model="partita_iva" class="input-small w-36" autocomplete="off" type="text" name="partita_iva">
+            <input :value="partita_iva" class="input-small w-36" autocomplete="off" type="hidden" name="partita_iva">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 codice fiscale
             </p>
             <input :disabled="method == 'create'" v-model="codice_fiscale" class="input-small w-36" autocomplete="off" type="text" name="codice_fiscale">
+            <input :value="codice_fiscale" class="input-small w-36" autocomplete="off" type="hidden" name="codice_fiscale">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 note indirizzo
             </p>
             <textarea :disabled="method == 'create'" v-model="note_indirizzo" rows="2" cols="15" class="text-sm" name="note_indirizzo"></textarea>
+            <input :value="note_indirizzo" class="input-small w-36" autocomplete="off" type="hidden" name="note_indirizzo">
           </div>
         </div>
       </div>
@@ -121,7 +137,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   numero
               </p>
-              <input class="input-small w-24" autocomplete="off" type="text" name="numero">
+              <input required v-model="numero" class="input-small w-24" autocomplete="off" type="text" name="numero">
           </div>
           <div class="mb-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
@@ -136,7 +152,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   lingua
               </p>
-              <select class="input-small rounded-md border-gray-200" name="lingua">
+              <select v-model="lingua" class="input-small rounded-md border-gray-200" name="lingua">
                 <option class="px-3" value="ita">italiano</option>
               </select>
           </div>
@@ -144,7 +160,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   valuta
               </p>
-              <select class="input-small rounded-md border-gray-200" name="valuta">
+              <select v-model="valuta" class="input-small rounded-md border-gray-200" name="valuta">
                 <option class="px-3" value="euro">euro</option>
               </select>
           </div>
@@ -155,7 +171,7 @@
           <p class="mt-4 pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               note documento
           </p>
-          <textarea rows="3" cols="35" class="text-sm" name="note_documento"></textarea>
+          <textarea v-model="note_documento" rows="3" cols="35" class="text-sm" name="note_documento"></textarea>
         </div>
       </div>
     </div>
@@ -183,7 +199,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 indirizzo PEC
             </p>
-            <input class="input-small w-36" autocomplete="off" type="email" name="el_indirizzo_pec">
+            <input v-model="el_indirizzo_pec" class="input-small w-36" autocomplete="off" type="email" name="el_indirizzo_pec">
           </div>
         </div>
 
@@ -192,7 +208,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 esigibilità iva
             </p>
-            <select class="input-small rounded-md border-gray-200" name="el_esigibilita_iva">
+            <select v-model="el_esigibilita_iva" class="input-small rounded-md border-gray-200" name="el_esigibilita_iva">
               <option class="px-3" value="nd">non specificato</option>
             </select>
           </div>
@@ -200,7 +216,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 emesso in seguito a
             </p>
-            <select class="input-small rounded-md border-gray-200" name="el_emesso_in_seguito_a">
+            <select v-model="el_emesso_in_seguito_a" class="input-small rounded-md border-gray-200" name="el_emesso_in_seguito_a">
               <option class="px-3" value="nd">non specificato</option>
             </select>
           </div>
@@ -210,14 +226,14 @@
           <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               metodo di pagamento
           </p>
-          <select class="input-small rounded-md border-gray-200" name="el_metodo_pagamento">
+          <select v-model="el_metodo_pagamento" class="input-small rounded-md border-gray-200" name="el_metodo_pagamento">
             <option class="px-3" value="contanti">contanti</option>
           </select>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 nome istituto di credito
             </p>
-            <input class="input-small w-36" autocomplete="off" type="text"  name="el_nome_istituto_di_credito">
+            <input v-model="el_nome_istituto_di_credito" class="input-small w-36" autocomplete="off" type="text"  name="el_nome_istituto_di_credito">
           </div>
         </div>
 
@@ -226,13 +242,13 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 IBAN
             </p>
-            <input class="input-small w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_iban">
+            <input v-model="el_iban" class="input-small w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_iban">
           </div>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 nome beneficiario
             </p>
-            <input class="input-small w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_nome_beneficiario">
+            <input v-model="el_nome_beneficiario" class="input-small w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_nome_beneficiario">
           </div>
         </div>
       </div>
@@ -257,13 +273,13 @@
           <div class="mb-2"> 
             <div class="flex mb-2">
               <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input v-model="documento_di_trasporto" type="checkbox" name="documento_di_trasporto">
+                  <input v-model="documento_di_trasporto" type="checkbox" value="true" name="documento_di_trasporto">
                   documento di trasporto
               </label>
             </div>
             <div class="flex mb-1">
               <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input v-model="includi_marca_da_bollo" type="checkbox" name="includi_marca_da_bollo">
+                  <input v-model="includi_marca_da_bollo" type="checkbox" value="true" name="includi_marca_da_bollo">
                   includi marca da_bollo
               </label>
             </div>
@@ -273,12 +289,12 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   costo bollo
               </p>
-              <input autocomplete="off" class="input-small" type="text" name="costo_bollo" value="2,00">
+              <input v-model="costo_bollo" autocomplete="off" class="input-small" type="text" name="costo_bollo">
             </div>
           </div>
             <div class="flex mb-1">
               <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input v-model="includi_metodo_pagamento" type="checkbox" name="includi_metodo_pagamento">
+                  <input v-model="includi_metodo_pagamento" type="checkbox" value="true" name="includi_metodo_pagamento">
                   includi metodo di pagamento
               </label>
             </div>
@@ -286,7 +302,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   metodo di pagamento
               </p>
-              <select class="input-small rounded-md border-gray-200" name="metodo_pagamento">
+              <select v-model="metodo_pagamento" class="input-small rounded-md border-gray-200" name="metodo_pagamento">
                 <option class="px-3" value="non_specificato">non specificato</option>
                 <option class="px-3" value="contanti">contanti</option>
               </select>
@@ -326,13 +342,13 @@
                 <p class="text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     numero di colli
                 </p>
-                <input autocomplete="off" class="input-small" type="text" name="numero_colli_ddt" placeholder="es. 3 BANCALI">
+                <input v-model="numero_colli_ddt" autocomplete="off" class="input-small" type="text" name="numero_colli_ddt" placeholder="es. 3 BANCALI">
               </div>
               <div class="mb-4">
                 <p class="text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     peso
                 </p>
-                <input autocomplete="off" class="input-small" type="text" name="peso_ddt">
+                <input v-model="peso_ddt" autocomplete="off" class="input-small" type="text" name="peso_ddt">
               </div>
             </div>
 
@@ -345,13 +361,13 @@
                 <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     casuale trasporto
                 </p>
-                <textarea rows="4" cols="15" autocomplete="off" class="text-sm" name="casuale_trasporto"></textarea>
+                <textarea v-model="casuale_trasporto" rows="4" cols="15" autocomplete="off" class="text-sm" name="casuale_trasporto"></textarea>
               </div>
               <div class="mr-2 mb-2">
                 <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     trasporto a cura di
                 </p>
-                <textarea rows="4" cols="15" autocomplete="off" class="text-sm" name="trasporto_a_cura_di"></textarea>
+                <textarea v-model="trasporto_a_cura_di" rows="4" cols="15" autocomplete="off" class="text-sm" name="trasporto_a_cura_di"></textarea>
               </div>
             </div>
             <div>
@@ -359,13 +375,13 @@
                 <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     luogo di destinazione
                 </p>
-                <textarea rows="4" cols="15" autocomplete="off" class="text-sm" name="luogo_destinazione"></textarea>
+                <textarea v-model="luogo_destinazione" rows="4" cols="15" autocomplete="off" class="text-sm" name="luogo_destinazione"></textarea>
               </div>
               <div>
                 <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     annotazioni
                 </p>
-                <textarea rows="4" cols="15" autocomplete="off" class="text-sm" name="annotazioni"></textarea>
+                <textarea v-model="annotazioni" rows="4" cols="15" autocomplete="off" class="text-sm" name="annotazioni"></textarea>
               </div>
             </div>
           </div>
@@ -378,7 +394,16 @@
 <h1 class="mt-12 mb-6"><b>LISTA ARTICOLI</b></h1>
 
   <div style="max-width: 1113px;">
-    <aggiungi-articolo v-for="articolo in quantiArticoli" :numero-articolo="quantiArticoli" :key="articolo" />
+    <aggiungi-articolo v-for="numero in quantiArticoli"
+    :numero-articolo="quantiArticoli"
+    :lotto_id="lotto_id_arr[numero-1]"
+    :codice="codice_arr[numero-1]"
+    :quantita="quantita_arr[numero-1]"
+    :unita_di_misura="unita_di_misura_arr[numero-1]"
+    :prezzo_netto="prezzo_netto_arr[numero-1]"
+    :descrizione="descrizione_arr[numero-1]"
+    :iva="iva_arr[numero-1]"
+    :key="numero" />
   </div>
 
   <div class="my-8 flex">
@@ -408,6 +433,7 @@
 import { ref } from '@vue/reactivity'
 // import { computed } from '@vue/runtime-core'
 import AggiungiArticolo from './AggiungiArticolo.vue'
+import { onMounted } from '@vue/runtime-core'
 // import storeArticoli from '../../composable/storeArticoli'
 
 export default {
@@ -423,6 +449,10 @@ export default {
     formUrl: {
       type: String,
       required: true
+    },
+    old:{
+      type: Object,
+      required: false
     }
   },
   components: {
@@ -434,48 +464,110 @@ export default {
     const method = ref(props.method)
     const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     const route = ref(props.route)
+    const old = ref((props.old))
 
+    const tipo_documento = ref(old.value.tab_show_cliente ? old.value.tab_show_cliente : 'preventivo')
 
-    const tab_show_cliente = ref(true)
-    const tab_show_dati_documento = ref(true)
-    const tab_show_contributi_ritenute = ref(false)
-    const tab_show_opzioni_avanzate = ref(false)
-    const tab_show_personalizzazione = ref(false)
-    const tab_show_note_doc = ref(false)
-    const fattura_elettronica = ref(false)
-    const tab_show_fattura_elettronica = ref(true)
+    const tab_show_cliente =              ref(old.value.tab_show_cliente ? old.value.tab_show_cliente : true)
+    const tab_show_dati_documento =       ref(old.value.tab_show_dati_documento ? old.value.tab_show_dati_documento : true)
+    const tab_show_contributi_ritenute =  ref(old.value.tab_show_contributi_ritenute ? old.value.tab_show_contributi_ritenute : false)
+    const tab_show_opzioni_avanzate =     ref(old.value.tab_show_opzioni_avanzate ? old.value.tab_show_opzioni_avanzate : false)
+    const tab_show_personalizzazione =    ref(old.value.tab_show_personalizzazione ? old.value.tab_show_personalizzazione : false)
+    const tab_show_note_doc =             ref(old.value.tab_show_note_doc ? old.value.tab_show_note_doc : false)
+    const fattura_elettronica =           ref(old.value.fattura_elettronica ? old.value.fattura_elettronica : false)
+    const tab_show_fattura_elettronica =  ref(old.value.tab_show_fattura_elettronica ? old.value.tab_show_fattura_elettronica : true)
 
     const listaClienti = ref({})
-    const quantiArticoli = ref(1)
+    const quantiArticoli = ref(old.value.quantiArticoli ? old.value.quantiArticoli : 1)
+    const dateToday =       new Date().toISOString().split("T")[0]
 
-    // v-model input
-    const clienteId = ref('')
-    const denominazione = ref('')
-    const indirizzo = ref('')
-    const citta = ref('')
-    const cap = ref('')
-    const provincia = ref('')
-    const note_indirizzo = ref('')
-    const paese = ref('')
-    const partita_iva = ref('')
-    const codice_fiscale = ref('')
-    const data = ref(new Date().toISOString().split("T")[0])
-    const data_ddt = ref(new Date().toISOString().split("T")[0])
-    const numero_ddt = ref('')
-    const includi_marca_da_bollo = ref(false)
-    const includi_metodo_pagamento = ref(false)
-    const documento_di_trasporto = ref(false)
+    // GET OLD OR SHOW
+    const get_clienteId =       method.value == 'show' ? old.value.cliente.cliente_id : old.value.cliente_id
+    const get_denominazione =   method.value == 'show' ? old.value.cliente.denominazione : old.value.denominazione
+    const get_indirizzo =       method.value == 'show' ? old.value.cliente.indirizzo : old.value.indirizzo
+    const get_citta =           method.value == 'show' ? old.value.cliente.citta : old.value.citta
+    const get_cap =             method.value == 'show' ? old.value.cliente.cap : old.value.cap
+    const get_provincia =       method.value == 'show' ? old.value.cliente.provincia : old.value.provincia
+    const get_note_indirizzo =  method.value == 'show' ? old.value.cliente.note_indirizzo : old.value.note_indirizzo
+    const get_paese =           method.value == 'show' ? old.value.cliente.paese : old.value.paese
+    const get_partita_iva =     method.value == 'show' ? old.value.cliente.partita_iva : old.value.partita_iva
+    const get_codice_fiscale =  method.value == 'show' ? old.value.cliente.codice_fiscale : old.value.codice_fiscale
+
+    
+    const clienteId =       ref(get_clienteId ? get_clienteId : '')
+    const denominazione =   ref(get_denominazione ? get_denominazione : '')
+    const indirizzo =       ref(get_indirizzo ? get_indirizzo : '')
+    const citta =           ref(get_citta ? get_citta : '')
+    const cap =             ref(get_cap ? get_cap : '')
+    const provincia =       ref(get_provincia ? get_provincia : '')
+    const note_indirizzo =  ref(get_note_indirizzo ? get_note_indirizzo : '')
+    const paese =           ref(get_paese ? get_paese : '')
+    const partita_iva =     ref(get_partita_iva ? get_partita_iva : '')
+    const codice_fiscale =  ref(get_codice_fiscale ? get_codice_fiscale : '')
+    
+    const numero =          ref(old.value.numero ? old.value.numero : '')
+    const data =            ref(old.value.data ? old.value.data : dateToday)
+    const data_ddt =        ref(old.value.data_ddt ? old.value.data_ddt : dateToday)
+    const numero_ddt =      ref(old.value.numero_ddt ? old.value.numero_ddt : '')
+    const includi_marca_da_bollo = ref(old.value.includi_marca_da_bollo ? old.value.includi_marca_da_bollo : false)
+    const costo_bollo =     ref(old.value.costo_bollo ? old.value.costo_bollo : '2.00')
+    const includi_metodo_pagamento = ref(old.value.includi_metodo_pagamento ? old.value.includi_metodo_pagamento : false)
+    const metodo_pagamento = ref(old.value.metodo_pagamento ? old.value.metodo_pagamento : 'non_specificato')
+    const lingua =          ref(old.value.lingua ? old.value.lingua : 'ita')
+    const valuta =          ref(old.value.valuta ? old.value.valuta : 'euro')
+
+    // ddt
+    const documento_di_trasporto = ref(old.value.documento_di_trasporto ? old.value.documento_di_trasporto : false)
+    const numero_colli_ddt =       ref(old.value.numero_colli_ddt ? old.value.numero_colli_ddt : '')
+    const peso_ddt =               ref(old.value.peso_ddt ? old.value.peso_ddt : '')
+    const casuale_trasporto =      ref(old.value.casuale_trasporto ? old.value.casuale_trasporto : '')
+    const trasporto_a_cura_di =    ref(old.value.trasporto_a_cura_di ? old.value.trasporto_a_cura_di : '')
+    const luogo_destinazione =     ref(old.value.luogo_destinazione ? old.value.luogo_destinazione : '')
+    const annotazioni =            ref(old.value.annotazioni ? old.value.annotazioni : '')
 
     // elettr
-    const el_codice_destinatario = ref('')
-    const el_indirizzo_pec = ref('')
-    const el_esigibilita_iva = ref('')
-    const el_emesso_in_seguito_a = ref('')
-    const el_metodo_pagamento = ref('')
-    const el_nome_istituto_di_credito = ref('')
-    const el_iban = ref('')
-    const el_nome_beneficiario = ref('')
+    const el_codice_destinatario =      ref(old.value.el_codice_destinatario ? old.value.el_codice_destinatario : '')
+    const el_indirizzo_pec =            ref(old.value.el_indirizzo_pec ? old.value.el_indirizzo_pec : '')
+    const el_esigibilita_iva =          ref(old.value.el_esigibilita_iva ? old.value.el_esigibilita_iva : '')
+    const el_emesso_in_seguito_a =      ref(old.value.el_emesso_in_seguito_a ? old.value.el_emesso_in_seguito_a : '')
+    const el_metodo_pagamento =         ref(old.value.el_metodo_pagamento ? old.value.el_metodo_pagamento : '')
+    const el_nome_istituto_di_credito = ref(old.value.el_nome_istituto_di_credito ? old.value.el_nome_istituto_di_credito : '')
+    const el_iban =                     ref(old.value.el_iban ? old.value.el_iban : '')
+    const el_nome_beneficiario =        ref(old.value.el_nome_beneficiario ? old.value.el_nome_beneficiario : '')
 
+    const note_documento = ref(old.value.note_documento ? old.value.note_documento : '')
+    
+    //articoli ->saranno props on aggiongiArticoli
+    const lotto_id_arr  = ref(old.value.lotto_id ? old.value.lotto_id : [''])
+    const codice_arr = ref(old.value.codice ? old.value.codice : [''])
+    const quantita_arr = ref(old.value.quantita ? old.value.quantita : [1])
+    const unita_di_misura_arr = ref(old.value.unita_di_misura ? old.value.unita_di_misura : [''])
+    const prezzo_netto_arr = ref(old.value.prezzo_netto ? old.value.prezzo_netto : [0.00])
+    const descrizione_arr = ref(old.value.descrizione ? old.value.descrizione : [''])
+    const iva_arr = ref(old.value.iva ? old.value.iva : [22])
+
+
+    //
+    // importo_netto
+    // costo_iva
+    // importo_totale
+    ///
+     const log = async () => {
+        console.log(old.value)
+        // for (let index = 0; index < 1; index++) {
+        //   console.log(index)
+        //   console.log(codice_arr.value[index])
+        //   console.log(lotto_id_arr.value[index])
+        //   console.log(lotto_id_arr.value[index])
+          
+        //   console.log(quantita_arr.value[index])
+        //   console.log(unita_di_misura_arr.value[index])
+        //   console.log(prezzo_netto_arr.value[index])
+        //   console.log(descrizione_arr.value[index])
+        //   console.log(iva_arr.value[index])
+        // }
+      }
+    onMounted(log)
     // form
     const form = ref(null)
     const formAction = ref('')
@@ -527,9 +619,13 @@ export default {
     axios.defaults.withCredentials = true;
     
 
+
+
     return {
+      // old_articoli
+      lotto_id_arr, codice_arr, quantita_arr, unita_di_misura_arr, prezzo_netto_arr, descrizione_arr, iva_arr,
       //form
-      form, submitForm, formAction,
+      form, submitForm, formAction, tipo_documento,
       // basics_and_switch
       method, route, csrf, tab_show_cliente, tab_show_fattura_elettronica, tab_show_dati_documento, tab_show_contributi_ritenute, tab_show_opzioni_avanzate, tab_show_personalizzazione, tab_show_note_doc,
       // methods/computed
@@ -537,8 +633,10 @@ export default {
       // otherObjects
       listaClienti, filterCliente, quantiArticoli,
       // vmodels
-      clienteId, fattura_elettronica, denominazione, indirizzo, citta, data, data_ddt, numero_ddt, cap, provincia, note_indirizzo, paese, partita_iva,
-      codice_fiscale, includi_marca_da_bollo, documento_di_trasporto, includi_metodo_pagamento,
+      clienteId, fattura_elettronica, denominazione, indirizzo, citta, data, numero, data_ddt, numero_ddt, cap, provincia, note_indirizzo, paese, partita_iva,
+      codice_fiscale, includi_marca_da_bollo, documento_di_trasporto, includi_metodo_pagamento, el_indirizzo_pec, lingua, note_documento, valuta,
+      el_emesso_in_seguito_a, el_esigibilita_iva, el_metodo_pagamento, el_nome_istituto_di_credito,el_iban,el_nome_beneficiario,
+      metodo_pagamento, costo_bollo, numero_colli_ddt, peso_ddt, casuale_trasporto,trasporto_a_cura_di,luogo_destinazione,annotazioni,
 
       // elettronica v-model
       el_codice_destinatario, el_indirizzo_pec, el_esigibilita_iva, el_emesso_in_seguito_a, el_metodo_pagamento, el_nome_istituto_di_credito, el_iban, el_nome_beneficiario,

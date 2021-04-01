@@ -18,10 +18,15 @@
 
 <h3 class="text-gray-700 text-2xl font-semibold mb-6">Crea nuova fattura / doc</h3>
 
-<create-fattura method="create" pdf-url="{{route('fatturapdf.view')}}" form-url="{{route('fatture.store')}}"
 
->
+<create-fattura method="create" pdf-url="{{route('fatturapdf.view')}}" form-url="{{route('fatture.store')}}" :old="{{ json_encode(session()->getOldInput()) }}">
 </create-fattura>
 
 
 @endsection
+
+{{-- @php
+    $cliente_id = old('cliente_id') ? old('cliente_id') : '';
+    $denominazione = old('denominazione') ? old('denominazione') : '';
+    $old = compact($cliente_id, $denominazione);
+@endphp --}}

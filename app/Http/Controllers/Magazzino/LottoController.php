@@ -10,7 +10,8 @@ use App\Http\Controllers\Controller;
 class LottoController extends Controller
 {
     public function index(){
-        $lotti = Lotto::get();
+        $lotti = Lotto::with('marca')->get();
+
         return view('magazzino.lotti.index', [
             'lotti' => $lotti,
         ]);

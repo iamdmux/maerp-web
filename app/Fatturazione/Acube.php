@@ -87,18 +87,16 @@ class Acube {
             ]]
         ]]
         ];
-        $invoice = json_encode($invoicesimplified);
 
-        if($this->token){
-            $response = Http::withToken($this->token)->post($this->acubeurl . '/invoices/simplified', [
-                $invoice
-            ]);
 
-            dd($response->body());
+        if($this->login()){
+            $response = Http::withToken($this->token)->post($this->acubeurl . '/invoices/simplified', 
+                $invoicesimplified
+            );
         }
-        dd('no token');
+
         if($response->successful()){
-            $this->invoicePostUiid = json_decode($response->body())->token;
+            $this->invoicePostUiid = $response->json()['uuid'];
             return true;
         }
         return false;
