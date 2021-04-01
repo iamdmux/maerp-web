@@ -137,7 +137,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   numero
               </p>
-              <input :disabled="method == 'show'" v-model="numero" class="input-small w-24" autocomplete="off" type="text" name="numero">
+              <input required :disabled="method == 'show'" v-model="numero" class="input-small w-24" autocomplete="off" type="text" name="numero">
           </div>
           <div class="mb-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
