@@ -619,7 +619,7 @@ export default {
     const filterCliente = ref('')
     const searchCliente = () => {
       if(denominazione.value){
-        axios.get('/api/clienti').then(res => {
+        axios.get('/api/fattura/clienti').then(res => {
           listaClienti.value = res.data
         })
         .then( ()=>{

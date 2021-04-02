@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\Magazzino;
+namespace App\Models\Blackbox;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Capo extends Model
+class Operatore extends Model
 {
     use HasFactory;
 
-    protected $table = 'magazzino_capi';
+    protected $table = 'blackbox_operatori';
 }

@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Magazzino;
+namespace App\Http\Controllers\Blackbox;
 
 use Illuminate\Http\Request;
-use App\Models\Magazzino\Operatore;
+use App\Models\Blackbox\Operatore;
 use App\Http\Controllers\Controller;
 
 class OperatoreController extends Controller
 {
     public function index(){
         $operatori = Operatore::get();
-        return view('magazzino.operatori.index', [
+        return view('blackbox.operatori.index', [
             'operatori' => $operatori
         ]);
     }
 
     public function create(){
-        return view('magazzino.operatori.create');
+        return view('blackbox.operatori.create');
     }
 
     public function store(Request $request){
@@ -31,7 +31,7 @@ class OperatoreController extends Controller
 
     public function edit($id){
         $operatore = Operatore::findOrFail($id);
-        return view('magazzino.operatori.edit',  [
+        return view('blackbox.operatori.edit',  [
             'operatore' => $operatore
         ]);
     }

@@ -83,7 +83,15 @@
                     <span class="mx-3">Blackbox</span>
                 </div>
 
-                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-4 py-2 pl-8 text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{url()->current() == route('marche.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('operatori.index') }}">
+                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-4 py-2 pl-8 text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{url()->current() == route('lavorazioni.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('lavorazioni.index') }}">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+
+                    <span class="mx-3">Lavorazioni</span>
+                </a>
+
+                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-4 py-2 pl-8 text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{url()->current() == route('operatori.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('operatori.index') }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                     </svg>
@@ -91,7 +99,7 @@
                     <span class="mx-3">Operatori</span>
                 </a>
 
-                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-4 py-2 pl-8 text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{url()->current() == route('marche.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('capi.index') }}">
+                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-4 py-2 pl-8 text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{url()->current() == route('capi.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('capi.index') }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                     </svg>

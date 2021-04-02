@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             MarcaSeeder::class,
             LottoSeeder::class,
-            ClientiSeeder::class
+            ClientiSeeder::class,
+            CapiSeeder::class,
+            OperatoriSeeder::class
         ]);
     }
 }

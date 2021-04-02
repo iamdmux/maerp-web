@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMagazzinoOperatoriTable extends Migration
+class CreateBlackboxCapiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateMagazzinoOperatoriTable extends Migration
      */
     public function up()
     {
-        Schema::create('magazzino_operatori', function (Blueprint $table) {
+        Schema::create('blackbox_capi', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
+            $table->string('tipo');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateMagazzinoOperatoriTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('magazzino_operatori');
+        Schema::dropIfExists('blackbox_capi');
     }
 }

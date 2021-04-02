@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Magazzino;
+namespace App\Http\Controllers\Blackbox;
 
 use Illuminate\Http\Request;
-use App\Models\Magazzino\Capo;
+use App\Models\Blackbox\Capo;
 use App\Http\Controllers\Controller;
 
 class CapoController extends Controller
@@ -11,14 +11,14 @@ class CapoController extends Controller
     public function index(){
         $capiAdulto = Capo::where('tipo', 'adulto')->get();
         $capiBambini =  Capo::where('tipo', 'bambino')->get();
-        return view('magazzino.capi.index', [
+        return view('blackbox.capi.index', [
             'capiAdulto' => $capiAdulto,
             'capiBambini' => $capiBambini
         ]);
     }
 
     public function create(){
-        return view('magazzino.capi.create');
+        return view('blackbox.capi.create');
     }
 
     public function store(Request $request){
@@ -34,7 +34,7 @@ class CapoController extends Controller
 
     public function edit($id){
         $capo = Capo::findOrFail($id);
-        return view('magazzino.capi.edit',  [
+        return view('blackbox.capi.edit',  [
             'capo' => $capo
         ]);
     }
