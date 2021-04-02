@@ -1,9 +1,10 @@
 <?php
 namespace App\Fatturazione;
 
+use FatturaArray;
 use Illuminate\Support\Facades\Http;
 
-class Acube {
+class Acube extends FatturaArray{
 
     protected $user;
     protected $acubeuser;
@@ -45,48 +46,7 @@ class Acube {
     }
 
     public function creaFatturaElettronica($request){
-        $invoicesimplified = [
-            'fattura_elettronica_header' => [
-            'dati_trasmissione'=> [
-                'codice_destinatario'=> 'ABCDEFG'
-            ],
-            'cedente_prestatore'=> [
-                'id_fiscale_iva'=> [
-                    'id_paese'=> 'IT',
-                    'id_codice'=> '12345678901'
-                ],
-                'sede'=> [
-                    'indirizzo'=> 'address string',
-                    'cap'=> '12345',
-                    'comune'=> 'city string',
-                    'nazione'=> 'IT'
-                ],
-                'regime_fiscale'=> 'RF01'
-            ],
-            'cessionario_committente'=> [
-                'identificativi_fiscali'=> [
-                    'codice_fiscale'=> 'ABSDVFCNSHBGAFTS'
-                ]
-            ]
-        ],
-        'fattura_elettronica_body'=> [[
-            'dati_generali'=> [
-                'dati_generali_documento'=> [
-                    'tipo_documento'=> 'TD07',
-                    'divisa'=> 'EUR',
-                    'data'=> '2020-07-01',
-                    'numero'=> '111'
-                ]
-            ],
-            'dati_beni_servizi'=> [[
-                'descrizione'=> 'goods description',
-                'importo'=> '100',
-                'dati_iva'=> [
-                    'imposta'=> '22'
-                ]
-            ]]
-        ]]
-        ];
+        ;
 
 
         if($this->login()){

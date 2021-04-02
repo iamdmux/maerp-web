@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\Magazzino\CapoController;
 use App\Http\Controllers\Magazzino\LottoController;
 use App\Http\Controllers\Magazzino\MarcaController;
 use App\Http\Controllers\Vendite\FatturaController;
 use App\Http\Controllers\Vendite\FatturaJsonResponse;
 use App\Http\Controllers\Vendite\FatturaPdfController;
+use App\Http\Controllers\Magazzino\OperatoreController;
 
 
 
@@ -29,11 +31,11 @@ Route::group(['middleware' => 'auth'], function(){
    
 
 // MAGAZZINO
-    // Lotti
-    Route::resource('/magazzino/lotti', LottoController::class, ['except' => ['show']]);
 
-    // Marche
+    Route::resource('/magazzino/lotti', LottoController::class, ['except' => ['show']]);
     Route::resource('/magazzino/marche', MarcaController::class, ['except' => ['show']]);
+    Route::resource('/blackbox/operatori', OperatoreController::class, ['except' => ['show']]);
+    Route::resource('/blackbox/capi', CapoController::class, ['except' => ['show']]);
 });
 
 require __DIR__.'/auth.php';

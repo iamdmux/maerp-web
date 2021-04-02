@@ -74,26 +74,55 @@
                     <span class="mx-3">Marche</span>
                 </a>
 
+                {{-- Blackbox --}}
+                <div @click="open('blackbox')" class="cursor-pointer flex items-center mt-4 py-2 px-6 text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+                    </svg>
+
+                    <span class="mx-3">Blackbox</span>
+                </div>
+
+                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-4 py-2 pl-8 text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{url()->current() == route('marche.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('operatori.index') }}">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+
+                    <span class="mx-3">Operatori</span>
+                </a>
+
+                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-4 py-2 pl-8 text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{url()->current() == route('marche.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('capi.index') }}">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+
+                    <span class="mx-3">Capi</span>
+                </a>
 
             @push('scripts')
             <script> 
                 let isMagazzino = window.location.pathname.split('/')[1] == 'magazzino' ? true : false;
                 let isVendite = window.location.pathname.split('/')[1] == 'vendite' ? true : false;
+                let isBlackbox = window.location.pathname.split('/')[1] == 'blackbox' ? true : false;
                 function navigation() {
                     return {
                         sidebarOpen: false,
                         showMagazzino: isMagazzino,
                         showVendite: isVendite,
+                        showBlackbox: isBlackbox,
                         open(menu) {
                             if(menu == 'magazzino'){
                                 this.showMagazzino = !this.showMagazzino
                             } else if(menu == 'vendite'){
                                 this.showVendite = !this.showVendite
+                            } else if(menu == 'blackbox'){
+                                this.showBlackbox = !this.showBlackbox
                             }
                             
                             },
                         isOpenMagazzino() { return this.showMagazzino === true },
                         isOpenVendite() { return this.showVendite === true },
+                        isOpenBlackbox() { return this.showBlackbox === true },
                     }
                 }
             </script>
