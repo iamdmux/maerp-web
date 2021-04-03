@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-back-to-page-button route="{{route('marche.index')}}" />
+<x-back-to-page-button route="{{route('lavorazioni.index')}}" />
 
 
 <h3 class="text-gray-700 text-3xl font-bold">Aggiungi nuova lavorazione</h3>
@@ -18,6 +18,6 @@
     </div>
     @endif
 </div>
-<create-lavorazione form-url="{{route('lavorazioni.store')}}" :capi-bambino="{{json_encode($capiBambino)}}" :capi-adulto="{{json_encode($capiAdulto)}}" />
+<create-lavorazione method="create" form-url="{{route('lavorazioni.store')}}" :capi-bambino="{{json_encode($capiBambino)}}" :capi-adulto="{{json_encode($capiAdulto)}}" />
 
 @endsection

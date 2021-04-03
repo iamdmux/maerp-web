@@ -13,13 +13,14 @@ class BlackboxlavorazioneCapo extends Migration
      */
     public function up()
     {
+        // lavorazione della giornata
         Schema::create('blackboxlavorazione_capo', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('lavorazione_id')->index()->nullable();
             $table->unsignedBigInteger('capo_id')->index()->nullable();
 
-            $table->foreign('lavorazione_id')->references('id')->on('blackbox_lavorazione')->onDelete('set null');
-            $table->foreign('capo_id')->references('id')->on('blackbox_capi')->onDelete('set null');
+            $table->foreign('lavorazione_id')->references('id')->on('blackbox_lavorazioni')->onDelete('cascade');
+            $table->foreign('capo_id')->references('id')->on('blackbox_capi')->onDelete('cascade');
         });
     }
 

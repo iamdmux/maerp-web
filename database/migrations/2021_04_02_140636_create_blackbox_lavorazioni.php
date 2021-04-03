@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlackboxLavorazione extends Migration
+class CreateBlackboxLavorazioni extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBlackboxLavorazione extends Migration
      */
     public function up()
     {
-        Schema::create('blackbox_lavorazione', function (Blueprint $table) {
+        Schema::create('blackbox_lavorazioni', function (Blueprint $table) {
             $table->id();
             $table->timestamp('data');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateBlackboxLavorazione extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blackbox_lavorazione');
+        Schema::dropIfExists('blackbox_lavorazioni');
     }
 }

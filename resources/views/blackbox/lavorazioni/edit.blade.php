@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-back-to-page-button route="{{route('marche.index')}}" />
+<x-back-to-page-button route="{{route('lavorazioni.index')}}" />
 
 
 <h3 class="text-gray-700 text-3xl font-bold">Modifica lavorazione</h3>

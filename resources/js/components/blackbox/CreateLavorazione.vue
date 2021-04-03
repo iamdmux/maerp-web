@@ -17,7 +17,7 @@
                 <option v-for="capo in capiAdulto" :value="capo.id" :key="capo.id">{{capo.nome}} {{capo.tipo}}</option>
                 <option v-for="capo in capiBambino" :value="capo.id" :key="capo.id">{{capo.nome}} {{capo.tipo}}</option>
             </select>
-            <button @click.prevent="selectCapo" class="ml-4 px-2 py-1 bg-gray-300 rounded-md font-medium hover:bg-gray-400">aggiungi capo</button>
+            <button @click.prevent="addCapo" class="ml-4 px-2 py-1 bg-gray-300 rounded-md font-medium hover:bg-gray-400">aggiungi capo</button>
         </div>
 
         <div class="my-10">
@@ -34,7 +34,8 @@
         
         <div class="mt-4">
             <button class="px-6 py-3 bg-blue-600 rounded-md text-white font-medium hover:bg-blue-300">
-                modifica lavorazione
+               <p v-if="method == 'create'">crea nuova lavorazione</p>
+               <p v-if="method == 'edit'">Modifica lavorazione</p>
             </button>
         </div>
     </form>
@@ -77,7 +78,7 @@ export default {
         // edit
         const lavorazione = ref(props.lavorazione)
 
-        const selectCapo = () =>{
+        const addCapo = () =>{
             let val = select.value.value
 
             let result = capiBambino.value.find(item => {
@@ -87,6 +88,10 @@ export default {
                 result = capiAdulto.value.find(item => {
                     return item.id == val
                 })
+            }
+
+            if((capoSelected.value).find( item => item.id == result.id )){
+                return
             }
             capoSelected.value.push(result)
         }
@@ -105,9 +110,9 @@ export default {
         }
         
         if(method.value == 'edit'){
-            lavorazione.value.lavorazione_con_capi.map( capo => capoSelected.value.push(capo))
+            lavorazione.value.lavorazione_giornaliera_con_capi.map( capo => capoSelected.value.push(capo))
         }
-        return { csrf, formUrl, data, capiBambino, capiAdulto, selectCapo, select, capoSelected, removeCapo }
+        return { csrf, formUrl, data, capiBambino, capiAdulto, addCapo, select, capoSelected, removeCapo }
     }
 }
 </script>
