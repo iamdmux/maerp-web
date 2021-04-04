@@ -50,8 +50,8 @@ class Lavorazione extends Model
       segno le pause
     ----------------------------*/
 
-    public function capoLavorati(){
-        return $this->belongsToMany(Capo::class, 'blackboxlavorazione_capo');
+    public function capiScelti(){
+        return $this->belongsToMany(Capo::class, 'blackboxlavorazione_capo')->withPivot('id');
     }
 
 

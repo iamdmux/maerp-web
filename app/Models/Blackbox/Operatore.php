@@ -12,7 +12,7 @@ class Operatore extends Model
 
     protected $table = 'blackbox_operatori';
 
-    public function lavorazioneCapoCounter(){
-        return $this->belongsToMany(LavorazioneCapo::class, 'blackboxlavorazionecapo_operatore', 'lavorazionecapo_id', 'operatore_id')->withPivot('counter');
+    public function lavorazioneOperatore(){
+        return $this->belongsToMany(LavorazioneCapo::class, 'blackboxlavorazionecapo_operatore', 'operatore_id', 'lavorazionecapo_id')->withPivot('counter');
     }
 }

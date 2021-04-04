@@ -24,7 +24,7 @@
                     @forelse ($lavorazioni as $lavorazione)
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lavorazione->data}}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lavorazione->capoLavorati->count()}}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lavorazione->capiScelti->count()}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                                 <a href="{{ route('lavorazione.giorno', $lavorazione->id) }}" class="text-indigo-600 hover:text-indigo-900">apri lavorazione</a>
                                 <a class="ml-3" href="{{ route('lavorazioni.edit', $lavorazione->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>

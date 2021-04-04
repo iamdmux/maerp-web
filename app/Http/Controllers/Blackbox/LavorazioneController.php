@@ -10,7 +10,7 @@ use App\Models\Blackbox\Lavorazione;
 class LavorazioneController extends Controller
 {
     public function index(){
-        $lavorazioni = Lavorazione::with('capoLavorati')->paginate(40);
+        $lavorazioni = Lavorazione::with('capiScelti')->paginate(40);
         return view('blackbox.lavorazioni.index', [
             'lavorazioni' => $lavorazioni
         ]);
@@ -35,12 +35,12 @@ class LavorazioneController extends Controller
         $lavorazione = new Lavorazione;
         $lavorazione->data = $data['data'];
         $lavorazione->save();
-        $lavorazione->capoLavorati()->attach($data['capo_selezionato_id']);
+        $lavorazione->capiScelti()->attach($data['capo_selezionato_id']);
         return redirect()->route('lavorazioni.index')->with('success', 'La lavorazione è stata creata');
     }
 
     public function edit($id){
-        $lavorazione = Lavorazione::findOrFail($id)->with('capoLavorati')->first();
+        $lavorazione = Lavorazione::findOrFail($id)->with('capiScelti')->first();
         $capiAdulto = Capo::where('tipo', 'adulto')->get(['id', 'nome', 'tipo']);
         $capiBambino =  Capo::where('tipo', 'bambino')->get(['id', 'nome', 'tipo']);
         return view('blackbox.lavorazioni.edit', [
@@ -59,7 +59,7 @@ class LavorazioneController extends Controller
         $lavorazione = Lavorazione::findOrFail($id);
         $lavorazione->data = $data['data'];
 
-        $lavorazione->capoLavorati()->sync($data['capo_selezionato_id']);
+        $lavorazione->capiScelti()->sync($data['capo_selezionato_id']);
         return redirect()->route('lavorazioni.index')->with('success', 'La lavorazione è stata modificata');
     }
 

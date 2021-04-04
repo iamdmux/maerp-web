@@ -11,12 +11,21 @@ class LavorazioneDelGiornoController extends Controller
 {
     public function show($lavorazione_id){
 
-        $lavorazione = Lavorazione::with('capoLavorati')->findOrFail($lavorazione_id);
+        $lavorazione = Lavorazione::with('capiScelti')->findOrFail($lavorazione_id);
         $operatori = Operatore::get();
+        $counters = $this->getCounters($lavorazione_id);
+
+        $operatoriConCounter = $operatori->merge($counters);
 
         return view('blackbox.lavorazioni.lavorazione_del_giorno', [
             'lavorazione' => $lavorazione,
-            'operatori' => $operatori
+            'operatori' => $operatoriConCounter,
         ]);
+    }
+
+    public function getCounters($lavorazione_id){
+        return Operatore::with('lavorazioneOperatore')->whereHas('lavorazioneOperatore', function($q) use ($lavorazione_id){
+            $q->where('lavorazione_id', $lavorazione_id);
+         })->get();
     }
 }
