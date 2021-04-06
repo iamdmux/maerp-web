@@ -47,6 +47,9 @@ Route::group(['middleware' => 'auth'], function(){
     // lavorazione attiva
     Route::get('/blackbox/lavorazione/{lavorazione_id}', [LavorazioneDelGiornoController::class, 'show'] )->name('lavorazione.giorno');
     Route::post('/api/blackbox/lavorazione/{id}', [BlackboxAPI::class, 'action']);
+    // pause
+    Route::post('/api/blackbox/lavorazione/{id}/pausa', [BlackboxAPI::class, 'pausa']);
+    Route::get('/api/blackbox/lavorazione/{id}/pause', [BlackboxAPI::class, 'getAllPause']);
     //Blackbox Json Response
     // Route::get('/api/blackbox/capi', [BlackboxJsonResponse::class, 'getCapi']);
 });

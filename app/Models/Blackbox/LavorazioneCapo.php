@@ -15,7 +15,4 @@ class LavorazioneCapo extends Model
         return $this->belongsToMany(Operatore::class, 'blackboxlavorazionecapo_operatore', 'lavorazionecapo_id', 'operatore_id')->withPivot('counter');
     }
     
-    public function operatoriLavorazioniDelGiorno($data){
-        // return $this->operatoriCapiCounter()->where( ... $data = )
-    }
 }

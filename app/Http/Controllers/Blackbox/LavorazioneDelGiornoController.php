@@ -13,19 +13,20 @@ class LavorazioneDelGiornoController extends Controller
 
         $lavorazione = Lavorazione::with('capiScelti')->findOrFail($lavorazione_id);
         $operatori = Operatore::get();
-        $counters = $this->getCounters($lavorazione_id);
 
-        $operatoriConCounter = $operatori->merge($counters);
+        // cancellare se è tutto ok
+        // $counters = $this->getCounters($lavorazione_id);
+        // $operatoriConCounter = $operatori->merge($counters);
 
         return view('blackbox.lavorazioni.lavorazione_del_giorno', [
             'lavorazione' => $lavorazione,
-            'operatori' => $operatoriConCounter,
+            'operatori' => $operatori,
         ]);
     }
 
-    public function getCounters($lavorazione_id){
-        return Operatore::with('lavorazioneOperatore')->whereHas('lavorazioneOperatore', function($q) use ($lavorazione_id){
-            $q->where('lavorazione_id', $lavorazione_id);
-         })->get();
-    }
+    // public function getCounters($lavorazione_id){
+    //     return Operatore::with('lavorazioneOperatore')->whereHas('lavorazioneOperatore', function($q) use ($lavorazione_id){
+    //         $q->where('lavorazione_id', $lavorazione_id);
+    //      })->get();
+    // }
 }

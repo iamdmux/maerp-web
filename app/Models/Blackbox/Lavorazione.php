@@ -58,4 +58,9 @@ class Lavorazione extends Model
     public function getDataAttribute($date){
         return Carbon::parse($date)->format('d-m-Y');
     }
+
+    public function pauseLavorazione(){
+        return $this->belongsToMany(Operatore::class, 'blackboxlavorazione_operatore', 'lavorazione_id', 'operatore_id')
+        ->withPivot('id', 'dalle', 'alle', 'tipo');
+    }
 }

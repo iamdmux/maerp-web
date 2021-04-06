@@ -19,11 +19,11 @@ class CreateBlackboxlavorazioneOperatore extends Migration
             $table->unsignedBigInteger('lavorazione_id')->index()->nullable();
             $table->unsignedBigInteger('operatore_id')->index()->nullable();
             $table->timestamp('dalle');
-            $table->timestamp('alle');
+            $table->timestamp('alle')->index()->nullable();
             $table->string('tipo');
 
             $table->foreign('lavorazione_id')->references('id')->on('blackbox_operatori')->onDelete('cascade');
-            $table->foreign('operatore_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('operatore_id')->references('id')->on('blackbox_operatori')->onDelete('cascade');
         });
     }
 

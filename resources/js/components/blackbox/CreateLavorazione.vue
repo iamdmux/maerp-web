@@ -110,7 +110,7 @@ export default {
         }
         
         if(method.value == 'edit'){
-            lavorazione.value.lavorazione_giornaliera_con_capi.map( capo => capoSelected.value.push(capo))
+            lavorazione.value.capi_scelti.map( capo => capoSelected.value.push(capo))
         }
         return { csrf, formUrl, data, capiBambino, capiAdulto, addCapo, select, capoSelected, removeCapo }
     }
