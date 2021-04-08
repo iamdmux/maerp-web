@@ -81,13 +81,11 @@ class Fatturazione {
         }
         foreach ($this->request->prezzo_netto as $key => $value) {
             $this->articoli[$key]['prezzo_netto'] = $value;
-
-            // $test
-            // tot imponibile
-            $this->totaleImponibile = ($this->totaleImponibile+(float)$value);
         }
         foreach ($this->request->importo_netto as $key => $value) {
             $this->articoli[$key]['importo_netto'] = $value;
+            // tot imponibile
+            $this->totaleImponibile = ($this->totaleImponibile+(float)$value);
         }
         foreach ($this->request->descrizione as $key => $value) {
             $this->articoli[$key]['descrizione'] = $value;

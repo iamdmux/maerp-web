@@ -1,7 +1,8 @@
 <?php
 namespace App\Fatturazione;
 
-use FatturaArray;
+
+use App\Fatturazione\FatturaArray;
 use Illuminate\Support\Facades\Http;
 
 class Acube extends FatturaArray{
@@ -46,13 +47,9 @@ class Acube extends FatturaArray{
     }
 
     public function creaFatturaElettronica($request){
-        ;
-
-
+    
         if($this->login()){
-            $response = Http::withToken($this->token)->post($this->acubeurl . '/invoices/simplified', 
-                $invoicesimplified
-            );
+            $response = Http::withToken($this->token)->post($this->acubeurl . '/invoices/simplified', $this->invoice);
         }
 
         if($response->successful()){

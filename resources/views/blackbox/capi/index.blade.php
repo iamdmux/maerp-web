@@ -5,7 +5,7 @@
 <h3 class="text-gray-700 text-3xl font-bold">Capi</h3>
 
 <div class="mt-10">
-    <a href="{{route('capi.create')}}" class="px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">Aggiungi nuovo capo</a>
+    <a href="{{route('capi.create')}}" class="px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">Aggiungi nuovo capo</a>
 </div>
 
 <div class="flex flex-col mt-8">

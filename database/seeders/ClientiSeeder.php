@@ -12,7 +12,7 @@ class ClientiSeeder extends Seeder
         DB::table('clienti')->insert(
             [
                 'user_id' => 1, 
-                'denominazione' => 'Giancarlo Magallo',
+                'denominazione' => 'Mario Rossi',
                 'codice_sdi' => 'abc',
                 'tipologia' => 'azienda',
                 'referente' => 'Gennaro Baldo',
@@ -40,7 +40,7 @@ class ClientiSeeder extends Seeder
         DB::table('clienti')->insert(
             [
                 'user_id' => 2, 
-                'denominazione' => 'Giancarlo Magallo 2',
+                'denominazione' => 'Mario Rossi',
                 'codice_sdi' => 'abc',
                 'tipologia' => 'azienda',
                 'referente' => 'Gennaro Baldo',

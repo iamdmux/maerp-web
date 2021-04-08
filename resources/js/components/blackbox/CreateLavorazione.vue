@@ -33,7 +33,7 @@
         </div>
         
         <div class="mt-4">
-            <button class="px-6 py-3 bg-blue-600 rounded-md text-white font-medium hover:bg-blue-300">
+            <button class="px-6 py-3 bg-blue-500 rounded-md text-white font-medium hover:bg-blue-400">
                <p v-if="method == 'create'">crea nuova lavorazione</p>
                <p v-if="method == 'edit'">Modifica lavorazione</p>
             </button>

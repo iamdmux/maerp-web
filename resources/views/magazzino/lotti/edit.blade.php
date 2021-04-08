@@ -115,7 +115,7 @@
             value="{{old('codice_articolo') ? old('codice_articolo') : $lotto->codice_articolo}}">
     </div>
 
-    <button class="mt-8 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
+    <button class="mt-8 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
         Salva nuovo lotto
     </button>
 </form>

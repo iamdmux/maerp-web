@@ -10,12 +10,13 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Lavorazione {{lavorazione.data}}
                         </th>
-                        <th @click="showTotPause[operatore.id] = !showTotPause[operatore.id]" v-for="operatore in operatori" :key="operatore.id" scope="col" :class="{'bg-yellow-500' : operatoreInPausa(operatore.id)}" class="px-3 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider">
-                           {{operatore.nome}}
-                    
-                            <!-- <div class="absolute bg-white p-2 -mt-20" v-if="showTotPause[operatore.id]">
-                                {{numeroDiPause(operatore.id)}}
-                            </div> -->
+                        <th v-for="operatore in operatori" :key="operatore.id" scope="col" :class="{'bg-yellow-500' : operatoreInPausa(operatore.id)}" class="px-3 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider">
+                           <p class="cursor-pointer mb-2" @click="showTotPause[operatore.id] = !showTotPause[operatore.id]">{{operatore.nome}}</p>
+                           
+                            <div class="absolute bg-white p-2 -ml-8 -mt-20 rounded-sm border border-gray-400" v-if="showTotPause[operatore.id]">
+                                <p>{{operatore.nome}}</p>
+                               <p>numero di pause: {{numeroDiPause(operatore.id).length}}</p>
+                            </div>
 
                             <div>
                                 <select :disabled="operatoreInPausa(operatore.id)" v-model="tipo_pausa[operatore.id]" class="text-xs w-22 p-0">
@@ -174,11 +175,24 @@ export default {
         }
 
         const numeroDiPause = (operatore_id) => {
-            // let pause = pauseFromApi.value.find(pause => {
-
-            //     return pause.pivot.operatore_id = operatore_id
+            // let tempoDiPausa = new Date()
+            // tempoDiPausa.setHours(0,0,0,0)
+            
+            // pauseFromApi.value.filter(pausa => {
+            //     if(pausa.pivot.operatore_id == operatore_id){
+            //         let dalle = new Date(pausa.pivot.dalle)
+            //         let alle = new Date(pausa.pivot.alle)
+            //         tempoDiPausa.setDate(tempoDiPausa.getDate() + (alle-dalle))
+            //         // return pausa
+            //     }
             // });
-            // return pause.length
+            // return tempoDiPausa
+
+            return pauseFromApi.value.filter(pausa => {
+                if(pausa.pivot.operatore_id == operatore_id){
+                    return pausa
+                }
+            });
         }
 
 

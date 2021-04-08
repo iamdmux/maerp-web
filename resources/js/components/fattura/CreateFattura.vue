@@ -408,26 +408,26 @@
   </div>
 
   <div v-if="method != 'show'" class="my-8 flex">
-    <button @click.prevent="quantiArticoli++" class="px-3 py-2 bg-green-500 rounded-md text-white font-medium hover:bg-blue-300">
+    <button @click.prevent="quantiArticoli++" class="px-3 py-2 bg-green-500 rounded-md text-white font-medium hover:bg-blue-400">
       aggiungi articolo
     </button>
 
-    <button v-if="quantiArticoli > 1" @click.prevent="quantiArticoli--" class="ml-3 px-3 py-2 bg-blue-800 rounded-md text-white font-medium hover:bg-blue-300">
+    <button v-if="quantiArticoli > 1" @click.prevent="quantiArticoli--" class="ml-3 px-3 py-2 bg-blue-800 rounded-md text-white font-medium hover:bg-blue-400">
       rimuovi articolo
     </button>
   </div>
 
 
 <div v-if="method != 'show'" class="flex justify-between">
-  <button @click="submitForm('action')" class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
+  <button @click="submitForm('action')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
       salva fattura
   </button>
-    <button @click="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
+    <button @click="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
       vedi fattura pdf
   </button>
 </div>
 <!-- <div v-else> la action non funziona bene
-    <button @click.prevent="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
+    <button @click.prevent="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
       vedi fattura pdf
     </button>
 </div> -->

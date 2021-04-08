@@ -302,7 +302,7 @@
     </div>
 
     @if(!$show)
-    <button class="mt-4 px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">
+    <button class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
        {{$buttonText}}
     </button>
     @endif

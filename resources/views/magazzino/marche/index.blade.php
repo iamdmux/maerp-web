@@ -5,7 +5,7 @@
 <h3 class="text-gray-700 text-3xl font-bold">Marche</h3>
 
 <div class="mt-10">
-    <a href="{{route('marche.create')}}" class="px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">Crea nuova marca</a>
+    <a href="{{route('marche.create')}}" class="px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">Crea nuova marca</a>
 </div>
 
 <div class="flex flex-col mt-8">

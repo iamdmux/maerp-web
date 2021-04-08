@@ -5,7 +5,7 @@
 <h3 class="text-gray-700 text-3xl font-bold">Lavorazioni</h3>
 
 <div class="mt-10">
-    <a href="{{route('lavorazioni.create')}}" class="px-6 py-3 bg-blue-600 rounded-md text-white font-medium tracking-wide hover:bg-blue-300">Aggiungi nuova lavorazione</a>
+    <a href="{{route('lavorazioni.create')}}" class="px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">Aggiungi nuova lavorazione</a>
 </div>
 
 <div class="flex flex-col mt-8">

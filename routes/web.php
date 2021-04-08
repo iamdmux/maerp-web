@@ -11,6 +11,7 @@ use App\Http\Controllers\Magazzino\MarcaController;
 use App\Http\Controllers\Vendite\FatturaController;
 use App\Http\Controllers\Blackbox\OperatoreController;
 use App\Http\Controllers\Vendite\FatturaPdfController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Blackbox\LavorazioneController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
@@ -18,7 +19,7 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
 Route::group(['middleware' => 'auth'], function(){
 
-    Route::get('/', function () { return view('homepage'); })->name('home.page');
+    Route::get('/', [DashboardController::class, 'view'])->name('home.page');
 
 
 // VENDITE

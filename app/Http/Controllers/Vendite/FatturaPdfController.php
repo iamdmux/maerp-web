@@ -22,7 +22,7 @@ class FatturaPdfController extends Controller
         $fattura = new Fatturazione($request);
         $fattura->handle();
 
-
+        PDF::setOptions(['defaultFont' => 'serif']);
         $pdf = PDF::loadView('fatture.fatturapdf', [
             'fattura' => $fattura,
             'cliente' => $cliente
