@@ -31,7 +31,7 @@
         $title = 'Modifica cliente';
         $buttonText = 'Modifica cliente';
     } elseif($show){
-        $title = 'cliente ' . $cliente->denominazione;
+        $title = 'cliente: ' . $cliente->denominazione;
     }
 @endphp
 
@@ -60,14 +60,15 @@
         @method('PATCH')
     @endif
 
+    <h1 class="mt-6 font-semibol text-gray-500 uppercase">Anagrafica</h1>
+
     <div class="flex flex-wrap">
-        <div>
-            <h1 class="mt-6 font-semibol text-gray-500 uppercase">Anagrafica</h1>
+        <div class="mr-8">
             <div>
                 <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     denominazione
                 </p>
-                <input {{$disable}} required autocomplete="off" type="text" name="denominazione" placeholder="ragione sociale"
+                <input class="placeholder-red-300" {{$disable}} required autocomplete="off" type="text" name="denominazione" placeholder="ragione sociale"
                 value="{{old('denominazione') ? old('denominazione') : (($edit || $show) ? $cliente->denominazione : '')}}">
             </div>
             
@@ -84,7 +85,7 @@
                     tipologia
                 </p>
 
-                <select {{$disable}} name="tipologia">
+                <select {{$disable}} name="tipologia" class="w-44">
                     @foreach ($tipologia as $tipo)
                         @php
                             $val_tipologia_select = '';
@@ -174,15 +175,8 @@
                 </p>
                 <textarea {{$disable}} class="rounded-md border-gray-200" name="note_indirizzo" placeholder="note indirizzo">{{old('note_indirizzo') ? old('note_indirizzo') : (($edit || $show) ? $cliente->note_indirizzo : '')}}</textarea>
             </div>
-
-            <div>
-                <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                    codice_interno
-                </p>
-                <input {{$disable}} autocomplete="off" type="text" name="codice_interno" placeholder="codice interno"
-                value="{{old('codice_interno') ? old('codice_interno') : (($edit || $show) ? $cliente->codice_interno : '')}}">
-            </div>
-
+        </div>
+        <div class="mr-8">
             <div>
                 <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     email
@@ -214,8 +208,7 @@
                 <textarea {{$disable}} class="rounded-md border-gray-200" type="text" name="note_extra" placeholder="note extra">{{old('note_extra') ? old('note_extra') : (($edit || $show) ? $cliente->note_extra : '')}}</textarea>
             </div>
         </div>
-        <div class="ml-24">
-            <h1 class="mt-6 font-semibol text-gray-500 uppercase">Rapporti commerciali</h1>
+        <div>
             <div>
                 <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     aliquota iva
@@ -241,7 +234,7 @@
                             ['val' => 'ggfinemese', 'show'=> 'gg. fine mese'],
                         ];
                     @endphp
-                    <select {{$disable}} name="termini_tipo">
+                    <select {{$disable}} class="ml-2" name="termini_tipo">
                         @foreach ($giorni as $giorno)
                             @php
                                 $val_termini_tipo_select = '';
@@ -258,20 +251,14 @@
                             </option>
                         @endforeach
                     </select>
-
-                    
-                    {{-- <select name="termini_tipo">
-                        <option value="giorni" {{old('termini_tipo') ==  'giorni' ? 'selected' : ''}}>giorni</option>
-                        <option value="ggfinemese" {{old('termini_tipo') ==  'ggfinemese' ? 'selected' : ''}}>gg. fine mese</option>
-                    </select> --}}
                 </div>
             </div>
 
             <div>
                 <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                    metodo pagamento predefinito
+                    metodo pagamento pred.
                 </p>
-                <input {{$disable}} autocomplete="off" type="text" name="metodo_pagamento_predef" placeholder="metodo pagamento predefinito"
+                <input {{$disable}} autocomplete="off" type="text" name="metodo_pagamento_predef" placeholder="metodo pagamento pred."
                 value="{{old('metodo_pagamento_predef') ? old('metodo_pagamento_predef') : (($edit || $show) ? $cliente->metodo_pagamento_predef : '')}}">
             </div>
 

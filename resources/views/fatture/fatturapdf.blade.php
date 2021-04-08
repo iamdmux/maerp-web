@@ -140,9 +140,6 @@
               {{$cliente->indirizzo}}<br>
               {{$cliente->cap}}<br>
               {{$cliente->provincia}}<br>
-              @if($cliente->codice_interno)
-                {{$cliente->codice_interno}}<br>
-              @endif
               {{$cliente->paese}}<br>
               @if($cliente->note_extra)
                 {{$cliente->note_extra}}<br>

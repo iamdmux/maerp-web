@@ -22,7 +22,7 @@ select,
 select[multiple],
 textarea
 {
-    @apply rounded-md border-gray-200 placeholder-gray-500 placeholder-opacity-50;
+    @apply text-sm rounded-md border-gray-200 placeholder-gray-500 placeholder-opacity-50;
 }
 
 input:focus,
@@ -37,9 +37,19 @@ input[type="checkbox"]{
     @apply focus:ring-0;
 }
 
-.input-small{
-    @apply h-8 text-sm;
+/* input small su tutti */
+input,
+select
+{
+    height: 2.2rem;
 }
-input.input-small::-webkit-input-placeholder {
-    @apply text-sm;
+
+select {
+    @apply leading-none;
 }
+
+/* input::-webkit-input-placeholder,
+select::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    @apply text-xs;
+} */

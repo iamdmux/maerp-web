@@ -7,7 +7,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   codice articolo
               </p>
-              <input :disabled="method == 'show'" required v-model="codice" @input="searchArticolo" class="input-small w-36" autocomplete="off" type="text" name="codice[]">
+              <input :disabled="method == 'show'" required v-model="codice" @input="searchArticolo" class=" w-36" autocomplete="off" type="text" name="codice[]">
                 <div v-if="filterArticolo.length" class="z-10 text-sm p-4 bg-white rounded border border-gray-400">
                   <div v-for="articolo in filterArticolo" :key="articolo.id">
                     <p @click="confermaArticolo(articolo.id)" class="hover:bg-blue-400 cursor-pointer">{{articolo.codice_articolo}}</p> 
@@ -19,19 +19,19 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   quantita
               </p>
-              <input :disabled="method == 'show'" v-model="quantita" class="input-small w-24" min="0" name="quantita[]" autocomplete="off" type="number"><!--  min="0" :max="quantitaMax" -->
+              <input :disabled="method == 'show'" v-model="quantita" class=" w-24" min="0" name="quantita[]" autocomplete="off" type="number"><!--  min="0" :max="quantitaMax" -->
             </div>
             <div class="mr-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   unita di misura
               </p>
-              <input :disabled="method == 'show'" v-model="unita_di_misura" class="input-small w-28" name="unita_di_misura[]" autocomplete="off" type="text">
+              <input :disabled="method == 'show'" v-model="unita_di_misura" class=" w-28" name="unita_di_misura[]" autocomplete="off" type="text">
             </div>
             <div class="mr-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   prezzo_netto
               </p>
-              <input :disabled="method == 'show'" v-model="prezzo_netto" name="prezzo_netto[]" class="input-small w-24" autocomplete="off" type="text">
+              <input :disabled="method == 'show'" v-model="prezzo_netto" name="prezzo_netto[]" class=" w-24" autocomplete="off" type="text">
             </div>
         </div>
         <div class="m-6 flex flex-wrap">
@@ -56,7 +56,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 iva
             </p>
-            <select :disabled="method == 'show'" v-model="iva" name="iva[]" autocomplete="off" class="input-small rounded-md border-gray-200">
+            <select :disabled="method == 'show'" v-model="iva" name="iva[]" autocomplete="off" class=" rounded-md border-gray-200">
               <option :selected="iva == 22" value="22">22</option>
             </select>
           </div>
@@ -64,21 +64,21 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 importo netto
             </p>
-            <input disabled v-model="importo_netto" name="importo_netto[]" class="input-small w-36" autocomplete="off" type="text">
+            <input disabled v-model="importo_netto" name="importo_netto[]" class=" w-36" autocomplete="off" type="text">
             <input type="hidden" name="importo_netto[]" :value="importo_netto">
           </div>
           <div class="mb-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 IVA
             </p>
-            <input disabled v-model="costo_iva" name="costo_iva[]" class="input-small w-36" autocomplete="off" type="text">
+            <input disabled v-model="costo_iva" name="costo_iva[]" class=" w-36" autocomplete="off" type="text">
             <input type="hidden" name="costo_iva[]" :value="costo_iva">
           </div>
           <div class="mb-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 importo totale
             </p>
-            <input disabled v-model="importo_totale" name="importo_totale[]" class="input-small w-36" autocomplete="off" type="text">
+            <input disabled v-model="importo_totale" name="importo_totale[]" class=" w-36" autocomplete="off" type="text">
             <input type="hidden" name="importo_totale[]" :value="importo_totale">
           </div>
         </div>

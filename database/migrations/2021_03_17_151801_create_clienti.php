@@ -27,7 +27,6 @@ class CreateClienti extends Migration
             $table->string('cap')->nullable();
             $table->string('provincia')->nullable();
             $table->text('note_indirizzo')->nullable();
-            $table->string('codice_interno')->nullable();
             $table->string('email')->nullable();
             $table->string('pec')->nullable();
             $table->string('telefono')->nullable();

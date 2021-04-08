@@ -9,7 +9,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 data
             </p>
-            <input v-model="data" class="input-small" type="date" name="data">
+            <input v-model="data" class="" type="date" name="data">
         </div>
 
         <div>

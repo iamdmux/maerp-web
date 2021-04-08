@@ -16,15 +16,66 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+            'id' => 1,
             'name' => 'DavideM',
             'email' => 'davidemarchiori.dev@gmail.com',
             'password' => '$2y$10$hItalZfJJ5TnmRER/euBX.vM000uMUhGfSj0H9D7fqivmRD/K5B96',
         ]);
         
         DB::table('users')->insert([
+            'id' => 2,
             'name' => 'Diego de Maio',
             'email' => 'ceo@gymia.io',
             'password' => '$2y$10$.OV88ZUL4ZU3nziGUmKas.FyvmeBgqAwpFR6UXRO6MHJsYSwN/3L.',
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 3,
+            'name' => 'Anna',
+            'email' => 'agente3@example.com',
+            'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 4,
+            'name' => 'Davide & Roberto',
+            'email' => 'agente4@example.com',
+            'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 5,
+            'name' => 'Cliente direzionale',
+            'email' => 'agente5@example.com',
+            'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 6,
+            'name' => 'Bessem',
+            'email' => 'agente6@example.com',
+            'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 7,
+            'name' => 'Gemma',
+            'email' => 'agente7@example.com',
+            'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 8,
+            'name' => 'Alona',
+            'email' => 'agente8@example.com',
+            'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 9,
+            'name' => 'Elena',
+            'email' => 'agente10@example.com',
+            'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
     }
 }

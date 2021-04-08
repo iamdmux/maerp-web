@@ -48,7 +48,7 @@
           <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               ragione sociale / nome
           </p>
-          <input :disabled="method == 'show'" required v-model="denominazione" @input="searchCliente" class="input-small w-36" autocomplete="off" type="text" name="denominazione">
+          <input :disabled="method == 'show'" required v-model="denominazione" @input="searchCliente" class=" w-36" autocomplete="off" type="text" name="denominazione">
           <div v-if="filterCliente.length" class="z-10 text-sm p-4 bg-white rounded border border-gray-400">
             <div v-for="cliente in filterCliente" :key="cliente.id">
               <p @click="confermaCliente(cliente.id)" class="hover:bg-blue-400 cursor-pointer">{{cliente.denominazione}}</p> 
@@ -61,29 +61,29 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 indirizzo
             </p>
-            <input disabled v-model="indirizzo" class="input-small w-36" autocomplete="off" type="text" name="indirizzo">
-            <input :value="indirizzo" class="input-small w-36" autocomplete="off" type="hidden" name="indirizzo">
+            <input disabled v-model="indirizzo" class=" w-36" autocomplete="off" type="text" name="indirizzo">
+            <input :value="indirizzo" class=" w-36" autocomplete="off" type="hidden" name="indirizzo">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 città
             </p>
-            <input disabled v-model="citta" class="input-small w-36" autocomplete="off" type="text" name="citta">
-            <input :value="citta" class="input-small w-36" autocomplete="off" type="hidden" name="citta">
+            <input disabled v-model="citta" class=" w-36" autocomplete="off" type="text" name="citta">
+            <input :value="citta" class=" w-36" autocomplete="off" type="hidden" name="citta">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 cap
             </p>
-            <input disabled v-model="cap" class="input-small w-36" autocomplete="off" type="text" name="cap">
-            <input :value="cap" class="input-small w-36" autocomplete="off" type="hidden" name="cap">
+            <input disabled v-model="cap" class=" w-36" autocomplete="off" type="text" name="cap">
+            <input :value="cap" class=" w-36" autocomplete="off" type="hidden" name="cap">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 provincia
             </p>
-            <input disabled v-model="provincia" class="input-small w-36" autocomplete="off" type="text" name="provincia">
-            <input :value="provincia" class="input-small w-36" autocomplete="off" type="hidden" name="provincia">
+            <input disabled v-model="provincia" class=" w-36" autocomplete="off" type="text" name="provincia">
+            <input :value="provincia" class=" w-36" autocomplete="off" type="hidden" name="provincia">
           </div>
         </div>
         <div class="flex flex-wrap mt-2">
@@ -91,29 +91,29 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 paese
             </p>
-            <input disabled v-model="paese" class="input-small w-36" autocomplete="off" type="text" name="paese">
-            <input :value="paese" class="input-small w-36" autocomplete="off" type="hidden" name="paese">
+            <input disabled v-model="paese" class=" w-36" autocomplete="off" type="text" name="paese">
+            <input :value="paese" class=" w-36" autocomplete="off" type="hidden" name="paese">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 partita iva
             </p>
-            <input disabled v-model="partita_iva" class="input-small w-36" autocomplete="off" type="text" name="partita_iva">
-            <input :value="partita_iva" class="input-small w-36" autocomplete="off" type="hidden" name="partita_iva">
+            <input disabled v-model="partita_iva" class=" w-36" autocomplete="off" type="text" name="partita_iva">
+            <input :value="partita_iva" class=" w-36" autocomplete="off" type="hidden" name="partita_iva">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 codice fiscale
             </p>
-            <input disabled v-model="codice_fiscale" class="input-small w-36" autocomplete="off" type="text" name="codice_fiscale">
-            <input :value="codice_fiscale" class="input-small w-36" autocomplete="off" type="hidden" name="codice_fiscale">
+            <input disabled v-model="codice_fiscale" class=" w-36" autocomplete="off" type="text" name="codice_fiscale">
+            <input :value="codice_fiscale" class=" w-36" autocomplete="off" type="hidden" name="codice_fiscale">
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 note indirizzo
             </p>
             <textarea disabled v-model="note_indirizzo" rows="2" cols="15" class="text-sm" name="note_indirizzo"></textarea>
-            <input :value="note_indirizzo" class="input-small w-36" autocomplete="off" type="hidden" name="note_indirizzo">
+            <input :value="note_indirizzo" class=" w-36" autocomplete="off" type="hidden" name="note_indirizzo">
           </div>
         </div>
       </div>
@@ -137,13 +137,13 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   numero
               </p>
-              <input required :disabled="method == 'show'" v-model="numero" class="input-small w-24" autocomplete="off" type="text" name="numero">
+              <input required :disabled="method == 'show'" v-model="numero" class=" w-24" autocomplete="off" type="text" name="numero">
           </div>
           <div class="mb-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   data
               </p>
-              <input :disabled="method == 'show'" v-model="data" class="input-small" type="date" name="data">
+              <input :disabled="method == 'show'" v-model="data" class="" type="date" name="data">
           </div>
         </div>
 
@@ -152,7 +152,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   lingua
               </p>
-              <select :disabled="method == 'show'" v-model="lingua" class="input-small rounded-md border-gray-200" name="lingua">
+              <select :disabled="method == 'show'" v-model="lingua" class=" rounded-md border-gray-200" name="lingua">
                 <option class="px-3" value="ita">italiano</option>
               </select>
           </div>
@@ -160,7 +160,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   valuta
               </p>
-              <select :disabled="method == 'show'" v-model="valuta" class="input-small rounded-md border-gray-200" name="valuta">
+              <select :disabled="method == 'show'" v-model="valuta" class=" rounded-md border-gray-200" name="valuta">
                 <option class="px-3" value="euro">euro</option>
               </select>
           </div>
@@ -193,13 +193,13 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 codice destinatario
             </p>
-            <input v-model="el_codice_destinatario" class="input-small w-36" autocomplete="off" type="text" name="el_codice_destinatario">
+            <input v-model="el_codice_destinatario" class=" w-36" autocomplete="off" type="text" name="el_codice_destinatario">
           </div>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 indirizzo PEC
             </p>
-            <input v-model="el_indirizzo_pec" class="input-small w-36" autocomplete="off" type="email" name="el_indirizzo_pec">
+            <input v-model="el_indirizzo_pec" class=" w-36" autocomplete="off" type="email" name="el_indirizzo_pec">
           </div>
         </div>
 
@@ -208,7 +208,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 esigibilità iva
             </p>
-            <select v-model="el_esigibilita_iva" class="input-small rounded-md border-gray-200" name="el_esigibilita_iva">
+            <select v-model="el_esigibilita_iva" class=" rounded-md border-gray-200" name="el_esigibilita_iva">
               <option class="px-3" value="nd">non specificato</option>
             </select>
           </div>
@@ -216,7 +216,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 emesso in seguito a
             </p>
-            <select v-model="el_emesso_in_seguito_a" class="input-small rounded-md border-gray-200" name="el_emesso_in_seguito_a">
+            <select v-model="el_emesso_in_seguito_a" class=" rounded-md border-gray-200" name="el_emesso_in_seguito_a">
               <option class="px-3" value="nd">non specificato</option>
             </select>
           </div>
@@ -226,14 +226,14 @@
           <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               metodo di pagamento
           </p>
-          <select v-model="el_metodo_pagamento" class="input-small rounded-md border-gray-200" name="el_metodo_pagamento">
+          <select v-model="el_metodo_pagamento" class=" rounded-md border-gray-200" name="el_metodo_pagamento">
             <option class="px-3" value="contanti">contanti</option>
           </select>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 nome istituto di credito
             </p>
-            <input v-model="el_nome_istituto_di_credito" class="input-small w-36" autocomplete="off" type="text"  name="el_nome_istituto_di_credito">
+            <input v-model="el_nome_istituto_di_credito" class=" w-36" autocomplete="off" type="text"  name="el_nome_istituto_di_credito">
           </div>
         </div>
 
@@ -242,13 +242,13 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 IBAN
             </p>
-            <input v-model="el_iban" class="input-small w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_iban">
+            <input v-model="el_iban" class=" w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_iban">
           </div>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 nome beneficiario
             </p>
-            <input v-model="el_nome_beneficiario" class="input-small w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_nome_beneficiario">
+            <input v-model="el_nome_beneficiario" class=" w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_nome_beneficiario">
           </div>
         </div>
       </div>
@@ -289,7 +289,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   costo bollo
               </p>
-              <input :disabled="method == 'show'" v-model="costo_bollo" autocomplete="off" class="input-small" type="text" name="costo_bollo">
+              <input :disabled="method == 'show'" v-model="costo_bollo" autocomplete="off" class="" type="text" name="costo_bollo">
             </div>
           </div>
             <div class="flex mb-1">
@@ -302,7 +302,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   metodo di pagamento
               </p>
-              <select :disabled="method == 'show'" v-model="metodo_pagamento" class="input-small rounded-md border-gray-200" name="metodo_pagamento">
+              <select :disabled="method == 'show'" v-model="metodo_pagamento" class=" rounded-md border-gray-200" name="metodo_pagamento">
                 <option class="px-3" value="non_specificato">non specificato</option>
                 <option class="px-3" value="contanti">contanti</option>
               </select>
@@ -325,7 +325,7 @@
                   <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                       numero ddt
                   </p>
-                  <input :disabled="method == 'show'" v-model="numero_ddt" autocomplete="off" class="input-small" type="text" name="numero_ddt">
+                  <input :disabled="method == 'show'" v-model="numero_ddt" autocomplete="off" class="" type="text" name="numero_ddt">
                 </div>
               </div>
               <div>
@@ -333,7 +333,7 @@
                   <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                       data ddt
                   </p>
-                  <input :disabled="method == 'show'" v-model="data_ddt" autocomplete="off" class="input-small" type="date" name="data_ddt">
+                  <input :disabled="method == 'show'" v-model="data_ddt" autocomplete="off" class="" type="date" name="data_ddt">
                 </div>
               </div>
             </div>
@@ -342,13 +342,13 @@
                 <p class="text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     numero di colli
                 </p>
-                <input :disabled="method == 'show'" v-model="numero_colli_ddt" autocomplete="off" class="input-small" type="text" name="numero_colli_ddt" placeholder="es. 3 BANCALI">
+                <input :disabled="method == 'show'" v-model="numero_colli_ddt" autocomplete="off" class="" type="text" name="numero_colli_ddt" placeholder="es. 3 BANCALI">
               </div>
               <div class="mb-4">
                 <p class="text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                     peso
                 </p>
-                <input :disabled="method == 'show'" v-model="peso_ddt" autocomplete="off" class="input-small" type="text" name="peso_ddt">
+                <input :disabled="method == 'show'" v-model="peso_ddt" autocomplete="off" class="" type="text" name="peso_ddt">
               </div>
             </div>
 

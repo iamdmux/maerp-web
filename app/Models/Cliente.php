@@ -17,7 +17,6 @@ class Cliente extends Model
         ['val' => 'azienda',                'show'=> 'Azienda'],
         ['val' => 'persona_fisica',         'show'=> 'Persona Fisica'],
         ['val' => 'pubblica_amministrazione', 'show'=> 'Pubblica Amministrazione'],
-        ['val' => 'condominio',             'show'=> 'Condominio'],
     ];
 
     public function user(){

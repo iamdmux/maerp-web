@@ -20,8 +20,8 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/', [DashboardController::class, 'view'])->name('home.page');
-
-
+    Route::get('/importclienti', [DashboardController::class, 'import']);
+    
 // VENDITE
     // Clienti
     Route::resource('/vendite/clienti', ClienteController::class);
@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/api/fattura/clienti', [FatturaAPI::class, 'getClienti']);
     Route::get('/api/fattura/articoli', [FatturaAPI::class, 'getArticoli']);
    
+// AGENTI
+    // Route::resource('/agenti', AgenteController::class); ??
 
 // MAGAZZINO
     Route::resource('/magazzino/lotti', LottoController::class, ['except' => ['show']]);
@@ -51,8 +53,7 @@ Route::group(['middleware' => 'auth'], function(){
     // pause
     Route::post('/api/blackbox/lavorazione/{id}/pausa', [BlackboxAPI::class, 'pausa']);
     Route::get('/api/blackbox/lavorazione/{id}/pause', [BlackboxAPI::class, 'getAllPause']);
-    //Blackbox Json Response
-    // Route::get('/api/blackbox/capi', [BlackboxJsonResponse::class, 'getCapi']);
+
 });
 
 require __DIR__.'/auth.php';
