@@ -1,9 +1,10 @@
 <?php
+namespace App\Http\Controllers\Vendite;
 
-namespace App\Http\Controllers;
 
-use App\Models\Cliente;
 use Illuminate\Http\Request;
+use App\Models\Vendite\Cliente;
+use App\Http\Controllers\Controller;
 
 class ClienteController extends Controller
 {

@@ -50,7 +50,7 @@
                             </td>
                         </tr>
                     @empty
-                        <p>Nessuna marca trovata</p>
+                        <p>Nessuna cliente trovato</p>
                     @endforelse
                 </tbody>
             </table>

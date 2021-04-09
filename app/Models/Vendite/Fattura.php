@@ -3,7 +3,7 @@
 namespace App\Models\Vendite;
 
 use Carbon\Carbon;
-use App\Models\Cliente;
+use App\Models\Vendite\Cliente;
 use App\Models\Articolo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model\Vendite;

@@ -59,6 +59,10 @@ class Lavorazione extends Model
         return Carbon::parse($date)->format('d-m-Y');
     }
 
+    public function getDataStringsAttribute($date){
+        return Carbon::parse($date)->isoFormat('dddd d MMMM Y');
+    }
+
     public function pauseLavorazione(){
         return $this->belongsToMany(Operatore::class, 'blackboxlavorazione_operatore', 'lavorazione_id', 'operatore_id')
         ->withPivot('id', 'dalle', 'alle', 'tipo');

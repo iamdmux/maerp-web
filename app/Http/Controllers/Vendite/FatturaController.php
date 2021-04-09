@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Vendite;
 
-use App\Models\Cliente;
+use App\Models\Vendite\Cliente;
 use App\Fatturazione\Acube;
 use Illuminate\Http\Request;
 use App\Models\Vendite\Fattura;

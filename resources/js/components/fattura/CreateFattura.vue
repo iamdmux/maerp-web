@@ -619,12 +619,14 @@ export default {
     const filterCliente = ref('')
     const searchCliente = () => {
       if(denominazione.value){
-        axios.get('/api/fattura/clienti').then(res => {
+        axios.post('/api/fattura/clienti', {}, { params: { query_cliente: denominazione.value }})
+        .then(res => {
           listaClienti.value = res.data
         })
         .then( ()=>{
           filterCliente.value = listaClienti.value.filter(cliente => cliente.denominazione.toLowerCase().indexOf(denominazione.value.toLowerCase()) > -1)
         })
+        .catch( e => console.log(e))
       }
     }
 

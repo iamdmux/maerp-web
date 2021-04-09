@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Vendite;
 
 use Carbon\Carbon;
-use App\Models\Cliente;
+use App\Models\Vendite\Cliente;
 use App\Fatturazione\Acube;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;

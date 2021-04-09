@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\Vendite\FatturaAPI;
 use App\Models\Blackbox\BlackboxJsonResponse;
 use App\Http\Controllers\Blackbox\BlackboxAPI;
 use App\Http\Controllers\Blackbox\CapoController;
 use App\Http\Controllers\Magazzino\LottoController;
 use App\Http\Controllers\Magazzino\MarcaController;
+use App\Http\Controllers\Vendite\ClienteController;
 use App\Http\Controllers\Vendite\FatturaController;
+use App\Http\Controllers\Acquisti\FornitoreController;
 use App\Http\Controllers\Blackbox\OperatoreController;
 use App\Http\Controllers\Vendite\FatturaPdfController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -20,7 +21,10 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/', [DashboardController::class, 'view'])->name('home.page');
-    Route::get('/importclienti', [DashboardController::class, 'import']);
+
+    //import
+    Route::get('/importclienti', [DashboardController::class, 'importClienti']);
+    Route::get('/importfornitori', [DashboardController::class, 'importFornitori']);
     
 // VENDITE
     // Clienti
@@ -32,9 +36,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('/vendite/fatture', FatturaController::class);
     
     //Fattura Json Response
-    Route::get('/api/fattura/clienti', [FatturaAPI::class, 'getClienti']);
-    Route::get('/api/fattura/articoli', [FatturaAPI::class, 'getArticoli']);
-   
+    Route::post('/api/fattura/clienti', [FatturaAPI::class, 'getClienti']);
+    Route::post('/api/fattura/articoli', [FatturaAPI::class, 'getArticoli']);
+
+// ACQUISTI
+    //fornitori
+    Route::resource('/acquisti/fornitori', FornitoreController::class);
+
 // AGENTI
     // Route::resource('/agenti', AgenteController::class); ??
 
@@ -50,6 +58,12 @@ Route::group(['middleware' => 'auth'], function(){
     // lavorazione attiva
     Route::get('/blackbox/lavorazione/{lavorazione_id}', [LavorazioneDelGiornoController::class, 'show'] )->name('lavorazione.giorno');
     Route::post('/api/blackbox/lavorazione/{id}', [BlackboxAPI::class, 'action']);
+
+    // visualizza pause
+    Route::get('/blackbox/lavorazione/{lavorazione_id}/pause', [LavorazioneDelGiornoController::class, 'indexPause'])
+    ->name('pauselavorazione.index')
+    ->middleware('admin.blackbox');
+
     // pause
     Route::post('/api/blackbox/lavorazione/{id}/pausa', [BlackboxAPI::class, 'pausa']);
     Route::get('/api/blackbox/lavorazione/{id}/pause', [BlackboxAPI::class, 'getAllPause']);

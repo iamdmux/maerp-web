@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Cliente;
+use App\Models\Vendite\Cliente;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

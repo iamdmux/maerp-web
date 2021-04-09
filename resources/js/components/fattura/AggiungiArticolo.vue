@@ -153,7 +153,8 @@ export default {
 
     const searchArticolo = () => {
       if(codice){
-        axios.get('/api/fattura/articoli').then(res => {
+        axios.post('/api/fattura/articoli', {}, { params: { query_articolo: codice.value }})
+        .then(res => {
           listaArticoli.value = res.data
         }).then( ()=>{
           filterArticolo.value = listaArticoli.value.filter(articolo => articolo.codice_articolo.toLowerCase().indexOf(codice.value.toLowerCase()) > -1)
