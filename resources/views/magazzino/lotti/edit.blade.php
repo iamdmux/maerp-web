@@ -26,11 +26,18 @@
     @csrf
     @method('PATCH')
 
-    <div class="mt-8">
-        <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+    <div class="mt-5">
+        <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Codice Articolo
+        </p>
+        <input type="text" name="codice_articolo" placeholder="Codice Articolo"
+            value="{{old('codice_articolo') ? old('codice_articolo') : $lotto->codice_articolo}}">
+    </div>
+
+    <div class="mt-5">
+        <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Marca
         </p>
-        
         <select name="marca_id">
             <option disabled> -- seleziona -- </option>
             @foreach ($marche as $marca)
@@ -45,8 +52,8 @@
             @endforeach
           </select>
     </div>
-    <div>
-        <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+    <div class="pt-5">
+        <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Stagione
         </p>
         @php
@@ -71,8 +78,8 @@
             @endforeach
           </select>
     </div>
-    <div>
-        <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+    <div class="mt-5">
+        <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Tipologia
         </p>
         <select name="tipologia">
@@ -85,34 +92,26 @@
             @endforeach
           </select>
     </div>
-    <div>
-        <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+    <div class="mt-5">
+        <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Kg Lotto
         </p>
         <input type="number" name="kg" step="0.5" min="0" placeholder="Kg Lotto" value="{{old('kg') ? old('kg') : $lotto->kg}}">
     </div>
-    <div>
-        <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+    <div class="mt-5">
+        <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Quantità
         </p>
         <input type="number" name="quantita" min="0" placeholder="Quantità di Pezzi" value="{{old('quantita') ? old('quantita') : $lotto->quantita}}">
     </div>
 
-    <div>
-        <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+    <div class="mt-5">
+        <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Venditore
         </p>
         <input type="text" name="venditore" placeholder="Venditore"
         value="{{old('venditore') ? old('venditore') : $lotto->venditore}}"
         >
-    </div>
-
-    <div>
-        <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Codice Articolo
-        </p>
-        <input type="text" name="codice_articolo" placeholder="Codice Articolo"
-            value="{{old('codice_articolo') ? old('codice_articolo') : $lotto->codice_articolo}}">
     </div>
 
     <button class="mt-8 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">

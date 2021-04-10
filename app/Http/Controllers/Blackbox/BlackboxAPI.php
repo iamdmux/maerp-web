@@ -89,9 +89,7 @@ class BlackboxAPI extends Controller
 
     }
 
-
-
-
+    
     public function getAllPause($lavorazione_id){
         return Lavorazione::findOrFail($lavorazione_id)->pauseLavorazione;
     }

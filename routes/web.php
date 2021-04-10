@@ -14,6 +14,7 @@ use App\Http\Controllers\Blackbox\OperatoreController;
 use App\Http\Controllers\Vendite\FatturaPdfController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Blackbox\LavorazioneController;
+use App\Http\Controllers\Blackbox\PauseTotaliController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
 
@@ -60,9 +61,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/api/blackbox/lavorazione/{id}', [BlackboxAPI::class, 'action']);
 
     // visualizza pause
-    Route::get('/blackbox/lavorazione/{lavorazione_id}/pause', [LavorazioneDelGiornoController::class, 'indexPause'])
-    ->name('pauselavorazione.index')
-    ->middleware('admin.blackbox');
+    Route::get('/blackbox/pausetotali', [PauseTotaliController::class, 'index'])->name('pause.totali.index');
+    Route::get('/blackbox/lavorazione/{lavorazione_id}/pause', [LavorazioneDelGiornoController::class, 'indexPause'])->name('pauselavorazione.giorno.index');
 
     // pause
     Route::post('/api/blackbox/lavorazione/{id}/pausa', [BlackboxAPI::class, 'pausa']);

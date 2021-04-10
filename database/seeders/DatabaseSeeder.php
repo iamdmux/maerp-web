@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
             LottoSeeder::class,
             // ClientiSeeder::class,
             CapiSeeder::class,
-            OperatoriSeeder::class
+            OperatoriSeeder::class,
+            LavorazioneSeeder::class,
+            PauseLavorazioneSeeder::class
         ]);
     }
 }

@@ -21,7 +21,7 @@
                         {{-- <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">tipologia</th> --}}
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">referente</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">partita iva</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">codice fiscale</th>
+                        {{-- <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">codice fiscale</th> --}}
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">paese</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">provincia</th>
                         {{-- <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">email</th> --}}
@@ -39,14 +39,20 @@
                             {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->tipologia}}</td> --}}
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->referente}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->partita_iva}}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->codice_fiscale}}</td>
+                            {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->codice_fiscale}}</td> --}}
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->paese}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->provincia}}</td>
                             {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->email}}</td> --}}
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->telefono}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                <a href="{{ route('clienti.show', $cliente->id) }}" class="{{col_a_link()}}">Vedi</a>
-                                <a href="{{ route('clienti.edit', $cliente->id) }}" class="ml-3 {{col_a_link()}}">Modif.</a>
+                                <div class="flex">
+                                    <a href="{{ route('clienti.show', $cliente->id) }}" title="visualizza" class="{{help_svg_link()}}">
+                                        {!!help_svg_icon_show()!!}
+                                    </a>
+                                    <a href="{{ route('clienti.edit', $cliente->id) }}" title="modifica" class="ml-3 {{help_svg_link()}}">
+                                        {!!help_svg_icon_edit()!!}
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     @empty

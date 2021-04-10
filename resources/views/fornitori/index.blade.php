@@ -39,8 +39,10 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fornitore->provincia}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fornitore->paese}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                {{-- <a href="{{ route('clienti.show', $fornitore->id) }}" class="{{col_a_link()}}">Vedi</a>
-                                <a href="{{ route('clienti.edit', $fornitore->id) }}" class="ml-3 {{col_a_link()}}">Modif.</a> --}}
+                                <div class="flex">
+                                <a href="{{ route('fornitori.show', $fornitore->id) }}" title="visualizza" class="{{help_svg_link()}}">{!!help_svg_icon_show()!!}</a>
+                                <a href="{{ route('fornitori.edit', $fornitore->id) }}" title="modifica" class="ml-3 {{help_svg_link()}}">{!!help_svg_icon_edit()!!}</a>
+                                </div>
                             </td>
                         </tr>
                     @empty

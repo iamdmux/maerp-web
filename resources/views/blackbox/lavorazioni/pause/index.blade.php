@@ -6,7 +6,7 @@
 
 <h3 class="text-gray-700 text-2xl font-bold">Pause lavorazione</h3>
 
-<div class="mt-4 inline-block px-6 py-4 bg-gray-50 border border-yellow-400 rounded">
+<div class="mt-4 inline-block px-6 py-4 bg-gray-50 border border-yellow-400 rounded-lg">
     <p class=" leading-5 text-gray-800">{{$lavorazioneData}}</p>
 </div>
 
@@ -22,7 +22,7 @@
                     $alle = date("H:i", strtotime($pausa->pivot->alle));
                 @endphp
 
-                <p class="text-sm leading-5 text-gray-500">{{$dalle}} - {{$alle}}</p>
+                <p class="text-sm leading-5 text-gray-500">{{$dalle}} - {{$alle}} <span class="font-semibold text-xs">#{{$pausa->pivot->tipo}}</span></p>
             @endforeach
 
             @if($operatoriTotalePause[$operatore])

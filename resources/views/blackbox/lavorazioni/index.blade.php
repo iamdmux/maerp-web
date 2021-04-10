@@ -36,14 +36,11 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lavorazione->data}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lavorazione->capiScelti->count()}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                <a href="{{ route('lavorazione.giorno', $lavorazione->id) }}" class="{{col_a_link()}}">apri lavorazione</a>
-                                <a class="ml-3" href="{{ route('lavorazioni.edit', $lavorazione->id) }}" class="{{col_a_link()}}">Modif.</a>
-                                <div class="relative" x-data="{ open: false }">
-                                <a x-on:click="open = true" class="ml-3">vedi pause</a>
-                                <form class="" style="display: none" x-show="open" x-on:click.away="open = false"action="{{route('pauselavorazione.index', $lavorazione->id)}}" method="GET">
-                                    @csrf
-                                    <input class="w-24" name="pass" type="password" placeholder="password"> <button>vai</button>
-                                </form>
+                                
+                                <div class="flex item-center justify-end">
+                                    <a href="{{ route('lavorazione.giorno', $lavorazione->id) }}" title="visualizza" class="{{help_svg_link()}}">{!! help_svg_icon_show() !!}</a>
+                                    <a href="{{ route('lavorazioni.edit', $lavorazione->id) }}" title="modifica" class="ml-3 {{help_svg_link()}}">{!! help_svg_icon_edit() !!}</a>
+                                    <a href="{{ route('pauselavorazione.giorno.index', $lavorazione->id) }}" class="ml-3 {{help_svg_link()}}">{!! help_svg_icon_pause() !!}</a>
                                 </div>
                             </td>
                         </tr>

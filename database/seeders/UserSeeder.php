@@ -32,49 +32,49 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'id' => 3,
             'name' => 'Anna',
-            'email' => 'agente3@example.com',
+            'email' => 'anna@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
             'id' => 4,
             'name' => 'Davide & Roberto',
-            'email' => 'agente4@example.com',
+            'email' => 'davideroberto@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
             'id' => 5,
             'name' => 'Cliente direzionale',
-            'email' => 'agente5@example.com',
+            'email' => 'direzionale@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
             'id' => 6,
             'name' => 'Bessem',
-            'email' => 'agente6@example.com',
+            'email' => 'bessem@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
             'id' => 7,
             'name' => 'Gemma',
-            'email' => 'agente7@example.com',
+            'email' => 'gemma@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
             'id' => 8,
             'name' => 'Alona',
-            'email' => 'agente8@example.com',
+            'email' => 'alona@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
             'id' => 9,
             'name' => 'Elena',
-            'email' => 'agente10@example.com',
+            'email' => 'elena@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
     }

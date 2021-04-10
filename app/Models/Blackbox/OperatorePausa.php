@@ -9,6 +9,6 @@ class OperatorePausa extends Model
 {
     use HasFactory;
 
-    protected $table = 'blackboxlavorazionecapo_operatore';
+    protected $table = 'blackboxlavorazione_operatore';
     protected $dates = ['dalle', 'alle'];
 }

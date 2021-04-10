@@ -37,7 +37,7 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fattura->articoli->count()}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fattura->importo_totale}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                <a href="{{ route('fatture.show', $fattura->id)}}" class="{{col_a_link()}}">Vedi</a>
+                                <a href="{{ route('fatture.show', $fattura->id)}}" title="visualizza" class="{{help_svg_link()}}">{!!help_svg_icon_show()!!}</a>
                             </td>
                         </tr>
                     @empty
