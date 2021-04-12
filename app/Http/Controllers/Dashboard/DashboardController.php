@@ -18,15 +18,21 @@ class DashboardController extends Controller
         $numeroClienti = Cliente::with('user')->get()->count();
         $numeroLotti = Lotto::get()->count();
         $agenti = User::with('clienti')->get();
+        $responsabileMagazzino = User::find(User::RESPONSABILE_MAGAZZINO_ID);
 
         return view('dashboard', [
             'numeroUtenti' => $numeroUtenti,
             'numeroClienti' => $numeroClienti,
             'numeroLotti' => $numeroLotti,
-            'agenti' => $agenti
+            'agenti' => $agenti,
+            'responsabileMagazzino' => $responsabileMagazzino
         ]);
     }
 
+    /* 
+        /importclienti
+        /importfornitori
+    */ 
     public function importClienti(){
         if(auth()->id() == 1){
             Excel::import(new ClientiImport, storage_path('app/import/lista_clienti.xlsx'));

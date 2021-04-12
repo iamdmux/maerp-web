@@ -23,44 +23,61 @@ class PauseTotaliController extends Controller
         $year = $data['year'] ?? date('Y');
         $month = $data['month'] ?? date('m');
 
-        $from = Carbon::createFromFormat('Y-m', "$year-$month")->startOfMonth();
-        $to = Carbon::createFromFormat('Y-m', "$year-$month")->endOfMonth();
-
-        $pause = OperatorePausa::whereBetween('dalle', [$from, $to])->get();
-
-        $totPause = [];
-        foreach ($operatoriIds as $id) {
-            foreach ($pause as $pausa) {
-                if($id == $pausa->operatore_id){
-
-                    if(!isset($totPause[$id])){
-                        $totPause[$id] = Carbon::createMidnightDate();
-                    }
-
-                    $dalle = Carbon::parse($pausa->dalle);
-                    $alle = Carbon::parse($pausa->alle);
-                    $totPause[$id]->add($dalle->diff($alle));
-                }
-            }
-        }
-        
+        // scelta option da 2021 in poi
         $yearsArray = [];
-        
         $Ystart = date('Y');
         $Yend = 2021;
-
         for ($i=$Yend; $i <= $Ystart; $i++) { 
             $yearsArray[] = $i;
         }
 
-        // dd($totPause);
+        // inizio e fine del mese
+        $from = Carbon::createFromFormat('Y-m', "$year-$month")->startOfMonth();
+        $to = Carbon::createFromFormat('Y-m', "$year-$month")->endOfMonth();
+
+        $pauseDelMese = OperatorePausa::whereBetween('dalle', [$from, $to])->get();
+        $tipiPausa = OperatorePausa::OPERATORI_TIPI_DI_PAUSA;
+        $zeroTime = Carbon::create('first day of January 0000');
+
+        $pauseArray = [];
+        foreach ($operatoriIds as $id) {
+            foreach ($pauseDelMese as $pausa) {
+                if($id == $pausa->operatore_id){
+
+                    // divido i tipi di pause
+                    foreach ($tipiPausa as $tipo) {
+                        if($pausa->tipo == $tipo){
+                            
+                            if(!isset($pauseArray[$id][$tipo])){
+                                $pauseArray[$id][$tipo] = Carbon::create('first day of January 0000');
+                            }
+
+                            $dalle = Carbon::parse($pausa->dalle);
+                            $alle = Carbon::parse($pausa->alle);
+                            
+                            $pauseArray[$id][$tipo]->add($dalle->diff($alle));
+                        }
+                    }
+
+                    // // pausa totale
+                    if(!isset($pauseArray[$pausa->operatore_id]['totale'])){
+                        $pauseArray[$pausa->operatore_id]['totale'] = Carbon::create('first day of January 0000');
+                    }
+
+                    $pauseArray[$pausa->operatore_id]['totale']->add($dalle->diff($alle));
+                }
+            }
+        }
+
+        // dd($pauseArray);
         return view('blackbox.lavorazioni.pausetotali.index', [
             'operatoriNomeIds' => $operatori,
-            'pause' => $totPause,
+            'pause' => $pauseArray,
             'year' => $year,
             'month' => $month,
             'mesiArray' => help_mesi_array(),
-            'yearsArray' => $yearsArray
+            'yearsArray' => $yearsArray,
+            'zeroTime' => $zeroTime
         ]);
     }
 }

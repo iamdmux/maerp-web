@@ -24,7 +24,7 @@
             <table class="min-w-full">
                 <thead>
                     <tr>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Data</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Numero capi</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                     </tr>
@@ -33,14 +33,14 @@
                 <tbody class="bg-white">
                     @forelse ($lavorazioni as $lavorazione)
                         <tr>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lavorazione->data}}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lavorazione->dataStrings}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lavorazione->capiScelti->count()}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                                 
                                 <div class="flex item-center justify-end">
                                     <a href="{{ route('lavorazione.giorno', $lavorazione->id) }}" title="visualizza" class="{{help_svg_link()}}">{!! help_svg_icon_show() !!}</a>
                                     <a href="{{ route('lavorazioni.edit', $lavorazione->id) }}" title="modifica" class="ml-3 {{help_svg_link()}}">{!! help_svg_icon_edit() !!}</a>
-                                    <a href="{{ route('pauselavorazione.giorno.index', $lavorazione->id) }}" class="ml-3 {{help_svg_link()}}">{!! help_svg_icon_pause() !!}</a>
+                                    <a target="_blank" href="{{ route('pauselavorazione.giorno.index', $lavorazione->id) }}" class="ml-3 {{help_svg_link()}}">{!! help_svg_icon_pause() !!}</a>
                                 </div>
                             </td>
                         </tr>

@@ -4,7 +4,7 @@
 
 <x-back-to-page-button route="{{route('lavorazioni.index')}}" />
 
-<h3 class="text-gray-700 text-2xl font-bold">Pause lavorazione</h3>
+<h3 class="text-gray-700 text-2xl font-bold">Pause lavorazione della giornata</h3>
 
 <div class="mt-4 inline-block px-6 py-4 bg-gray-50 border border-yellow-400 rounded-lg">
     <p class=" leading-5 text-gray-800">{{$lavorazioneData}}</p>

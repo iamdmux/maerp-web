@@ -11,4 +11,6 @@ class OperatorePausa extends Model
 
     protected $table = 'blackboxlavorazione_operatore';
     protected $dates = ['dalle', 'alle'];
+
+    const OPERATORI_TIPI_DI_PAUSA = ['bagno', 'pausafunzionale'];
 }

@@ -4,7 +4,7 @@
 
 <x-back-to-page-button route="{{route('lavorazioni.index')}}" />
 
-<Lavorazione-giornaliera method="create" :lavorazione="{{json_encode($lavorazione)}}" :operatori="{{json_encode($operatori)}}" />
+<Lavorazione-giornaliera method="create" :tipi-pausa="{{json_encode($tipiPausa)}}" :lavorazione="{{json_encode($lavorazione)}}" :operatori="{{json_encode($operatori)}}" />
 
 
 @endsection

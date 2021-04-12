@@ -106,6 +106,32 @@
                         </tr>
                     @endforeach
 
+                    @if($responsabileMagazzino)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <div class="flex items-center">
+                                    <div class="ml-4">
+                                        <div class="text-sm leading-5 font-medium text-gray-900">{{$responsabileMagazzino->name}}</div>
+                                        <div class="text-sm leading-5 text-gray-500">{{$responsabileMagazzino->email}}</div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">Responsabile magazzino / Blackbox</td>
+
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                {{-- <div class="text-sm leading-5 text-gray-500">{{$clientiCount}}</div> --}}
+                            </td>
+
+
+                            
+
+                            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                {{-- <a href="#" class="{{help_svg_link()}}">Modif.</a> --}}
+                            </td>
+                        </tr>
+                    @endif
+
                 </tbody>
             </table>
         </div>

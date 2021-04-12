@@ -18,6 +18,6 @@
     </div>
     @endif
 </div>
-<create-lavorazione method="create" form-url="{{route('lavorazioni.store')}}" :capi-bambino="{{json_encode($capiBambino)}}" :capi-adulto="{{json_encode($capiAdulto)}}" />
+<create-lavorazione method="create" tipi-pausa="{{$tipiPausa}}" form-url="{{route('lavorazioni.store')}}" :capi-bambino="{{json_encode($capiBambino)}}" :capi-adulto="{{json_encode($capiAdulto)}}" />
 
 @endsection

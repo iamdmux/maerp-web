@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Blackbox\Operatore;
 use App\Http\Controllers\Controller;
 use App\Models\Blackbox\Lavorazione;
+use App\Models\Blackbox\OperatorePausa;
 
 class LavorazioneDelGiornoController extends Controller
 {
@@ -16,6 +17,7 @@ class LavorazioneDelGiornoController extends Controller
         $operatori = Operatore::get();
 
         return view('blackbox.lavorazioni.lavorazione_del_giorno', [
+            'tipiPausa' => OperatorePausa::OPERATORI_TIPI_DI_PAUSA,
             'lavorazione' => $lavorazione,
             'operatori' => $operatori,
         ]);

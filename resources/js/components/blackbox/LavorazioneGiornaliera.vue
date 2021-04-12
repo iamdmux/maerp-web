@@ -20,8 +20,7 @@
 
                             <div>
                                 <select :disabled="operatoreInPausa(operatore.id)" v-model="tipo_pausa[operatore.id]" class="text-xs w-22 p-0">
-                                    <option value="bagno">bagno</option>
-                                    <option value="pausafunzionale">pausa funz.</option>
+                                    <option v-for="(pausa, i) in tipiPausa" :key="i" :value="pausa">{{pausa == 'pausafunzionale' ? 'pausa fun.' : pausa}}</option>
                                 </select>
                                 <div class="mt-1 flex flex-wrap justify-around">
                                     <button class="px-1 border border-1 rounded-sm" v-if="!operatoreInPausa(operatore.id)" @click="iniziaFinisciPausa(lavorazione.id, operatore.id, tipo_pausa[operatore.id], 'start')">inizia</button>
@@ -78,6 +77,9 @@ import { ref } from '@vue/reactivity'
 import { computed, onMounted } from '@vue/runtime-core'
 export default {
     props:{
+        tipiPausa:{
+            required: true
+        },
         lavorazione:{
             required: false
         },
@@ -94,6 +96,7 @@ export default {
         const pauseFromApi = ref([])
         const tipo_pausa = ref([])
         const showTotPause = ref([])
+        const tipiPausa = ref(props.tipiPausa)
         // const showNumeroPause = ref(false)
 
         // setting default per select pause
@@ -196,7 +199,7 @@ export default {
         }
 
 
-        return {lavorazione, operatori, gestisciLavorazioneCapo, tipo_pausa, iniziaFinisciPausa, pauseFromApi, operatoreInPausa, showTotPause, numeroDiPause}
+        return {lavorazione, operatori, tipiPausa, gestisciLavorazioneCapo, tipo_pausa, iniziaFinisciPausa, pauseFromApi, operatoreInPausa, showTotPause, numeroDiPause}
     }
 }
 </script>

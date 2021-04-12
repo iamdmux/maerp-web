@@ -77,5 +77,12 @@ class UserSeeder extends Seeder
             'email' => 'elena@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
+
+        DB::table('users')->insert([
+            'id' => 10,
+            'name' => 'Lorenzo',
+            'email' => 'lorenzo@maerp.app',
+            'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
+        ]);
     }
 }

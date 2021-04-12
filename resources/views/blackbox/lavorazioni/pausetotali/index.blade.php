@@ -6,8 +6,10 @@
 
 
 <div>
+    <h3 class="text-gray-700 text-3xl font-bold">Pause mensili di {{$mesiArray[$month] ?? $month}} {{$year}}</h3>
+
     <form action="{{route('pause.totali.index')}}" method="GET">
-    <p class="text-xs leading-4 font-medium text-gray-500 ">Visualizza per mese e anno</p>
+    <p class="text-xs leading-4 font-medium text-gray-500 pb-1 pt-3">Visualizza per mese e anno</p>
     <select name="month">
         @foreach ($mesiArray as $num => $text)
             <option {{request()->get('month') == $num ? 'selected' : ''}} value="{{$num}}">{{$text}}</option>
@@ -23,9 +25,9 @@
     </form>
 </div>
 
-<div class="mt-4 inline-block px-6 py-4 bg-gray-50 border border-yellow-400 rounded-lg">
+{{-- <div class="mt-4 inline-block px-6 py-4 bg-gray-50 border border-yellow-400 rounded-lg">
     <p class=" leading-5 text-gray-800">pause di {{$mesiArray[$month] ?? $month}} {{$year}}</p>
-</div>
+</div> --}}
 
 <div class="mt-6">
     @foreach ($operatoriNomeIds as $operatore)
@@ -35,7 +37,35 @@
         <p class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{$operatore->nome}}</p>
         <div class="bg-white">
             <div class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                {{$pausa->toTimeString()}}
+            {{-- @foreach ($pausa as $key => $p)
+                @if($key !== 'totale')
+                    <p>{{$p->toTimeString()}} <span>#{{$key}}</span></p>
+                @endif
+            @endforeach --}}
+                @isset($pausa['bagno'])
+                <div class="flex items-baseline">
+                    <p class="text-gray-700 font-sm font-semibold text-right" style="min-width: 155px;">
+                        {{$pausa['bagno']->diffInDays($zeroTime) ? $pausa['bagno']->diffInDays($zeroTime) . ' giorni,' : ''}} 
+                        {{$pausa['bagno']->hour ? $pausa['bagno']->hour . ' ore,' : ''}} {{$pausa['bagno']->minute}} minuti
+                    </p>
+                    <p class="ml-4 text-sm font-semibold text-gray-500 text-right" style="min-width: 85px;"><i>bagno</i></p>
+                </div>
+                @endisset
+                @isset($pausa['pausafunzionale'])
+                <div class="flex items-baseline">
+                    <p class="text-gray-700 font-sm font-semibold text-right" style="min-width: 155px;">
+                        {{$pausa['pausafunzionale']->diffInDays($zeroTime) ? $pausa['pausafunzionale']->diffInDays($zeroTime). ' giorni,' : ''}} 
+                        {{$pausa['pausafunzionale']->hour ? $pausa['pausafunzionale']->hour . ' ore,' : ''}}  {{$pausa['pausafunzionale']->minute}} minuti
+                        
+                    </p>
+                    <p class="ml-4 text-sm font-semibold text-gray-500 text-right" style="min-width: 85px;"><i>pausa funz.</i></p>
+                </div>
+                @endisset
+                <hr class="mt-3 mb-2">
+                <p class="font-bold text-right">
+                    {{$pausa['totale']->diffInDays($zeroTime) ? $pausa['totale']->diffInDays($zeroTime) . ' giorni, ' : ''}}
+                    {{$pausa['totale']->hour ? $pausa['totale']->hour .' ore, ' : ''}}{{$pausa['totale']->minute}} minuti
+                </p>
             </div>
         </div>
     </div>
@@ -46,34 +76,5 @@
 
     
 </div>
-{{-- <h3 class="text-gray-700 text-2xl font-bold">Pause lavorazione</h3>
 
-
-
-<div class="mt-6">
-@forelse ($operatoriPause as $operatore => $pause)    
-<div class="mr-6 mb-6 align-top inline-block shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-    <p class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">{{$operatore}}</p>
-    <div class="bg-white">
-        <div class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            @foreach($pause as $pausa)
-                @php
-                    $dalle = date("H:i", strtotime($pausa->pivot->dalle));
-                    $alle = date("H:i", strtotime($pausa->pivot->alle));
-                @endphp
-
-                <p class="text-sm leading-5 text-gray-500">{{$dalle}} - {{$alle}} <span class="font-semibold text-xs">#{{$pausa->pivot->tipo}}</span></p>
-            @endforeach
-
-            @if($operatoriTotalePause[$operatore])
-                <p class="font-semibold text-gray-500 border-t mt-4">{{  date("H:i", strtotime($operatoriTotalePause[$operatore]['totPausa'])) }}</p>
-            @endif
-        </div>
-    </div>
-</div>
-@empty
-<p>nessuna pausa fatta</p>
-@endforelse --}}
-
-</div>
 @endsection

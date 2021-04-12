@@ -10,7 +10,7 @@ use App\Models\Blackbox\Lavorazione;
 class LavorazioneController extends Controller
 {
     public function index(){
-        $lavorazioni = Lavorazione::with('capiScelti')->paginate(40);
+        $lavorazioni = Lavorazione::with('capiScelti')->orderBy('data', 'desc')->paginate(40);
         return view('blackbox.lavorazioni.index', [
             'lavorazioni' => $lavorazioni
         ]);

@@ -56,7 +56,7 @@
                             </td>
                         </tr>
                     @empty
-                        <p>Nessuna cliente trovato</p>
+                        <p>Nessun cliente trovato</p>
                     @endforelse
                 </tbody>
             </table>

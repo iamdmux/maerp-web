@@ -12,6 +12,7 @@ class Lavorazione extends Model
     use HasFactory;
     protected $table = 'blackbox_lavorazioni';
     protected $guarded = [];
+    protected $dates = ['data'];
 
     
 
@@ -59,8 +60,8 @@ class Lavorazione extends Model
         return Carbon::parse($date)->format('d-m-Y');
     }
 
-    public function getDataStringsAttribute($date){
-        return Carbon::parse($date)->isoFormat('dddd d MMMM Y');
+    public function getDataStringsAttribute(){
+        return Carbon::parse($this->data)->isoFormat('dddd d MMMM Y');
     }
 
     public function pauseLavorazione(){
