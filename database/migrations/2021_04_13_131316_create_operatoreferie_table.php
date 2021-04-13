@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlackboxlavorazioneOperatore extends Migration
+class CreateOperatoreferieTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateBlackboxlavorazioneOperatore extends Migration
      */
     public function up()
     {
-        //pause
-        Schema::create('blackboxlavorazione_operatore', function (Blueprint $table) {
+        Schema::create('blackbox_operatoreferie', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('lavorazione_id')->index();
             $table->unsignedBigInteger('operatore_id')->index();
-            $table->timestamp('dalle');
-            $table->timestamp('alle')->index()->nullable();
-            $table->string('tipo');
+            $table->timestamp('dal');
+            $table->timestamp('al');
+            $table->text('note')->nullable();
 
-            $table->foreign('lavorazione_id')->references('id')->on('blackbox_operatori')->onDelete('cascade');
             $table->foreign('operatore_id')->references('id')->on('blackbox_operatori')->onDelete('cascade');
         });
     }
@@ -34,6 +31,6 @@ class CreateBlackboxlavorazioneOperatore extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blackboxlavorazione_operatore');
+        Schema::dropIfExists('blackbox_operatoreferie');
     }
 }

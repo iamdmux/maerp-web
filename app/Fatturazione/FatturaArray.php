@@ -1,6 +1,7 @@
 <?php
 namespace App\Fatturazione;
 
+
 class FatturaArray{
 
     // in questo array non trovo:

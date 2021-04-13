@@ -61,7 +61,7 @@ class Lavorazione extends Model
     }
 
     public function getDataStringsAttribute(){
-        return Carbon::parse($this->data)->isoFormat('dddd d MMMM Y');
+        return Carbon::parse($this->data)->isoFormat('dddd D MMMM Y');
     }
 
     public function pauseLavorazione(){

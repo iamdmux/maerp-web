@@ -37,6 +37,8 @@ class PauseTotaliController extends Controller
 
         $pauseDelMese = OperatorePausa::whereBetween('dalle', [$from, $to])->get();
         $tipiPausa = OperatorePausa::OPERATORI_TIPI_DI_PAUSA;
+
+        // LASCIARE LE ALTRE 'DATE ZERO' DI CARBON come sono ora
         $zeroTime = Carbon::create('first day of January 0000');
 
         $pauseArray = [];
@@ -49,7 +51,7 @@ class PauseTotaliController extends Controller
                         if($pausa->tipo == $tipo){
                             
                             if(!isset($pauseArray[$id][$tipo])){
-                                $pauseArray[$id][$tipo] = Carbon::create('first day of January 0000');
+                                $pauseArray[$id][$tipo] = Carbon::create('first day of January 0000'); // non toccare
                             }
 
                             $dalle = Carbon::parse($pausa->dalle);
@@ -61,7 +63,7 @@ class PauseTotaliController extends Controller
 
                     // // pausa totale
                     if(!isset($pauseArray[$pausa->operatore_id]['totale'])){
-                        $pauseArray[$pausa->operatore_id]['totale'] = Carbon::create('first day of January 0000');
+                        $pauseArray[$pausa->operatore_id]['totale'] = Carbon::create('first day of January 0000'); // non toccare
                     }
 
                     $pauseArray[$pausa->operatore_id]['totale']->add($dalle->diff($alle));

@@ -17,14 +17,14 @@ class DashboardController extends Controller
         $numeroUtenti = User::get()->count();
         $numeroClienti = Cliente::with('user')->get()->count();
         $numeroLotti = Lotto::get()->count();
-        $agenti = User::with('clienti')->get();
+        $users = User::with('clienti')->get();
         $responsabileMagazzino = User::find(User::RESPONSABILE_MAGAZZINO_ID);
 
         return view('dashboard', [
             'numeroUtenti' => $numeroUtenti,
             'numeroClienti' => $numeroClienti,
             'numeroLotti' => $numeroLotti,
-            'agenti' => $agenti,
+            'users' => $users,
             'responsabileMagazzino' => $responsabileMagazzino
         ]);
     }

@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             CapiSeeder::class,
             OperatoriSeeder::class,
             LavorazioneSeeder::class,
-            PauseLavorazioneSeeder::class
+            PauseLavorazioneSeeder::class,
+            FerieSeeder::class
         ]);
     }
 }

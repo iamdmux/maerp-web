@@ -5,6 +5,7 @@ use App\Http\Controllers\Vendite\FatturaAPI;
 use App\Models\Blackbox\BlackboxJsonResponse;
 use App\Http\Controllers\Blackbox\BlackboxAPI;
 use App\Http\Controllers\Blackbox\CapoController;
+use App\Http\Controllers\Blackbox\FerieController;
 use App\Http\Controllers\Magazzino\LottoController;
 use App\Http\Controllers\Magazzino\MarcaController;
 use App\Http\Controllers\Vendite\ClienteController;
@@ -64,9 +65,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/blackbox/pausetotali', [PauseTotaliController::class, 'index'])->name('pause.totali.index');
     Route::get('/blackbox/lavorazione/{lavorazione_id}/pause', [LavorazioneDelGiornoController::class, 'indexPause'])->name('pauselavorazione.giorno.index');
 
+    // ferie
+    Route::resource('/blackbox/ferie', FerieController::class);
+
     // pause
     Route::post('/api/blackbox/lavorazione/{id}/pausa', [BlackboxAPI::class, 'pausa']);
     Route::get('/api/blackbox/lavorazione/{id}/pause', [BlackboxAPI::class, 'getAllPause']);
+
+
 
 });
 

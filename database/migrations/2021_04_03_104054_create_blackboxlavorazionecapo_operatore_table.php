@@ -16,8 +16,8 @@ class CreateBlackboxlavorazionecapoOperatoreTable extends Migration
         // counter lavorazioni
         Schema::create('blackboxlavorazionecapo_operatore', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('operatore_id')->index()->nullable();
-            $table->unsignedBigInteger('lavorazionecapo_id')->index()->nullable();
+            $table->unsignedBigInteger('operatore_id')->index();
+            $table->unsignedBigInteger('lavorazionecapo_id')->index();
             $table->integer('counter')->unsigned()->default(0);
             
             $table->foreign('operatore_id')->references('id')->on('blackbox_operatori')->onDelete('cascade');

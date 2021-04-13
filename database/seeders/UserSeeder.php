@@ -31,55 +31,62 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 3,
+            'name' => 'Direzione',
+            'email' => 'direzione@maerp.app',
+            'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 4,
             'name' => 'Anna',
             'email' => 'anna@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
-            'id' => 4,
+            'id' => 5,
             'name' => 'Davide & Roberto',
             'email' => 'davideroberto@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
-            'id' => 5,
+            'id' => 6,
             'name' => 'Cliente direzionale',
             'email' => 'direzionale@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
-            'id' => 6,
+            'id' => 7,
             'name' => 'Bessem',
             'email' => 'bessem@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
-            'id' => 7,
+            'id' => 8,
             'name' => 'Gemma',
             'email' => 'gemma@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
-            'id' => 8,
+            'id' => 9,
             'name' => 'Alona',
             'email' => 'alona@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
-            'id' => 9,
+            'id' => 10,
             'name' => 'Elena',
             'email' => 'elena@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
 
         DB::table('users')->insert([
-            'id' => 10,
+            'id' => 11,
             'name' => 'Lorenzo',
             'email' => 'lorenzo@maerp.app',
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',

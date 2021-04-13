@@ -74,10 +74,10 @@
                 </thead>
 
                 <tbody class="bg-white">
-                    @foreach ($agenti as $agente)
+                    @foreach ($users as $user)
                     @php
-                        $clientiCount = $agente->clienti->count();
-                        if(!$clientiCount){
+                        $clientiCount = $user->clienti->count();
+                        if($user->id == 1 || $user->id == 2){
                             continue;
                         }
                     @endphp
@@ -85,8 +85,8 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="flex items-center">
                                     <div class="ml-4">
-                                        <div class="text-sm leading-5 font-medium text-gray-900">{{$agente->name}}</div>
-                                        <div class="text-sm leading-5 text-gray-500">{{$agente->email}}</div>
+                                        <div class="text-sm leading-5 font-medium text-gray-900">{{$user->name}}</div>
+                                        <div class="text-sm leading-5 text-gray-500">{{$user->email}}</div>
                                     </div>
                                 </div>
                             </td>
@@ -94,7 +94,7 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">Agente</td>
 
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-sm leading-5 text-gray-500">{{$clientiCount}}</div>
+                                <div class="text-sm leading-5 text-gray-500">{{$clientiCount ?? 0}}</div>
                             </td>
 
 

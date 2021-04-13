@@ -42,27 +42,29 @@
                     <p>{{$p->toTimeString()}} <span>#{{$key}}</span></p>
                 @endif
             @endforeach --}}
-                @isset($pausa['bagno'])
-                <div class="flex items-baseline">
-                    <p class="text-gray-700 font-sm font-semibold text-right" style="min-width: 155px;">
-                        {{$pausa['bagno']->diffInDays($zeroTime) ? $pausa['bagno']->diffInDays($zeroTime) . ' giorni,' : ''}} 
-                        {{$pausa['bagno']->hour ? $pausa['bagno']->hour . ' ore,' : ''}} {{$pausa['bagno']->minute}} minuti
-                    </p>
-                    <p class="ml-4 text-sm font-semibold text-gray-500 text-right" style="min-width: 85px;"><i>bagno</i></p>
+                <div style="min-height:50px;">
+                    @isset($pausa['bagno'])
+                    <div class="flex items-baseline">
+                        <p class="text-gray-700 font-sm font-semibold " style="min-width: 155px;">
+                            {{$pausa['bagno']->diffInDays($zeroTime) ? $pausa['bagno']->diffInDays($zeroTime) . ' giorni,' : ''}} 
+                            {{$pausa['bagno']->hour ? $pausa['bagno']->hour . ' ore,' : ''}} {{$pausa['bagno']->minute}} minuti
+                        </p>
+                        <p class="ml-4 text-sm font-semibold text-gray-500 " style="min-width: 85px;"><i>bagno</i></p>
+                    </div>
+                    @endisset
+                    @isset($pausa['pausafunzionale'])
+                    <div class="flex items-baseline">
+                        <p class="text-gray-700 font-sm font-semibold " style="min-width: 155px;">
+                            {{$pausa['pausafunzionale']->diffInDays($zeroTime) ? $pausa['pausafunzionale']->diffInDays($zeroTime). ' giorni,' : ''}} 
+                            {{$pausa['pausafunzionale']->hour ? $pausa['pausafunzionale']->hour . ' ore,' : ''}}  {{$pausa['pausafunzionale']->minute}} minuti
+                            
+                        </p>
+                        <p class="ml-4 text-sm font-semibold text-gray-500 " style="min-width: 85px;"><i>pausa funz.</i></p>
+                    </div>
+                    @endisset
                 </div>
-                @endisset
-                @isset($pausa['pausafunzionale'])
-                <div class="flex items-baseline">
-                    <p class="text-gray-700 font-sm font-semibold text-right" style="min-width: 155px;">
-                        {{$pausa['pausafunzionale']->diffInDays($zeroTime) ? $pausa['pausafunzionale']->diffInDays($zeroTime). ' giorni,' : ''}} 
-                        {{$pausa['pausafunzionale']->hour ? $pausa['pausafunzionale']->hour . ' ore,' : ''}}  {{$pausa['pausafunzionale']->minute}} minuti
-                        
-                    </p>
-                    <p class="ml-4 text-sm font-semibold text-gray-500 text-right" style="min-width: 85px;"><i>pausa funz.</i></p>
-                </div>
-                @endisset
                 <hr class="mt-3 mb-2">
-                <p class="font-bold text-right">
+                <p class="font-bold ">
                     {{$pausa['totale']->diffInDays($zeroTime) ? $pausa['totale']->diffInDays($zeroTime) . ' giorni, ' : ''}}
                     {{$pausa['totale']->hour ? $pausa['totale']->hour .' ore, ' : ''}}{{$pausa['totale']->minute}} minuti
                 </p>
