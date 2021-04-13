@@ -16,8 +16,8 @@ class CreateOperatoreferieTable extends Migration
         Schema::create('blackbox_operatoreferie', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('operatore_id')->index();
-            $table->timestamp('dal');
-            $table->timestamp('al');
+            $table->timestamp('dal')->nullable(); // nullable => fix error
+            $table->timestamp('al')->nullable();// fnullable => fix error
             $table->text('note')->nullable();
 
             $table->foreign('operatore_id')->references('id')->on('blackbox_operatori')->onDelete('cascade');
