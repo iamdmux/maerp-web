@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Vendite\Cliente;
+use App\Models\Vendite\Fattura;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -28,9 +29,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    const RESPONSABILE_MAGAZZINO_ID = 10;
+    const RESPONSABILE_MAGAZZINO_ID = 11;
 
     public function clienti(){
         return $this->hasMany(Cliente::class);
+    }
+    
+    public function fatture(){
+        return $this->hasMany(Fattura::class);
     }
 }

@@ -19,6 +19,14 @@
     @endif
 </div>
 @method('update')
-<create-lavorazione method="edit" form-url="{{route('lavorazioni.update', $lavorazione->id )}}" :lavorazione="{{json_encode($lavorazione)}}" :capi-bambino="{{json_encode($capiBambino)}}" :capi-adulto="{{json_encode($capiAdulto)}}" />
+<create-lavorazione method="edit" data="{{$lavorazione->data}}" form-url="{{route('lavorazioni.update', $lavorazione->id )}}" :lavorazione="{{$lavorazione->toJson()}}" :capi-bambino="{{json_encode($capiBambino)}}" :capi-adulto="{{$capiAdulto->toJson()}}"></create-lavorazione>
+
+<form class="mt-12" action="{{route('lavorazioni.destroy', [$lavorazione->id])}}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button onclick="return confirm('Sei sicuro di cancellare questa lavorazione?')">
+        elimina
+    </button>
+</form>
 
 @endsection

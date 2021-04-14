@@ -17,7 +17,7 @@ class CreateOperatoreferieTable extends Migration
             $table->id();
             $table->unsignedBigInteger('operatore_id')->index();
             $table->timestamp('dal')->nullable(); // nullable => fix error
-            $table->timestamp('al')->nullable();// fnullable => fix error
+            $table->timestamp('al')->nullable(); // fnullable => fix error
             $table->text('note')->nullable();
 
             $table->foreign('operatore_id')->references('id')->on('blackbox_operatori')->onDelete('cascade');

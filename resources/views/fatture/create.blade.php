@@ -19,7 +19,7 @@
 <h3 class="text-gray-700 text-2xl font-semibold mb-6">Crea nuova fattura / doc</h3>
 
 
-<create-fattura method="create" pdf-url="{{route('fatturapdf.postView')}}" form-url="{{route('fatture.store')}}" :old="{{ json_encode(session()->getOldInput()) }}">
+<create-fattura method="create" :can-creare-fatture="{{$canCreareFatture ? 'true' : 'false'}}" pdf-url="{{route('fatturapdf.postView')}}" form-url="{{route('fatture.store')}}" :old="{{ json_encode(session()->getOldInput()) }}">
 </create-fattura>
 
 

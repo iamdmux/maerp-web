@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class LottoController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['permission:visualizzare-lotti'])->only('index');
+        $this->middleware(['permission:modificare-lotti'])->except('index');
+    }
+
     public function index(){
         $lotti = Lotto::with('marca')->get();
 

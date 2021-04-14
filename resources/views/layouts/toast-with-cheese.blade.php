@@ -1,9 +1,9 @@
 @if ($message = session()->get('success'))
-<div id="toastwithcheese" class="py-6 text-center text-white rounded-md bg-blue-400">
-    <p>
-        <a type="button" onclick="closeToast(event)" class="close" data-dismiss="alert">×</a>
-        {{ $message }}
-    </p>
+<div id="toastwithcheese" class="text-center text-white rounded-md bg-gray-800">
+  <p class="px-6 py-3">
+      <a class="close mr-3 hidden" type="button" onclick="closeToast(event)" data-dismiss="alert">×</a>
+      {{ $message }}
+  </p>
 </div>
 @endif
 

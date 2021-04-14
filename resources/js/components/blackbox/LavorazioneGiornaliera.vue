@@ -7,9 +7,7 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Lavorazione {{lavorazione.data}}
-                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                         <th v-for="operatore in operatori" :key="operatore.id" scope="col" :class="{'bg-yellow-500' : operatoreInPausa(operatore.id)}" class="px-3 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider">
                            <p class="cursor-pointer mb-2" @click="showTotPause[operatore.id] = !showTotPause[operatore.id]">{{operatore.nome}}</p>
                            
@@ -19,7 +17,7 @@
                             </div>
 
                             <div>
-                                <select :disabled="operatoreInPausa(operatore.id)" v-model="tipo_pausa[operatore.id]" class="text-xs w-22 p-0">
+                                <select :disabled="operatoreInPausa(operatore.id)" v-model="tipo_pausa[operatore.id]" class="text-xs w-22 h-6 p-0 mb-0.5">
                                     <option v-for="(pausa, i) in tipiPausa" :key="i" :value="pausa">{{pausa == 'pausafunzionale' ? 'pausa fun.' : pausa}}</option>
                                 </select>
                                 <div class="mt-1 flex flex-wrap justify-around">

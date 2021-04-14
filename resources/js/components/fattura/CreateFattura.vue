@@ -9,15 +9,15 @@
   <label class="p-3 mr-2 bg-gray-100 rounded">ordine
     <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="ordine">
   </label>
-  <label class="p-3 mr-2 bg-gray-100 rounded">proforma
+  <label v-if="canCreareFatture" class="p-3 mr-2 bg-gray-100 rounded">proforma
     <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="proforma">
   </label>
-  <label class="p-3 mr-2 bg-gray-100 rounded">fattura
+  <label v-if="canCreareFatture" class="p-3 mr-2 bg-gray-100 rounded">fattura
     <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
   </label>
 </div>
 
-<div class="my-5">
+<div v-if="canCreareFatture" class="my-5">
   <label class="p-3 bg-gray-100 rounded">fattura elettronica
     <input :disabled="method == 'show'" v-model="fattura_elettronica" type="checkbox" value="true" name="fattura_elettronica">
   </label>
@@ -450,6 +450,9 @@ export default {
       type: String,
       required: true
     },
+    canCreareFatture:{
+      required: true
+    },
     pdfUrl: {
       type: String,
       required: true
@@ -473,6 +476,7 @@ export default {
     const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     const route = ref(props.route)
     const old = ref((props.old))
+    const canCreareFatture = ref((props.canCreareFatture))
 
     const tipo_documento = ref(old.value.tab_show_cliente ? old.value.tab_show_cliente : 'preventivo')
 
@@ -659,7 +663,7 @@ export default {
       //form
       form, submitForm, formAction, tipo_documento,
       // basics_and_switch
-      method, route, csrf, tab_show_cliente, tab_show_fattura_elettronica, tab_show_dati_documento, tab_show_contributi_ritenute, tab_show_opzioni_avanzate, tab_show_personalizzazione, tab_show_note_doc,
+      method, canCreareFatture, route, csrf, tab_show_cliente, tab_show_fattura_elettronica, tab_show_dati_documento, tab_show_contributi_ritenute, tab_show_opzioni_avanzate, tab_show_personalizzazione, tab_show_note_doc,
       // methods/computed
       searchCliente, confermaCliente,
       // otherObjects

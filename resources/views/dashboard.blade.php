@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+{{-- {{ auth()->user()->syncRoles(['admin']) }} --}}
 
 <h3 class="text-gray-700 text-3xl font-medium">Dashboard</h3>
-
 <div class="mt-4">
 <div class="flex flex-wrap -mx-6">
     <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
@@ -91,47 +91,17 @@
                                 </div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">Agente</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$user->getRoleNames()[0]}}</td>
 
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="text-sm leading-5 text-gray-500">{{$clientiCount ?? 0}}</div>
                             </td>
-
-
                             
-
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                                 {{-- <a href="#" class="{{help_svg_link()}}">Modif.</a> --}}
                             </td>
                         </tr>
                     @endforeach
-
-                    @if($responsabileMagazzino)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <div class="flex items-center">
-                                    <div class="ml-4">
-                                        <div class="text-sm leading-5 font-medium text-gray-900">{{$responsabileMagazzino->name}}</div>
-                                        <div class="text-sm leading-5 text-gray-500">{{$responsabileMagazzino->email}}</div>
-                                    </div>
-                                </div>
-                            </td>
-
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">Responsabile magazzino / Blackbox</td>
-
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                {{-- <div class="text-sm leading-5 text-gray-500">{{$clientiCount}}</div> --}}
-                            </td>
-
-
-                            
-
-                            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                {{-- <a href="#" class="{{help_svg_link()}}">Modif.</a> --}}
-                            </td>
-                        </tr>
-                    @endif
-
                 </tbody>
             </table>
         </div>

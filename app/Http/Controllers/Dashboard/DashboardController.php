@@ -14,18 +14,27 @@ use Maatwebsite\Excel\Facades\Excel;
 class DashboardController extends Controller
 {
     public function view(){
-        $numeroUtenti = User::get()->count();
-        $numeroClienti = Cliente::with('user')->get()->count();
+        $role = auth()->user()->getRoleNames()[0];
+
+        if($role == 'agente'){
+            $numeroClienti = $clienti = auth()->user()->clienti()->count();
+        } else {
+            $numeroClienti = Cliente::with('user')->get()->count();
+        }
+        
+        $numeroUtenti = (User::get()->count()-2);
+        
         $numeroLotti = Lotto::get()->count();
+
         $users = User::with('clienti')->get();
-        $responsabileMagazzino = User::find(User::RESPONSABILE_MAGAZZINO_ID);
+        
 
         return view('dashboard', [
             'numeroUtenti' => $numeroUtenti,
             'numeroClienti' => $numeroClienti,
             'numeroLotti' => $numeroLotti,
             'users' => $users,
-            'responsabileMagazzino' => $responsabileMagazzino
+            'role' => $role
         ]);
     }
 

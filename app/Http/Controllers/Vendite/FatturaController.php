@@ -13,36 +13,60 @@ use App\Http\Requests\FatturaPostRequest;
 class FatturaController extends Controller
 {
     public function index(){
-        $fatture = Fattura::with('cliente', 'articoli')->paginate(50);
+        // filter by roles
+        $u = auth()->user();
+
+        if ($u->getRoleNames()[0] == 'agente'){
+            $fatture = $u->fatture()->with('cliente', 'articoli')->paginate(50);
+        } else {
+            $fatture = Fattura::with('cliente', 'articoli')->paginate(50);
+        }
+                
         return view('fatture.index', [
             'fatture' => $fatture
         ]);
     }
 
     public function create(){
-        return view('fatture.create');
+        $canCreareFatture = auth()->user()->can('creare-fatture');
+        return view('fatture.create', [
+            'canCreareFatture' => $canCreareFatture
+        ]);
     }
 
     public function store(FatturaPostRequest $request, Acube $acube){
 
-        // Acube
-        $invoicePostUiid = null;
+        $u = auth()->user();
 
-        if($request->fattura_elettronica){
-            // setto true per DB
-            $request['fattura_elettronica'] = 1;
+        if ($u->getRoleNames()[0] != 'agente'){
 
-            if($acube){
-                // MEGLIO TRY CATCH
-                if( $acube->creaFatturaElettronica($request) ){
-                    $invoicePostUiid = $acube->invoicePostUiid;
-                } else {
-                    return back()->withErrors(['error' => ['Errore nella creazione della fattura elettronica']]);
-                };
+            // Acube
+            $invoicePostUiid = null;
+
+            if($request->fattura_elettronica){
+                // setto true per DB
+                $request['fattura_elettronica'] = 1;
+
+                if($acube){
+                    // MEGLIO TRY CATCH
+                    if( $acube->creaFatturaElettronica($request) ){
+                        $invoicePostUiid = $acube->invoicePostUiid;
+                    } else {
+                        return back()->withErrors(['error' => ['Errore nella creazione della fattura elettronica']]);
+                    };
+                }
             }
         }
 
-        $cliente = Cliente::findOrFail($request->cliente_id);
+        // filter by roles
+        if ($u->getRoleNames()[0] == 'agente'){
+            $cliente = $u->clienti()->findOrFail($clienteId);
+        } else {
+            $cliente = Cliente::findOrFail($request->cliente_id);
+        }
+
+
+        
         $fatturazione = new Fatturazione($request);
         $fatturazione->handle();
 
@@ -65,7 +89,17 @@ class FatturaController extends Controller
     }
 
     public function show($id){
-        $fattura = Fattura::with('articoli', 'cliente')->findOrFail($id);
+
+        // filter by roles
+        $u = auth()->user();
+
+        if ($u->getRoleNames()[0] == 'agente'){
+            $fattura = $u->fatture()->with('cliente', 'articoli')->findOrFail($id);
+        } else {
+            $fattura = Fattura::with('articoli', 'cliente')->findOrFail($id);
+        }
+
+        
         return view('fatture.show', [
             'fattura' => $fattura
         ]);

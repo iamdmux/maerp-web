@@ -26,7 +26,7 @@
             @endforeach
 
             @if($operatoriTotalePause[$operatore])
-                <p class="font-semibold text-gray-500 border-t mt-4">{{  date("H:i", strtotime($operatoriTotalePause[$operatore]['totPausa'])) }}</p>
+                <p class="font-semibold text-gray-500 border-t mt-4">{{  date("H:i:s", strtotime($operatoriTotalePause[$operatore]['totPausa'])) }}</p>
             @endif
         </div>
     </div>

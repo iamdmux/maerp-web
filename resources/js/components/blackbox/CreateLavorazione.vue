@@ -34,8 +34,8 @@
         
         <div class="mt-4">
             <button class="px-6 py-3 bg-blue-500 rounded-md text-white font-medium hover:bg-blue-400">
-               <p v-if="method == 'create'">crea nuova lavorazione</p>
-               <p v-if="method == 'edit'">Modifica lavorazione</p>
+               <p :disabled="disableButton" v-if="method == 'create'">crea nuova lavorazione</p>
+               <p :disabled="disableButton" v-if="method == 'edit'">Modifica lavorazione</p>
             </button>
         </div>
     </form>
@@ -61,6 +61,9 @@ export default {
         },
         lavorazione:{
             required: false
+        },
+        data:{
+            required: false
         }
     },
     setup(props){
@@ -75,6 +78,7 @@ export default {
         const data = ref(dateToday)
         const select = ref(null) // ref select
         const capoSelected = ref([])
+        
         // edit
         const lavorazione = ref(props.lavorazione)
 
@@ -111,8 +115,16 @@ export default {
         
         if(method.value == 'edit'){
             lavorazione.value.capi_scelti.map( capo => capoSelected.value.push(capo))
+
+            //data
+            let editdata = props.data.split('-')
+            data.value = new Date(`${editdata[2]}-${editdata[1]}-${editdata[0]}`).toISOString().split("T")[0]
         }
-        return { csrf, formUrl, data, capiBambino, capiAdulto, addCapo, select, capoSelected, removeCapo }
+
+        const disableButton = () => {
+            return capoSelected.value.length == 0
+        }
+        return { csrf, formUrl, data, capiBambino, capiAdulto, addCapo, select, capoSelected, removeCapo, disableButton }
     }
 }
 </script>

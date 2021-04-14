@@ -4,9 +4,11 @@
 
 <h3 class="text-gray-700 text-3xl font-bold">Lotti</h3>
 
+@can('modificare-lotti')
 <div class="mt-10">
     <a href="{{route('lotti.create')}}" class="px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">Crea nuovo lotto</a>
 </div>
+@endcan
 
 <div class="flex flex-col mt-8">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -43,7 +45,9 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->kg}}</td>
 
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                @can('modificare-lotti')
                                 <a href="{{route('lotti.edit', $lotto->id)}}" class="{{help_svg_link()}}">{!!help_svg_icon_edit()!!}</a>
+                                @endcan
                             </td>
                         </tr>
                     @empty

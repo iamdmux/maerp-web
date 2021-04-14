@@ -52,7 +52,7 @@ class Lavorazione extends Model
     ----------------------------*/
 
     public function capiScelti(){
-        return $this->belongsToMany(Capo::class, 'blackboxlavorazione_capo')->withPivot('id');
+        return $this->belongsToMany(Capo::class, 'blackboxlavorazione_capo', 'lavorazione_id', 'capo_id')->withPivot('id');
     }
 
 

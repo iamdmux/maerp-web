@@ -40,7 +40,8 @@ class LavorazioneController extends Controller
     }
 
     public function edit($id){
-        $lavorazione = Lavorazione::findOrFail($id)->with('capiScelti')->first();
+        
+        $lavorazione = Lavorazione::with('capiScelti')->findOrFail($id);
         $capiAdulto = Capo::where('tipo', 'adulto')->get(['id', 'nome', 'tipo']);
         $capiBambino =  Capo::where('tipo', 'bambino')->get(['id', 'nome', 'tipo']);
         return view('blackbox.lavorazioni.edit', [
@@ -51,10 +52,15 @@ class LavorazioneController extends Controller
     }
 
     public function update(Request $request, $id){
+
         $data = $request->validate([
-            'data' => 'required|unique:blackbox_lavorazioni,id,:id', // ingora id
+            'data' => 'required|unique:blackbox_lavorazioni,id,:id', // ingnora id
             'capo_selezionato_id.*' => 'required'
         ]);
+
+        if(!isset($data['capo_selezionato_id'])){
+            return back()->withErrors(['error' => ['il campo -capo- non può essere vuoto']]);       
+        }
 
         $lavorazione = Lavorazione::findOrFail($id);
         $lavorazione->data = $data['data'];

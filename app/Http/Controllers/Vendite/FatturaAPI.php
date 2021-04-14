@@ -13,17 +13,25 @@ class FatturaAPI extends Controller
         $data = $request->validate([
             'query_cliente' => ''
         ]);
-        return Cliente::where('denominazione', 'like', '%' . $data['query_cliente'] . '%')
-        ->orWhere('partita_iva', 'like', '%' . $data['query_cliente'] . '%')
-        ->limit(10)
-        ->get();
 
+        if (auth()->user()->getRoleNames()[0] == 'agente'){
+            return auth()->user()->clienti()->where('denominazione', 'like', '%' . $data['query_cliente'] . '%')
+            ->orWhere('partita_iva', 'like', '%' . $data['query_cliente'] . '%')
+            ->limit(10)
+            ->get();
+        } else {
+            return Cliente::where('denominazione', 'like', '%' . $data['query_cliente'] . '%')
+            ->orWhere('partita_iva', 'like', '%' . $data['query_cliente'] . '%')
+            ->limit(10)
+            ->get();
+        }
     }
 
     public function getArticoli(Request $request){
         $data = $request->validate([
             'query_articolo' => ''
         ]);
+
        return Lotto::where('codice_articolo', 'like', '%' . $data['query_articolo'] . '%')
        ->limit(10)
        ->get();

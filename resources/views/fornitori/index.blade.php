@@ -46,7 +46,7 @@
                             </td>
                         </tr>
                     @empty
-                        <p>Nessun fornitore trovato</p>
+                        {{-- <p>Nessun fornitore trovato</p> --}}
                     @endforelse
                 </tbody>
             </table>

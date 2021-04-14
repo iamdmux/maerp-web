@@ -4,10 +4,12 @@
 
     <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-52 transition duration-300 transform bg-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
     <div class="mt-8 pl-4">
-        <img src="{{asset('img/logo-m&a.webp')}}" class="w-24 h-24" alt="logo">
+        <a href="/"><img src="{{asset('img/logo-m&a.webp')}}" class="w-24 h-24" alt="logo"></a>
     </div>
 
         <nav class="mt-10">
+
+            @can('dashboard')
             <a class="flex items-center mt-2 py-1 px-6 bg-opacity-25 hover:bg-gray-700 text-gray-100 {{url()->current() == route('home.page') ? 'bg-gray-700 text-blue-400' : ''}}" href="/">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
@@ -18,8 +20,11 @@
             </a>
 
             <hr class="mt-2" style="background-color: #242424; height: 1px; border: 0;">
+            @endcan
 
+             
             {{-- VENDITE --}}
+            @can('vendite')
             <div @click="open('vendite')" class="cursor-pointer flex items-center mt-2 py-1 px-6 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
@@ -45,8 +50,10 @@
                 </a>
 
             <hr class="mt-2" style="background-color: #242424; height: 1px; border: 0;">
+            @endcan
 
             {{-- ACQUISTI --}}
+            @can('acquisti')
             <div @click="open('acquisti')" class="cursor-pointer flex items-center mt-2 py-1 px-6 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
@@ -64,6 +71,7 @@
             </a>
 
             <hr class="mt-2" style="background-color: #242424; height: 1px; border: 0;">
+            @endcan
 
             {{-- MAGAZZINO --}}
             <div @click="open('magazzino')" class="cursor-pointer flex items-center mt-2 py-1 px-6 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100">
@@ -73,7 +81,8 @@
 
                 <span class="mx-3">Magazzino</span>
             </div>
-
+            
+                @can('visualizzare-lotti', 'modificare-lotti')
                 <a x-show="isOpenMagazzino()" style="display:none" class="flex items-center mt-2 py-1 pl-8 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100 {{url()->current() == route('lotti.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('lotti.index') }}">
                     <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
@@ -81,7 +90,9 @@
 
                     <span class="mx-3">Lotti</span>
                 </a>
+                @endcan
 
+                @can('magazzino-blackbox')
                 <a x-show="isOpenMagazzino()" style="display:none" class="flex items-center mt-2 py-1 pl-8 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100 {{url()->current() == route('marche.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('marche.index') }}">
                     <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
@@ -89,9 +100,11 @@
 
                     <span class="mx-3">Marche</span>
                 </a>
-
+                
                 <hr class="mt-2" style="background-color: #242424; height: 1px; border: 0;">
+                @endcan
 
+                @can('magazzino-blackbox')
                 {{-- Blackbox --}}
                 <div @click="open('blackbox')" class="cursor-pointer flex items-center mt-2 py-1 px-6 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -139,7 +152,7 @@
                     </svg>
                     <span class="mx-3">Ferie</span>
                 </a>
-
+                @endcan
             @push('scripts')
             <script> 
                 let isMagazzino = window.location.pathname.split('/')[1] == 'magazzino' ? true : false;

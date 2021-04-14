@@ -285,6 +285,33 @@
                 <textarea {{$disable}} class="rounded-md border-gray-200" type="text" name="indirizzo_spedizione" placeholder="indirizzo spedizione">{{old('indirizzo_spedizione') ? old('indirizzo_spedizione') : (($edit || $show) ? $cliente->indirizzo_spedizione : '')}}</textarea>
             </div>
 
+            @can('assegnare-clienti')
+            <div>
+                <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    Agente assegnato:
+                </p>
+                <select {{$disable}} name="user_id">
+                    {{-- {{old('agente_id') == $agente->id ? 'selected' : ($cliente->user_id == $agente->id ? 'selected' : '')}}  --}}
+                    @foreach ($listaAgenti as $agente)
+                        @php
+                        $val_agente_select = '';
+                        if($create){
+                            $val_agente_select = old('user_id') == $agente->id ? 'selected' : '';
+                        } elseif($edit){
+                            $val_agente_select = old('user_id') == $agente->id ? 'selected' : ($cliente->user_id == $agente->id ? 'selected' : '');
+                        } elseif($show){
+                            $val_agente_select = $cliente->user_id == $agente->id ? 'selected' : '';
+                        }
+                    @endphp
+
+                    <option value="{{$agente->id}}" {{$val_agente_select}}>
+                        {{$agente->name}}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+            @endcan
+
         </div>
     </div>
 

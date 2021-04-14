@@ -38,19 +38,19 @@ class ClientiImport implements ToModel
 
     protected function convertToUserId($field){
         if($field == 'ANNA'){
-            return 3;
-        } elseif($field == 'DAVIDE & ROBERTO'){
             return 4;
-        } elseif($field == 'CLIENTE DIREZIONALE'){
+        } elseif($field == 'DAVIDE & ROBERTO'){
             return 5;
-        } elseif($field == 'BESSEM'){
+        } elseif($field == 'CLIENTE DIREZIONALE'){
             return 6;
-        } elseif($field == 'GEMMA'){
+        } elseif($field == 'BESSEM'){
             return 7;
-        } elseif($field == 'ALONA'){
+        } elseif($field == 'GEMMA'){
             return 8;
-        } elseif($field == 'ELENA'){
+        } elseif($field == 'ALONA'){
             return 9;
+        } elseif($field == 'ELENA'){
+            return 10;
         }
     }
 }
