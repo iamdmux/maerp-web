@@ -89,7 +89,7 @@ class BlackboxAPI extends Controller
                 ->first();
 
                 $pausa->pivot->alle = Carbon::now();
-                $pausa->pivot->update();
+                $pausa->pivot->save();
                 // $lavorazione->pauseLavorazione()->syncWithoutDetaching($pausaId, ['alle' => Carbon::now()]);
                 // $lavorazione->pauseLavorazione()->syncWithoutDetaching([$data['operatore_id'] => ['alle' => Carbon::now()]]);
             }
