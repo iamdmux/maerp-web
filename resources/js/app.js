@@ -9,10 +9,11 @@ import { createApp } from "vue";
 import CreateFattura from './components/fattura/CreateFattura.vue'
 import CreateLavorazione from './components/blackbox/CreateLavorazione.vue'
 import LavorazioneGiornaliera from './components/blackbox/LavorazioneGiornaliera.vue'
+import ModificaPausaGiornaliera from './components/blackbox/ModificaPausaGiornaliera.vue'
 
 const app = createApp({
     components: {
-        CreateFattura, CreateLavorazione, LavorazioneGiornaliera
+        CreateFattura, CreateLavorazione, LavorazioneGiornaliera, ModificaPausaGiornaliera
     }
 })
 

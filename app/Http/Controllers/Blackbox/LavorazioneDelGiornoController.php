@@ -24,7 +24,9 @@ class LavorazioneDelGiornoController extends Controller
     }
 
     public function indexPause($lavorazione_id){
-
+        $operatori = Operatore::get();
+        $operatoriByKeyName = $operatori->groupBy('nome');
+        
         $lavorazione = Lavorazione::with('pauseLavorazione')->findOrFail($lavorazione_id);
         $operatoriPause = $lavorazione->pauseLavorazione->groupBy('nome');
 
@@ -40,10 +42,25 @@ class LavorazioneDelGiornoController extends Controller
             $operatoriTotalePause[$operatore] = ['totPausa' => $totPausa];
         }
 
+        // Aggiungo gli operatori SENZA pause
+        // foreach ($operatoriByKeyName as $key => $value) {
+        //     foreach ($operatoriPause as $pausaKey => $pausavalue) {
+        //         if($pausaKey == $key){
+        //             continue;
+        //         } else {
+        //             dd($pausaKey, $key);
+        //         }
+        //         // $operatoriPause[$key] = ['--'];
+        //         $operatoriTotalePause[$key] = ['totPausa' => '00:00:00'];
+        //     }
+        // }
+        // dd();
+
         return view('blackbox.lavorazioni.pause.index', [
             'operatoriPause' => $operatoriPause,
             'lavorazioneData' => $lavorazione->dataStrings,
-            'operatoriTotalePause'  => $operatoriTotalePause
+            'operatoriTotalePause'  => $operatoriTotalePause,
+            'operatori' => $operatori
         ]);
     }
 }

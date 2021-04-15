@@ -22,7 +22,7 @@
                     $alle = date("H:i", strtotime($pausa->pivot->alle));
                 @endphp
 
-                <p class="text-sm leading-5 text-gray-500">{{$dalle}} - {{$alle}} <span class="font-semibold text-xs">#{{$pausa->pivot->tipo}}</span></p>
+                <p class="text-sm leading-5 text-gray-500">{{$dalle}} - {{$alle}} <span class="inline-block font-semibold text-xs text-right ml-5" style="min-width: 95px">#{{$pausa->pivot->tipo}}</span></p>
             @endforeach
 
             @if($operatoriTotalePause[$operatore])
@@ -34,6 +34,10 @@
 @empty
 <p>nessuna pausa fatta</p>
 @endforelse
+
+<div class="absolute bottom-0 m-5">
+    <modifica-pausa-giornaliera :operatori="{{$operatori->toJson()}}" :operatori-pause="{{$operatoriPause->toJson()}}"></modifica-pausa-giornaliera>
+</div>
 
 </div>
 @endsection

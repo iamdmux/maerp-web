@@ -17,8 +17,7 @@ class OperatoriSeeder extends Seeder
         DB::table('blackbox_operatori')->insert(
             [
                 'nome' => 'Borgo',
-            ]
-        );
+            ]);
         DB::table('blackbox_operatori')->insert(
             [
                 'nome' => 'Lorena',
@@ -42,10 +41,6 @@ class OperatoriSeeder extends Seeder
         DB::table('blackbox_operatori')->insert(
             [
                 'nome' => 'Maria 2',
-            ]);
-        DB::table('blackbox_operatori')->insert(
-            [
-                'nome' => 'Lorena',
             ]);
         DB::table('blackbox_operatori')->insert(
             [
