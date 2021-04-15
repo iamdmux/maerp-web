@@ -11,7 +11,7 @@ class Operatore extends Model
     use HasFactory;
 
     protected $table = 'blackbox_operatori';
-
+    protected $guarded = [];
 
     // contatore lavorazione capi
     public function lavorazioneOperatore(){

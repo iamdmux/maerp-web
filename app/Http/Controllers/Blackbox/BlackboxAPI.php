@@ -82,7 +82,15 @@ class BlackboxAPI extends Controller
             return;
         } elseif($data['startend'] == 'end'){
             if($tutteLePauseDellOperatore->count()){
-                $lavorazione->pauseLavorazione()->syncWithoutDetaching([$data['operatore_id'] => ['alle' => Carbon::now()]]);
+
+                $pausaId = $lavorazione->pauseLavorazione()
+                ->where('operatore_id', $data['operatore_id'])
+                ->where('alle', null)
+                ->first()->id;
+
+                $lavorazione->pauseLavorazione()->updateExistingPivot($pausaId, ['alle' => Carbon::now()]);
+
+                // $lavorazione->pauseLavorazione()->syncWithoutDetaching([$data['operatore_id'] => ['alle' => Carbon::now()]]);
             }
             return;
         }
