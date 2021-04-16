@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Blackbox\Operatore;
 use App\Http\Controllers\Controller;
 use App\Models\Blackbox\Lavorazione;
+use App\Models\Blackbox\OperatorePausa;
 
 class BlackboxAPI extends Controller
 {
@@ -54,7 +55,7 @@ class BlackboxAPI extends Controller
          })->get();
     }
 
-    public function pausa($lavorazione_id, Request $request){
+    public function creaPausa($lavorazione_id, Request $request){
 
         $data = $request->validate([
             'operatore_id' => '',
@@ -98,9 +99,47 @@ class BlackboxAPI extends Controller
 
     }
 
-    
     public function getAllPause($lavorazione_id){
         return Lavorazione::findOrFail($lavorazione_id)->pauseLavorazione;
+    }
+
+
+
+    // MODIFICHE PAUSE
+    public function modificaPause($lavorazioneId, Request $request){
+        $request->validate([
+            'id' => '',
+            'datirimozione' => '',
+            'nuovepause' => ''
+        ]);
+
+        $rimozioniArray = json_decode($request->datirimozione, true);
+        $aggiungiPauseArray = json_decode($request->nuovepause, true);
+        //$lavorazione = Lavorazione::findOrFail($lavorazioneId);
+
+        // rimozione
+        foreach ($rimozioniArray as $operatoreId => $pause) {
+            if($pause){
+                foreach ($pause as $pausaId => $bool) {
+                    if($pausarow = OperatorePausa::find($pausaId)){
+                        $pausarow->delete();
+                    } else {
+                        return response()->json(['errors' => 'qualcosa è andato storto'], 422);
+                    }
+                }
+            }
+        }
+
+        // aggiungi pausa
+        $lavorazione = Lavorazione::findOrFail($lavorazioneId);
+
+        foreach ($aggiungiPauseArray as $opId => $pausa) {
+            if($pausa && isset($pausa['dalle'])){
+                $dalle = Carbon::parse($pausa['dalle']);
+                $alle = Carbon::parse($pausa['alle']);
+                $lavorazione->pauseLavorazione()->attach([$opId => ['dalle' => $dalle, 'alle' => $alle, 'tipo' => $pausa['tipo'] ]]);
+            }
+        }
     }
     
 }

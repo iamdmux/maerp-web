@@ -36,7 +36,7 @@
 @endforelse
 
 <div class="absolute bottom-0 m-5">
-    <modifica-pausa-giornaliera :operatori="{{$operatori->toJson()}}" :operatori-pause="{{$operatoriPause->toJson()}}"></modifica-pausa-giornaliera>
+    <modifica-pausa-giornaliera data="{{$data}}" :tipi-pausa="{{json_encode($tipiPausa)}}" lavorazione-id="{{$lavorazione_id}}" :operatori="{{$operatori->toJson()}}" :operatori-pause="{{$operatoriPause->toJson()}}"></modifica-pausa-giornaliera>
 </div>
 
 </div>

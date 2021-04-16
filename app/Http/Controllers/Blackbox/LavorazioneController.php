@@ -32,6 +32,10 @@ class LavorazioneController extends Controller
             'capo_selezionato_id.*' => 'required'
         ]);
 
+        if(!isset($data['capo_selezionato_id'])){
+            return back()->withErrors(['error' => ['il campo -capo- non può essere vuoto']]);       
+        }
+        
         $lavorazione = new Lavorazione;
         $lavorazione->data = $data['data'];
         $lavorazione->save();

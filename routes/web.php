@@ -84,8 +84,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('/blackbox/ferie', FerieController::class);
 
         // pause
-        Route::post('/api/blackbox/lavorazione/{id}/pausa', [BlackboxAPI::class, 'pausa']);
+        Route::post('/api/blackbox/lavorazione/{id}/pausa', [BlackboxAPI::class, 'creaPausa']);
         Route::get('/api/blackbox/lavorazione/{id}/pause', [BlackboxAPI::class, 'getAllPause']);
+        // modifica pause
+        Route::post('/api/blackbox/lavorazione/{id}/modifica-pausa', [BlackboxAPI::class, 'modificaPause']);
+
     });
 });
 

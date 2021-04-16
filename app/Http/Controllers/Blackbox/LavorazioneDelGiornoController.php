@@ -59,8 +59,11 @@ class LavorazioneDelGiornoController extends Controller
         return view('blackbox.lavorazioni.pause.index', [
             'operatoriPause' => $operatoriPause,
             'lavorazioneData' => $lavorazione->dataStrings,
+            'tipiPausa' => OperatorePausa::OPERATORI_TIPI_DI_PAUSA,
+            'data' => $lavorazione->data,
             'operatoriTotalePause'  => $operatoriTotalePause,
-            'operatori' => $operatori
+            'operatori' => $operatori,
+            'lavorazione_id' => $lavorazione_id
         ]);
     }
 }
