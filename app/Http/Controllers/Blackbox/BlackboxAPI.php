@@ -110,12 +110,17 @@ class BlackboxAPI extends Controller
         $request->validate([
             'id' => '',
             'datirimozione' => '',
-            'nuovepause' => ''
+            'nuovepause' => '',
+            'password' => ''
         ]);
 
         $rimozioniArray = json_decode($request->datirimozione, true);
         $aggiungiPauseArray = json_decode($request->nuovepause, true);
         //$lavorazione = Lavorazione::findOrFail($lavorazioneId);
+
+        if($request->password != 'attento'){
+            return response()->json(['error' => 'la password non è corretta'], 422);
+        }
 
         // rimozione
         foreach ($rimozioniArray as $operatoreId => $pause) {
@@ -124,7 +129,7 @@ class BlackboxAPI extends Controller
                     if($pausarow = OperatorePausa::find($pausaId)){
                         $pausarow->delete();
                     } else {
-                        return response()->json(['errors' => 'qualcosa è andato storto'], 422);
+                        return response()->json(['error' => 'qualcosa è andato storto'], 422);
                     }
                 }
             }
@@ -137,7 +142,9 @@ class BlackboxAPI extends Controller
             if($pausa && isset($pausa['dalle'])){
                 $dalle = Carbon::parse($pausa['dalle']);
                 $alle = Carbon::parse($pausa['alle']);
-                $lavorazione->pauseLavorazione()->attach([$opId => ['dalle' => $dalle, 'alle' => $alle, 'tipo' => $pausa['tipo'] ]]);
+                if($dalle < $alle){
+                    $lavorazione->pauseLavorazione()->attach([$opId => ['dalle' => $dalle, 'alle' => $alle, 'tipo' => $pausa['tipo'] ]]);
+                }
             }
         }
     }
