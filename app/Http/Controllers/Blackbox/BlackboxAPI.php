@@ -94,12 +94,12 @@ class BlackboxAPI extends Controller
 
                 $pausa = OperatorePausa::find($pausaBefore->pivot->id);
                 $pausa->alle = now();
-                $pausa->save();
+                // $pausa->save();
                 $pausa->update();
-                
+
                 $pausa = OperatorePausa::find($pausaBefore->pivot->id);
                 $pausa->dalle = $pausaBefore->pivot->dalle;
-                $pausa->save();
+                // $pausa->save();
                 $pausa->update();
                 /////////////////////////
                 // $pausa = new OperatorePausa;
