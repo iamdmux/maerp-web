@@ -12,7 +12,7 @@
 </div>
 
 <div class="text-right mr-3">
-    <a target="_blank" title="visualizza tutte le pause" href="{{ route('pauselavorazione.giorno.index', $lavorazione->id) }}" class="ml-3 text-xs mb-2 {{help_svg_link()}}">visualizza pause</a>
+    <a target="_blank" title="visualizza tutte le pause" href="{{ route('pauselavorazione.giorno.index', $lavorazione->id) }}" class="ml-3 text-xs mb-2 py-1 px-2 {{help_svg_link()}}">visualizza pause</a>
 </div>
 <Lavorazione-giornaliera method="create" :tipi-pausa="{{json_encode($tipiPausa)}}" :lavorazione="{{json_encode($lavorazione)}}" :operatori="{{json_encode($operatori)}}" />
 
