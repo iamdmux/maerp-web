@@ -85,7 +85,8 @@ class BlackboxAPI extends Controller
             if($tutteLePauseDellOperatore->count()){
 
                 // PATCH PER PRODUCTION
-                // $pausaBefore = $tutteLePauseDellOperatore->first();
+                $pausaBefore = $tutteLePauseDellOperatore->first();
+                $lavorazione->pauseLavorazione()->where('id',$pausaBefore->pivot->id)->updateExistingPivot($data['operatore_id'], ['alle' => Carbon::now()]);
 
                 // $pausa = new OperatorePausa;
                 // $pausa->operatore_id = $data['operatore_id'];
@@ -98,7 +99,7 @@ class BlackboxAPI extends Controller
                 
                 // $lavorazione->pauseLavorazione()->where('blackboxlavorazione_operatore.id', $pausaBefore->pivot->id)->delete();
 
-                $lavorazione->pauseLavorazione()->updateExistingPivot($data['operatore_id'], ['alle' => Carbon::now()]);
+                // $lavorazione->pauseLavorazione()->updateExistingPivot($data['operatore_id'], ['alle' => Carbon::now()]);
                 // $lavorazione->pauseLavorazione()->syncWithoutDetaching([$data['operatore_id'] => ['alle' => Carbon::now()]]);
             }
             return;
