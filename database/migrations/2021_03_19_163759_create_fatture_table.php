@@ -14,6 +14,7 @@ class CreateFattureTable extends Migration
     public function up()
     {
         Schema::create('fatture', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->id();
             $table->unsignedBigInteger('cliente_id')->nullable()->index();
             $table->unsignedBigInteger('user_id')->nullable()->index(); // agente_id

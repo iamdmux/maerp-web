@@ -15,6 +15,7 @@ class BlackboxlavorazioneCapo extends Migration
     {
         // lavorazione della giornata
         Schema::create('blackboxlavorazione_capo', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->id();
             $table->unsignedBigInteger('lavorazione_id')->index();
             $table->unsignedBigInteger('capo_id')->index();

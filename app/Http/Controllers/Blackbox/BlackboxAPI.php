@@ -89,7 +89,7 @@ class BlackboxAPI extends Controller
 
                 $pausa = OperatorePausa::findOrFail($pausaBefore->pivot->id);
                 $pausa->alle = Carbon::now();
-                $pausa->dalle = $pausaBefore->pivot->dalle;
+                // $pausa->dalle = $pausaBefore->pivot->dalle;
                 $pausa->save();
 
                 // $lavorazione->pauseLavorazione()->updateExistingPivot($data['operatore_id'], ['alle' => Carbon::now()]);

@@ -14,6 +14,7 @@ class CreateArticoliTable extends Migration
     public function up()
     {
         Schema::create('articoli', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->id();
             // $table->unsignedBigInteger('fattura_id')->index();
             $table->unsignedBigInteger('lotto_id')->nullable()->index();

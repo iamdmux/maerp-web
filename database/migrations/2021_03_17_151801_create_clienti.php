@@ -14,6 +14,7 @@ class CreateClienti extends Migration
     public function up()
     {
         Schema::create('clienti', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->id();
             $table->string('denominazione');
             $table->string('codice_sdi')->nullable();

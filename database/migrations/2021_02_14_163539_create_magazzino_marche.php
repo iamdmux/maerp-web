@@ -14,6 +14,7 @@ class CreateMagazzinoMarche extends Migration
     public function up()
     {
         Schema::create('magazzino_marche', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->id();
             $table->string('nome');
             $table->timestamps();

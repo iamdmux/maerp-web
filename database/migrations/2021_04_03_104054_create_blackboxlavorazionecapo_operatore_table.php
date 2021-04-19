@@ -15,6 +15,7 @@ class CreateBlackboxlavorazionecapoOperatoreTable extends Migration
     {
         // counter lavorazioni
         Schema::create('blackboxlavorazionecapo_operatore', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->id();
             $table->unsignedBigInteger('operatore_id')->index();
             $table->unsignedBigInteger('lavorazionecapo_id')->index();
