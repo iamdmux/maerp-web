@@ -22,7 +22,12 @@
                     $alle = date("H:i", strtotime($pausa->pivot->alle));
                 @endphp
 
+                @if($pausa->pivot->alle)
                 <p class="text-sm leading-5 text-gray-500">{{$dalle}} - {{$alle}} <span class="inline-block font-semibold text-xs text-right ml-5" style="min-width: 95px">#{{$pausa->pivot->tipo}}</span></p>
+                @else
+                <p class="text-sm leading-5 text-yellow-500">pausa in corso <span class="inline-block font-semibold text-xs text-right ml-5" style="min-width: 95px">#{{$pausa->pivot->tipo}}</span></p>
+                @endif
+                
             @endforeach
 
             @if($operatoriTotalePause[$operatore])

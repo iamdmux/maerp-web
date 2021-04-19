@@ -23,16 +23,22 @@
             <!-- Page Content -->
             <main>
                 @include('layouts.toast-with-cheese')
-                @include('layouts.navigation')
-                <div id="app" class="flex-1 flex flex-col overflow-hidden"> {{-- div wrapper--}}
-                    @include('layouts.top-header') {{-- div navigation --}}
-                    <main class="relative flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-                        <div class="container mx-auto px-6 py-8">
-                            @yield('content')
+
+                    {{-- nav wrapper --}}
+                <div x-data="navigation()" @sidebar-open="sidebarOpen = !sidebarOpen" class="flex h-screen bg-gray-200 font-roboto">
+                    <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>  
+                    @include('layouts.navigation')
+                    {{-- end nav wrapper --}}
+
+                        <div id="app" class="flex-1 flex flex-col overflow-hidden">
+                            @include('layouts.top-header')
+                            <main class="relative flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+                                <div class="container mx-auto px-6 py-8">
+                                    @yield('content')
+                                </div>
+                            </main>
                         </div>
-                    </main>
-                </div> {{-- end div wrapper--}}
-                </div> {{-- end div navigation --}}
+                    </div>
             </main>
 
         </div>

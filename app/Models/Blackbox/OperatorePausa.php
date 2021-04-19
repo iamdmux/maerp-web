@@ -10,7 +10,9 @@ class OperatorePausa extends Model
     use HasFactory;
 
     protected $table = 'blackboxlavorazione_operatore';
+    public $timestamps = false;
     protected $dates = ['dalle', 'alle'];
+    protected $fillable = ['alle'];
 
     const OPERATORI_TIPI_DI_PAUSA = ['bagno', 'pausafunzionale'];
 }

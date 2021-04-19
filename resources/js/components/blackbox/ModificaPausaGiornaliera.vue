@@ -40,7 +40,10 @@
                                     :class="{'line-through bg-red-400 text-black' : isPausaRemoved(operatore[0].id, pausa.pivot.id)}"
                                     :title="isPausaRemoved(operatore[0].id, pausa.pivot.id) ? 'cancella questa pausa' : ''"
                                     class="px-2 py-1 text-sm leading-5 rounded mb-1">
-                                        {{parseDate(pausa.pivot.dalle)}} - {{parseDate(pausa.pivot.alle)}}
+
+                                        <span v-if="pausa.pivot.alle">{{parseDate(pausa.pivot.dalle)}} - {{parseDate(pausa.pivot.alle)}}</span>
+                                        <span v-else>{{parseDate(pausa.pivot.dalle)}} <span class="text-yellow-500"> - in corso </span></span>
+
                                         <span class="inline-block font-semibold text-xs text-right ml-5" :class="{'line-through' : isPausaRemoved(operatore[0].id, pausa.pivot.id)}">
                                             #{{pausa.pivot.tipo}}
                                         </span>

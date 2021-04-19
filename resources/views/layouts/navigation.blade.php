@@ -1,10 +1,6 @@
-<div x-data="navigation()" @sidebar-open="sidebarOpen = !sidebarOpen" class="flex h-screen bg-gray-200 font-roboto">
-    
-    <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
-
-    <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-52 transition duration-300 transform bg-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
+<div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-52 transition duration-300 transform bg-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
     <div class="mt-8 pl-4">
-        <a href="/"><img src="{{asset('img/logo-m&a.webp')}}" class="w-24 h-24" alt="logo"></a>
+        <a href="/"><img src="{{asset('img/logo-m&a.jpeg ')}}" class="w-24 h-24" alt="logo"></a>
     </div>
 
         <nav class="mt-10">
@@ -138,15 +134,14 @@
                     <span class="mx-3">Capi</span>
                 </a>
 
-                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-2 py-1 pl-8 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100 {{url()->current() == route('pause.totali.index') }} ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('pause.totali.index',  ['year' => date('Y'), 'month' => date('m')]) }}">
+                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-2 py-1 pl-8 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100 {{ request()->segment(2) == 'pausetotali' ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('pause.totali.index',  ['year' => date('Y'), 'month' => date('m')]) }}">
                     <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-
                     <span class="mx-3">Pause mensili</span>
                 </a>
 
-                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-2 py-1 pl-8 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100 {{url()->current() == route('ferie.index') }} ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('ferie.index',  ['year' => date('Y'), 'month' => date('m')]) }}">
+                <a x-show="isOpenBlackbox()" style="display:none" class="flex items-center mt-2 py-1 pl-8 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100 {{request()->segment(2) == 'ferie' ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('ferie.index',  ['year' => date('Y'), 'month' => date('m')]) }}">
                     <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                     </svg>
