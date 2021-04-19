@@ -14,7 +14,6 @@ class CreateOperatoreferieTable extends Migration
     public function up()
     {
         Schema::create('blackbox_operatoreferie', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->id();
             $table->unsignedBigInteger('operatore_id')->index();
             $table->timestamp('dal')->nullable(); // nullable => fix error

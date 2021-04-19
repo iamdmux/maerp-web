@@ -64,7 +64,7 @@ class BlackboxAPI extends Controller
         ]);
 
         $lavorazione = Lavorazione::findOrFail($lavorazione_id);
-        $tutteLePauseDellOperatore = $lavorazione->pauseLavorazione()->where('operatore_id', $data['operatore_id'])->get();
+        $tutteLePauseDellOperatore = $lavorazione->pauseLavorazione()->where('operatore_id', $data['operatore_id'])->orderBy('dalle', 'desc')->get();
 
         if($data['startend'] == 'start'){
             
@@ -85,14 +85,20 @@ class BlackboxAPI extends Controller
             if($tutteLePauseDellOperatore->count()){
 
                 // PATCH PER PRODUCTION
-                $pausaBefore = $tutteLePauseDellOperatore->last();
+                // $pausaBefore = $tutteLePauseDellOperatore->first();
 
-                $pausa = OperatorePausa::findOrFail($pausaBefore->pivot->id);
-                $pausa->alle = Carbon::now();
+                // $pausa = new OperatorePausa;
+                // $pausa->operatore_id = $data['operatore_id'];
+                // $pausa->lavorazione_id = $lavorazione_id;
+                // $pausa->alle = Carbon::now();
                 // $pausa->dalle = $pausaBefore->pivot->dalle;
-                $pausa->save();
+                // $pausa->tipo = $pausaBefore->pivot->tipo;
+                // $pausa->save();
 
-                // $lavorazione->pauseLavorazione()->updateExistingPivot($data['operatore_id'], ['alle' => Carbon::now()]);
+                
+                // $lavorazione->pauseLavorazione()->where('blackboxlavorazione_operatore.id', $pausaBefore->pivot->id)->delete();
+
+                $lavorazione->pauseLavorazione()->updateExistingPivot($data['operatore_id'], ['alle' => Carbon::now()]);
                 // $lavorazione->pauseLavorazione()->syncWithoutDetaching([$data['operatore_id'] => ['alle' => Carbon::now()]]);
             }
             return;

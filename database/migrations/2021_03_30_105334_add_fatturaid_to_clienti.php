@@ -14,7 +14,6 @@ class AddFatturaidToClienti extends Migration
     public function up()
     {
         Schema::table('clienti', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->unsignedBigInteger('fattura_id')->after('id')->nullable()->index();
 
             $table->foreign('fattura_id')->references('id')->on('fatture')->onDelete('set null');

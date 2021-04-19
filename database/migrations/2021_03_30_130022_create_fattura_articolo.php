@@ -14,7 +14,6 @@ class CreateFatturaArticolo extends Migration
     public function up()
     {
         Schema::create('fattura_articolo', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->id();
             $table->unsignedBigInteger('fattura_id')->index();
             $table->unsignedBigInteger('articolo_id')->index();

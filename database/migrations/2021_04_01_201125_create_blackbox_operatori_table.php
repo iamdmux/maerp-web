@@ -14,7 +14,6 @@ class CreateBlackboxOperatoriTable extends Migration
     public function up()
     {
         Schema::create('blackbox_operatori', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->id();
             $table->string('nome');
             $table->timestamps();

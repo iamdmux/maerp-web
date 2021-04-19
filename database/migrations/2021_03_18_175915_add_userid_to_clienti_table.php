@@ -14,7 +14,6 @@ class AddUseridToClientiTable extends Migration
     public function up()
     {
         Schema::table('clienti', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->unsignedBigInteger('user_id')->after('id')->index()->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

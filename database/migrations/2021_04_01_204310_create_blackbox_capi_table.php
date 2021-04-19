@@ -14,7 +14,6 @@ class CreateBlackboxCapiTable extends Migration
     public function up()
     {
         Schema::create('blackbox_capi', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->id();
             $table->string('nome');
             $table->string('tipo');

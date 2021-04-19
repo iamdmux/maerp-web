@@ -15,7 +15,6 @@ class CreateBlackboxlavorazioneOperatore extends Migration
     {
         //pause
         Schema::create('blackboxlavorazione_operatore', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->id();
             $table->unsignedBigInteger('lavorazione_id')->index();
             $table->unsignedBigInteger('operatore_id')->index();

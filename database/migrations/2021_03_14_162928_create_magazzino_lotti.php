@@ -14,7 +14,6 @@ class CreateMagazzinoLotti extends Migration
     public function up()
     {
         Schema::create('magazzino_lotti', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->id();
             $table->unsignedBigInteger('marca_id')->index()->nullable();
             $table->string('stagione');
