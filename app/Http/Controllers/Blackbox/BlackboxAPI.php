@@ -78,17 +78,19 @@ class BlackboxAPI extends Controller
                 }
             }
             if(!$stop){
-                $pausa = $lavorazione->pauseLavorazione()->attach([$data['operatore_id'] => ['dalle' => Carbon::now(), 'tipo' => $data['tipo_pausa'] ]]);
+                $pausa = $lavorazione->pauseLavorazione()->attach([$data['operatore_id'] => ['dalle' => now(), 'tipo' => $data['tipo_pausa'] ]]);
             }
             return;
         } elseif($data['startend'] == 'end'){
             if($tutteLePauseDellOperatore->count()){
 
+                $now = now();
                 // PATCH PER PRODUCTION
                 $pausaBefore = $tutteLePauseDellOperatore->first();
                 $row = $lavorazione->pauseLavorazione()->where('blackboxlavorazione_operatore.id',$pausaBefore->pivot->id)->first();
+
                 $row->pivot->dalle = $row->pivot->dalle;
-                $row->pivot->alle = Carbon::now();
+                $row->pivot->alle = $now;
                 $row->pivot->save();
 
                 // $pausa = new OperatorePausa;
