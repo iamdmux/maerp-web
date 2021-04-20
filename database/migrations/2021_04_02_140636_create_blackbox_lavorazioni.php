@@ -16,6 +16,7 @@ class CreateBlackboxLavorazioni extends Migration
         Schema::create('blackbox_lavorazioni', function (Blueprint $table) {
             $table->id();
             $table->timestamp('data');
+            $table->string('nome');
             $table->timestamps();
         });
     }

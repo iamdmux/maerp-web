@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::group(['middleware' => ['can:dashboard']], function () {
         
         Route::get('/', [DashboardController::class, 'view'])->name('home.page');
-
+        Route::post('/ruolo', [DashboardController::class, 'ruolo']);
         //import
         Route::get('/importclienti', [DashboardController::class, 'importClienti']);
         Route::get('/importfornitori', [DashboardController::class, 'importFornitori']);
@@ -74,7 +74,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         // lavorazione attiva
         Route::get('/blackbox/lavorazione/{lavorazione_id}', [LavorazioneDelGiornoController::class, 'show'] )->name('lavorazione.giorno');
-        Route::post('/api/blackbox/lavorazione/{id}', [BlackboxAPI::class, 'action']);
+        Route::post('/api/blackbox/lavorazione/{id}', [BlackboxAPI::class, 'lavorazioneCapi']);
 
         // visualizza pause
         Route::get('/blackbox/pausetotali', [PauseTotaliController::class, 'index'])->name('pause.totali.index');

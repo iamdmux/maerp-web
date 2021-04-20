@@ -11,7 +11,7 @@ use App\Models\Blackbox\OperatorePausa;
 
 class BlackboxAPI extends Controller
 {
-    public function action($lavorazione_id, Request $request){
+    public function lavorazioneCapi($lavorazione_id, Request $request){
         $data = $request->validate([
             'operatore_id' => '',
             'capo_pivot_id' => '',
@@ -40,7 +40,7 @@ class BlackboxAPI extends Controller
             }
         }
 
-        $operatori = Operatore::get();
+        $operatori = Lavorazione::find($lavorazione_id)->operatori;
         $counters = $this->getCounters($lavorazione_id);
 
         $operatoriConCounter = $operatori->merge($counters);
@@ -48,7 +48,6 @@ class BlackboxAPI extends Controller
     }
     
 
-    // spostare la funzione da quanche parte
     protected function getCounters($lavorazione_id){
         return Operatore::with('lavorazioneOperatore')->whereHas('lavorazioneOperatore', function($q) use ($lavorazione_id){
             $q->where('lavorazione_id', $lavorazione_id);
@@ -86,21 +85,23 @@ class BlackboxAPI extends Controller
 
                 // PATCH PER PRODUCTION
                 $pausaBefore = $tutteLePauseDellOperatore->first();
-                //$row = $lavorazione->pauseLavorazione()->where('blackboxlavorazione_operatore.id',$pausaBefore->pivot->id)->first();
+            
+                $pausa = OperatorePausa::find($pausaBefore->pivot->id);
+                $pausa->alle = now();
+                $pausa->update();
+
+                $pausa = OperatorePausa::find($pausaBefore->pivot->id);
+                $pausa->dalle = $pausaBefore->pivot->dalle;
+                $pausa->update();
+
+                /////////////////////////
+                //$row = $lavorazione->pauseLavorazione()->where('blackbox_pause.id',$pausaBefore->pivot->id)->first();
 
                 // $row->pivot->dalle = $row->pivot->dalle;
                 // $row->pivot->alle = $now;
                 // $row->pivot->save();
 
-                $pausa = OperatorePausa::find($pausaBefore->pivot->id);
-                $pausa->alle = now();
-                // $pausa->save();
-                $pausa->update();
 
-                $pausa = OperatorePausa::find($pausaBefore->pivot->id);
-                $pausa->dalle = $pausaBefore->pivot->dalle;
-                // $pausa->save();
-                $pausa->update();
                 /////////////////////////
                 // $pausa = new OperatorePausa;
                 // $pausa->operatore_id = $data['operatore_id'];
@@ -111,7 +112,7 @@ class BlackboxAPI extends Controller
                 // $pausa->save();
 
                 
-                // $lavorazione->pauseLavorazione()->where('blackboxlavorazione_operatore.id', $pausaBefore->pivot->id)->delete();
+                // $lavorazione->pauseLavorazione()->where('blackbox_pause.id', $pausaBefore->pivot->id)->delete();
 
                 // $lavorazione->pauseLavorazione()->updateExistingPivot($data['operatore_id'], ['alle' => Carbon::now()]);
                 // $lavorazione->pauseLavorazione()->syncWithoutDetaching([$data['operatore_id'] => ['alle' => Carbon::now()]]);

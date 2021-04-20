@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
             // ClientiSeeder::class,
             CapiSeeder::class,
             OperatoriSeeder::class,
-            LavorazioneSeeder::class,
-            PauseLavorazioneSeeder::class,
+            // LavorazioneSeeder::class,
+            // PauseLavorazioneSeeder::class,
             FerieSeeder::class,
             RolesAndPermissionsSeeder::class
         ]);

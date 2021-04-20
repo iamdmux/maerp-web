@@ -9,7 +9,7 @@ class OperatorePausa extends Model
 {
     use HasFactory;
 
-    protected $table = 'blackboxlavorazione_operatore';
+    protected $table = 'blackbox_pause';
     public $timestamps = false;
     protected $dates = ['dalle', 'alle'];
     protected $fillable = ['alle', 'dalle'];

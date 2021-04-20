@@ -14,8 +14,8 @@ class LavorazioneCapo extends Model
     public function getDalleAttribute($date){
         return Carbon::parse($date)->format('Y');
     }
-    public function operatoriCapiCounter(){
-        return $this->belongsToMany(Operatore::class, 'blackboxlavorazionecapo_operatore', 'lavorazionecapo_id', 'operatore_id')->withPivot('counter');
-    }
+    // public function operatoriCapiCounter(){ // controllare
+    //     return $this->belongsToMany(Operatore::class, 'blackbox_counter', 'lavorazionecapo_id', 'operatore_id')->withPivot('counter');
+    // }
     
 }

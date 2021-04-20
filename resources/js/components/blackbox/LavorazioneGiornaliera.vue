@@ -7,8 +7,8 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-                        <th v-for="operatore in operatori" :key="operatore.id" scope="col" :class="{'bg-yellow-500' : operatoreInPausa(operatore.id)}" class="px-3 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider">
+                        <th scope="col" class="w-full px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                        <th v-for="operatore in operatori" :key="operatore.id" scope="col" style="min-width: 200px" :class="{'bg-yellow-500' : operatoreInPausa(operatore.id)}" class="px-3 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider">
                            <p class="cursor-pointer mb-2" @click="showTotPause[operatore.id] = !showTotPause[operatore.id]">{{operatore.nome}}</p>
                            
                             <div class="absolute bg-white p-2 -ml-8 -mt-20 rounded-sm border border-gray-400" v-if="showTotPause[operatore.id]">
@@ -24,15 +24,9 @@
                                     <button class="px-1 border border-1 rounded-sm" v-if="!operatoreInPausa(operatore.id)" @click="iniziaFinisciPausa(lavorazione.id, operatore.id, tipo_pausa[operatore.id], 'start')">inizia</button>
                                     <button class="px-1 border border-1 rounded-sm" v-if="operatoreInPausa(operatore.id)" :class="{'text-white' : operatoreInPausa(operatore.id)}" @click="iniziaFinisciPausa(lavorazione.id, operatore.id, tipo_pausa[operatore.id], 'end')">finisci</button>
                                 </div>
-                                 <!-- <div v-for="(pausa, i) in pauseFromApi" :key="i">
-                                    <div v-if="pausa.pivot.operatore_id == operatore.id">
-                                        <p v-if="pausa.pivot.alle != null">Pause fatte: {{pausa.length}}</p>
-                                        <p v-else>Pause fatte: {{pausa.length-1}}</p>
-                                        {{pausa.pivot}}
-                                    </div>
-                                </div> -->
                             </div>
                         </th>
+                        
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -72,7 +66,7 @@
 
 <script>
 import { ref } from '@vue/reactivity'
-import { computed, onMounted } from '@vue/runtime-core'
+import { onMounted } from '@vue/runtime-core'
 export default {
     props:{
         tipiPausa:{
@@ -81,16 +75,13 @@ export default {
         lavorazione:{
             required: false
         },
-        operatori: {
-            required: true
-        },
         method:{
             required: true
         }
     },
     setup(props){
         const lavorazione = ref(props.lavorazione)
-        const operatori = ref(props.operatori)
+        const operatori = ref(props.lavorazione.operatori)
         const pauseFromApi = ref([])
         const tipo_pausa = ref([])
         const showTotPause = ref([])
@@ -176,18 +167,6 @@ export default {
         }
 
         const numeroDiPause = (operatore_id) => {
-            // let tempoDiPausa = new Date()
-            // tempoDiPausa.setHours(0,0,0,0)
-            
-            // pauseFromApi.value.filter(pausa => {
-            //     if(pausa.pivot.operatore_id == operatore_id){
-            //         let dalle = new Date(pausa.pivot.dalle)
-            //         let alle = new Date(pausa.pivot.alle)
-            //         tempoDiPausa.setDate(tempoDiPausa.getDate() + (alle-dalle))
-            //         // return pausa
-            //     }
-            // });
-            // return tempoDiPausa
 
             return pauseFromApi.value.filter(pausa => {
                 if(pausa.pivot.operatore_id == operatore_id){

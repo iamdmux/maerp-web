@@ -19,9 +19,9 @@
                                 <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                </p> -->
                                <div v-if="true" class="rounded p-2" :class="{'bg-yellow-400' : pausaCorretta(operatore.id)}"> <!--addPauseToggle[operatore.id]-->
-                                    <div class="text-center">
-                                        <input class="h-7 text-sm pl-3 pt-0 pb-0 pr-0 mr-1" v-model="pausaAdded[operatore.id].dalle" type="time">
-                                        <input class="h-7 text-sm pl-3 pt-0 pb-0 pr-0" v-model="pausaAdded[operatore.id].alle" type="time">
+                                    <div>
+                                        <input class="h-7 text-sm pt-0 pb-0 pr-0 mr-1" v-model="pausaAdded[operatore.id].dalle" type="time">
+                                        <input class="h-7 text-sm pt-0 pb-0 pr-0" v-model="pausaAdded[operatore.id].alle" type="time">
                                     </div>
                                     <select style="max-width: 138px" class="mt-1 h-7 text-sm py-0" v-model="pausaAdded[operatore.id].tipo">
                                         <option class="text-xs" v-for="tipo in tipiPausa" :value="tipo" :key="tipo">{{tipo}}</option>
@@ -51,9 +51,9 @@
                                 </div>
 
                                 <div v-if="true" class="rounded p-2" :class="{'bg-yellow-400' : pausaCorretta(operatore.id)}">
-                                    <div class="text-center">
-                                        <input class="h-7 text-sm pl-3 pt-0 pb-0 pr-0 mr-1" v-model="pausaAdded[operatore.id].dalle" type="time">
-                                        <input class="h-7 text-sm pl-3 pt-0 pb-0 pr-0" v-model="pausaAdded[operatore.id].alle" type="time">
+                                    <div>
+                                        <input class="h-7 text-sm pt-0 pb-0 pr-0 mr-1" v-model="pausaAdded[operatore.id].dalle" type="time">
+                                        <input class="h-7 text-sm pt-0 pb-0 pr-0" v-model="pausaAdded[operatore.id].alle" type="time">
                                     </div>
                                     <select style="max-width: 138px" class="mt-1 h-7 text-sm py-0" v-model="pausaAdded[operatore.id].tipo">
                                         <option class="text-xs" v-for="tipo in tipiPausa" :value="tipo" :key="tipo">{{tipo}}</option>
@@ -142,9 +142,13 @@ export default {
         })
 
 
+console.log(props.operatoriPause)
+
+
         let parseDate = (data) => {
             let hours = (new Date(data).getHours()).toString().length == 1 ? '0' + new Date(data).getHours(): new Date(data).getHours()
-            return hours + ':' + new Date(data).getMinutes()
+            let minutes = (new Date(data).getMinutes()).toString().length == 1 ? '0' + new Date(data).getMinutes(): new Date(data).getMinutes()
+            return hours + ':' + minutes
         }
 
 

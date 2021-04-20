@@ -15,6 +15,7 @@ class CreateClienti extends Migration
     {
         Schema::create('clienti', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->index()->nullable();
             $table->string('denominazione');
             $table->string('codice_sdi')->nullable();
             $table->string('tipologia')->nullable();
@@ -40,6 +41,8 @@ class CreateClienti extends Migration
             $table->text('indirizzo_spedizione')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

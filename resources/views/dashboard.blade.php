@@ -56,9 +56,32 @@
 </div>
 </div>
 
-<div class="mt-8">
+@if(auth()->id() == 1 || auth()->id() == 2)
+    <div class="mt-8">
 
-</div>
+    @if(!$isclienti)
+    <div>
+    <a class="text-yellow-600" href="/importclienti">importclienti</a>
+    </div>
+    @endif
+    @if(!$isfornitori)
+    <div>
+    <a class="text-yellow-600" href="/importfornitori">importfornitori</a>
+    </div>
+    @endif
+
+        ora sei: {{$role}}
+        <form action="/ruolo" method="POST">
+            @csrf
+            <select name="ruolo">
+                <option value="admin" {{$role == 'admin' ?  'selected' : ''}}>admin</option>
+                <option value="agente" {{$role == 'agente' ?  'selected' : ''}}>agente</option>
+                <option value="resp. magazzino" {{$role == 'resp. magazzino' ?  'selected' : ''}}>magazzino</option>
+            </select>
+            <button>cambia ruolo</button>
+        </form>
+    </div>
+@endif
 
 <div class="flex flex-col mt-8">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">

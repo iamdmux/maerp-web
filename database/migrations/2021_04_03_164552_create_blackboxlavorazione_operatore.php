@@ -14,7 +14,7 @@ class CreateBlackboxlavorazioneOperatore extends Migration
     public function up()
     {
         //pause
-        Schema::create('blackboxlavorazione_operatore', function (Blueprint $table) {
+        Schema::create('blackbox_pause', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('lavorazione_id')->index();
             $table->unsignedBigInteger('operatore_id')->index();
@@ -34,6 +34,6 @@ class CreateBlackboxlavorazioneOperatore extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blackboxlavorazione_operatore');
+        Schema::dropIfExists('blackbox_pause');
     }
 }

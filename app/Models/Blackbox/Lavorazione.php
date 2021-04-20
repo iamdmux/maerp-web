@@ -17,44 +17,14 @@ class Lavorazione extends Model
     
 
     /*----------------------------
-     blackbox_lavorazioni:     | id  | data |
-    ----------------------------
+     blackboxlavorazionecapo_operatore => blackbox_counter
+     blackboxlavorazione_operatore => blackbox_pause
 
-    -----------------------------
-    blackbox_operatori:         | id  | nome |
-    -----------------------------
-
-    ----------------------------
-     blackboxlavorazione_capo:  | lavorazione_id | capo_id | 
-     model: LavorazioneCapo
-    
-
-    **
-    lavorazione della giornata con tutti i capi
-    ----------------------------
-    
-    ----------------------------
-     blackboxlavorazionecapo_operatore:         | operatore_id | lavorazionecapo_id | counter |
-     relazione: lavorazione_capo e operatore 
-     Model: LavorazioneCapo
-    
-
-    **
-    Contatore per le lavorazioni degli operatori
-    ----------------------------
-    
-    ----------------------------
-      blackboxlavorazione_operatore:        | lavorazione_id | operatore_id | dalle | alle | tipo |
-      
-      
-      **
-      segno le pause
     ----------------------------*/
 
     public function capiScelti(){
         return $this->belongsToMany(Capo::class, 'blackboxlavorazione_capo', 'lavorazione_id', 'capo_id')->withPivot('id');
     }
-
 
     public function getDataAttribute($date){
         return Carbon::parse($date)->format('d-m-Y');
@@ -64,8 +34,12 @@ class Lavorazione extends Model
         return Carbon::parse($this->data)->isoFormat('dddd D MMMM Y');
     }
 
+    public function operatori(){
+        return $this->belongsToMany(Operatore::class, 'blackbox_lavorazione_operatore', 'lavorazione_id', 'operatore_id');
+    }
+
     public function pauseLavorazione(){
-        return $this->belongsToMany(Operatore::class, 'blackboxlavorazione_operatore', 'lavorazione_id', 'operatore_id')
+        return $this->belongsToMany(Operatore::class, 'blackbox_pause', 'lavorazione_id', 'operatore_id')
         ->withPivot('id', 'dalle', 'alle', 'tipo');
     }
 }

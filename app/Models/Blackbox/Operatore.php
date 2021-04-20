@@ -15,7 +15,7 @@ class Operatore extends Model
 
     // contatore lavorazione capi
     public function lavorazioneOperatore(){
-        return $this->belongsToMany(LavorazioneCapo::class, 'blackboxlavorazionecapo_operatore', 'operatore_id', 'lavorazionecapo_id')->withPivot('counter');
+        return $this->belongsToMany(LavorazioneCapo::class, 'blackbox_counter', 'operatore_id', 'lavorazionecapo_id')->withPivot('counter');
     }
 
     public function ferie(){

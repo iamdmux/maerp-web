@@ -16,7 +16,7 @@ class PauseLavorazioneSeeder extends Seeder
     public function run()
     {
         // 1 gennaio
-        DB::table('blackboxlavorazione_operatore')->insert([
+        DB::table('blackbox_pause')->insert([
             'id' => 1,
             'lavorazione_id' => 1, 
             'operatore_id' => 1,
@@ -24,7 +24,7 @@ class PauseLavorazioneSeeder extends Seeder
             'alle' => Carbon::create('2021-01-01 08:35:10'),
             'tipo' => 'pausafunzionale'
         ]);
-        DB::table('blackboxlavorazione_operatore')->insert([
+        DB::table('blackbox_pause')->insert([
             'id' => 2,
             'lavorazione_id' => 1, 
             'operatore_id' => 2,
@@ -34,7 +34,7 @@ class PauseLavorazioneSeeder extends Seeder
         ]);
 
         // 2 gennaio
-        DB::table('blackboxlavorazione_operatore')->insert([
+        DB::table('blackbox_pause')->insert([
             'id' => 3,
             'lavorazione_id' => 2, 
             'operatore_id' => 1,
@@ -42,7 +42,7 @@ class PauseLavorazioneSeeder extends Seeder
             'alle' => Carbon::create('2021-01-01 08:39:10'),
             'tipo' => 'bagno'
         ]);
-        DB::table('blackboxlavorazione_operatore')->insert([
+        DB::table('blackbox_pause')->insert([
             'id' => 4,
             'lavorazione_id' => 2, 
             'operatore_id' => 2,
@@ -54,7 +54,7 @@ class PauseLavorazioneSeeder extends Seeder
 
 
         // 1 febbraio
-        DB::table('blackboxlavorazione_operatore')->insert([
+        DB::table('blackbox_pause')->insert([
             'id' => 5,
             'lavorazione_id' => 3, 
             'operatore_id' => 1,
@@ -62,7 +62,7 @@ class PauseLavorazioneSeeder extends Seeder
             'alle' => Carbon::create('2021-02-01 08:35:10'),
             'tipo' => 'bagno'
         ]);
-        DB::table('blackboxlavorazione_operatore')->insert([
+        DB::table('blackbox_pause')->insert([
             'id' => 6,
             'lavorazione_id' => 3, 
             'operatore_id' => 2,
@@ -71,7 +71,7 @@ class PauseLavorazioneSeeder extends Seeder
             'tipo' => 'bagno'
         ]);
 
-        DB::table('blackboxlavorazione_operatore')->insert([
+        DB::table('blackbox_pause')->insert([
             'id' => 7,
             'lavorazione_id' => 3, 
             'operatore_id' => 3,
@@ -81,7 +81,7 @@ class PauseLavorazioneSeeder extends Seeder
         ]);
 
         // 2 febbraio
-        DB::table('blackboxlavorazione_operatore')->insert([
+        DB::table('blackbox_pause')->insert([
             'id' => 8,
             'lavorazione_id' => 4, 
             'operatore_id' => 1,
@@ -89,7 +89,7 @@ class PauseLavorazioneSeeder extends Seeder
             'alle' => Carbon::create('2021-02-02 08:39:10'),
             'tipo' => 'bagno'
         ]);
-        DB::table('blackboxlavorazione_operatore')->insert([
+        DB::table('blackbox_pause')->insert([
             'id' => 9,
             'lavorazione_id' => 4, 
             'operatore_id' => 2,
