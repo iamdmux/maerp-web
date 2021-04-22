@@ -39,7 +39,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 descrizione
             </p>
-            <textarea :disabled="method == 'show'" v-model="descrizione" rows="4" cols="50" name="descrizione[]" class="text-sm"></textarea>
+            <textarea required :disabled="method == 'show'" v-model="descrizione" rows="4" cols="50" name="descrizione[]" class="text-sm"></textarea>
           </div>
 
               <!-- <div class="flex mt-6">
@@ -95,7 +95,6 @@ import { computed, onMounted, watch, watchEffect } from '@vue/runtime-core'
 export default {
   props:{
     numeroArticolo:{
-      type: Number,
       required: true
     },
     method:{
@@ -126,7 +125,7 @@ export default {
   setup(props){
 
     // props
-    const numeroArticolo = ref(props.numeroArticolo)
+    const numeroArticolo = ref(Number(props.numeroArticolo))
 
     const lotto_id      = ref(props.lotto_id ? props.lotto_id : '')
     const codice        = ref(props.codice ? props.codice : '')

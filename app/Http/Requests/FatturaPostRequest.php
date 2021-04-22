@@ -37,14 +37,16 @@ class FatturaPostRequest extends FormRequest
             'tab_show_personalizzazione' => '',
             'tab_show_note_doc' => '',
             'quantiArticoli' => '',
-            // cliente, solo per old()
+            
+            // cliente,  per old() e per fattura elettronica
             'denominazione' => '',
             'indirizzo' => '',
             'citta' => '',
             'cap' => '',
             'provincia' => '',
             'note_indirizzo' => '',
-            'paese' => '',
+            'nazione' => '',
+            'nazione_sigla' => '',
             'partita_iva' => '',
             'codice_fiscale' => '',
             'tipo_documento' => '',

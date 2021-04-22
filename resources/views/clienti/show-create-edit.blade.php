@@ -129,13 +129,19 @@
                 value="{{old('codice_fiscale') ? old('codice_fiscale') : (($edit || $show) ? $cliente->codice_fiscale : '')}}">
             </div>
 
-            <div>
+            <nazioni-select enabledisable="{{$disable}}"
+            :nazioni-array="{{json_encode($nazioniArray)}}"
+            oldnazione="{{old('nazione') ? old('nazione') : (($edit || $show) ? $cliente->nazione : '')}}"
+            oldnazionesigla="{{old('nazione_sigla') ? old('nazione_sigla') : (($edit || $show) ? $cliente->nazione_sigla : '')}}">
+            </nazioni-select>
+
+            {{-- <div>
                 <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                    paese
+                    nazione
                 </p>
-                <input {{$disable}} autocomplete="off" type="text" name="paese" placeholder="paese"
-                value="{{old('paese') ? old('paese') : (($edit || $show) ? $cliente->paese : '')}}">
-            </div>
+                <input {{$disable}} autocomplete="off" type="text" name="nazione" placeholder="nazione"
+                value="{{old('nazione') ? old('nazione') : (($edit || $show) ? $cliente->nazione : '')}}">
+            </div> --}}
 
             <div>
                 <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">

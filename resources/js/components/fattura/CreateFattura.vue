@@ -19,7 +19,7 @@
 
 <div v-if="canCreareFatture" class="my-5">
   <label class="p-3 bg-gray-100 rounded">fattura elettronica
-    <input :disabled="method == 'show'" v-model="fattura_elettronica" type="checkbox" value="true" name="fattura_elettronica">
+    <input :disabled="method == 'show' || tipo_documento != 'fattura'" v-model="fattura_elettronica" type="checkbox" value="true" name="fattura_elettronica">
   </label>
 </div>
 
@@ -89,11 +89,18 @@
         <div class="flex flex-wrap mt-2">
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                paese
+                nazione
             </p>
-            <input disabled v-model="paese" class=" w-36" autocomplete="off" type="text" name="paese">
-            <input :value="paese" class=" w-36" autocomplete="off" type="hidden" name="paese">
+            <input disabled v-model="nazione" class=" w-24" autocomplete="off" type="text" name="nazione">
+            <input :value="nazione" class=" w-24" autocomplete="off" type="hidden" name="nazione">
+
           </div>
+          <div class="mr-2">
+            <!-- nazione_sigla -->
+            <input disabled :value="nazione_sigla" class="text-center px-1 mt-5 w-10" autocomplete="off" type="text" name="nazione_sigla">
+            <input :value="nazione_sigla" type="hidden" name="nazione_sigla">
+          </div>
+
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 partita iva
@@ -178,7 +185,7 @@
   </div>
 
     <!-- FATTURA ELETTRONICA -->
-  <div v-show="fattura_elettronica" class="relative w-full bg-gray-100 rounded p-4 mb-4" style="max-width: 1113px;">
+  <div v-show="fattura_elettronica" class="relative w-full bg-blue-200 rounded p-4 mb-4" style="max-width: 1113px;">
     <div class="flex justify-between mx-6">
       <h1><b>FATTURA ELETTRONICA</b></h1>
       <button @click.prevent="tab_show_fattura_elettronica = !tab_show_fattura_elettronica" class="pl-4">
@@ -476,9 +483,10 @@ export default {
     const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     const route = ref(props.route)
     const old = ref((props.old))
+
     const canCreareFatture = ref((props.canCreareFatture))
 
-    const tipo_documento = ref(old.value.tab_show_cliente ? old.value.tab_show_cliente : 'preventivo')
+    const tipo_documento = ref(old.value.tipo_documento ? old.value.tipo_documento : 'preventivo')
 
     const tab_show_cliente =              ref(old.value.tab_show_cliente ? old.value.tab_show_cliente : true)
     const tab_show_dati_documento =       ref(old.value.tab_show_dati_documento ? old.value.tab_show_dati_documento : true)
@@ -501,7 +509,8 @@ export default {
     const get_cap =             method.value == 'show' ? old.value.cliente.cap : old.value.cap
     const get_provincia =       method.value == 'show' ? old.value.cliente.provincia : old.value.provincia
     const get_note_indirizzo =  method.value == 'show' ? old.value.cliente.note_indirizzo : old.value.note_indirizzo
-    const get_paese =           method.value == 'show' ? old.value.cliente.paese : old.value.paese
+    const get_nazione =         method.value == 'show' ? old.value.cliente.nazione : old.value.nazione
+    const get_nazione_sigla =   method.value == 'show' ? old.value.cliente.nazione_sigla : old.value.nazione_sigla
     const get_partita_iva =     method.value == 'show' ? old.value.cliente.partita_iva : old.value.partita_iva
     const get_codice_fiscale =  method.value == 'show' ? old.value.cliente.codice_fiscale : old.value.codice_fiscale
 
@@ -513,7 +522,8 @@ export default {
     const cap =             ref(get_cap ? get_cap : '')
     const provincia =       ref(get_provincia ? get_provincia : '')
     const note_indirizzo =  ref(get_note_indirizzo ? get_note_indirizzo : '')
-    const paese =           ref(get_paese ? get_paese : '')
+    const nazione =         ref(get_nazione ? get_nazione : '')
+    const nazione_sigla =   ref(get_nazione_sigla ? get_nazione_sigla : '')
     const partita_iva =     ref(get_partita_iva ? get_partita_iva : '')
     const codice_fiscale =  ref(get_codice_fiscale ? get_codice_fiscale : '')
     
@@ -644,7 +654,8 @@ export default {
         cap.value = cliente.cap
         provincia.value = cliente.provincia
         note_indirizzo.value = cliente.note_indirizzo
-        paese.value = cliente.paese
+        nazione.value = cliente.nazione
+        nazione_sigla.value = cliente.nazione_sigla
         partita_iva.value = cliente.partita_iva
         codice_fiscale.value = cliente.codice_fiscale
         clienteId.value = cliente.id
@@ -669,7 +680,7 @@ export default {
       // otherObjects
       listaClienti, filterCliente, quantiArticoli,
       // vmodels
-      clienteId, fattura_elettronica, denominazione, indirizzo, citta, data, numero, data_ddt, numero_ddt, cap, provincia, note_indirizzo, paese, partita_iva,
+      clienteId, fattura_elettronica, denominazione, indirizzo, citta, data, numero, data_ddt, numero_ddt, cap, provincia, note_indirizzo, nazione, nazione_sigla, partita_iva,
       codice_fiscale, includi_marca_da_bollo, documento_di_trasporto, includi_metodo_pagamento, el_indirizzo_pec, lingua, note_documento, valuta,
       el_emesso_in_seguito_a, el_esigibilita_iva, el_metodo_pagamento, el_nome_istituto_di_credito,el_iban,el_nome_beneficiario,
       metodo_pagamento, costo_bollo, numero_colli_ddt, peso_ddt, casuale_trasporto,trasporto_a_cura_di,luogo_destinazione,annotazioni,

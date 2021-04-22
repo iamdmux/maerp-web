@@ -31,7 +31,8 @@ class ClienteController extends Controller
         return view('clienti.show-create-edit', [
             'create' => true,
             'tipologia' => Cliente::TIPOLOGIA,
-            'listaAgenti' => $listaAgenti
+            'listaAgenti' => $listaAgenti,
+            'nazioniArray' => help_country_iso3166()
         ]);
     }
 
@@ -51,7 +52,8 @@ class ClienteController extends Controller
             'show' => true,
             'tipologia' => Cliente::TIPOLOGIA,
             'cliente' => $cliente,
-            'listaAgenti' => $listaAgenti
+            'listaAgenti' => $listaAgenti,
+            'nazioniArray' => help_country_iso3166()
         ]);
     }
 
@@ -83,7 +85,8 @@ class ClienteController extends Controller
             'cliente' => $cliente,
             'edit' => true,
             'tipologia' => Cliente::TIPOLOGIA,
-            'listaAgenti' => $listaAgenti
+            'listaAgenti' => $listaAgenti,
+            'nazioniArray' => help_country_iso3166()
         ]);
     }
 
@@ -127,7 +130,8 @@ class ClienteController extends Controller
             'referente' => '',
             'partita_iva' => '',
             'codice_fiscale' => '',
-            'paese' => '',
+            'nazione' => '',
+            'nazione_sigla' => '',
             'indirizzo' => '',
             'citta' => '',
             'cap' => '',

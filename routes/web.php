@@ -26,9 +26,13 @@ Route::group(['middleware' => 'auth'], function(){
         
         Route::get('/', [DashboardController::class, 'view'])->name('home.page');
         Route::post('/ruolo', [DashboardController::class, 'ruolo']);
+        
         //import
         Route::get('/importclienti', [DashboardController::class, 'importClienti']);
         Route::get('/importfornitori', [DashboardController::class, 'importFornitori']);
+
+        // test
+        Route::get('/test', [DashboardController::class, 'test']);
     });
 
 

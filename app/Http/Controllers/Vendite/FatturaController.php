@@ -36,39 +36,40 @@ class FatturaController extends Controller
 
     public function store(FatturaPostRequest $request, Acube $acube){
 
+        $fatturazione = new Fatturazione($request);
+        $fatturazione->handle();
+
+
+        // filter by roles
         $u = auth()->user();
+        if ($u->getRoleNames()[0] == 'agente'){
+            $cliente = $u->clienti()->findOrFail($clienteId);
+        } else {
+            $cliente = Cliente::findOrFail($fatturazione->cliente_id);
+        }
+
+
 
         if ($u->getRoleNames()[0] != 'agente'){
-
             // Acube
             $invoicePostUiid = null;
 
-            if($request->fattura_elettronica){
-                // setto true per DB
-                $request['fattura_elettronica'] = 1;
-
+            if($fatturazione->fattura_elettronica){
+                $request['fattura_elettronica'] = 1; // setto true per DB
                 if($acube){
                     // MEGLIO TRY CATCH
-                    if( $acube->creaFatturaElettronica($request) ){
+                    if( $acube->creaFatturaElettronica($fatturazione) ){
                         $invoicePostUiid = $acube->invoicePostUiid;
                     } else {
-                        return back()->withErrors(['error' => ['Errore nella creazione della fattura elettronica']]);
+                        return back()->withErrors(['error' => ['Errore nella creazione della fattura elettronica']])->withInput();
                     };
                 }
             }
         }
 
-        // filter by roles
-        if ($u->getRoleNames()[0] == 'agente'){
-            $cliente = $u->clienti()->findOrFail($clienteId);
-        } else {
-            $cliente = Cliente::findOrFail($request->cliente_id);
-        }
-
-
-        
-        $fatturazione = new Fatturazione($request);
-        $fatturazione->handle();
+        // true per DB
+        $request['includi_marca_da_bollo'] = $request['includi_marca_da_bollo'] ? true : false;
+        $request['includi_metodo_pagamento'] = $request['includi_metodo_pagamento'] ? true : false;
 
         $nuovaFattura = Fattura::create( array_merge(
             $request->only([
@@ -99,9 +100,10 @@ class FatturaController extends Controller
             $fattura = Fattura::with('articoli', 'cliente')->findOrFail($id);
         }
 
-        
+        $canCreareFatture = auth()->user()->can('creare-fatture');
         return view('fatture.show', [
-            'fattura' => $fattura
+            'fattura' => $fattura,
+            'canCreareFatture' => $canCreareFatture
         ]);
     }
 }

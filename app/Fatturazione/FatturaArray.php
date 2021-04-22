@@ -4,452 +4,474 @@ namespace App\Fatturazione;
 
 class FatturaArray{
 
-    // in questo array non trovo:
-    // ProgressivoInvio, FormatoTrasmissione
-    public $invoice = [
-        'fattura_elettronica_header'=> [
-          'dati_trasmissione'=> [
-            'id_trasmittente'=> [
-              'id_paese'=> 'IT',
-              'id_codice'=> '01641790702'
-            ],
-            'codice_destinatario'=> '0000000',
-            'contatti_trasmittente'=> [
-              'telefono'=> '0874-60561',
-              'email'=> 'string'                // MI MANCA QUSTO DATO
-            ],
-            'pec_destinatario'=> 'almasrl.fatture@pec.it'
+  public function compilaFattura($fatt){
+
+    $fattura = [
+      'fattura_elettronica_header' => [
+        'dati_trasmissione' => [
+          'id_trasmittente' => [
+            'id_paese' => 'IT',
+            'id_codice' => '01641790702'
           ],
-          'cedente_prestatore'=> [
-            'dati_anagrafici'=> [
-              'id_fiscale_iva'=> [
-                'id_paese'=> 'IT',
-                'id_codice'=> '11320520015'
-              ],
-              'codice_fiscale'=> '11320520015',
-              'anagrafica'=> [
-                'denominazione'=> 'M&A EXPORT s.r.l',
-                'nome'=> 'string',                  // MI MANCA QUSTO DATO
-                'cognome'=> 'string',               // MI MANCA QUSTO DATO
-                'titolo'=> 'string',                // MI MANCA QUSTO DATO
-                'cod_eori'=> 'string'               // MI MANCA QUSTO DATO
-              ],
-              'albo_professionale'=> 'string',                   // MI MANCA QUSTO DATO
-              'provincia_albo'=> 'string',                       // MI MANCA QUSTO DATO
-              'numero_iscrizione_albo'=> 'string',               // MI MANCA QUSTO DATO
-              'data_iscrizione_albo'=> '2021-04-01T16=>50=>42Z', // MI MANCA QUSTO DATO
-              'regime_fiscale'=> 'RF01'                  
-            ],
-            'sede'=> [
-              'indirizzo'=> 'Via Italia 21',
-              'numero_civico'=> 'string',
-              'cap'=> '10035',
-              'comune'=> 'MAZZÉ',               // HO USATO LA É (accentata)
-              'provincia'=> 'TO',
-              'nazione'=> 'IT'
-            ],
-            'stabile_organizzazione'=> [
-              'indirizzo'=> 'string',            // MI MANCA QUSTO DATO
-              'numero_civico'=> 'string',        // MI MANCA QUSTO DATO
-              'cap'=> 'string',                  // MI MANCA QUSTO DATO
-              'comune'=> 'string',               // MI MANCA QUSTO DATO
-              'provincia'=> 'string',            // MI MANCA QUSTO DATO
-              'nazione'=> 'string'               // MI MANCA QUSTO DATO
-            ],
-            'iscrizione_rea'=> [
-              'ufficio'=> 'string',               // MI MANCA QUSTO DATO
-              'numero_rea'=> 'string',            // MI MANCA QUSTO DATO
-              'capitale_sociale'=> 'string',      // MI MANCA QUSTO DATO
-              'socio_unico'=> 'string',           // MI MANCA QUSTO DATO
-              'stato_liquidazione'=> 'string'     // MI MANCA QUSTO DATO
-            ],
-            'contatti'=> [
-              'telefono'=> 'string',        // MI MANCA QUSTO DATO
-              'fax'=> 'string',             // MI MANCA QUSTO DATO
-              'email'=> 'string'            // MI MANCA QUSTO DATO
-            ],
-            'riferimento_amministrazione'=> 'string'  // MI MANCA QUSTO DATO
+          'codice_destinatario' => '0000000',        // HARDCODED, vedere estero
+          'contatti_trasmittente' => [
+            'telefono' => '0874-60561',
+            'email' => null
           ],
-          'rappresentante_fiscale'=> [
-            'dati_anagrafici'=> [
-              'id_fiscale_iva'=> [
-                'id_paese'=> 'string',     // MI MANCA QUSTO DATO
-                'id_codice'=> 'string'     // MI MANCA QUSTO DATO
-              ],
-              'codice_fiscale'=> 'string',  // MI MANCA QUSTO DATO
-              'anagrafica'=> [
-                'denominazione'=> 'string', // MI MANCA QUSTO DATO
-                'nome'=> 'string',          // MI MANCA QUSTO DATO
-                'cognome'=> 'string',       // MI MANCA QUSTO DATO
-                'titolo'=> 'string',        // MI MANCA QUSTO DATO
-                'cod_eori'=> 'string'       // MI MANCA QUSTO DATO
-              ]
-            ]
-          ],
-          'cessionario_committente'=> [ // cliente
-            'dati_anagrafici'=> [
-              'id_fiscale_iva'=> [
-                'id_paese'=> 'string',
-                'id_codice'=> 'string'
-              ],
-              'codice_fiscale'=> 'string',
-              'anagrafica'=> [
-                'denominazione'=> 'string',
-                'nome'=> 'string',
-                'cognome'=> 'string',
-                'titolo'=> 'string',
-                'cod_eori'=> 'string'
-              ]
-            ],
-            'sede'=> [
-              'indirizzo'=> 'string',
-              'numero_civico'=> 'string',
-              'cap'=> 'string',
-              'comune'=> 'string',
-              'provincia'=> 'string',
-              'nazione'=> 'string'
-            ],
-            'stabile_organizzazione'=> [
-              'indirizzo'=> 'string',
-              'numero_civico'=> 'string',
-              'cap'=> 'string',
-              'comune'=> 'string',
-              'provincia'=> 'string',
-              'nazione'=> 'string'
-            ],
-            'rappresentante_fiscale'=> [
-              'id_fiscale_iva'=> [
-                'id_paese'=> 'string',
-                'id_codice'=> 'string'
-              ],
-              'denominazione'=> 'string',
-              'nome'=> 'string',
-              'cognome'=> 'string'
-            ]
-          ],
-          'terzo_intermediario_o_soggetto_emittente'=> [
-            'dati_anagrafici'=> [
-              'id_fiscale_iva'=> [
-                'id_paese'=> 'string',
-                'id_codice'=> 'string'
-              ],
-              'codice_fiscale'=> 'string',
-              'anagrafica'=> [
-                'denominazione'=> 'string',
-                'nome'=> 'string',
-                'cognome'=> 'string',
-                'titolo'=> 'string',
-                'cod_eori'=> 'string'
-              ]
-            ]
-          ],
-          'soggetto_emittente'=> 'string'
+          'pec_destinatario' => 'almasrl.fatture@pec.it'
         ],
-        'fattura_elettronica_body'=> [
-          [
-            'dati_generali'=> [
-              'dati_generali_documento'=> [
-                'tipo_documento'=> 'string',
-                'divisa'=> 'string',
-                'data'=> '2021-04-01T16=>50=>42Z',
-                'numero'=> 'string',
-                'dati_ritenuta'=> [
-                  [
-                    'tipo_ritenuta'=> 'string',
-                    'importo_ritenuta'=> 'string',
-                    'aliquota_ritenuta'=> 'string',
-                    'causale_pagamento'=> 'string'
-                  ]
-                ],
-                'dati_bollo'=> [
-                  'bollo_virtuale'=> 'string',
-                  'importo_bollo'=> 'string'
-                ],
-                'dati_cassa_previdenziale'=> [
-                  [
-                    'tipo_cassa'=> 'string',
-                    'al_cassa'=> 'string',
-                    'importo_contributo_cassa'=> 'string',
-                    'imponibile_cassa'=> 'string',
-                    'aliquota_iva'=> 'string',
-                    'ritenuta'=> 'string',
-                    'natura'=> 'string',
-                    'riferimento_amministrazione'=> 'string'
-                  ]
-                ],
-                'sconto_maggiorazione'=> [
-                  [
-                    'tipo'=> 'string',
-                    'percentuale'=> 'string',
-                    'importo'=> 'string'
-                  ]
-                ],
-                'importo_totale_documento'=> 'string',
-                'arrotondamento'=> 'string',
-                'causale'=> [
-                  'string'
-                ],
-                'art73'=> 'string'
-              ],
-              'dati_ordine_acquisto'=> [
-                [
-                  'riferimento_numero_linea'=> [
-                    0
-                  ],
-                  'id_documento'=> 'string',
-                  'data'=> '2021-04-01T16=>50=>42Z',
-                  'num_item'=> 'string',
-                  'codice_commessa_convenzione'=> 'string',
-                  'codice_cup'=> 'string',
-                  'codice_cig'=> 'string'
-                ]
-              ],
-              'dati_contratto'=> [
-                [
-                  'riferimento_numero_linea'=> [
-                    0
-                  ],
-                  'id_documento'=> 'string',
-                  'data'=> '2021-04-01T16=>50=>42Z',
-                  'num_item'=> 'string',
-                  'codice_commessa_convenzione'=> 'string',
-                  'codice_cup'=> 'string',
-                  'codice_cig'=> 'string'
-                ]
-              ],
-              'dati_convenzione'=> [
-                [
-                  'riferimento_numero_linea'=> [
-                    0
-                  ],
-                  'id_documento'=> 'string',
-                  'data'=> '2021-04-01T16=>50=>42Z',
-                  'num_item'=> 'string',
-                  'codice_commessa_convenzione'=> 'string',
-                  'codice_cup'=> 'string',
-                  'codice_cig'=> 'string'
-                ]
-              ],
-              'dati_ricezione'=> [
-                [
-                  'riferimento_numero_linea'=> [
-                    0
-                  ],
-                  'id_documento'=> 'string',
-                  'data'=> '2021-04-01T16=>50=>42Z',
-                  'num_item'=> 'string',
-                  'codice_commessa_convenzione'=> 'string',
-                  'codice_cup'=> 'string',
-                  'codice_cig'=> 'string'
-                ]
-              ],
-              'dati_fatture_collegate'=> [
-                [
-                  'riferimento_numero_linea'=> [
-                    0
-                  ],
-                  'id_documento'=> 'string',
-                  'data'=> '2021-04-01T16=>50=>42Z',
-                  'num_item'=> 'string',
-                  'codice_commessa_convenzione'=> 'string',
-                  'codice_cup'=> 'string',
-                  'codice_cig'=> 'string'
-                ]
-              ],
-              'dati_sal'=> [
-                [
-                  'riferimento_fase'=> 0
-                ]
-              ],
-              'dati_ddt'=> [
-                [
-                  'numero_ddt'=> 'string',
-                  'data_ddt'=> '2021-04-01T16=>50=>42Z',
-                  'riferimento_numero_linea'=> [
-                    'string'
-                  ]
-                ]
-              ],
-              'dati_trasporto'=> [
-                'dati_anagrafici_vettore'=> [
-                  'id_fiscale_iva'=> [
-                    'id_paese'=> 'string',
-                    'id_codice'=> 'string'
-                  ],
-                  'codice_fiscale'=> 'string',
-                  'anagrafica'=> [
-                    'denominazione'=> 'string',
-                    'nome'=> 'string',
-                    'cognome'=> 'string',
-                    'titolo'=> 'string',
-                    'cod_eori'=> 'string'
-                  ],
-                  'numero_licenza_guida'=> 'string'
-                ],
-                'mezzo_trasporto'=> 'string',
-                'causale_trasporto'=> 'string',
-                'numero_colli'=> 0,
-                'descrizione'=> 'string',
-                'unita_misura_peso'=> 'string',
-                'peso_lordo'=> 'string',
-                'peso_netto'=> 'string',
-                'data_ora_ritiro'=> '2021-04-01T16=>50=>42Z',
-                'data_inizio_trasporto'=> '2021-04-01T16=>50=>42Z',
-                'tipo_resa'=> 'string',
-                'indirizzo_resa'=> [
-                  'indirizzo'=> 'string',
-                  'numero_civico'=> 'string',
-                  'cap'=> 'string',
-                  'comune'=> 'string',
-                  'provincia'=> 'string',
-                  'nazione'=> 'string'
-                ],
-                'data_ora_consegna'=> '2021-04-01T16=>50=>42Z'
-              ],
-              'fattura_principale'=> [
-                'numero_fattura_principale'=> 'string',
-                'data_fattura_principale'=> '2021-04-01T16=>50=>42Z'
-              ]
+        'cedente_prestatore' => [
+          'dati_anagrafici' => [
+            'id_fiscale_iva' => [
+              'id_paese' => 'IT',
+              'id_codice' => '11320520015'
             ],
-            'dati_beni_servizi'=> [
-              'dettaglio_linee'=> [
-                [
-                  'numero_linea'=> 0,
-                  'tipo_cessione_prestazione'=> 'string',
-                  'codice_articolo'=> [
-                    [
-                      'codice_tipo'=> 'string',
-                      'codice_valore'=> 'string'
-                    ]
-                  ],
-                  'descrizione'=> 'string',
-                  'quantita'=> 'string',
-                  'unita_misura'=> 'string',
-                  'data_inizio_periodo'=> '2021-04-01T16=>50=>42Z',
-                  'data_fine_periodo'=> '2021-04-01T16=>50=>42Z',
-                  'prezzo_unitario'=> 'string',
-                  'sconto_maggiorazione'=> [
-                    [
-                      'tipo'=> 'string',
-                      'percentuale'=> 'string',
-                      'importo'=> 'string'
-                    ]
-                  ],
-                  'prezzo_totale'=> 'string',
-                  'aliquota_iva'=> 'string',
-                  'ritenuta'=> 'string',
-                  'natura'=> 'string',
-                  'riferimento_amministrazione'=> 'string',
-                  'altri_dati_gestionali'=> [
-                    [
-                      'tipo_dato'=> 'string',
-                      'riferimento_testo'=> 'string',
-                      'riferimento_numero'=> 'string',
-                      'riferimento_data'=> '2021-04-01T16=>50=>42Z'
-                    ]
-                  ]
-                ]
+            'codice_fiscale' => '11320520015',
+            'anagrafica' => [
+              'denominazione' => 'M&A EXPORT s.r.l',
+              'nome' => null,
+              'cognome' => null,
+              'titolo' => null,
+              'cod_eori' => null
+            ],
+            'albo_professionale' => null,
+            'provincia_albo' => null,
+            'numero_iscrizione_albo' => null, 
+            'data_iscrizione_albo' => null, 
+            'regime_fiscale' => 'RF01'                  
+          ],
+          'sede' => [
+            'indirizzo' => 'Via Italia',
+            'numero_civico' => '21',
+            'cap' => '10035',
+            'comune' => 'MAZZÉ',               // HO USATO LA É (accentata)
+            'provincia' => 'TO',
+            'nazione' => 'IT'
+          ],
+          // 'stabile_organizzazione' => [
+          //   'indirizzo' => 'Via Italia',
+          //   'numero_civico' => '21',
+          //   'cap' => '10035',
+          //   'comune' => 'MAZZÉ',
+          //   'provincia' => 'TO',
+          //   'nazione' => 'IT'
+          // ],
+          // 'iscrizione_rea' => [
+          //   'ufficio' => null,
+          //   'numero_rea' => null,
+          //   'capitale_sociale' => null,
+          //   'socio_unico' => null,
+          //   'stato_liquidazione' => null
+          // ],
+          'contatti' => [
+            'telefono' => null,
+            'fax' => null,
+            'email' => null
+          ],
+          'riferimento_amministrazione' => null
+        ],
+        // 'rappresentante_fiscale' => [
+        //   'dati_anagrafici' => [
+        //     'id_fiscale_iva' => [
+        //       'id_paese' => null,
+        //       'id_codice' => null
+        //     ],
+        //     'codice_fiscale' => null,
+        //     'anagrafica' => [
+        //       'denominazione' => null,
+        //       'nome' => null,
+        //       'cognome' => null,
+        //       'titolo' => null,
+        //       'cod_eori' => null
+        //     ]
+        //   ]
+        // ],
+        // cliente
+        'cessionario_committente' => [
+          'dati_anagrafici' => [
+            'id_fiscale_iva' => [
+              'id_paese' => 'IT',                                  // lista paesi (controllare e inserirli nella select) https://www.ksgestionali.it/software/fattura-elettronica-lista-codici-sigle-paesi-esteri/
+              'id_codice' => $fatt->el_codice_destinatario      // codice cliente. E' il codice sdi, giusto?
+            ],
+            'codice_fiscale' => $fatt->codice_fiscale,          // codice fiscale
+            'anagrafica' => [
+              'denominazione' => $fatt->denominazione,          // ragione sociale
+              'nome' => null,          // nome
+              'cognome' => null,       // cognome
+              'titolo' => null,  
+              'cod_eori' => null
+            ]
+          ],
+          'sede' => [
+            'indirizzo' => $fatt->indirizzo,       // indirizzo
+            'numero_civico' => null,                  // civico
+            'cap' => $fatt->cap,                   // cap
+            'comune' => $fatt->citta,              // comune
+            'provincia' => $fatt->provincia,       // provincia
+            'nazione' => $fatt->nazione_sigla      // nazione IT ( è uguale a id_paese? )
+          ],
+          // 'stabile_organizzazione' => [
+          //   'indirizzo' => null,
+          //   'numero_civico' => null,
+          //   'cap' => null,
+          //   'comune' => null,
+          //   'provincia' => null,
+          //   'nazione' => null
+          // ],
+          // 'rappresentante_fiscale' => [
+          //   'id_fiscale_iva' => [
+          //     'id_paese' => null,
+          //     'id_codice' => null
+          //   ],
+          //   'denominazione' => null,
+          //   'nome' => null,
+          //   'cognome' => null
+          // ]
+        ],
+        // 'terzo_intermediario_o_soggetto_emittente' => [
+        //   'dati_anagrafici' => [
+        //     'id_fiscale_iva' => [
+        //       'id_paese' => null,
+        //       'id_codice' => null
+        //     ],
+        //     'codice_fiscale' => null,
+        //     'anagrafica' => [
+        //       'denominazione' => null,
+        //       'nome' => null,
+        //       'cognome' => null,
+        //       'titolo' => null,
+        //       'cod_eori' => null
+        //     ]
+        //   ]
+        // ],
+        'soggetto_emittente' => 'TZ'
+      ],
+      'fattura_elettronica_body' => [
+        [
+          'dati_generali' => [
+            'dati_generali_documento' => [
+              'tipo_documento' => 'TD01',      // tipo documento?  (nel XML c'è 'TD01')
+              'divisa' => 'EUR',               // valuta: mi serve la lista di questi campi
+              'data' => (string)$fatt->data,          // data
+              'numero' => $fatt->numero,                // numero
+              // 'dati_ritenuta' => [
+              //   [
+              //     'tipo_ritenuta' => null,
+              //     'importo_ritenuta' => null,
+              //     'aliquota_ritenuta' => null,
+              //     'causale_pagamento' => null
+              //   ]
+              // ],
+              // ********************** creo in modo dinamico ************************
+              // 'dati_bollo' => [
+              //   'bollo_virtuale' => $fatt->includi_marca_da_bollo ? 'SI' : null,                   //  se c'è il bollo. valore ammesso [SI]
+              //   'importo_bollo' => $fatt->includi_marca_da_bollo ? $fatt->costo_bollo : null    //  se c'è bollo, l'importo del bollo
+              // ],
+              // **********************************************************************
+              // 'dati_cassa_previdenziale' => [
+              //   [
+              //     'tipo_cassa' => null,
+              //     'al_cassa' => null,
+              //     'importo_contributo_cassa' => null,
+              //     'imponibile_cassa' => null,
+              //     'aliquota_iva' => null,
+              //     'ritenuta' => null,
+              //     'natura' => null,
+              //     'riferimento_amministrazione' => null
+              //   ]
+              // ],
+              // 'sconto_maggiorazione' => [
+              //   [
+              //     'tipo' => null,
+              //     'percentuale' => null,
+              //     'importo' => null
+              //   ]
+              // ],
+              'importo_totale_documento' => number_format($fatt->totale, 2), 
+              'arrotondamento' => null,
+              'causale' => [
+                null
               ],
-              'dati_riepilogo'=> [
-                [
-                  'aliquota_iva'=> 'string',
-                  'natura'=> 'string',
-                  'spese_accessorie'=> 'string',
-                  'arrotondamento'=> 'string',
-                  'imponibile_importo'=> 'string',
-                  'imposta'=> 'string',
-                  'esigibilita_iva'=> 'string',
-                  'riferimento_normativo'=> 'string'
-                ]
-              ]
+              'art73' => null
             ],
-            'dati_veicoli'=> [
-              'data'=> '2021-04-01T16=>50=>42Z',
-              'totale_percorso'=> 'string'
-            ],
-            'dati_pagamento'=> [
+            // 'dati_ordine_acquisto' => [
+            //   [
+            //     'riferimento_numero_linea' => [
+            //       0
+            //     ],
+            //     'id_documento' => null,
+            //     'data' => null,
+            //     'num_item' => null,
+            //     'codice_commessa_convenzione' => null,
+            //     'codice_cup' => null,
+            //     'codice_cig' => null
+            //   ]
+            // ],
+            // 'dati_contratto' => [
+            //   [
+            //     'riferimento_numero_linea' => [
+            //       0
+            //     ],
+            //     'id_documento' => null,
+            //     'data' => null,
+            //     'num_item' => null,
+            //     'codice_commessa_convenzione' => null,
+            //     'codice_cup' => null,
+            //     'codice_cig' => null
+            //   ]
+            // ],
+            // 'dati_convenzione' => [
+            //   [
+            //     'riferimento_numero_linea' => [
+            //       0
+            //     ],
+            //     'id_documento' => null,
+            //     'data' => null,
+            //     'num_item' => null,
+            //     'codice_commessa_convenzione' => null,
+            //     'codice_cup' => null,
+            //     'codice_cig' => null
+            //   ]
+            // ],
+            // 'dati_ricezione' => [
+            //   [
+            //     'riferimento_numero_linea' => [
+            //       0
+            //     ],
+            //     'id_documento' => null,
+            //     'data' => null,
+            //     'num_item' => null,
+            //     'codice_commessa_convenzione' => null,
+            //     'codice_cup' => null,
+            //     'codice_cig' => null
+            //   ]
+            // ],
+            // 'dati_fatture_collegate' => [
+            //   [
+            //     'riferimento_numero_linea' => [
+            //       0
+            //     ],
+            //     'id_documento' => null,
+            //     'data' => null,
+            //     'num_item' => null,
+            //     'codice_commessa_convenzione' => null,
+            //     'codice_cup' => null,
+            //     'codice_cig' => null
+            //   ]
+            // ],
+            // 'dati_sal' => [
+            //   [
+            //     'riferimento_fase' => 0
+            //   ]
+            // ],
+            // 'dati_ddt' => [                          // per i DDT, meglio avere una fattura elettronica di esempio con questi dati
+            //   [
+            //     'numero_ddt' => null,                // numero DDT
+            //     'data_ddt' => null,                  // data DDT
+            //     'riferimento_numero_linea' => [
+            //       null
+            //     ]
+            //   ]
+            // ],
+            // 'dati_trasporto' => [
+            //   'dati_anagrafici_vettore' => [
+            //     'id_fiscale_iva' => [
+            //       'id_paese' => null,
+            //       'id_codice' => null
+            //     ],
+            //     'codice_fiscale' => null,
+            //     'anagrafica' => [
+            //       'denominazione' => null,
+            //       'nome' => null,
+            //       'cognome' => null,
+            //       'titolo' => null,
+            //       'cod_eori' => null
+            //     ],
+            //     'numero_licenza_guida' => null 
+            //   ],
+            //   'mezzo_trasporto' => null,
+            //   'causale_trasporto' => null,
+            //   'numero_colli' => 0,
+            //   'descrizione' => null,
+            //   'unita_misura_peso' => null,
+            //   'peso_lordo' => null,
+            //   'peso_netto' => null,
+            //   'data_ora_ritiro' => null,
+            //   'data_inizio_trasporto' => null,
+            //   'tipo_resa' => null,
+            //   'indirizzo_resa' => [
+            //     'indirizzo' => null,
+            //     'numero_civico' => null,
+            //     'cap' => null,
+            //     'comune' => null,
+            //     'provincia' => null,
+            //     'nazione' => null
+            //   ],
+            //   'data_ora_consegna' => null 
+            // ],
+            // 'fattura_principale' => [
+            //   'numero_fattura_principale' => null,
+            //   'data_fattura_principale' => null
+            // ]
+          ],
+
+          // test con 1
+          'dati_beni_servizi' => [
+            // ********************** creo in modo dinamico ************************
+            // 'dettaglio_linee' => [
+            //   [
+            //     'numero_linea' => array_keys($fatt->articoli)[0], // COMINCIA DA ZERO o UNO? (chiedere al ragazzo)
+            //     'tipo_cessione_prestazione' => null,
+            //     'codice_articolo' => [
+            //       [
+            //         'codice_tipo' => 'interno',                           // cos'è? (nel XML c'è 'INTERNO')
+            //         'codice_valore' => $fatt->articoli[0]['codice']      // cos'è? (nel XML c'è  '93.01')
+            //       ]
+            //     ],
+            //     'descrizione' => $fatt->articoli[0]['descrizione'],             //descrizione
+            //     'quantita' => number_format($fatt->articoli[0]['quantita'], 2),                //quantità
+            //     'unita_misura' => $fatt->articoli[0]['unita_di_misura'],            //unita_misura
+            //     'data_inizio_periodo' => null,
+            //     'data_fine_periodo' => null,
+            //     'prezzo_unitario' => $fatt->articoli[0]['importo_netto'],         //prezzo_unitario
+            //     // 'sconto_maggiorazione' => [
+            //     //   [
+            //     //     'tipo' => null,
+            //     //     'percentuale' => null,
+            //     //     'importo' => null
+            //     //   ]
+            //     // ],
+            //     'prezzo_totale' => $fatt->articoli[0]['importo_totale'],         // costo
+            //     'aliquota_iva' => $fatt->articoli[0]['costo_iva'],                // '22.00' o '0' prezzo aliquota_iva
+            //     'ritenuta' => null,
+            //     'natura' => null,
+            //     'riferimento_amministrazione' => null,
+            //     // 'altri_dati_gestionali' => [
+            //     //   [
+            //     //     'tipo_dato' => null,
+            //     //     'riferimento_testo' => null,
+            //     //     'riferimento_numero' => null,
+            //     //     'riferimento_data' => null
+            //     //   ]
+            //     // ]
+            //   ]
+            // ],
+            // *********************************************************************
+            'dati_riepilogo' => [
               [
-                'condizioni_pagamento'=> 'string',
-                'dettaglio_pagamento'=> [
-                  [
-                    'beneficiario'=> 'string',
-                    'modalita_pagamento'=> 'string',
-                    'data_riferimento_termini_pagamento'=> '2021-04-01T16=>50=>42Z',
-                    'giorni_termini_pagamento'=> 0,
-                    'data_scadenza_pagamento'=> '2021-04-01T16=>50=>42Z',
-                    'importo_pagamento'=> 'string',
-                    'cod_ufficio_postale'=> 'string',
-                    'cognome_quietanzante'=> 'string',
-                    'nome_quietanzante'=> 'string',
-                    'cf_quietanzante'=> 'string',
-                    'titolo_quietanzante'=> 'string',
-                    'istituto_finanziario'=> 'string',
-                    'iban'=> 'string',
-                    'abi'=> 'string',
-                    'cab'=> 'string',
-                    'bic'=> 'string',
-                    'sconto_pagamento_anticipato'=> 'string',
-                    'data_limite_pagamento_anticipato'=> '2021-04-01T16=>50=>42Z',
-                    'penalita_pagamenti_ritardati'=> 'string',
-                    'data_decorrenza_penale'=> '2021-04-01T16=>50=>42Z',
-                    'codice_pagamento'=> 'string'
-                  ]
-                ]
-              ]
-            ],
-            'allegati'=> [
-              [
-                'nome_attachment'=> 'string',
-                'algoritmo_compressione'=> 'string',
-                'formato_attachment'=> 'string',
-                'descrizione_attachment'=> 'string',
-                'attachment'=> null
+                'aliquota_iva' => '22.00',            // '22.00' . quale IVA ?
+                'natura' => null,
+                'spese_accessorie' => null,
+                'arrotondamento' => null,
+                'imponibile_importo' => number_format($fatt->totaleImponibile, 2),      // tot imponibile
+                'imposta' => number_format($fatt->totaleIva, 2),                        // tot imposta
+                'esigibilita_iva' => null,
+                'riferimento_normativo' => null
               ]
             ]
-          ]
+          ],
+          // 'dati_veicoli' => [
+          //   'data' => null,
+          //   'totale_percorso' => null
+          // ],
+          // 'dati_pagamento' => [
+          //   [
+          //     'condizioni_pagamento' => null,      // mi serve questo dato? (nel XML è 'TP02') TP01 - pagamento a rate. TP02 - pagamento completo. TP03 -anticipo
+          //     'dettaglio_pagamento' => [
+          //       [
+          //         'beneficiario' => null,
+          //         'modalita_pagamento' => null,           // mi serve questo dato? (nel XML è 'MP02')
+          //         'data_riferimento_termini_pagamento' => null,
+          //         'giorni_termini_pagamento' => 0,
+          //         'data_scadenza_pagamento' => null,      // devo inserirla? es.2021-04-02
+          //         'importo_pagamento' => null,            // importo_pagamento es.36475.56
+          //         'cod_ufficio_postale' => null,
+          //         'cognome_quietanzante' => null,
+          //         'nome_quietanzante' => null,
+          //         'cf_quietanzante' => null,
+          //         'titolo_quietanzante' => null,
+          //         'istituto_finanziario' => null,
+          //         'iban' => null,
+          //         'abi' => null,
+          //         'cab' => null,
+          //         'bic' => null,
+          //         'sconto_pagamento_anticipato' => null,
+          //         'data_limite_pagamento_anticipato' => null,
+          //         'penalita_pagamenti_ritardati' => null,
+          //         'data_decorrenza_penale' => null,
+          //         'codice_pagamento' => null
+          //       ]
+          //     ]
+          //   ]
+          // ],
+          // 'allegati' => [
+          //   [
+          //     'nome_attachment' => null,
+          //     'algoritmo_compressione' => null,
+          //     'formato_attachment' => null,
+          //     'descrizione_attachment' => null,
+          //     'attachment' => null
+          //   ]
+          // ]
         ]
+      ]
     ];
 
-    // $invoicesimplified = [
-    //     'fattura_elettronica_header' => [
-    //     'dati_trasmissione'=> [
-    //         'codice_destinatario'=> 'ABCDEFG'
-    //     ],
-    //     'cedente_prestatore'=> [
-    //         'id_fiscale_iva'=> [
-    //             'id_paese'=> 'IT',
-    //             'id_codice'=> '12345678901'
-    //         ],
-    //         'sede'=> [
-    //             'indirizzo'=> 'address string',
-    //             'cap'=> '12345',
-    //             'comune'=> 'city string',
-    //             'nazione'=> 'IT'
-    //         ],
-    //         'regime_fiscale'=> 'RF01'
-    //     ],
-    //     'cessionario_committente'=> [
-    //         'identificativi_fiscali'=> [
-    //             'codice_fiscale'=> 'ABSDVFCNSHBGAFTS'
-    //         ]
-    //     ]
-    // ],
-    // 'fattura_elettronica_body'=> [[
-    //     'dati_generali'=> [
-    //         'dati_generali_documento'=> [
-    //             'tipo_documento'=> 'TD07',
-    //             'divisa'=> 'EUR',
-    //             'data'=> '2020-07-01',
-    //             'numero'=> '111'
-    //         ]
-    //     ],
-    //     'dati_beni_servizi'=> [[
-    //         'descrizione'=> 'goods description',
-    //         'importo'=> '100',
-    //         'dati_iva'=> [
-    //             'imposta'=> '22'
-    //         ]
-    //     ]]
-    // ]]
-    // ]
+    // marca da bollo
+    if($fatt->includi_marca_da_bollo && $fatt->costo_bollo):
+
+      $fattura['fattura_elettronica_body'][0]['dati_generali']['dati_generali_documento']['dati_bollo'] = [
+        'bollo_virtuale' => 'SI',                   //  se c'è il bollo. valore ammesso [SI]
+        'importo_bollo' => $fatt->costo_bollo
+      ];
+
+    endif;
+
+    $index = 0;
+    foreach ($fatt->articoli as $articolo) {
+      $fattura['fattura_elettronica_body'][0]['dati_beni_servizi']['dettaglio_linee'][0] =
+        [
+          'numero_linea' => $index, // COMINCIA DA ZERO o UNO? (chiedere al ragazzo)
+          'tipo_cessione_prestazione' => null,
+          'codice_articolo' => [
+            [
+              'codice_tipo' => 'interno',                           // cos'è? (nel XML c'è 'INTERNO')
+              'codice_valore' => $articolo['codice']      // cos'è? (nel XML c'è  '93.01')
+            ]
+          ],
+          'descrizione' => $articolo['descrizione'],             //descrizione
+          'quantita' => number_format($articolo['quantita'], 2),                //quantità
+          'unita_misura' => $articolo['unita_di_misura'],            //unita_misura
+          'data_inizio_periodo' => null,
+          'data_fine_periodo' => null,
+          'prezzo_unitario' => $articolo['importo_netto'],         //prezzo_unitario
+          // 'sconto_maggiorazione' => [
+          //   [
+          //     'tipo' => null,
+          //     'percentuale' => null,
+          //     'importo' => null
+          //   ]
+          // ],
+          'prezzo_totale' => $articolo['importo_totale'],         // costo
+          'aliquota_iva' => $articolo['costo_iva'],                // '22.00' o '0' prezzo aliquota_iva
+          'ritenuta' => null,
+          'natura' => null,
+          'riferimento_amministrazione' => null,
+          // 'altri_dati_gestionali' => [
+          //   [
+          //     'tipo_dato' => null,
+          //     'riferimento_testo' => null,
+          //     'riferimento_numero' => null,
+          //     'riferimento_data' => null
+          //   ]
+          // ]
+      ];
+      $index++;
+    } 
+
+    return $fattura;
+  }
+      
+
+
 }

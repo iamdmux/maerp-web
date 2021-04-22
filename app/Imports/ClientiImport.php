@@ -9,6 +9,7 @@ class ClientiImport implements ToModel
 {
     private $rows = 0;
 
+
     public function model(array $row)
     {
         ++$this->rows;
@@ -16,22 +17,23 @@ class ClientiImport implements ToModel
         if($this->rows > 1 && $this->rows < 1573){
 
             return new Cliente([
-                'denominazione' => $row[0],
-                'user_id' => $this->convertToUserId($row[1]),
-                'indirizzo' => $row[2],
-                'citta' => $row[3],
-                'cap' => $row[4],
-                'provincia' => $row[5],
-                'note_indirizzo' => $row[6],
-                'paese' => $row[7],
-                'email' => $row[8],
-                'referente' => $row[9],
-                'telefono' => $row[10],
-                'partita_iva' => $row[11],
-                'codice_fiscale' => $row[12],
-                'note_extra' => $row[13],
-                'pec' => $row[14],
-                'codice_sdi' => $row[15],
+              'denominazione' => $row[0],
+              'user_id' => $this->convertToUserId($row[1]),
+              'indirizzo' => $row[2],
+              'citta' => $row[3],
+              'cap' => $row[4],
+              'provincia' => $row[5],
+              'note_indirizzo' => $row[6],
+              'nazione' => $row[7],
+              'nazione_sigla' => $this->parseNazione($row[7]),
+              'email' => $row[8],
+              'referente' => $row[9],
+              'telefono' => $row[10],
+              'partita_iva' => $row[11],
+              'codice_fiscale' => $row[12],
+              'note_extra' => $row[13],
+              'pec' => $row[14],
+              'codice_sdi' => $row[15],
             ]);
         }
     }
@@ -53,4 +55,14 @@ class ClientiImport implements ToModel
             return 10;
         }
     }
+
+    protected function parseNazione($field){
+        foreach (help_country_iso3166() as $nazione) {
+            if($nazione['nazione'] == $field){
+                return $nazione['sigla'];
+            }
+        }
+    }
+
+    
 }

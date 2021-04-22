@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- {{ auth()->user()->syncRoles(['admin']) }} --}}
 
 <h3 class="text-gray-700 text-3xl font-medium">Dashboard</h3>
 <div class="mt-4">
@@ -28,7 +27,7 @@
 
     <div class="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
         <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-            <div class="z-50 p-3 rounded-full bg-green-600 bg-opacity-75">
+            <div class="p-3 rounded-full bg-green-600 bg-opacity-75">
                 <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
             </div>
 

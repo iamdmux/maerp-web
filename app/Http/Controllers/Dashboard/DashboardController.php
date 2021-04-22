@@ -76,3 +76,4 @@ $isfornitori = Fornitore::get()->count();
         }
     }
 }
+

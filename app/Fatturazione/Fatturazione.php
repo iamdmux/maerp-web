@@ -30,7 +30,25 @@ class Fatturazione {
     public $numero_colli_ddt;
     public $annotazioni;
 
-
+    // elettronica
+    public $cliente_id;
+    public $fattura_elettronica;
+    public $denominazione;
+    public $indirizzo;
+    public $citta;
+    public $cap;
+    public $provincia;
+    public $note_indirizzo;
+    public $nazione;
+    public $nazione_sigla;
+    public $partita_iva;
+    public $codice_fiscale;
+    public $tipo_documento;
+    public $el_codice_destinatario;
+    public $el_indirizzo_pec;
+    public $el_nome_istituto_di_credito;
+    public $el_iban;
+    public $el_nome_beneficiario;
 
     public function __construct($request){
 
@@ -40,11 +58,11 @@ class Fatturazione {
         $this->note_documento = $request->note_documento;
 
         // metodo pagamento
-        $this->includi_metodo_pagamento = $request->includi_metodo_pagamento;
+        $this->includi_metodo_pagamento = $request->includi_metodo_pagamento ? true : false;
         $this->metodo_pagamento = $request->metodo_pagamento;
 
         // bollo
-        $this->includi_marca_da_bollo = $request->includi_marca_da_bollo;
+        $this->includi_marca_da_bollo = $request->includi_marca_da_bollo ? true : false;
         $this->costo_bollo = $request->costo_bollo;
 
         // date
@@ -61,6 +79,26 @@ class Fatturazione {
         $this->peso_ddt = $request->peso_ddt;
         $this->numero_colli_ddt = $request->numero_colli_ddt;
         $this->annotazioni = $request->annotazioni;
+
+        // elettronica
+        $this->fattura_elettronica         = $request->fattura_elettronica ? true : false;
+        $this->cliente_id                  = $request->cliente_id;
+        $this->denominazione               = $request->denominazione;
+        $this->indirizzo                   = $request->indirizzo;
+        $this->citta                       = $request->citta;
+        $this->cap                         = $request->cap;
+        $this->provincia                   = $request->provincia;
+        $this->note_indirizzo              = $request->note_indirizzo;
+        $this->nazione                     = $request->nazione;
+        $this->nazione_sigla               = $request->nazione_sigla;
+        $this->partita_iva                 = $request->partita_iva;
+        $this->codice_fiscale              = $request->codice_fiscale;
+        $this->tipo_documento              = $request->tipo_documento;
+        $this->el_codice_destinatario      = $request->el_codice_destinatario;
+        $this->el_indirizzo_pec            = $request->el_indirizzo_pec;
+        $this->el_nome_istituto_di_credito = $request->el_nome_istituto_di_credito;
+        $this->el_iban                     = $request->el_iban;
+        $this->el_nome_beneficiario        = $request->el_nome_beneficiario;
     }
 
 
@@ -112,10 +150,5 @@ class Fatturazione {
                 $this->totale = ($this->totale+$bol);
             }
         }
-        // $this->articoli = collect();
-        // $this->articoli->push($this->articoliArray);
-        // $this->articoli = $this->articoli->flatten(1);
-        // $this->articoli = $this->articoli->values()->all();
-
     }
 }

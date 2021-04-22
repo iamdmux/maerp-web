@@ -46,12 +46,12 @@ class Acube extends FatturaArray{
         return false;
     }
 
-    public function creaFatturaElettronica($request){
-    
+    public function creaFatturaElettronica($fatturazione){
         if($this->login()){
-            $response = Http::withToken($this->token)->post($this->acubeurl . '/invoices/simplified', $this->invoice);
+            $response = Http::withToken($this->token)->post($this->acubeurl . '/invoices', $this->compilaFattura($fatturazione));
         }
 
+        dd($response->json());
         if($response->successful()){
             $this->invoicePostUiid = $response->json()['uuid'];
             return true;
