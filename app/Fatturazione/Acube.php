@@ -51,7 +51,6 @@ class Acube extends FatturaArray{
             $response = Http::withToken($this->token)->post($this->acubeurl . '/invoices', $this->compilaFattura($fatturazione));
         }
 
-        dd($response->json());
         if($response->successful()){
             $this->invoicePostUiid = $response->json()['uuid'];
             return true;

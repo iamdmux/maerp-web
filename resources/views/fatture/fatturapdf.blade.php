@@ -128,7 +128,7 @@
           {{$cliente->indirizzo}} {{$cliente->cap}} {{$cliente->provincia}}<br>
           {{$cliente->email}}<br>
           {{$cliente->telefono}}<br>
-          {{$cliente->paese}}<br>
+          {{$cliente->nazione}}<br>
         </p>
           
 
@@ -140,7 +140,7 @@
               {{$cliente->indirizzo}}<br>
               {{$cliente->cap}}<br>
               {{$cliente->provincia}}<br>
-              {{$cliente->paese}}<br>
+              {{$cliente->nazione}}<br>
               @if($cliente->note_extra)
                 {{$cliente->note_extra}}<br>
               @endif

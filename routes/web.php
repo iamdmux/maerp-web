@@ -42,10 +42,14 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('/vendite/clienti', ClienteController::class);                                              // --> filtra clienti by agente
 
         // Fatture
-        Route::get('/vendite/fatture/pdf', [FatturaPdfController::class, 'get']); // get forbidden
-        Route::post('/vendite/fatture/pdf', [FatturaPdfController::class, 'post'])->name('fatturapdf.postView');    
+        // Route::get('/vendite/fatture/pdf', [FatturaPdfController::class, 'get']); // get forbidden
+        Route::post('/fatture/pdf', [FatturaPdfController::class, 'post'])->name('fatturapdf.postView');
+        Route::get('/vendite/fatture/{fatturaId}/pdf', [FatturaPdfController::class, 'show'])->name('fatturapdf.show');
+
         Route::resource('/vendite/fatture', FatturaController::class);                                              // --> agente: solo preventivi e ordini
-        
+        // Conversione
+        Route::post('/vendite/fatture/converti', [FatturaController::class, 'convertiFattura']);
+
         //Fattura Json Response
         Route::post('/api/fattura/clienti', [FatturaAPI::class, 'getClienti']);
         Route::post('/api/fattura/articoli', [FatturaAPI::class, 'getArticoli']);

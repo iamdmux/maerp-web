@@ -1,6 +1,9 @@
 <template>
 <form ref="form" method="POST">
 <input type="hidden" name="_token" :value="csrf">
+  <div v-if="method == 'edit'">
+      <input type="hidden" name="_method" :value="hiddenMethod">
+  </div>
 
 <div class="flex flex-wrap mb-2">
   <label class="p-3 mr-2 bg-gray-100 rounded">preventivo
@@ -15,7 +18,28 @@
   <label v-if="canCreareFatture" class="p-3 mr-2 bg-gray-100 rounded">fattura
     <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
   </label>
+
+  <div v-if="method == 'show'" class="p-3 ml-12 mr-2 bg-gray-100 rounded">
+    <form class="flex" action="/vendite/fatture/converti" method="POST">
+    <input type="hidden" name="_token" :value="csrf">
+    <input type="hidden" name="fattura_id" :value="fattura_id">
+      <label>converti in:</label>
+      <select name="converti" class="ml-2 h-6 py-0 text-sm">
+        <option value="preventivo">preventivo</option>
+        <option value="ordine">ordine</option>
+        <option v-if="canCreareFatture" value="proforma">proforma</option>
+        <option v-if="canCreareFatture" value="fattura">fattura</option>
+      </select>
+      <button class="ml-2 bg-blue-300 text-xs py-1 px-2 rounded">converti</button>
+    </form>
+  </div>
+
+  <div v-if="method == 'show'" class="p-3 ml-12 mr-2 bg-gray-100 rounded">
+    <a target="_blank" :href="pdfShow"> vedi pdf</a>
+  </div>
 </div>
+
+
 
 <div v-if="canCreareFatture" class="my-5">
   <label class="p-3 bg-gray-100 rounded">fattura elettronica
@@ -425,7 +449,7 @@
   </div>
 
 
-<div v-if="method != 'show'" class="flex justify-between">
+<div v-if="method == 'create'" class="flex justify-between">
   <button @click="submitForm('action')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
       salva fattura
   </button>
@@ -433,10 +457,20 @@
       vedi fattura pdf
   </button>
 </div>
-<!-- <div v-else> la action non funziona bene
-    <button @click.prevent="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
+
+<div v-if="method == 'edit'" class="flex justify-between">
+  <button @click.prevent="submitForm('action')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
+      modifica fattura
+  </button>
+  <button @click="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
       vedi fattura pdf
-    </button>
+  </button>
+</div>
+
+<!-- <div v-if="method == 'show'">
+    <button @click="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
+      vedi fattura pdf
+  </button>
 </div> -->
 
 
@@ -464,6 +498,9 @@ export default {
       type: String,
       required: true
     },
+    pdfShow:{
+      required: false
+    },
     formUrl: {
       type: String,
       required: false
@@ -477,12 +514,14 @@ export default {
     AggiungiArticolo
   },
   setup(props){
-
+    const hiddenMethod = ref('patch')
     // props
     const method = ref(props.method)
     const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     const route = ref(props.route)
     const old = ref((props.old))
+    const fattura_id = ref(props.old.id)
+    const pdfShow = ref(props.pdfShow)
 
     const canCreareFatture = ref((props.canCreareFatture))
 
@@ -502,17 +541,17 @@ export default {
     const dateToday =       new Date().toISOString().split("T")[0]
 
     // GET OLD OR SHOW
-    const get_clienteId =       method.value == 'show' ? old.value.cliente.cliente_id : old.value.cliente_id
-    const get_denominazione =   method.value == 'show' ? old.value.cliente.denominazione : old.value.denominazione
-    const get_indirizzo =       method.value == 'show' ? old.value.cliente.indirizzo : old.value.indirizzo
-    const get_citta =           method.value == 'show' ? old.value.cliente.citta : old.value.citta
-    const get_cap =             method.value == 'show' ? old.value.cliente.cap : old.value.cap
-    const get_provincia =       method.value == 'show' ? old.value.cliente.provincia : old.value.provincia
-    const get_note_indirizzo =  method.value == 'show' ? old.value.cliente.note_indirizzo : old.value.note_indirizzo
-    const get_nazione =         method.value == 'show' ? old.value.cliente.nazione : old.value.nazione
-    const get_nazione_sigla =   method.value == 'show' ? old.value.cliente.nazione_sigla : old.value.nazione_sigla
-    const get_partita_iva =     method.value == 'show' ? old.value.cliente.partita_iva : old.value.partita_iva
-    const get_codice_fiscale =  method.value == 'show' ? old.value.cliente.codice_fiscale : old.value.codice_fiscale
+    const get_clienteId =       method.value == 'show' || method.value == 'edit' ? old.value.cliente_id : old.cliente_id
+    const get_denominazione =   method.value == 'show' || method.value == 'edit' ? old.value.cliente.denominazione : old.value.denominazione
+    const get_indirizzo =       method.value == 'show' || method.value == 'edit' ? old.value.cliente.indirizzo : old.value.indirizzo
+    const get_citta =           method.value == 'show' || method.value == 'edit' ? old.value.cliente.citta : old.value.citta
+    const get_cap =             method.value == 'show' || method.value == 'edit' ? old.value.cliente.cap : old.value.cap
+    const get_provincia =       method.value == 'show' || method.value == 'edit' ? old.value.cliente.provincia : old.value.provincia
+    const get_note_indirizzo =  method.value == 'show' || method.value == 'edit' ? old.value.cliente.note_indirizzo : old.value.note_indirizzo
+    const get_nazione =         method.value == 'show' || method.value == 'edit' ? old.value.cliente.nazione : old.value.nazione
+    const get_nazione_sigla =   method.value == 'show' || method.value == 'edit' ? old.value.cliente.nazione_sigla : old.value.nazione_sigla
+    const get_partita_iva =     method.value == 'show' || method.value == 'edit' ? old.value.cliente.partita_iva : old.value.partita_iva
+    const get_codice_fiscale =  method.value == 'show' || method.value == 'edit' ? old.value.cliente.codice_fiscale : old.value.codice_fiscale
 
     
     const clienteId =       ref(get_clienteId ? get_clienteId : '')
@@ -528,8 +567,8 @@ export default {
     const codice_fiscale =  ref(get_codice_fiscale ? get_codice_fiscale : '')
     
     const numero =          ref(old.value.numero ? old.value.numero : '')
-    const data =            ref(old.value.data ? old.value.data : dateToday)
-    const data_ddt =        ref(old.value.data_ddt ? old.value.data_ddt : dateToday)
+    const data =            ref(old.value.data ? parseDate(old.value.data) : dateToday)
+    const data_ddt =        ref(old.value.data_ddt ? parseDate(old.value.data_ddt) : dateToday)
     const numero_ddt =      ref(old.value.numero_ddt ? old.value.numero_ddt : '')
     const includi_marca_da_bollo = ref(old.value.includi_marca_da_bollo ? old.value.includi_marca_da_bollo : false)
     const costo_bollo =     ref(old.value.costo_bollo ? old.value.costo_bollo : '2.00')
@@ -559,6 +598,9 @@ export default {
 
     const note_documento = ref(old.value.note_documento ? old.value.note_documento : '')
     
+    function parseDate(data){
+      return new Date(data).toISOString().split("T")[0]
+    }
 
     // Articoli da show - 
     let lotto_id_show = []
@@ -570,7 +612,7 @@ export default {
     let descrizione_show = []
     let iva_show = []
 
-    if(method.value == 'show'){
+    if(method.value == 'show' || method.value == 'edit'){
       old.value.articoli.forEach((el, i) => {
         
         if(el.codice)         {codice_show.push(el.codice)}
@@ -586,24 +628,24 @@ export default {
       quantiArticoli.value = (codice_show.length)
     }
 
-    const lotto_id_arr  =       method.value == 'show' ? ref(lotto_id_show) : (ref(old.value.lotto_id ? old.value.lotto_id : ['']))
-    const codice_arr =          method.value == 'show' ? ref(codice_show) : (ref(old.value.codice ? old.value.codice : ['']))
-    const quantita_arr =        method.value == 'show' ? ref(quantita_show) : (ref(old.value.quantita ? old.value.quantita : [1]))
-    const unita_di_misura_arr = method.value == 'show' ? ref(unita_di_misura_show) : (ref(old.value.unita_di_misura ? old.value.unita_di_misura : ['']))
-    const prezzo_netto_arr =    method.value == 'show' ? ref(prezzo_netto_show) : (ref(old.value.prezzo_netto ? old.value.prezzo_netto : [0.00]))
-    const descrizione_arr =     method.value == 'show' ? ref(descrizione_show) : (ref(old.value.descrizione ? old.value.descrizione : ['']))
-    const iva_arr =             method.value == 'show' ? ref(iva_show) : (ref(old.value.iva ? old.value.iva : [22]))
+    const lotto_id_arr  =       method.value == 'show' || method.value == 'edit' ? ref(lotto_id_show) : (ref(old.value.lotto_id ? old.value.lotto_id : ['']))
+    const codice_arr =          method.value == 'show' || method.value == 'edit' ? ref(codice_show) : (ref(old.value.codice ? old.value.codice : ['']))
+    const quantita_arr =        method.value == 'show' || method.value == 'edit' ? ref(quantita_show) : (ref(old.value.quantita ? old.value.quantita : [1]))
+    const unita_di_misura_arr = method.value == 'show' || method.value == 'edit' ? ref(unita_di_misura_show) : (ref(old.value.unita_di_misura ? old.value.unita_di_misura : ['']))
+    const prezzo_netto_arr =    method.value == 'show' || method.value == 'edit' ? ref(prezzo_netto_show) : (ref(old.value.prezzo_netto ? old.value.prezzo_netto : [0.00]))
+    const descrizione_arr =     method.value == 'show' || method.value == 'edit' ? ref(descrizione_show) : (ref(old.value.descrizione ? old.value.descrizione : ['']))
+    const iva_arr =             method.value == 'show' || method.value == 'edit' ? ref(iva_show) : (ref(old.value.iva ? old.value.iva : [22]))
 
 
     //
     // mounted
-     const settingOnmounting = async () => {
-       if(method.value == 'show'){
-          form.value.action = props.pdfUrl
-          form.value.target = "viewpdf"
-       }
-      }
-    onMounted(settingOnmounting)
+    //  const settingOnmounting = async () => {
+    //    if(method.value == 'show'){
+    //       form.value.action = props.pdfUrl
+    //       form.value.target = "viewpdf"
+    //    }
+    //   }
+    // onMounted(settingOnmounting)
 
 
 
@@ -613,19 +655,38 @@ export default {
     const submitForm = (type) => {
 
       if(type == 'pdf'){
+
+        if(method.value == 'create'){
+          form.value.target = "viewpdf"
+        }
+
+        if(method.value == 'show' || method.value == 'edit' ){
+          hiddenMethod.value = ''
+          form.value.target = "_blank"
+        }
+  
+        form.value.action = props.pdfUrl
+        form.value.method = "POST"
+      }
+
+      else if(type == 'pdfFromShow'){
         form.value.action = props.pdfUrl
         form.value.target = "viewpdf"
         form.value.method = "POST"
-        console.log(form.value.action, form.value.target)
-        if(method.value == 'show'){
-          form.value.submit()
-        }
-        // 
+        // form.value.submit()
       }
+
       else if(type == 'action'){
+        if(method.value == 'edit'){
+          hiddenMethod.value = 'patch'
+        }
+
         form.value.action = props.formUrl
         form.value.target = "_self"
-        // form.value.submit()
+        setTimeout(() => {
+          form.value.submit()
+        }, 500);
+        
       }
     }
 
@@ -669,10 +730,11 @@ export default {
 
 
     return {
+      fattura_id, hiddenMethod,
       // old_articoli
       lotto_id_arr, codice_arr, quantita_arr, unita_di_misura_arr, prezzo_netto_arr, descrizione_arr, iva_arr,
       //form
-      form, submitForm, formAction, tipo_documento,
+      form, submitForm, formAction, tipo_documento, pdfShow,
       // basics_and_switch
       method, canCreareFatture, route, csrf, tab_show_cliente, tab_show_fattura_elettronica, tab_show_dati_documento, tab_show_contributi_ritenute, tab_show_opzioni_avanzate, tab_show_personalizzazione, tab_show_note_doc,
       // methods/computed

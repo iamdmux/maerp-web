@@ -15,6 +15,7 @@ class Fattura extends Model
 
     protected $table = "fatture";
     protected $guarded = [];
+    protected $dates = ['data'];
 
 
     public function articoli(){
