@@ -25,6 +25,11 @@ textarea
     @apply text-sm rounded-md border-gray-200 placeholder-gray-500 placeholder-opacity-50;
 }
 
+input:required
+{
+    @apply border-gray-200;
+}
+
 input:focus,
 select:focus,
 textarea:focus

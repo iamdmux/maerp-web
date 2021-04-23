@@ -7,16 +7,16 @@
 
 <div class="flex flex-wrap mb-2">
   <label class="p-3 mr-2 bg-gray-100 rounded">preventivo
-    <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="preventivo" checked>
+    <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="preventivo" checked>
   </label>
   <label class="p-3 mr-2 bg-gray-100 rounded">ordine
-    <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="ordine">
+    <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="ordine">
   </label>
   <label v-if="canCreareFatture" class="p-3 mr-2 bg-gray-100 rounded">proforma
-    <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="proforma">
+    <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="proforma">
   </label>
   <label v-if="canCreareFatture" class="p-3 mr-2 bg-gray-100 rounded">fattura
-    <input :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
+    <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
   </label>
 
   <div v-if="method == 'show'" class="p-3 ml-12 mr-2 bg-gray-100 rounded">
@@ -637,6 +637,11 @@ export default {
     const iva_arr =             method.value == 'show' || method.value == 'edit' ? ref(iva_show) : (ref(old.value.iva ? old.value.iva : [22]))
 
 
+    const checkTipoDocumento = () => {
+      if(tipo_documento.value != 'fattura'){
+        fattura_elettronica.value = false
+      }
+    }
     //
     // mounted
     //  const settingOnmounting = async () => {
@@ -734,7 +739,7 @@ export default {
       // old_articoli
       lotto_id_arr, codice_arr, quantita_arr, unita_di_misura_arr, prezzo_netto_arr, descrizione_arr, iva_arr,
       //form
-      form, submitForm, formAction, tipo_documento, pdfShow,
+      form, submitForm, formAction, tipo_documento, pdfShow, checkTipoDocumento,
       // basics_and_switch
       method, canCreareFatture, route, csrf, tab_show_cliente, tab_show_fattura_elettronica, tab_show_dati_documento, tab_show_contributi_ritenute, tab_show_opzioni_avanzate, tab_show_personalizzazione, tab_show_note_doc,
       // methods/computed

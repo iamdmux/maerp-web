@@ -90,8 +90,8 @@ class FatturaArray{
         'cessionario_committente' => [
           'dati_anagrafici' => [
             'id_fiscale_iva' => [
-              'id_paese' => 'IT',                                  // lista paesi (controllare e inserirli nella select) https://www.ksgestionali.it/software/fattura-elettronica-lista-codici-sigle-paesi-esteri/
-              'id_codice' => $fatt->el_codice_destinatario      // codice cliente. E' il codice sdi, giusto?
+              'id_paese' => $fatt->nazione_sigla,               // lista paesi IT
+              'id_codice' => $fatt->el_codice_destinatario      // codice cliente.
             ],
             'codice_fiscale' => $fatt->codice_fiscale,          // codice fiscale
             'anagrafica' => [
@@ -104,7 +104,7 @@ class FatturaArray{
           ],
           'sede' => [
             'indirizzo' => $fatt->indirizzo,       // indirizzo
-            'numero_civico' => null,                  // civico
+            'numero_civico' => null,               // civico
             'cap' => $fatt->cap,                   // cap
             'comune' => $fatt->citta,              // comune
             'provincia' => $fatt->provincia,       // provincia
@@ -314,8 +314,6 @@ class FatturaArray{
             //   'data_fattura_principale' => null
             // ]
           ],
-
-          // test con 1
           'dati_beni_servizi' => [
             // ********************** creo in modo dinamico ************************
             // 'dettaglio_linee' => [
@@ -435,8 +433,8 @@ class FatturaArray{
           'tipo_cessione_prestazione' => null,
           'codice_articolo' => [
             [
-              'codice_tipo' => 'interno',                           // cos'è? (nel XML c'è 'INTERNO')
-              'codice_valore' => $articolo['codice']      // cos'è? (nel XML c'è  '93.01')
+              'codice_tipo' => 'interno',                         // cos'è? (nel XML c'è 'INTERNO')
+              'codice_valore' => $articolo['codice']     
             ]
           ],
           'descrizione' => $articolo['descrizione'],             //descrizione
@@ -472,6 +470,4 @@ class FatturaArray{
     return $fattura;
   }
       
-
-
 }

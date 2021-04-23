@@ -130,6 +130,10 @@ class FatturaController extends Controller
         $fatturazione = new Fatturazione($request);
         $fatturazione->handle();
 
+        if($fattura->uuid){
+            return redirect()->route('fatture.index')->with('error', 'Non è possibile modificare questa fattura');
+        }
+
         $invoicePostUiid = null;
         
         // filter by roles
