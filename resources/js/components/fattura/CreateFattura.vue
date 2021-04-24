@@ -224,7 +224,10 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 codice destinatario
             </p>
-            <input v-model="el_codice_destinatario" class=" w-36" autocomplete="off" type="text" name="el_codice_destinatario">
+            <select v-model="el_codice_destinatario" class=" rounded-md border-gray-200" name="el_codice_destinatario">
+              <option class="px-3" value="0000000">0000000</option>
+              <option class="px-3" value="XXXXXXX">XXXXXXX</option>
+            </select>
           </div>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
@@ -257,14 +260,20 @@
           <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               metodo di pagamento
           </p>
-          <select v-model="el_metodo_pagamento" class=" rounded-md border-gray-200" name="el_metodo_pagamento">
+          <select v-model="el_metodo_pagamento" class="w-36 rounded-md border-gray-200" name="el_metodo_pagamento">
             <option class="px-3" value="contanti">contanti</option>
+            <option class="px-3" value="assegno">assegno</option>
+            <option class="px-3" value="assegno_circolare">assegno circolare</option>
+            <option class="px-3" value="bonifico">bonifico</option>
+            <option class="px-3" value="bollettino_bancario">bollettino bancario</option>
+            <option class="px-3" value="carta_di_pagamento">carta di pagamento</option>
+            <option class="px-3" value="bollettino_c_c">bollettino di c/c postale</option>
           </select>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 nome istituto di credito
             </p>
-            <input v-model="el_nome_istituto_di_credito" class=" w-36" autocomplete="off" type="text"  name="el_nome_istituto_di_credito">
+            <input v-model="el_nome_istituto_di_credito" class=" w-36" autocomplete="off" type="text" placeholder="opzionale"  name="el_nome_istituto_di_credito">
           </div>
         </div>
 
@@ -587,11 +596,11 @@ export default {
     const annotazioni =            ref(old.value.annotazioni ? old.value.annotazioni : '')
 
     // elettr
-    const el_codice_destinatario =      ref(old.value.el_codice_destinatario ? old.value.el_codice_destinatario : '')
+    const el_codice_destinatario =      ref(old.value.el_codice_destinatario ? old.value.el_codice_destinatario : '0000000')
     const el_indirizzo_pec =            ref(old.value.el_indirizzo_pec ? old.value.el_indirizzo_pec : '')
-    const el_esigibilita_iva =          ref(old.value.el_esigibilita_iva ? old.value.el_esigibilita_iva : '')
-    const el_emesso_in_seguito_a =      ref(old.value.el_emesso_in_seguito_a ? old.value.el_emesso_in_seguito_a : '')
-    const el_metodo_pagamento =         ref(old.value.el_metodo_pagamento ? old.value.el_metodo_pagamento : '')
+    const el_esigibilita_iva =          ref(old.value.el_esigibilita_iva ? old.value.el_esigibilita_iva : 'nd')
+    const el_emesso_in_seguito_a =      ref(old.value.el_emesso_in_seguito_a ? old.value.el_emesso_in_seguito_a : 'nd')
+    const el_metodo_pagamento =         ref(old.value.el_metodo_pagamento ? old.value.el_metodo_pagamento : 'bonifico')
     const el_nome_istituto_di_credito = ref(old.value.el_nome_istituto_di_credito ? old.value.el_nome_istituto_di_credito : '')
     const el_iban =                     ref(old.value.el_iban ? old.value.el_iban : '')
     const el_nome_beneficiario =        ref(old.value.el_nome_beneficiario ? old.value.el_nome_beneficiario : '')

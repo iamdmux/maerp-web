@@ -135,7 +135,7 @@
           @if($fattura->documento_di_trasporto)
             <b>LUOGO DI DESTINAZIONE</b><br>
             @if($fattura->luogo_destinazione)
-              {{$luogo_destinazione}}
+              {{$fattura->luogo_destinazione}}
               @else
               {{$cliente->indirizzo}}<br>
               {{$cliente->cap}}<br>

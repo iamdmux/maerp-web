@@ -46,10 +46,14 @@ class Fatturazione {
     public $tipo_documento;
     public $el_codice_destinatario;
     public $el_indirizzo_pec;
+    public $el_esigibilita_iva;
+    public $el_metodo_pagamento;
+    public $el_emesso_in_seguito_a;
     public $el_nome_istituto_di_credito;
     public $el_iban;
     public $el_nome_beneficiario;
 
+    
     public function __construct($request){
 
         $this->request = $request;
@@ -94,8 +98,12 @@ class Fatturazione {
         $this->partita_iva                 = $request->partita_iva;
         $this->codice_fiscale              = $request->codice_fiscale;
         $this->tipo_documento              = $request->tipo_documento;
+
         $this->el_codice_destinatario      = $request->el_codice_destinatario;
         $this->el_indirizzo_pec            = $request->el_indirizzo_pec;
+        $this->el_esigibilita_iva          = $request->el_esigibilita_iva;
+        $this->el_emesso_in_seguito_a      = $request->el_emesso_in_seguito_a;
+        $this->el_metodo_pagamento         = $request->el_metodo_pagamento;
         $this->el_nome_istituto_di_credito = $request->el_nome_istituto_di_credito;
         $this->el_iban                     = $request->el_iban;
         $this->el_nome_beneficiario        = $request->el_nome_beneficiario;

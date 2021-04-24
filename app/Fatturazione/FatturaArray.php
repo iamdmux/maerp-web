@@ -6,6 +6,23 @@ class FatturaArray{
 
   public function compilaFattura($fatt){
 
+    $modalita_pagamento = '';
+    if($fatt->el_metodo_pagamento == 'contanti'){
+      $modalita_pagamento = 'MP01';
+    } else if($fatt->el_metodo_pagamento == 'assegno'){
+      $modalita_pagamento = 'MP02';
+    } else if($fatt->el_metodo_pagamento == 'assegno_circolare'){
+      $modalita_pagamento = 'MP03';
+    } else if($fatt->el_metodo_pagamento == 'bonifico'){
+      $modalita_pagamento = 'MP05';
+    } else if($fatt->el_metodo_pagamento == 'bollettino_bancario'){
+      $modalita_pagamento = 'MP07';
+    } else if($fatt->el_metodo_pagamento == 'carta_di_pagamento'){
+      $modalita_pagamento = 'MP08';
+    } else if($fatt->el_metodo_pagamento == 'bollettino_c_c'){
+      $modalita_pagamento = 'MP18';
+    }
+
     $fattura = [
       'fattura_elettronica_header' => [
         'dati_trasmissione' => [
@@ -13,12 +30,12 @@ class FatturaArray{
             'id_paese' => 'IT',
             'id_codice' => '01641790702'
           ],
-          'codice_destinatario' => '0000000',        // HARDCODED, vedere estero
+          'codice_destinatario' => $fatt->el_codice_destinatario, // 0000000 oppure XXXXXXX
           'contatti_trasmittente' => [
             'telefono' => '0874-60561',
             'email' => null
           ],
-          'pec_destinatario' => 'almasrl.fatture@pec.it'
+          'pec_destinatario' => $fatt->el_indirizzo_pec,
         ],
         'cedente_prestatore' => [
           'dati_anagrafici' => [
@@ -91,7 +108,7 @@ class FatturaArray{
           'dati_anagrafici' => [
             'id_fiscale_iva' => [
               'id_paese' => $fatt->nazione_sigla,               // lista paesi IT
-              'id_codice' => $fatt->el_codice_destinatario      // codice cliente.
+              'id_codice' => null                                   // ??
             ],
             'codice_fiscale' => $fatt->codice_fiscale,          // codice fiscale
             'anagrafica' => [
@@ -144,13 +161,13 @@ class FatturaArray{
         //     ]
         //   ]
         // ],
-        'soggetto_emittente' => 'TZ'
+        // 'soggetto_emittente' => 'TZ'
       ],
       'fattura_elettronica_body' => [
         [
           'dati_generali' => [
             'dati_generali_documento' => [
-              'tipo_documento' => 'TD01',      // tipo documento?  (nel XML c'è 'TD01')
+              'tipo_documento' => 'TD01',      // Fattura hardcoded
               'divisa' => 'EUR',               // valuta: mi serve la lista di questi campi
               'data' => (string)$fatt->data,          // data
               'numero' => $fatt->numero,                // numero
@@ -372,36 +389,36 @@ class FatturaArray{
           //   'data' => null,
           //   'totale_percorso' => null
           // ],
-          // 'dati_pagamento' => [
-          //   [
-          //     'condizioni_pagamento' => null,      // mi serve questo dato? (nel XML è 'TP02') TP01 - pagamento a rate. TP02 - pagamento completo. TP03 -anticipo
-          //     'dettaglio_pagamento' => [
-          //       [
-          //         'beneficiario' => null,
-          //         'modalita_pagamento' => null,           // mi serve questo dato? (nel XML è 'MP02')
-          //         'data_riferimento_termini_pagamento' => null,
-          //         'giorni_termini_pagamento' => 0,
-          //         'data_scadenza_pagamento' => null,      // devo inserirla? es.2021-04-02
-          //         'importo_pagamento' => null,            // importo_pagamento es.36475.56
-          //         'cod_ufficio_postale' => null,
-          //         'cognome_quietanzante' => null,
-          //         'nome_quietanzante' => null,
-          //         'cf_quietanzante' => null,
-          //         'titolo_quietanzante' => null,
-          //         'istituto_finanziario' => null,
-          //         'iban' => null,
-          //         'abi' => null,
-          //         'cab' => null,
-          //         'bic' => null,
-          //         'sconto_pagamento_anticipato' => null,
-          //         'data_limite_pagamento_anticipato' => null,
-          //         'penalita_pagamenti_ritardati' => null,
-          //         'data_decorrenza_penale' => null,
-          //         'codice_pagamento' => null
-          //       ]
-          //     ]
-          //   ]
-          // ],
+          'dati_pagamento' => [
+            [
+              'condizioni_pagamento' => 'TP02',      // mi serve questo dato? (nel XML è 'TP02') TP01 - pagamento a rate. TP02 - pagamento completo. TP03 -anticipo
+              'dettaglio_pagamento' => [
+                [
+                  'beneficiario' => $fatt->el_nome_beneficiario,
+                  'modalita_pagamento' => $modalita_pagamento,           // ok
+                  'data_riferimento_termini_pagamento' => null,
+                  'giorni_termini_pagamento' => 0,
+                  'data_scadenza_pagamento' => null,
+                  'importo_pagamento' => number_format($fatt->totale, 2),             // importo_pagamento es.36475.56
+                  'cod_ufficio_postale' => null,
+                  'cognome_quietanzante' => null,
+                  'nome_quietanzante' => null,
+                  'cf_quietanzante' => null,
+                  'titolo_quietanzante' => null,
+                  'istituto_finanziario' => $fatt->el_nome_istituto_di_credito,
+                  'iban' => $fatt->el_iban,
+                  'abi' => null,
+                  'cab' => null,
+                  'bic' => null,
+                  'sconto_pagamento_anticipato' => null,
+                  'data_limite_pagamento_anticipato' => null,
+                  'penalita_pagamenti_ritardati' => null,
+                  'data_decorrenza_penale' => null,
+                  'codice_pagamento' => null
+                ]
+              ]
+            ]
+          ],
           // 'allegati' => [
           //   [
           //     'nome_attachment' => null,

@@ -56,7 +56,6 @@ class FatturaController extends Controller
             if($fatturazione->fattura_elettronica){
                 $request['fattura_elettronica'] = 1; // setto true per DB
                 if($acube){
-                    // MEGLIO TRY CATCH
                     if( $acube->creaFatturaElettronica($fatturazione) ){
                         $invoicePostUiid = $acube->invoicePostUiid;
                     } else {
