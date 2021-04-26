@@ -8,17 +8,7 @@
 <h3 class="text-gray-700 text-3xl font-bold">Modifica lotto</h3>
 <p>Stai modificando il lotto {{$lotto->id}}</p>
 
-<div class="mt-4">
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-</div>
+<x-errors-component />
 
 
 <form action="{{route('lotti.update', $lotto->id)}}" method="POST">

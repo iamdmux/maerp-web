@@ -16,6 +16,8 @@ class Acube extends FatturaArray{
     public $token;
     public $invoicePostUiid;
 
+    public $error;
+
     public function __construct($user){
         $this->user = $user;
 
@@ -51,10 +53,18 @@ class Acube extends FatturaArray{
             $response = Http::withToken($this->token)->post($this->acubeurl . '/invoices', $this->compilaFattura($fatturazione));
         }
 
-        dd($response->getBody()->getContents());
         if($response->successful()){
             $this->invoicePostUiid = $response->json()['uuid'];
             return true;
+        } else {
+            //$response->getBody()->getContents();
+            if($error = collect(json_decode($response->body()))['hydra:description']){
+                $this->error = $error;
+                $this->error .= ' C\'è stato un errore e la fatturazione elettronica NON è stata creata.';
+            } else {
+                $this->error = ' C\'è stato un errore e la fatturazione elettronica NON è stata creata.';
+            }
+            return false;
         }
         return false;
     }

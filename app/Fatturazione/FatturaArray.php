@@ -23,6 +23,15 @@ class FatturaArray{
       $modalita_pagamento = 'MP18';
     }
 
+    $codice_destinatario = $fatt->el_codice_destinatario;
+    if($codice_destinatario == ''){
+      if($fatt->nazione_sigla == 'IT'){
+        $codice_destinatario =  '0000000';
+      } else {
+        $codice_destinatario =  'XXXXXXX';
+      }
+    }
+
     $fattura = [
       'fattura_elettronica_header' => [
         'dati_trasmissione' => [
@@ -30,9 +39,9 @@ class FatturaArray{
             'id_paese' => 'IT',
             'id_codice' => '01641790702'
           ],
-          'codice_destinatario' => $fatt->el_codice_destinatario, // 0000000 oppure XXXXXXX
+          'codice_destinatario' => $codice_destinatario,
           'contatti_trasmittente' => [
-            'telefono' => '0874-60561',
+            'telefono' => null,
             'email' => null
           ],
           'pec_destinatario' => $fatt->el_indirizzo_pec,
@@ -108,7 +117,7 @@ class FatturaArray{
           'dati_anagrafici' => [
             'id_fiscale_iva' => [
               'id_paese' => $fatt->nazione_sigla,               // lista paesi IT
-              'id_codice' => null                                   // ??
+              'id_codice' => $fatt->partita_iva,                // IdCodice:numero di partita IVA del cessionario/committente.
             ],
             'codice_fiscale' => $fatt->codice_fiscale,          // codice fiscale
             'anagrafica' => [
@@ -119,14 +128,16 @@ class FatturaArray{
               'cod_eori' => null
             ]
           ],
-          'sede' => [
-            'indirizzo' => $fatt->indirizzo,       // indirizzo
-            'numero_civico' => null,               // civico
-            'cap' => $fatt->cap,                   // cap
-            'comune' => $fatt->citta,              // comune
-            'provincia' => $fatt->provincia,       // provincia
-            'nazione' => $fatt->nazione_sigla      // nazione IT ( è uguale a id_paese? )
-          ],
+          // ************** inserisco dinamicamente sotto *********************
+          // 'sede' => [
+          //   'indirizzo' => $fatt->indirizzo,       // indirizzo
+          //   'numero_civico' => null,               // civico
+          //   'cap' => $fatt->cap,                   // cap
+          //   'comune' => $fatt->citta,              // comune
+          //   'provincia' => $fatt->provincia,       // provincia
+          //   'nazione' => $fatt->nazione_sigla      // nazione IT ( è uguale a id_paese? )
+          // ],
+          // ********************************************************************
           // 'stabile_organizzazione' => [
           //   'indirizzo' => null,
           //   'numero_civico' => null,
@@ -339,8 +350,8 @@ class FatturaArray{
             //     'tipo_cessione_prestazione' => null,
             //     'codice_articolo' => [
             //       [
-            //         'codice_tipo' => 'interno',                           // cos'è? (nel XML c'è 'INTERNO')
-            //         'codice_valore' => $fatt->articoli[0]['codice']      // cos'è? (nel XML c'è  '93.01')
+            //         'codice_tipo' => 'interno',                          
+            //         'codice_valore' => $fatt->articoli[0]['codice']
             //       ]
             //     ],
             //     'descrizione' => $fatt->articoli[0]['descrizione'],             //descrizione
@@ -356,8 +367,8 @@ class FatturaArray{
             //     //     'importo' => null
             //     //   ]
             //     // ],
-            //     'prezzo_totale' => $fatt->articoli[0]['importo_totale'],         // costo
-            //     'aliquota_iva' => $fatt->articoli[0]['costo_iva'],                // '22.00' o '0' prezzo aliquota_iva
+            //     'prezzo_totale' => $fatt->articoli[0]['importo_totale_articolo'],         // costo
+            //     'aliquota_iva' => $fatt->articoli[0]['costo_iva_articolo'],                // '22.00' o '0' prezzo aliquota_iva
             //     'ritenuta' => null,
             //     'natura' => null,
             //     'riferimento_amministrazione' => null,
@@ -372,19 +383,21 @@ class FatturaArray{
             //   ]
             // ],
             // *********************************************************************
-            'dati_riepilogo' => [
-              [
-                'aliquota_iva' => '22.00',            // '22.00' . quale IVA ?
-                'natura' => null,
-                'spese_accessorie' => null,
-                'arrotondamento' => null,
-                'imponibile_importo' => number_format($fatt->totaleImponibile, 2),      // tot imponibile
-                'imposta' => number_format($fatt->totaleIva, 2),                        // tot imposta
-                'esigibilita_iva' => null,
-                'riferimento_normativo' => null
-              ]
-            ]
+            // ********************** creo in modo dinamico ************************
+            // 'dati_riepilogo' => [
+            //   [
+            //     'aliquota_iva' => '22.00',            // '22.00' . quale IVA ?
+            //     'natura' => null,
+            //     'spese_accessorie' => null,
+            //     'arrotondamento' => null,
+            //     'imponibile_importo' => number_format($fatt->totaleImponibile, 2),      // tot imponibile
+            //     'imposta' => number_format($fatt->totaleIva, 2),                        // tot imposta
+            //     'esigibilita_iva' => null,
+            //     'riferimento_normativo' => null
+            //   ]
+            // ]
           ],
+          // *********************************************************************
           // 'dati_veicoli' => [
           //   'data' => null,
           //   'totale_percorso' => null
@@ -432,6 +445,22 @@ class FatturaArray{
       ]
     ];
 
+
+    // sede
+    $fattura['fattura_elettronica_header']['cessionario_committente']['sede'] = [
+      'indirizzo' => $fatt->indirizzo,       // indirizzo
+      'numero_civico' => null,               // civico
+      'comune' => $fatt->citta,              // comune
+      'provincia' => $fatt->provincia,       // provincia
+      'nazione' => $fatt->nazione_sigla      // nazione IT ( è uguale a id_paese? )
+    ];
+
+    if($fatt->cap){
+      $fattura['fattura_elettronica_header']['cessionario_committente']['sede']['cap'] = $fatt->cap;  // cap
+    }
+    
+
+
     // marca da bollo
     if($fatt->includi_marca_da_bollo && $fatt->costo_bollo):
 
@@ -442,6 +471,7 @@ class FatturaArray{
 
     endif;
 
+    // articoli
     $index = 0;
     foreach ($fatt->articoli as $articolo) {
       $fattura['fattura_elettronica_body'][0]['dati_beni_servizi']['dettaglio_linee'][0] =
@@ -450,12 +480,12 @@ class FatturaArray{
           'tipo_cessione_prestazione' => null,
           'codice_articolo' => [
             [
-              'codice_tipo' => 'interno',                         // cos'è? (nel XML c'è 'INTERNO')
+              'codice_tipo' => 'interno',                         //(nel XML c'è 'INTERNO')
               'codice_valore' => $articolo['codice']     
             ]
           ],
-          'descrizione' => $articolo['descrizione'],             //descrizione
-          'quantita' => number_format($articolo['quantita'], 2),                //quantità
+          'descrizione' => $articolo['descrizione'],                //descrizione
+          'quantita' => number_format($articolo['quantita'], 2),     //quantità
           'unita_misura' => $articolo['unita_di_misura'],            //unita_misura
           'data_inizio_periodo' => null,
           'data_fine_periodo' => null,
@@ -467,8 +497,8 @@ class FatturaArray{
           //     'importo' => null
           //   ]
           // ],
-          'prezzo_totale' => $articolo['importo_totale'],         // costo
-          'aliquota_iva' => $articolo['costo_iva'],                // '22.00' o '0' prezzo aliquota_iva
+          'prezzo_totale' => $articolo['importo_totale_articolo'],         // costo
+          'aliquota_iva' => $articolo['costo_iva_articolo'],                // '22.00' o '0' prezzo aliquota_iva
           'ritenuta' => null,
           'natura' => null,
           'riferimento_amministrazione' => null,
@@ -482,7 +512,35 @@ class FatturaArray{
           // ]
       ];
       $index++;
-    } 
+    }
+
+    // dati_riepilogo
+    $articoliGroupBy = collect($fatt->articoli)->groupBy('iva');
+    $index = 0;
+
+    foreach ($articoliGroupBy as $keyIva => $articoliByIva) {
+      $iva = $keyIva;
+      $somma_imponibile_importo = 0;
+      $somma_imposte = 0;
+
+      foreach ($articoliByIva as $articolo) {
+        $somma_imponibile_importo = ($somma_imponibile_importo + $articolo['importo_netto']);
+        $somma_imposte = ($somma_imposte+$articolo['costo_iva_articolo']);
+      }
+
+      $fattura['fattura_elettronica_body'][0]['dati_beni_servizi']['dati_riepilogo'][$index] = 
+        [
+          'aliquota_iva' => number_format($iva, 2),         
+          'natura' => null,
+          'spese_accessorie' => null,
+          'arrotondamento' => null,
+          'imponibile_importo' => number_format($somma_imponibile_importo, 2),      // tot imponibile
+          'imposta' => number_format($somma_imposte, 2),                        // tot imposta
+          'esigibilita_iva' => null,
+          'riferimento_normativo' => null
+      ];
+      $index++;
+    }
 
     return $fattura;
   }

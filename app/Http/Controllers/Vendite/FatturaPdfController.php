@@ -60,10 +60,10 @@ class FatturaPdfController extends Controller
             if($val = $articolo->importo_netto){
                 $toMerge['totaleImponibile'] = ($toMerge['totaleImponibile']+(float)$val);
             }
-            if($val = $articolo->costo_iva){
+            if($val = $articolo->costo_iva_articolo){
                 $toMerge['totaleIva'] = ($toMerge['totaleIva']+(float)$val);
             }
-            if($val = $articolo->importo_totale){
+            if($val = $articolo->importo_totale_articolo){
                 $toMerge['totale'] = ($toMerge['totale']+(float)$val);
             }
         };

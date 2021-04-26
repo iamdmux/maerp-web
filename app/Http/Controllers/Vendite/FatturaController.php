@@ -59,7 +59,7 @@ class FatturaController extends Controller
                     if( $acube->creaFatturaElettronica($fatturazione) ){
                         $invoicePostUiid = $acube->invoicePostUiid;
                     } else {
-                        return back()->withErrors(['error' => ['Errore nella creazione della fattura elettronica']])->withInput();
+                        return back()->withErrors(['error' => [$acube->error]])->withInput();
                     };
                 }
             }
@@ -77,7 +77,7 @@ class FatturaController extends Controller
                 'metodo_pagamento', 'numero_ddt', 'data_ddt', 'numero_colli_ddt', 'peso_ddt', 'casuale_trasporto', 'trasporto_a_cura_di',
                 'luogo_destinazione', 'annotazioni'
             ]),
-                ['importo_totale' =>  $fatturazione->totale],
+                ['importo_totale_articolo' =>  $fatturazione->totale],
                 ['uuid' =>  $invoicePostUiid]
             )
         );
@@ -158,7 +158,7 @@ class FatturaController extends Controller
                 'metodo_pagamento', 'numero_ddt', 'data_ddt', 'numero_colli_ddt', 'peso_ddt', 'casuale_trasporto', 'trasporto_a_cura_di',
                 'luogo_destinazione', 'annotazioni'
             ]),
-                ['importo_totale' =>  $fatturazione->totale],
+                ['importo_totale_articolo' =>  $fatturazione->totale],
                 ['uuid' =>  $invoicePostUiid]
             )
         );
@@ -231,8 +231,8 @@ class FatturaController extends Controller
                     'prezzo_netto' => $articolo->prezzo_netto,
                     'iva' => $articolo->iva,
                     'importo_netto' => $articolo->importo_netto,
-                    'costo_iva' => $articolo->costo_iva,
-                    'importo_totale' => $articolo->importo_totale,
+                    'costo_iva_articolo' => $articolo->costo_iva_articolo,
+                    'importo_totale_articolo' => $articolo->importo_totale_articolo,
                 ]);
             }
 

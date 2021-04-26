@@ -182,7 +182,7 @@
           <td align="center">{{$art['quantita']}} {{$art['unita_di_misura']}}</td>
           <td align="center">&#8364; {{$art['importo_netto']}}</td>
           <td align="center">&#8364; {{$art['iva']}}</td>
-          <td align="center">&#8364; {{$art['importo_totale']}}</td>
+          <td align="center">&#8364; {{$art['importo_totale_articolo']}}</td>
         </tr>
         
     @endforeach

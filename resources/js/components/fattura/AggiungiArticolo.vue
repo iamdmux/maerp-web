@@ -58,6 +58,7 @@
             </p>
             <select :disabled="method == 'show'" v-model="iva" name="iva[]" autocomplete="off" class=" rounded-md border-gray-200">
               <option :selected="iva == 22" value="22">22</option>
+              <option :selected="iva == 4" value="4">4</option>
             </select>
           </div>
           <div class="mb-2">
@@ -71,15 +72,15 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 IVA
             </p>
-            <input disabled v-model="costo_iva" name="costo_iva[]" class=" w-36" autocomplete="off" type="text">
-            <input type="hidden" name="costo_iva[]" :value="costo_iva">
+            <input disabled v-model="costo_iva_articolo" name="costo_iva_articolo[]" class=" w-36" autocomplete="off" type="text">
+            <input type="hidden" name="costo_iva_articolo[]" :value="costo_iva_articolo">
           </div>
           <div class="mb-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 importo totale
             </p>
-            <input disabled v-model="importo_totale" name="importo_totale[]" class=" w-36" autocomplete="off" type="text">
-            <input type="hidden" name="importo_totale[]" :value="importo_totale">
+            <input disabled v-model="importo_totale_articolo" name="importo_totale_articolo[]" class=" w-36" autocomplete="off" type="text">
+            <input type="hidden" name="importo_totale_articolo[]" :value="importo_totale_articolo">
           </div>
         </div>
       </div>
@@ -142,7 +143,7 @@ export default {
   
     const quantitaMax = ref(0)
     const importo_netto =ref(0)
-    const costo_iva = ref(0)
+    const costo_iva_articolo = ref(0)
 
     // onmounted
     // const log = async () => {
@@ -172,17 +173,17 @@ export default {
         }
     }
 
-    const importo_totale = computed( () => {
+    const importo_totale_articolo = computed( () => {
       let netto = parseFloat(prezzo_netto.value)
       let piva = parseFloat(iva.value)
       let q = parseFloat(quantita.value)
       importo_netto.value = (netto*q)
       let tot = ((netto+(netto*piva/100))*q).toFixed(2)
-      costo_iva.value = parseFloat(tot-importo_netto.value).toFixed(2)
+      costo_iva_articolo.value = parseFloat(tot-importo_netto.value).toFixed(2)
       return tot
       })
 
-    // watch([numeroArticolo, codice, quantita, prezzo_netto, importo_netto, iva, costo_iva], ([]) => {
+    // watch([numeroArticolo, codice, quantita, prezzo_netto, importo_netto, iva, costo_iva_articolo], ([]) => {
     //   storeArticoli.value[numeroArticolo.value] = {
     //     articoloId: articoloId.value,
     //     numeroArticolo: numeroArticolo.value,
@@ -191,7 +192,7 @@ export default {
     //     prezzo_netto: prezzo_netto.value,
     //     importo_netto: importo_netto.value,
     //     iva: iva.value,
-    //     costo_iva: costo_iva.value
+    //     costo_iva_articolo: costo_iva_articolo.value
     //   }
     // });
 
@@ -203,7 +204,7 @@ export default {
     // });
 
 
-    return { articoloId, lotto_id, descrizione, numeroArticolo, codice, filterArticolo, iva, costo_iva, quantita, unita_di_misura, quantitaMax, prezzo_netto, importo_netto, searchArticolo, confermaArticolo, importo_totale}
+    return { articoloId, lotto_id, descrizione, numeroArticolo, codice, filterArticolo, iva, costo_iva_articolo, quantita, unita_di_misura, quantitaMax, prezzo_netto, importo_netto, searchArticolo, confermaArticolo, importo_totale_articolo}
   }
 }
 </script>

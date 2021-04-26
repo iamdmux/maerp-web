@@ -25,8 +25,8 @@ class CreateArticoliTable extends Migration
             $table->float('prezzo_netto');
             $table->float('iva');
             $table->float('importo_netto');
-            $table->float('costo_iva');
-            $table->float('importo_totale');
+            $table->float('costo_iva_articolo');
+            $table->float('importo_totale_articolo');
             $table->timestamps();
 
             // $table->foreign('fattura_id')->references('id')->on('fatture')->onDelete('cascade');

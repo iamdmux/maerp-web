@@ -7,17 +7,8 @@
 
 <h3 class="text-gray-700 text-3xl font-bold">Modifica lavorazione</h3>
 
-<div class="mt-4">
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-</div>
+<x-errors-component />
+
 @method('update')
 <create-lavorazione method="edit" data="{{$lavorazione->data}}" form-url="{{route('lavorazioni.update', $lavorazione->id )}}" :operatori="{{$operatori->toJson()}}" :lavorazione="{{$lavorazione->toJson()}}" :capi-bambino="{{json_encode($capiBambino)}}" :capi-adulto="{{$capiAdulto->toJson()}}"></create-lavorazione>
 

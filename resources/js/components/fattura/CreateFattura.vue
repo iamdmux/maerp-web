@@ -224,10 +224,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 codice destinatario
             </p>
-            <select v-model="el_codice_destinatario" class=" rounded-md border-gray-200" name="el_codice_destinatario">
-              <option class="px-3" value="0000000">0000000</option>
-              <option class="px-3" value="XXXXXXX">XXXXXXX</option>
-            </select>
+            <input v-model="el_codice_destinatario" class=" w-36" autocomplete="off" type="text" name="el_codice_destinatario">
           </div>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
@@ -546,11 +543,12 @@ export default {
     const tab_show_fattura_elettronica =  ref(old.value.tab_show_fattura_elettronica ? old.value.tab_show_fattura_elettronica : true)
 
     const listaClienti = ref({})
-    const quantiArticoli = ref(old.value.quantiArticoli ? old.value.quantiArticoli : 1)
+    const quantiArticoli = ref(old.value.quantiArticoli ? Number(old.value.quantiArticoli) : 1)
+
     const dateToday =       new Date().toISOString().split("T")[0]
 
     // GET OLD OR SHOW
-    const get_clienteId =       method.value == 'show' || method.value == 'edit' ? old.value.cliente_id : old.cliente_id
+    const get_clienteId =       old.value.cliente_id ? old.value.cliente_id : old.cliente_id
     const get_denominazione =   method.value == 'show' || method.value == 'edit' ? old.value.cliente.denominazione : old.value.denominazione
     const get_indirizzo =       method.value == 'show' || method.value == 'edit' ? old.value.cliente.indirizzo : old.value.indirizzo
     const get_citta =           method.value == 'show' || method.value == 'edit' ? old.value.cliente.citta : old.value.citta
@@ -596,7 +594,7 @@ export default {
     const annotazioni =            ref(old.value.annotazioni ? old.value.annotazioni : '')
 
     // elettr
-    const el_codice_destinatario =      ref(old.value.el_codice_destinatario ? old.value.el_codice_destinatario : '0000000')
+    const el_codice_destinatario =      ref(old.value.el_codice_destinatario ? old.value.el_codice_destinatario : '')
     const el_indirizzo_pec =            ref(old.value.el_indirizzo_pec ? old.value.el_indirizzo_pec : '')
     const el_esigibilita_iva =          ref(old.value.el_esigibilita_iva ? old.value.el_esigibilita_iva : 'nd')
     const el_emesso_in_seguito_a =      ref(old.value.el_emesso_in_seguito_a ? old.value.el_emesso_in_seguito_a : 'nd')
@@ -632,7 +630,7 @@ export default {
         if(el.importo_netto)  {importo_netto_show.push(el.importo_netto)}
         if(el.descrizione)    {descrizione_show.push(el.descrizione)}
         if(el.iva)            {iva_show.push(el.iva)}
-        // costo_iva costo_iva importo_totale
+        // costo_iva_articolo costo_iva_articolo importo_totale_articolo
       });
       quantiArticoli.value = (codice_show.length)
     }

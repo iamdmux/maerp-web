@@ -48,7 +48,7 @@ class CreateFattureTable extends Migration
             $table->text('trasporto_a_cura_di')->nullable();
             $table->text('luogo_destinazione')->nullable();
             $table->text('annotazioni')->nullable();
-            $table->float('importo_totale');
+            $table->float('importo_totale_articolo');
             $table->timestamps();
 
             $table->foreign('cliente_id')->references('id')->on('clienti')->onDelete('set null');

@@ -88,8 +88,8 @@ class FatturaPostRequest extends FormRequest
             'descrizione.*' =>'',
             'importo_netto.*' =>'',
             'iva.*' =>'',
-            'costo_iva.*' =>'',
-            'importo_totale.*' =>'',
+            'costo_iva_articolo.*' =>'',
+            'importo_totale_articolo.*' =>'',
         ];
         return $rules;
     }

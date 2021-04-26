@@ -139,14 +139,14 @@ class Fatturazione {
         foreach ($this->request->iva as $key => $value) {
             $this->articoli[$key]['iva'] = $value;
         }
-        foreach ($this->request->costo_iva as $key => $value) {
-            $this->articoli[$key]['costo_iva'] = $value;
+        foreach ($this->request->costo_iva_articolo as $key => $value) {
+            $this->articoli[$key]['costo_iva_articolo'] = $value;
 
             // tot iva
             $this->totaleIva = ($this->totaleIva+$value);
         }
-        foreach ($this->request->importo_totale as $key => $value) {
-            $this->articoli[$key]['importo_totale'] = $value;
+        foreach ($this->request->importo_totale_articolo as $key => $value) {
+            $this->articoli[$key]['importo_totale_articolo'] = $value;
 
             // totale
             $this->totale = ($this->totale+$value);
