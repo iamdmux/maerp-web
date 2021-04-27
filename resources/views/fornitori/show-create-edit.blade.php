@@ -36,7 +36,8 @@
 @endphp
 
 
-<h3 class="text-gray-700 text-3xl font-bold">{{$title}}</h3>
+<x-page-title text="{{$title}}" />
+
 @if($edit)
     <p>Stai modificando {{$fornitore->denominazione}}</p>
 @endif

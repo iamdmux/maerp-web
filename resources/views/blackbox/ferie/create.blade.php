@@ -4,8 +4,7 @@
 
 <x-back-to-page-button route="{{route('ferie.index')}}" />
 
-
-<h3 class="text-gray-700 text-3xl font-bold">Crea ferie</h3>
+<x-page-title text="Crea ferie" />
 
 <form action="{{route('ferie.store')}}" method="POST">
 

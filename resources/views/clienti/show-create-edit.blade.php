@@ -35,8 +35,8 @@
     }
 @endphp
 
+<x-page-title text="{{$title}}" />
 
-<h3 class="text-gray-700 text-3xl font-bold">{{$title}}</h3>
 @if($edit)
     <p>Stai modificando {{$cliente->denominazione}}</p>
 @endif

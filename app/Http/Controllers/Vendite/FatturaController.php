@@ -21,16 +21,18 @@ class FatturaController extends Controller
         } else {
             $fatture = Fattura::with('cliente', 'articoli')->paginate(50);
         }
-                
+
         return view('fatture.index', [
-            'fatture' => $fatture
+            'fatture' => $fatture,
         ]);
     }
 
     public function create(){
         $canCreareFatture = auth()->user()->can('creare-fatture');
+        $fatturaNextCounter = Fattura::fatturaNextCounter();
         return view('fatture.create', [
-            'canCreareFatture' => $canCreareFatture
+            'canCreareFatture' => $canCreareFatture,
+            'fatturaNextCounter' => $fatturaNextCounter
         ]);
     }
 
@@ -116,11 +118,16 @@ class FatturaController extends Controller
             $fattura = Fattura::with('articoli', 'cliente')->findOrFail($id);
         }
 
+        if($fattura->uuid){
+            return redirect()->route('fatture.index')->withErrors(['Non è possibile modificare questa fattura']);
+        }
 
+        $fatturaNextCounter = Fattura::fatturaNextCounter();
         $canCreareFatture = auth()->user()->can('creare-fatture');
         return view('fatture.edit', [
             'fattura' => $fattura,
-            'canCreareFatture' => $canCreareFatture
+            'canCreareFatture' => $canCreareFatture,
+            'fatturaNextCounter' => $fatturaNextCounter
         ]);
     }
 
@@ -130,7 +137,7 @@ class FatturaController extends Controller
         $fatturazione->handle();
 
         if($fattura->uuid){
-            return redirect()->route('fatture.index')->with('error', 'Non è possibile modificare questa fattura');
+            return redirect()->route('fatture.index')->withErrors(['Non è possibile modificare questa fattura']);
         }
 
         $invoicePostUiid = null;
@@ -179,7 +186,7 @@ class FatturaController extends Controller
     public function destroy($fatturaId){
         $fattura = Fattura::findOrFail($fatturaId);
         if($fattura->uuid){
-            return redirect()->route('fatture.index')->with('error', 'Non è possibile cancellare questa fattura');
+            return redirect()->route('fatture.index')->withErrors(['Non è possibile cancellare questa fattura']);
         }
         
         $fattura->articoli()->delete();
@@ -212,7 +219,8 @@ class FatturaController extends Controller
 
         // replico con -tipo_documento-
         $clonaFattura = $fattura->replicate()->fill([
-            'tipo_documento' => $data['converti']
+            'tipo_documento' => $data['converti'],
+            'uuid' => '',
         ]);
         $clonaFattura->save();
 

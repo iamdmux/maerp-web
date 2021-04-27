@@ -4,7 +4,7 @@
 
 <x-back-to-page-button route="{{route('lotti.index')}}" />
 
-<h3 class="text-gray-700 text-3xl font-bold">Crea nuovo lotto</h3>
+<x-page-title text="Crea nuovo lotto" />
 
 <form action="{{route('lotti.store')}}" method="POST">
 

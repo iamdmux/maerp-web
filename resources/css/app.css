@@ -25,6 +25,28 @@ textarea
     @apply text-sm rounded-md border-gray-200 placeholder-gray-500 placeholder-opacity-50;
 }
 
+input[type='text']:disabled,
+input[type='password']:disabled,
+input[type='email']:disabled,
+input[type='number']:disabled,
+input[type='url']:disabled,
+input[type='date']:disabled,
+input[type='datetime-local']:disabled,
+input[type='month']:disabled,
+input[type='week']:disabled,
+input[type='time']:disabled,
+input[type='search']:disabled,
+input[type='tel']:disabled,
+input[type='checkbox']:disabled,
+/* input[type='radio']:disabled, */
+select:disabled,
+select[multiple]:disabled,
+textarea:disabled
+{
+    @apply bg-gray-100;
+}
+
+
 input:required
 {
     @apply border-gray-200;

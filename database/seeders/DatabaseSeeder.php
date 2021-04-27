@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             // LavorazioneSeeder::class,
             // PauseLavorazioneSeeder::class,
             FerieSeeder::class,
-            RolesAndPermissionsSeeder::class
+            RolesAndPermissionsSeeder::class,
+            ImpostazioniSeeder::class
         ]);
     }
 }

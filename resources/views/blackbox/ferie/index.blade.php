@@ -2,7 +2,9 @@
 
 @section('content')
 
-<h3 class="text-gray-700 text-3xl font-bold">ferie</h3>
+<x-page-title text="ferie" />
+
+<x-errors-component />
 
 <div class="mt-10">
     <a href="{{route('ferie.create')}}" class="px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">Crea nuove ferie</a>

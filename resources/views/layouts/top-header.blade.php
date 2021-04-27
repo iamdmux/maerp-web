@@ -67,6 +67,9 @@
         <div x-show="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden border border-gray-100 shadow-xl z-10" style="display:none">
             {{-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a> --}}
+            @can('impostazioni')
+            <a href="{{route('impostazioni.edit')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Impostazioni</a>
+            @endcan
             <form class="px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white" action="{{route('logout')}}" method="POST">
                 @csrf
                 <button class="">Logout</button>

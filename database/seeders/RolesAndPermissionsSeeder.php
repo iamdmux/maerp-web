@@ -16,6 +16,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // create permissions
         Permission::create(['name' => 'dashboard']);
+        Permission::create(['name' => 'impostazioni']);
         Permission::create(['name' => 'assegnare-clienti']);
         Permission::create(['name' => 'visualizzare-lotti']);
         Permission::create(['name' => 'modificare-lotti']);
@@ -24,6 +25,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'creare-fatture']);
         Permission::create(['name' => 'acquisti']);
         Permission::create(['name' => 'magazzino-blackbox']);
+        
 
         // create roles and assign created permissions
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());

@@ -4,8 +4,8 @@
 
 <x-back-to-page-button route="{{route('lotti.index')}}" />
 
+<x-page-title text="Modifica lotto" />
 
-<h3 class="text-gray-700 text-3xl font-bold">Modifica lotto</h3>
 <p>Stai modificando il lotto {{$lotto->id}}</p>
 
 <x-errors-component />

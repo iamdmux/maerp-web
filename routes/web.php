@@ -16,6 +16,7 @@ use App\Http\Controllers\Vendite\FatturaPdfController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Blackbox\LavorazioneController;
 use App\Http\Controllers\Blackbox\PauseTotaliController;
+use App\Http\Controllers\Impostazioni\ImpostazioneController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
 
@@ -35,6 +36,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/test', [DashboardController::class, 'test']);
     });
 
+    // impostazioni
+Route::group(['middleware' => ['can:impostazioni']], function () {
+    Route::get('/impostazioni', [ImpostazioneController::class, 'edit'])->name('impostazioni.edit');
+    Route::patch('/impostazioni', [ImpostazioneController::class, 'update'])->name('impostazioni.update');
+});
 
 // VENDITE
     Route::group(['middleware' => ['can:vendite']], function () {

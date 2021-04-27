@@ -21,15 +21,15 @@
         border-collapse: collapse;
     }
     .fattura{
-      border-bottom: 1px solid rgba(0,0,0,0.2);
+      border-bottom: 1px solid lightgray;
     }
     .fattura thead tr th{
-        border-bottom: 1px solid rgba(0,0,0,0.2);
-        border-top: 1px solid rgba(0,0,0,0.2);
+        border-bottom: 1px solid lightgray;
+        border-top: 1px solid lightgray;
     }
     .fattura th, .fattura td {
-        border-left: 1px solid rgba(0,0,0,0.2);
-        border-right: 1px solid rgba(0,0,0,0.2);
+        border-left: 1px solid lightgray;
+        border-right: 1px solid lightgray;
     }
     .fattura tr td:first-child,
     .fattura tr th:first-child {
@@ -53,12 +53,12 @@
       width:100%;
       /* position:absolute;
       bottom:100px; */
-      /* border-top: 1px solid rgba(0,0,0,0.2); */
-      border-bottom: 1px solid rgba(0,0,0,0.2);
+      /* border-top: 1px solid lightgray; */
+      border-bottom: 1px solid lightgray;
     }
     
     /* .bottom-table td:first-child{
-      border-right: 1px solid rgba(0,0,0,0.2);
+      border-right: 1px solid lightgray;
     } */
     /* .top {
       height: 900px;
@@ -223,8 +223,22 @@
           <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{$fattura->costo_bollo}}</td>
         </tr>
         @endif
+
+        @php
+            $totaleText = '';
+            if($fattura->tipo_documento == 'preventivo'){
+              $totaleText = 'Totale importo';
+            } elseif($fattura->tipo_documento == 'ordine'){
+              $totaleText = 'Totale importo';
+            } elseif($fattura->tipo_documento == 'proforma'){
+              $totaleText = 'Totale importo';
+            } elseif ($fattura->tipo_documento == 'fattura') {
+              $totaleText = 'Totale importo';
+            }
+        @endphp
         <tr>
-          <p style="margin-top:5px; padding-right: 8px; text-align: right; font-size: 2rem">&#8364; {{$fattura->totale}}</p>
+          <td align="right" style="">{{$totaleText}}</td>
+          <td style="padding-right: 8px; text-align: right; font-size: 2rem">&#8364; {{$fattura->totale}}</td>
         </tr>
       </table>
       

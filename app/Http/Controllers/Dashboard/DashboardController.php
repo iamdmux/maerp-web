@@ -11,6 +11,7 @@ use App\Imports\FornitoriImport;
 use App\Models\Acquisti\Fornitore;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Vendite\Fattura;
 
 class DashboardController extends Controller
 {

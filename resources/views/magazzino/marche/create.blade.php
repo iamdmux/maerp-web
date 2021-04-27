@@ -5,7 +5,7 @@
 <x-back-to-page-button route="{{route('marche.index')}}" />
 
 
-<h3 class="text-gray-700 text-3xl font-bold">Crea nuova marca</h3>
+<x-page-title text="Crea nuova marca" />
 
 <form action="{{route('marche.store')}}" method="POST">
 

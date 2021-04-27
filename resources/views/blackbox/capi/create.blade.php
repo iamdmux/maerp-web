@@ -4,8 +4,7 @@
 
 <x-back-to-page-button route="{{route('marche.index')}}" />
 
-
-<h3 class="text-gray-700 text-3xl font-bold">Aggiungi nuovo capo</h3>
+<x-page-title text="Aggiungi nuovo capo" />
 
 <form action="{{route('capi.store')}}" method="POST">
 

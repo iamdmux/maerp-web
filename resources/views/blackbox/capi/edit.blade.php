@@ -4,7 +4,8 @@
 
 <x-back-to-page-button route="{{route('capi.index')}}" />
 
-<h3 class="text-gray-700 text-3xl font-bold">Modifica capo</h3>
+<x-page-title text="Modifica capo" />
+
 <p>Stai modificando il capo: <span class="font-bold">'{{$capo->nome}}'</span></p>
 <form action="{{route('capi.update', $capo->id)}}" method="POST">
 

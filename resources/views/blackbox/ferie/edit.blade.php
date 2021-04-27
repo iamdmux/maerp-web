@@ -4,7 +4,8 @@
 
 <x-back-to-page-button route="{{route('ferie.index')}}" />
 
-<h3 class="text-gray-700 text-3xl font-bold">Modifica ferie</h3>
+<x-page-title text="Modifica ferie" />
+
 <p>Stai modificando le ferie di <span class="font-bold">'{{$ferie->operatore->nome}}'</span></p>
 <p class="text-sm">dal: {{$ferie->dalStrings}}</p>
 <p class="text-sm">al: {{$ferie->alStrings}}</p>

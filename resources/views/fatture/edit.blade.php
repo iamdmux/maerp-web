@@ -4,10 +4,17 @@
 
 <x-back-to-page-button route="{{route('fatture.index')}}" />
 
-<h3 class="text-gray-700 text-2xl font-semibold mb-6">Modifica {{$fattura->tipo_documento}} numero {{$fattura->numero}} del {{$fattura->data->format('d-m-Y')}}</h3>
+<x-page-title text="Modifica {{$fattura->tipo_documento}} numero {{$fattura->numero}} del {{$fattura->data->format('d-m-Y')}}" />
 
-<create-fattura method="edit" :can-creare-fatture="{{$canCreareFatture ? 'true' : 'false'}}" form-url="{{route('fatture.update', $fattura->id )}}" pdf-url="{{route('fatturapdf.postView')}}" :old="{{ json_encode($fattura) }}">
-</create-fattura>
+<x-errors-component />
+
+<create-edit-fattura method="edit"
+fattura-nextcounter="{{$fatturaNextCounter}}"
+:can-creare-fatture="{{$canCreareFatture ? 'true' : 'false'}}"
+form-url="{{route('fatture.update', $fattura->id )}}"
+pdf-url="{{route('fatturapdf.postView')}}"
+:old="{{ json_encode($fattura) }}">
+</create-edit-fattura>
 
 <form class="mt-4" action="{{route('fatture.destroy', [$fattura->id])}}" method="POST">
     @csrf

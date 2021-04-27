@@ -6,8 +6,7 @@
 
 
 <div>
-    <h3 class="text-gray-700 text-3xl font-bold">Pause mensili di {{$mesiArray[$month] ?? $month}} {{$year}}</h3>
-
+    <x-page-title text="Pause mensili - {{$mesiArray[$month] ?? $month}} {{$year}}" />
     <form action="{{route('pause.totali.index')}}" method="GET">
     <p class="text-xs leading-4 font-medium text-gray-500 pb-1 pt-3">Visualizza per mese e anno</p>
     <select name="month">

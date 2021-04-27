@@ -4,7 +4,8 @@
 
 <x-back-to-page-button route="{{route('operatori.index')}}" />
 
-<h3 class="text-gray-700 text-3xl font-bold">Modifica nome marca</h3>
+<x-page-title text="Modifica nome marca" />
+
 <p>Stai modificando l'operatore <span class="font-bold">'{{$operatore->nome}}'</span></p>
 <form action="{{route('operatori.update', $operatore->id)}}" method="POST">
 

@@ -1,5 +1,5 @@
 <template>
-<form ref="form" method="POST">
+<form ref="form" method="POST" class="mt-8">
 <input type="hidden" name="_token" :value="csrf">
   <div v-if="method == 'edit'">
       <input type="hidden" name="_method" :value="hiddenMethod">
@@ -224,13 +224,13 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 codice destinatario
             </p>
-            <input v-model="el_codice_destinatario" class=" w-36" autocomplete="off" type="text" name="el_codice_destinatario">
+            <input :disabled="method == 'show'" v-model="el_codice_destinatario" class=" w-36" autocomplete="off" type="text" name="el_codice_destinatario">
           </div>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 indirizzo PEC
             </p>
-            <input v-model="el_indirizzo_pec" class=" w-36" autocomplete="off" type="email" name="el_indirizzo_pec">
+            <input :disabled="method == 'show'" v-model="el_indirizzo_pec" class=" w-36" autocomplete="off" type="email" name="el_indirizzo_pec">
           </div>
         </div>
 
@@ -239,7 +239,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 esigibilità iva
             </p>
-            <select v-model="el_esigibilita_iva" class=" rounded-md border-gray-200" name="el_esigibilita_iva">
+            <select :disabled="method == 'show'" v-model="el_esigibilita_iva" class=" rounded-md border-gray-200" name="el_esigibilita_iva">
               <option class="px-3" value="nd">non specificato</option>
             </select>
           </div>
@@ -247,7 +247,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 emesso in seguito a
             </p>
-            <select v-model="el_emesso_in_seguito_a" class=" rounded-md border-gray-200" name="el_emesso_in_seguito_a">
+            <select :disabled="method == 'show'" v-model="el_emesso_in_seguito_a" class=" rounded-md border-gray-200" name="el_emesso_in_seguito_a">
               <option class="px-3" value="nd">non specificato</option>
             </select>
           </div>
@@ -257,7 +257,7 @@
           <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               metodo di pagamento
           </p>
-          <select v-model="el_metodo_pagamento" class="w-36 rounded-md border-gray-200" name="el_metodo_pagamento">
+          <select :disabled="method == 'show'" v-model="el_metodo_pagamento" class="w-36 rounded-md border-gray-200" name="el_metodo_pagamento">
             <option class="px-3" value="contanti">contanti</option>
             <option class="px-3" value="assegno">assegno</option>
             <option class="px-3" value="assegno_circolare">assegno circolare</option>
@@ -270,7 +270,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 nome istituto di credito
             </p>
-            <input v-model="el_nome_istituto_di_credito" class=" w-36" autocomplete="off" type="text" placeholder="opzionale"  name="el_nome_istituto_di_credito">
+            <input :disabled="method == 'show'" v-model="el_nome_istituto_di_credito" class=" w-36" autocomplete="off" type="text" placeholder="opzionale"  name="el_nome_istituto_di_credito">
           </div>
         </div>
 
@@ -279,13 +279,13 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 IBAN
             </p>
-            <input v-model="el_iban" class=" w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_iban">
+            <input :disabled="method == 'show'" v-model="el_iban" class=" w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_iban">
           </div>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 nome beneficiario
             </p>
-            <input v-model="el_nome_beneficiario" class=" w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_nome_beneficiario">
+            <input :disabled="method == 'show'" v-model="el_nome_beneficiario" class=" w-36" autocomplete="off" type="text" placeholder="opzionale" name="el_nome_beneficiario">
           </div>
         </div>
       </div>
@@ -493,6 +493,9 @@ import { onMounted } from '@vue/runtime-core'
 
 export default {
   props: {
+    fatturaNextcounter:{
+      required: false
+    },
     method:{
       type: String,
       required: true
@@ -573,7 +576,7 @@ export default {
     const partita_iva =     ref(get_partita_iva ? get_partita_iva : '')
     const codice_fiscale =  ref(get_codice_fiscale ? get_codice_fiscale : '')
     
-    const numero =          ref(old.value.numero ? old.value.numero : '')
+    const numero =          ref(old.value.numero ? old.value.numero : props.fatturaNextcounter)
     const data =            ref(old.value.data ? parseDate(old.value.data) : dateToday)
     const data_ddt =        ref(old.value.data_ddt ? parseDate(old.value.data_ddt) : dateToday)
     const numero_ddt =      ref(old.value.numero_ddt ? old.value.numero_ddt : '')

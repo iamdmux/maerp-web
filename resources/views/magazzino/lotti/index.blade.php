@@ -2,7 +2,10 @@
 
 @section('content')
 
-<h3 class="text-gray-700 text-3xl font-bold">Lotti</h3>
+
+<x-page-title text="Lotti" />
+
+<x-errors-component />
 
 @can('modificare-lotti')
 <div class="mt-10">
