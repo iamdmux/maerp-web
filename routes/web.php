@@ -18,8 +18,12 @@ use App\Http\Controllers\Blackbox\LavorazioneController;
 use App\Http\Controllers\Blackbox\PauseTotaliController;
 use App\Http\Controllers\Impostazioni\ImpostazioneController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
+use App\Mail\InvioClientePdf;
 
-
+// TEST EMAIL
+Route::get('/mailable', function () {
+    return new App\Mail\InvioClientePdf();
+});
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -53,8 +57,11 @@ Route::group(['middleware' => ['can:impostazioni']], function () {
         Route::get('/vendite/fatture/{fatturaId}/pdf', [FatturaPdfController::class, 'show'])->name('fatturapdf.show');
 
         Route::resource('/vendite/fatture', FatturaController::class);                                              // --> agente: solo preventivi e ordini
+
         // Conversione
         Route::post('/vendite/fatture/converti', [FatturaController::class, 'convertiFattura']);
+        // Invia pdf per email
+        Route::post('/vendite/fatture/invia-pdf', [FatturaPdfController::class, 'inviaPdfFattura'])->name('inviaPdf.email');
 
         //Fattura Json Response
         Route::post('/api/fattura/clienti', [FatturaAPI::class, 'getClienti']);

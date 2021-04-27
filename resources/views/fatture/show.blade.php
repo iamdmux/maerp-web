@@ -12,6 +12,7 @@
 :can-creare-fatture="{{$canCreareFatture ? 'true' : 'false'}}"
 pdf-show="{{route('fatturapdf.show', $fattura->id)}}"
 pdf-url="{{route('fatturapdf.postView')}}"
+invio-pdf-url="{{route('inviaPdf.email')}}"
 :old="{{ json_encode($fattura) }}">
 </create-edit-fattura>
 

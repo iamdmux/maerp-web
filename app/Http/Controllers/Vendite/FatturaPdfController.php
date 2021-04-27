@@ -6,12 +6,14 @@ use Carbon\Carbon;
 use App\Fatturazione\Acube;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\InvioClientePdf;
 use App\Models\Vendite\Cliente;
 use App\Models\Vendite\Fattura;
 use App\Fatturazione\Fatturazione;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\FatturaPostRequest;
 
 class FatturaPdfController extends Controller
@@ -68,6 +70,46 @@ class FatturaPdfController extends Controller
             }
         };
         return $toMerge;
+    }
+
+
+    public function inviaPdfFattura(Request $request){
+        $request->validate([
+            'fattura_id' => 'required'
+        ]);
+
+        $fattura = Fattura::with('articoli')->findOrFail($request->fattura_id);
+        $cliente = Cliente::findOrFail($fattura->cliente_id);
+        $totali = $this->getTotaliForShow($fattura);
+
+        $fattura->totaleImponibile = $totali['totaleImponibile'];
+        $fattura->totaleIva = $totali['totaleIva'];
+        $fattura->totale = $totali['totale'];
+
+        PDF::setOptions(['defaultFont' => 'serif']);
+        $pdf = PDF::loadView('fatture.fatturapdf', [
+            'fattura' => $fattura,
+            'cliente' => $cliente
+        ]);
+
+        if(!$cliente->email){
+            return back()->withErrors(['error' => ['Questo cliente non ha il campo \'email\' ']]); 
+        }
+
+
+        $isElettronica = $fattura->uuid ? true : false;
+        $dataIta = $fattura->data_ita;
+        $anno = $fattura->data->format('Y');
+        $numero = $fattura->numero;
+
+        try {
+            Mail::to('example@example.com') //$cliente->email
+            ->send(new InvioClientePdf($pdf->output(), $fattura->tipo_documento, $isElettronica, $numero, $dataIta, $anno));
+
+            return redirect()->route('fatture.index')->with('success', 'Il documento \'' . $fattura->tipo_documento . '\' è stato inviato correttamente');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => [$e->getMessage()]]); 
+        }
     }
 
 }

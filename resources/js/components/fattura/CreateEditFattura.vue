@@ -19,7 +19,7 @@
     <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
   </label>
 
-  <div v-if="method == 'show'" class="p-3 ml-12 mr-2 bg-gray-100 rounded">
+  <div v-if="method == 'show'" class="p-3 ml-8 mr-2 bg-gray-300 rounded">
     <form class="flex" action="/vendite/fatture/converti" method="POST">
     <input type="hidden" name="_token" :value="csrf">
     <input type="hidden" name="fattura_id" :value="fattura_id">
@@ -30,13 +30,27 @@
         <option v-if="canCreareFatture" value="proforma">proforma</option>
         <option v-if="canCreareFatture" value="fattura">fattura</option>
       </select>
-      <button class="ml-2 bg-blue-300 text-xs py-1 px-2 rounded">converti</button>
+      <button class="ml-2 bg-gray-400 text-xs py-1 px-2 rounded">converti</button>
     </form>
   </div>
 
-  <div v-if="method == 'show'" class="p-3 ml-12 mr-2 bg-gray-100 rounded">
-    <a target="_blank" :href="pdfShow"> vedi pdf</a>
+  <form v-if="method == 'show'" :action="invioPdfUrl" method="POST">
+      <div class="p-3 ml-8 mr-2 bg-gray-300 rounded">
+        <input type="hidden" name="fattura_id" :value="fattura_id">
+        <input type="hidden" name="_token" :value="csrf">
+        <button onclick="return confirm('Sei sicuro di inviare il pdf a questo cliente?')" target="_blank" href="#" class="flex">
+        invia pdf
+        <svg class="w-4 h-4 mx-2" style="margin-top:5px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+        </button>
+      </div>
+  </form>
+
+  <div v-if="method == 'show'" class="p-3 ml-4 mr-2 bg-yellow-400 rounded">
+    <a target="_blank" :href="pdfShow" class="flex">anteprima pdf
+      <svg class="w-4 h-4 mx-2" style="margin-top:5px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+    </a>
   </div>
+
 </div>
 
 
@@ -56,7 +70,7 @@
 <input type="hidden" v-model="quantiArticoli" name="quantiArticoli">
 
 <!-- wrapper 1 -->
-<div class="flex flex-wrap">
+<div class="flex flex-wrap" style="max-width: 1113px;">
   <!-- CLIENTE -->
   <div class="relative bg-gray-100 rounded p-4 mb-4 mr-4">
     <div class="flex justify-between mx-6">
@@ -141,10 +155,10 @@
           </div>
           <div class="mr-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                note indirizzo
+                email
             </p>
-            <textarea disabled v-model="note_indirizzo" rows="2" cols="15" class="text-sm" name="note_indirizzo"></textarea>
-            <input :value="note_indirizzo" class=" w-36" autocomplete="off" type="hidden" name="note_indirizzo">
+            <input disabled v-model="email" class=" w-36" autocomplete="off" type="text" name="email">
+            <input :value="email" class=" w-36" autocomplete="off" type="hidden" name="email">
           </div>
         </div>
       </div>
@@ -152,7 +166,7 @@
   </div>
 
   <!-- DATI DOCUMENTO -->
-  <div class="relative bg-gray-100 rounded p-4 mb-4 mr-4">
+  <div class="flex-1 relative bg-gray-100 rounded p-4 mb-4">
     <div class="flex justify-between mx-6">
       <h1><b>DATI DOCUMENTO</b></h1>
       <button @click.prevent="tab_show_dati_documento = !tab_show_dati_documento" class="pl-4">
@@ -514,6 +528,9 @@ export default {
       type: String,
       required: false
     },
+    invioPdfUrl:{
+      required: false
+    },
     old:{
       type: Object,
       required: false
@@ -531,7 +548,7 @@ export default {
     const old = ref((props.old))
     const fattura_id = ref(props.old.id)
     const pdfShow = ref(props.pdfShow)
-
+    const invioPdfUrl = ref(props.invioPdfUrl)
     const canCreareFatture = ref((props.canCreareFatture))
 
     const tipo_documento = ref(old.value.tipo_documento ? old.value.tipo_documento : 'preventivo')
@@ -557,7 +574,7 @@ export default {
     const get_citta =           method.value == 'show' || method.value == 'edit' ? old.value.cliente.citta : old.value.citta
     const get_cap =             method.value == 'show' || method.value == 'edit' ? old.value.cliente.cap : old.value.cap
     const get_provincia =       method.value == 'show' || method.value == 'edit' ? old.value.cliente.provincia : old.value.provincia
-    const get_note_indirizzo =  method.value == 'show' || method.value == 'edit' ? old.value.cliente.note_indirizzo : old.value.note_indirizzo
+    const get_email =           method.value == 'show' || method.value == 'edit' ? old.value.cliente.email : old.value.email
     const get_nazione =         method.value == 'show' || method.value == 'edit' ? old.value.cliente.nazione : old.value.nazione
     const get_nazione_sigla =   method.value == 'show' || method.value == 'edit' ? old.value.cliente.nazione_sigla : old.value.nazione_sigla
     const get_partita_iva =     method.value == 'show' || method.value == 'edit' ? old.value.cliente.partita_iva : old.value.partita_iva
@@ -570,7 +587,7 @@ export default {
     const citta =           ref(get_citta ? get_citta : '')
     const cap =             ref(get_cap ? get_cap : '')
     const provincia =       ref(get_provincia ? get_provincia : '')
-    const note_indirizzo =  ref(get_note_indirizzo ? get_note_indirizzo : '')
+    const email =           ref(get_email ? get_email : '')
     const nazione =         ref(get_nazione ? get_nazione : '')
     const nazione_sigla =   ref(get_nazione_sigla ? get_nazione_sigla : '')
     const partita_iva =     ref(get_partita_iva ? get_partita_iva : '')
@@ -729,7 +746,7 @@ export default {
         citta.value = cliente.citta
         cap.value = cliente.cap
         provincia.value = cliente.provincia
-        note_indirizzo.value = cliente.note_indirizzo
+        email.value = cliente.email
         nazione.value = cliente.nazione
         nazione_sigla.value = cliente.nazione_sigla
         partita_iva.value = cliente.partita_iva
@@ -749,7 +766,7 @@ export default {
       // old_articoli
       lotto_id_arr, codice_arr, quantita_arr, unita_di_misura_arr, prezzo_netto_arr, descrizione_arr, iva_arr,
       //form
-      form, submitForm, formAction, tipo_documento, pdfShow, checkTipoDocumento,
+      form, submitForm, formAction, tipo_documento, pdfShow, checkTipoDocumento, invioPdfUrl,
       // basics_and_switch
       method, canCreareFatture, route, csrf, tab_show_cliente, tab_show_fattura_elettronica, tab_show_dati_documento, tab_show_contributi_ritenute, tab_show_opzioni_avanzate, tab_show_personalizzazione, tab_show_note_doc,
       // methods/computed
@@ -757,7 +774,7 @@ export default {
       // otherObjects
       listaClienti, filterCliente, quantiArticoli,
       // vmodels
-      clienteId, fattura_elettronica, denominazione, indirizzo, citta, data, numero, data_ddt, numero_ddt, cap, provincia, note_indirizzo, nazione, nazione_sigla, partita_iva,
+      clienteId, fattura_elettronica, denominazione, indirizzo, citta, data, numero, data_ddt, numero_ddt, cap, provincia, email, nazione, nazione_sigla, partita_iva,
       codice_fiscale, includi_marca_da_bollo, documento_di_trasporto, includi_metodo_pagamento, el_indirizzo_pec, lingua, note_documento, valuta,
       el_emesso_in_seguito_a, el_esigibilita_iva, el_metodo_pagamento, el_nome_istituto_di_credito,el_iban,el_nome_beneficiario,
       metodo_pagamento, costo_bollo, numero_colli_ddt, peso_ddt, casuale_trasporto,trasporto_a_cura_di,luogo_destinazione,annotazioni,
