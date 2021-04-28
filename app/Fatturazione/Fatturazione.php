@@ -33,6 +33,7 @@ class Fatturazione {
     // elettronica
     public $cliente_id;
     public $fattura_elettronica;
+    public $uuid;
     public $denominazione;
     public $indirizzo;
     public $citta;
@@ -98,6 +99,9 @@ class Fatturazione {
         $this->partita_iva                 = $request->partita_iva;
         $this->codice_fiscale              = $request->codice_fiscale;
         $this->tipo_documento              = $request->tipo_documento;
+
+        // per edit
+        $this->uuid                        = $request->uuid;
 
         $this->el_codice_destinatario      = $request->el_codice_destinatario;
         $this->el_indirizzo_pec            = $request->el_indirizzo_pec;

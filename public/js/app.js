@@ -20627,34 +20627,34 @@ var _hoisted_3 = {
   "class": "flex flex-wrap mb-2"
 };
 var _hoisted_4 = {
-  "class": "p-3 mr-2 bg-gray-100 rounded"
+  "class": "p-3 mt-2 mr-2 bg-gray-100 rounded"
 };
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("preventivo ");
 
 var _hoisted_6 = {
-  "class": "p-3 mr-2 bg-gray-100 rounded"
+  "class": "p-3 mt-2 mr-2 bg-gray-100 rounded"
 };
 
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("ordine ");
 
 var _hoisted_8 = {
   key: 0,
-  "class": "p-3 mr-2 bg-gray-100 rounded"
+  "class": "p-3 mt-2 mr-2 bg-gray-100 rounded"
 };
 
 var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("proforma ");
 
 var _hoisted_10 = {
   key: 1,
-  "class": "p-3 mr-2 bg-gray-100 rounded"
+  "class": "p-3 mt-2 mr-2 bg-gray-100 rounded"
 };
 
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("fattura ");
 
 var _hoisted_12 = {
   key: 2,
-  "class": "p-3 ml-8 mr-2 bg-gray-300 rounded"
+  "class": "p-3 ml-8 mt-2 mr-2 bg-gray-300 rounded"
 };
 var _hoisted_13 = {
   "class": "flex",
@@ -20699,7 +20699,7 @@ var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 );
 
 var _hoisted_21 = {
-  "class": "p-3 ml-8 mr-2 bg-gray-300 rounded"
+  "class": "p-3 ml-8 mt-2 mr-2 bg-gray-300 rounded"
 };
 
 var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
@@ -20727,7 +20727,7 @@ var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 
 var _hoisted_23 = {
   key: 4,
-  "class": "p-3 ml-4 mr-2 bg-yellow-400 rounded"
+  "class": "p-3 mt-2 ml-4 mr-2 bg-yellow-400 rounded"
 };
 
 var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("anteprima pdf ");

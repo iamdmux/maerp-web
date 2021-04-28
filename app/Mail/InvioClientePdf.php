@@ -30,10 +30,10 @@ class InvioClientePdf extends Mailable
 
     }
     public function build()
-    {
-        return $this->from('example@example.com')
-        ->subject("$tipoDoc num. $anno-$numero del $dataIta")
-        ->attachData($this->pdf, "$tipoDoc-$anno-$numero.pdf", [
+    {   
+        return $this->from(env('MAIL_FROM_ADDRESS'))
+        ->subject("$this->tipoDoc num. $this->anno-$this->numero del $this->dataIta")
+        ->attachData($this->pdf, "$this->tipoDoc-$this->anno-$this->numero.pdf", [
             'mime' => 'application/pdf',
         ])
         ->markdown('mail.invio-cliente-pdf');

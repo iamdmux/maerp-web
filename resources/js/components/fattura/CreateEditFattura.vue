@@ -6,20 +6,20 @@
   </div>
 
 <div class="flex flex-wrap mb-2">
-  <label class="p-3 mr-2 bg-gray-100 rounded">preventivo
+  <label class="p-3 mt-2 mr-2 bg-gray-100 rounded">preventivo
     <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="preventivo" checked>
   </label>
-  <label class="p-3 mr-2 bg-gray-100 rounded">ordine
+  <label class="p-3 mt-2 mr-2 bg-gray-100 rounded">ordine
     <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="ordine">
   </label>
-  <label v-if="canCreareFatture" class="p-3 mr-2 bg-gray-100 rounded">proforma
+  <label v-if="canCreareFatture" class="p-3 mt-2 mr-2 bg-gray-100 rounded">proforma
     <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="proforma">
   </label>
-  <label v-if="canCreareFatture" class="p-3 mr-2 bg-gray-100 rounded">fattura
+  <label v-if="canCreareFatture" class="p-3 mt-2 mr-2 bg-gray-100 rounded">fattura
     <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
   </label>
 
-  <div v-if="method == 'show'" class="p-3 ml-8 mr-2 bg-gray-300 rounded">
+  <div v-if="method == 'show'" class="p-3 ml-8 mt-2 mr-2 bg-gray-300 rounded">
     <form class="flex" action="/vendite/fatture/converti" method="POST">
     <input type="hidden" name="_token" :value="csrf">
     <input type="hidden" name="fattura_id" :value="fattura_id">
@@ -35,7 +35,7 @@
   </div>
 
   <form v-if="method == 'show'" :action="invioPdfUrl" method="POST">
-      <div class="p-3 ml-8 mr-2 bg-gray-300 rounded">
+      <div class="p-3 ml-8 mt-2 mr-2 bg-gray-300 rounded">
         <input type="hidden" name="fattura_id" :value="fattura_id">
         <input type="hidden" name="_token" :value="csrf">
         <button onclick="return confirm('Sei sicuro di inviare il pdf a questo cliente?')" target="_blank" href="#" class="flex">
@@ -45,7 +45,7 @@
       </div>
   </form>
 
-  <div v-if="method == 'show'" class="p-3 ml-4 mr-2 bg-yellow-400 rounded">
+  <div v-if="method == 'show'" class="p-3 mt-2 ml-4 mr-2 bg-yellow-400 rounded">
     <a target="_blank" :href="pdfShow" class="flex">anteprima pdf
       <svg class="w-4 h-4 mx-2" style="margin-top:5px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
     </a>

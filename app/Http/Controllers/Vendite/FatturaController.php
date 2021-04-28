@@ -136,7 +136,7 @@ class FatturaController extends Controller
         $fatturazione = new Fatturazione($request);
         $fatturazione->handle();
 
-        if($fattura->uuid){
+        if($fatturazione->uuid){
             return redirect()->route('fatture.index')->withErrors(['Non è possibile modificare questa fattura']);
         }
 

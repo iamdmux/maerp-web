@@ -92,10 +92,15 @@ class FatturaPdfController extends Controller
             'cliente' => $cliente
         ]);
 
+        
+        //  TEST la modifica è solo in questa pagina
+        $TESTEMAIL = true;
+
+        if(!$TESTEMAIL){
         if(!$cliente->email){
             return back()->withErrors(['error' => ['Questo cliente non ha il campo \'email\' ']]); 
         }
-
+        }
 
         $isElettronica = $fattura->uuid ? true : false;
         $dataIta = $fattura->data_ita;
@@ -103,7 +108,14 @@ class FatturaPdfController extends Controller
         $numero = $fattura->numero;
 
         try {
-            Mail::to('example@example.com') //$cliente->email
+            //  TEST -> invio a MAIL_FROM_ADDRESS
+            if(!$TESTEMAIL){
+                $to = $cliente->email;
+            } else {
+                $to = env('MAIL_FROM_ADDRESS');
+            }
+
+            Mail::to($to)
             ->send(new InvioClientePdf($pdf->output(), $fattura->tipo_documento, $isElettronica, $numero, $dataIta, $anno));
 
             return redirect()->route('fatture.index')->with('success', 'Il documento \'' . $fattura->tipo_documento . '\' è stato inviato correttamente');
