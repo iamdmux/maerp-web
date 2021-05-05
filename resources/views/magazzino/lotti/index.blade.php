@@ -27,7 +27,7 @@
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Quantità</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Prenotato</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Venduto</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Venditore</th>
+                        {{-- <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Venditore</th> --}}
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Kg</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                     </tr>
@@ -35,6 +35,15 @@
 
                 <tbody class="bg-white">
                     @forelse ($lotti as $lotto)
+                        @php
+                            $prenotatoList = $lotto->status->filter(function ($item) {
+                                return $item->pivot->tipo == 'prenotato';
+                            });
+
+                            $vendutoList = $lotto->status->filter(function ($item) {
+                                return $item->pivot->tipo == 'venduto';
+                            });
+                        @endphp     
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->id}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->codice_articolo}}</td>
@@ -42,19 +51,50 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->stagione}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->tipologia}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->quantita}}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->prenotato}}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->venduto}}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->venditore}}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                @foreach ($prenotatoList as $status)
+                                    <p class="{{$loop->iteration > $lotto->quantita ? 'line-through' : ''}}">
+                                        {{$loop->iteration}} - {{$status->name}}
+                                    </p>
+                                @endforeach
+
+                                @if($prenotatoList->count() < $lotto->quantita)
+                                <div>
+                                    <form action="{{route('add.status.lotto', $lotto->id)}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="tipo" value="prenotato">
+                                    <button class="text-xs bg-gray-300 rounded px-1">prenota</button>
+                                    </form>
+                                </div>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                @foreach ($vendutoList as $status)
+                                    <p class="{{$loop->iteration > $lotto->quantita ? 'line-through' : ''}}">
+                                        {{$loop->iteration}} - {{$status->name}}
+                                    </p>
+                                @endforeach
+
+                                @if($vendutoList->count() < $lotto->quantita)
+                                <div>
+                                    <form action="{{route('add.status.lotto', $lotto->id)}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="tipo" value="venduto">
+                                    <button class="text-xs bg-gray-300 rounded px-1">vendi</button>
+                                    </form>
+                                </div>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->kg}}</td>
 
                             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                @can('modificare-lotti')
+                                {{-- @can('modificare-lotti') --}}
                                 <a href="{{route('lotti.edit', $lotto->id)}}" class="{{help_svg_link()}}">{!!help_svg_icon_edit()!!}</a>
-                                @endcan
+                                {{-- @endcan --}}
                             </td>
                         </tr>
                     @empty
-                        <p>Nessun lotto trovato</p>
+                        {{-- <p>Nessun lotto trovato</p> --}}
                     @endforelse
                 </tbody>
             </table>

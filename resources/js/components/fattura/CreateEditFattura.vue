@@ -57,7 +57,7 @@
 
 <div v-if="canCreareFatture" class="my-5">
   <label class="p-3 bg-gray-100 rounded">fattura elettronica
-    <input :disabled="method == 'show' || tipo_documento != 'fattura'" v-model="fattura_elettronica" type="checkbox" value="true" name="fattura_elettronica">
+    <input @change="checkTipoDocumento" :disabled="method == 'show' || tipo_documento != 'fattura'" v-model="fattura_elettronica" type="checkbox" value="true" name="fattura_elettronica">
   </label>
 </div>
 
@@ -86,7 +86,7 @@
           <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               ragione sociale / nome
           </p>
-          <input :disabled="method == 'show'" required v-model="denominazione" @input="searchCliente" class=" w-36" autocomplete="off" type="text" name="denominazione">
+          <input :disabled="method == 'show'" required v-model="denominazione" @input="searchCliente" class=" w-52" autocomplete="off" type="text" name="denominazione">
           <div v-if="filterCliente.length" class="z-10 text-sm p-4 bg-white rounded border border-gray-400">
             <div v-for="cliente in filterCliente" :key="cliente.id">
               <p @click="confermaCliente(cliente.id)" class="hover:bg-blue-400 cursor-pointer">{{cliente.denominazione}}</p> 
@@ -248,7 +248,7 @@
           </div>
         </div>
 
-        <div class="mr-6">
+        <!-- <div class="mr-6">
           <div>
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 esigibilità iva
@@ -265,7 +265,7 @@
               <option class="px-3" value="nd">non specificato</option>
             </select>
           </div>
-        </div>
+        </div> -->
 
         <div class="mr-6">
           <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
@@ -324,7 +324,7 @@
           <div class="mb-2"> 
             <div class="flex mb-2">
               <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input :disabled="method == 'show'" v-model="documento_di_trasporto" type="checkbox" value="true" name="documento_di_trasporto">
+                  <input :disabled="method == 'show' || fattura_elettronica" v-model="documento_di_trasporto" type="checkbox" value="true" name="documento_di_trasporto">
                   documento di trasporto
               </label>
             </div>
@@ -667,6 +667,11 @@ export default {
     const checkTipoDocumento = () => {
       if(tipo_documento.value != 'fattura'){
         fattura_elettronica.value = false
+      }
+      if(fattura_elettronica.value){
+        console.log('fatt elett true')
+        console.log(documento_di_trasporto.value)
+        documento_di_trasporto.value = false
       }
     }
     //

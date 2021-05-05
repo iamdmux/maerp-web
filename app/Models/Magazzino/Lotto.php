@@ -2,6 +2,7 @@
 
 namespace App\Models\Magazzino;
 
+use App\Models\User;
 use App\Models\Magazzino\Marca;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,5 +48,10 @@ class Lotto extends Model
 
     public function marca(){
         return $this->belongsTo(Marca::class);
+    }
+
+    public function status(){
+        return $this->belongsToMany(User::class, 'magazzino_lotti_status', 'lotto_id', 'user_id')
+        ->withPivot('id', 'tipo');
     }
 }

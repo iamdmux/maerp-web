@@ -178,11 +178,11 @@
         <tr>
           <td>{{$art['codice']}}</td>
           <td align="left">{{$art['descrizione']}}</td>
-          <td align="center">&#8364; {{$art['prezzo_netto']}}</td>
+          <td align="center">&#8364; {{number_format($art['prezzo_netto'], 2)}}</td>
           <td align="center">{{$art['quantita']}} {{$art['unita_di_misura']}}</td>
-          <td align="center">&#8364; {{$art['importo_netto']}}</td>
-          <td align="center">&#8364; {{$art['iva']}}</td>
-          <td align="center">&#8364; {{$art['importo_totale_articolo']}}</td>
+          <td align="center">&#8364; {{number_format($art['importo_netto'], 2)}}</td>
+          <td align="center">&#8364; {{number_format($art['iva'], 2)}}</td>
+          <td align="center">&#8364; {{number_format($art['importo_totale_articolo'], 2)}}</td>
         </tr>
         
     @endforeach
@@ -209,18 +209,18 @@
       <table style="width:100%; margin-top:10px;">
         <tr>
           <td align="right">Imponibile</td>
-          <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{$fattura->totaleImponibile}}</td>
+          <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{number_format($fattura->totaleImponibile, 2)}}</td>
         </tr>
         <tr>
           <td align="right">Iva 22% su &#8364; {{$fattura->totaleImponibile}}</td>
-          <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{$fattura->totaleIva}}</td>
+          <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{number_format($fattura->totaleIva, 2)}}</td>
           
         </tr>
         
         @if($fattura->includi_marca_da_bollo == 'on')
         <tr>
           <td align="right">Non imponibile, bollo</td>
-          <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{$fattura->costo_bollo}}</td>
+          <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{number_format($fattura->costo_bollo, 2)}}</td>
         </tr>
         @endif
 
@@ -238,7 +238,7 @@
         @endphp
         <tr>
           <td align="right" style="">{{$totaleText}}</td>
-          <td style="padding-right: 8px; text-align: right; font-size: 2rem">&#8364; {{$fattura->totale}}</td>
+          <td style="padding-right: 8px; text-align: right; font-size: 2rem">&#8364; {{number_format($fattura->totale, 2)}}</td>
         </tr>
       </table>
       

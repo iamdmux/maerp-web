@@ -10,7 +10,7 @@
 
 <x-errors-component />
 
-
+@can('modificare-lotti')
 <form action="{{route('lotti.update', $lotto->id)}}" method="POST">
 
     @csrf
@@ -95,19 +95,44 @@
         <input type="number" name="quantita" min="0" placeholder="Quantità di Pezzi" value="{{old('quantita') ? old('quantita') : $lotto->quantita}}">
     </div>
 
-    <div class="mt-5">
-        <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Venditore
-        </p>
-        <input type="text" name="venditore" placeholder="Venditore"
-        value="{{old('venditore') ? old('venditore') : $lotto->venditore}}"
-        >
-    </div>
-
     <button class="mt-8 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
-        Salva nuovo lotto
+        Modifica lotto
     </button>
 </form>
+@endcan
+
+<div class="mt-16">
+    <div class="my-3">
+        <p class="font-semibold mb-3">Quantità prenotate</p>
+        @forelse($prenotatoList as $status)
+        <form class="flex my-1" action="{{route('delete.status.lotto', $status->pivot->id)}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <p>{{$loop->iteration}} - {{$status->name}}</p> 
+            @if(auth()->id() == $status->id || auth()->user()->hasRole('admin'))
+            <button onclick="return confirm('Sei sicuro di cancellare questa quantità prenotata?')" class="text-xs px-1 ml-2 bg-gray-300 rounded">cancella</button>
+            @endif
+        </form>
+        @empty
+        <p>Nessuna quantità prenotata</p>
+        @endforelse
+    </div>
+    <div class="my-3">
+        <p class="font-semibold mb-3">Quantità vendute</p>
+        @forelse($vendutoList as $status)
+        <form class="flex my-1" action="{{route('delete.status.lotto', $status->pivot->id)}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <p>{{$loop->iteration}} - {{$status->name}}</p> 
+            @if(auth()->id() == $status->id || auth()->user()->hasRole('admin'))
+            <button onclick="return confirm('Sei sicuro di cancellare questa quantità venduta?')" class="text-xs px-1 ml-2 bg-gray-300 rounded">cancella</button>
+            @endif
+        </form>
+        @empty
+        <p>Nessuna quantità venduta</p>
+        @endforelse
+    </div>
+</div>
 
 <form action="{{route('lotti.destroy', [$lotto->id])}}" method="POST">
     @csrf
@@ -116,9 +141,5 @@
         cancella lotto
     </button>
 </form>
-
-
-
-
 
 @endsection

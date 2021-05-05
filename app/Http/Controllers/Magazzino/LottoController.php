@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Magazzino;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Magazzino\Lotto;
 use App\Models\Magazzino\Marca;
@@ -11,11 +12,12 @@ class LottoController extends Controller
 {
     public function __construct(){
         $this->middleware(['permission:visualizzare-lotti'])->only('index');
-        $this->middleware(['permission:modificare-lotti'])->except('index');
+        // $this->middleware(['permission:modificare-lotti'])->except('index');
     }
 
     public function index(){
-        $lotti = Lotto::with('marca')->get();
+
+        $lotti = Lotto::with('marca', 'status')->orderBy('created_at', 'DESC')->get();
 
         return view('magazzino.lotti.index', [
             'lotti' => $lotti,
@@ -42,13 +44,25 @@ class LottoController extends Controller
     }
 
     public function edit($lottoId){
-        $lotto = Lotto::findOrFail($lottoId);
+        $lotto = Lotto::with('marca', 'status')->findOrFail($lottoId);
         $tipoogia = Lotto::TIPOLOGIA;
         $marche = Marca::get();
+
+        $prenotatoList = $lotto->status->filter(function ($item) {
+            return $item->pivot->tipo == 'prenotato';
+        });
+
+        $vendutoList = $lotto->status->filter(function ($item) {
+            return $item->pivot->tipo == 'venduto';
+        });
+
+
         return view('magazzino.lotti.edit', [
             'lotto' => $lotto,
             'tipoogia' => $tipoogia,
-            'marche' => $marche
+            'marche' => $marche,
+            'prenotatoList' => $prenotatoList,
+            'vendutoList' => $vendutoList
         ]);
     }
 
@@ -56,8 +70,14 @@ class LottoController extends Controller
         $data = $this->validation($request);
 
         $lotto = Lotto::findOrFail($lottoId);
-        $lotto->update($data->all());
-        return redirect()->route('lotti.index')->with('success', 'Il lotto è stato aggiornato');
+
+        if(auth()->user()->can('modificare-lotti')){
+            $lotto->update($data->all());
+            return redirect()->route('lotti.index')->with('success', 'Il lotto è stato aggiornato');
+        } else {
+            return redirect()->route('lotti.index')->with('success', 'Qualcosa è andato storto');
+        }
+        
     }
 
     public function destroy($lottoId){
@@ -75,16 +95,9 @@ class LottoController extends Controller
             'tipologia' => 'required',
             'kg' => 'required|numeric',
             'quantita' => 'required|numeric',
-            'venditore' => 'required',
             'codice_articolo' => 'required'
         ]);
         return $request;
     }
 
-    // public function messages(){
-    //     return  [
-    //         'marca_id:required' => 'il valore -marca- è richesto',
-    //         'marca_id:exists:magazzino_marche,id' => 'Qualcosa è andato storto con la marca'
-    //     ];
-    // }
 }

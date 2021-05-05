@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\InvioClientePdf;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Vendite\FatturaAPI;
 use App\Models\Blackbox\BlackboxJsonResponse;
@@ -16,9 +17,9 @@ use App\Http\Controllers\Vendite\FatturaPdfController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Blackbox\LavorazioneController;
 use App\Http\Controllers\Blackbox\PauseTotaliController;
+use App\Http\Controllers\Magazzino\LottoStatusController;
 use App\Http\Controllers\Impostazioni\ImpostazioneController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
-use App\Mail\InvioClientePdf;
 
 // TEST EMAIL
 Route::get('/mailable', function () {
@@ -82,6 +83,10 @@ Route::group(['middleware' => ['can:impostazioni']], function () {
     
     // MAGAZZINO
     Route::resource('/magazzino/lotti', LottoController::class, ['except' => ['show']]); // middleware in construct
+
+    // Status prenotazioni e vendite quantità
+    Route::post('/api/magazzino/lotto/{id}', [LottoStatusController::class, 'cambiaStatusLotto'])->name('add.status.lotto');
+    Route::delete('/api/magazzino/lotto/{id}', [LottoStatusController::class, 'destroyStatusLotto'])->name('delete.status.lotto');
 
     Route::group(['middleware' => ['can:magazzino-blackbox']], function () {
         Route::resource('/magazzino/marche', MarcaController::class, ['except' => ['show']]);

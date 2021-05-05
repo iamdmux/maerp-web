@@ -19,9 +19,6 @@ class LottoSeeder extends Seeder
             'stagione' => 'primavera',
             'tipologia' => 'uomo',
             'quantita' => 2,
-            'prenotato' => null,
-            'venduto' => null,
-            'venditore' => 'Gianni',
             'kg' => 2,
             'codice_articolo' => 'abc'
         ]

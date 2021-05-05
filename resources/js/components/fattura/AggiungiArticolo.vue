@@ -10,15 +10,19 @@
               <input :disabled="method == 'show'" required v-model="codice" @input="searchArticolo" class=" w-36" autocomplete="off" type="text" name="codice[]">
                 <div v-if="filterArticolo.length" class="z-10 text-sm p-4 bg-white rounded border border-gray-400">
                   <div v-for="articolo in filterArticolo" :key="articolo.id">
-                    <p @click="confermaArticolo(articolo.id)" class="hover:bg-blue-400 cursor-pointer">{{articolo.codice_articolo}}</p> 
+                    <p @click="confermaArticolo(articolo.id)" class="hover:bg-blue-400 cursor-pointer">{{articolo.codice_articolo}}</p>
                   </div>
                 </div>
                 <input type="hidden" name="lotto_id[]" :value="articoloId">
+                 <div class="text-xs">
+                  <input type="checkbox" :disabled="!articoloId" v-model="lottoChecked">lotto
+                </div>
             </div>
             <div class="mr-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   quantita
               </p>
+              <div v-if="quantita > quantitaMax && lottoChecked" class="absolute top-0 mt-1 text-xs text-red-500">quantità superata</div>
               <input :disabled="method == 'show'" v-model="quantita" class=" w-24" min="0" name="quantita[]" autocomplete="off" type="number"><!--  min="0" :max="quantitaMax" -->
             </div>
             <div class="mr-2">
@@ -140,8 +144,9 @@ export default {
     const articoloId = ref('') // se è i lotto dal db
     const listaArticoli = ref({})
     const filterArticolo = ref('')
+    const lottoChecked = ref(false)
   
-    const quantitaMax = ref(0)
+    const quantitaMax = ref(99999999)
     const importo_netto =ref(0)
     const costo_iva_articolo = ref(0)
 
@@ -153,6 +158,8 @@ export default {
 
     const searchArticolo = () => {
       if(codice){
+        lottoChecked.value = false
+        articoloId.value = ''
         axios.post('/api/fattura/articoli', {}, { params: { query_articolo: codice.value }})
         .then(res => {
           listaArticoli.value = res.data
@@ -168,7 +175,7 @@ export default {
         codice.value = articolo.codice_articolo
         quantitaMax.value = articolo.quantita
         articoloId.value = articolo.id
-
+        lottoChecked.value = true
         filterArticolo.value = ''
         }
     }
@@ -204,7 +211,10 @@ export default {
     // });
 
 
-    return { articoloId, lotto_id, descrizione, numeroArticolo, codice, filterArticolo, iva, costo_iva_articolo, quantita, unita_di_misura, quantitaMax, prezzo_netto, importo_netto, searchArticolo, confermaArticolo, importo_totale_articolo}
+    return { 
+      articoloId, lotto_id, descrizione, numeroArticolo, codice, filterArticolo, iva, costo_iva_articolo, quantita, unita_di_misura,
+      quantitaMax, prezzo_netto, importo_netto, searchArticolo, confermaArticolo, importo_totale_articolo, lottoChecked
+      }
   }
 }
 </script>

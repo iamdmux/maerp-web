@@ -21,7 +21,6 @@ class CreateMagazzinoLotti extends Migration
             $table->integer('quantita');
             $table->timestamp('prenotato')->nullable();
             $table->timestamp('venduto')->nullable();
-            $table->string('venditore'); // sarà agente Id
             $table->integer('kg')->nullable();
             $table->string('codice_articolo')->nullable();
             $table->timestamps();
