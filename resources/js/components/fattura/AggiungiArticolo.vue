@@ -69,7 +69,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 importo netto
             </p>
-            <input disabled v-model="importo_netto" name="importo_netto[]" class=" w-36" autocomplete="off" type="text">
+            <input disabled :value="Number((importo_netto).toFixed(2))" name="importo_netto[]" class=" w-36" autocomplete="off" type="text">
             <input type="hidden" name="importo_netto[]" :value="importo_netto">
           </div>
           <div class="mb-2">
@@ -179,7 +179,8 @@ export default {
         filterArticolo.value = ''
         }
     }
-
+    
+    
     const importo_totale_articolo = computed( () => {
       let netto = parseFloat(prezzo_netto.value)
       let piva = parseFloat(iva.value)
@@ -190,26 +191,9 @@ export default {
       return tot
       })
 
-    // watch([numeroArticolo, codice, quantita, prezzo_netto, importo_netto, iva, costo_iva_articolo], ([]) => {
-    //   storeArticoli.value[numeroArticolo.value] = {
-    //     articoloId: articoloId.value,
-    //     numeroArticolo: numeroArticolo.value,
-    //     codice: codice.value,
-    //     quantita: quantita.value,
-    //     prezzo_netto: prezzo_netto.value,
-    //     importo_netto: importo_netto.value,
-    //     iva: iva.value,
-    //     costo_iva_articolo: costo_iva_articolo.value
-    //   }
-    // });
-
-    // watch(() => numeroArticolo, (first, second) => {
-    //   console.log(first);
-    //   storeArticoli[numeroArticolo.value] = {
-    //     numeroArticolo: numeroArticolo.value
-    //   }
-    // });
-
+    watch(prezzo_netto, () => {
+      return prezzo_netto.value = prezzo_netto.value.replace(",", ".")
+    })
 
     return { 
       articoloId, lotto_id, descrizione, numeroArticolo, codice, filterArticolo, iva, costo_iva_articolo, quantita, unita_di_misura,

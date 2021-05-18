@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-back-to-page-button route="{{route('home.page')}}" />
+<x-back-to-page-button route="{{route('admin.home.page')}}" />
 
 <x-page-title text="Impostazioni" />
 

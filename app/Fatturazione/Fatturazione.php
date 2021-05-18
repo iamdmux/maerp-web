@@ -65,6 +65,10 @@ class Fatturazione {
         // metodo pagamento
         $this->includi_metodo_pagamento = $request->includi_metodo_pagamento ? true : false;
         $this->metodo_pagamento = $request->metodo_pagamento;
+        $this->includi_note_pagamento = $request->includi_note_pagamento;
+        // using nl2br
+        $this->note_pagamento = $this->parseText(nl2br($request->note_pagamento));
+
 
         // bollo
         $this->includi_marca_da_bollo = $request->includi_marca_da_bollo ? true : false;
@@ -74,7 +78,10 @@ class Fatturazione {
         $this->numero = $request->numero;
         $this->data = $request->data ? Carbon::createFromFormat('Y-m-d', $request->data)->format('d-m-Y') : null;
         $this->data_ddt = $request->data_ddt ? Carbon::createFromFormat('Y-m-d', $request->data_ddt)->format('d-m-Y') : null;
-
+        
+        if($this->tipo_documento == 'ddt' && $this->documento_di_trasporto){
+            $this->data = $this->data_ddt;
+        }
         // DDT
         $this->documento_di_trasporto = $request->documento_di_trasporto;
         $this->numero_ddt = $request->numero_ddt;
@@ -84,6 +91,8 @@ class Fatturazione {
         $this->peso_ddt = $request->peso_ddt;
         $this->numero_colli_ddt = $request->numero_colli_ddt;
         $this->annotazioni = $request->annotazioni;
+
+        
 
         // elettronica
         $this->fattura_elettronica         = $request->fattura_elettronica ? true : false;
@@ -111,6 +120,11 @@ class Fatturazione {
         $this->el_nome_istituto_di_credito = $request->el_nome_istituto_di_credito;
         $this->el_iban                     = $request->el_iban;
         $this->el_nome_beneficiario        = $request->el_nome_beneficiario;
+    }
+
+
+    public function parseText($text){
+        return str_replace("€", "&#8364;", $text);
     }
 
 

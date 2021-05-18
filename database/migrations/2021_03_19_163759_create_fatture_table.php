@@ -40,6 +40,9 @@ class CreateFattureTable extends Migration
             $table->string('costo_bollo')->nullable();
             $table->string('includi_metodo_pagamento')->default(false);
             $table->string('metodo_pagamento')->nullable();
+            $table->boolean('includi_note_pagamento')->default(false);
+            $table->text('note_pagamento')->nullable();
+
             $table->string('numero_ddt')->nullable();
             $table->timestamp('data_ddt')->nullable();
             $table->integer('numero_colli_ddt')->nullable();
@@ -48,7 +51,7 @@ class CreateFattureTable extends Migration
             $table->text('trasporto_a_cura_di')->nullable();
             $table->text('luogo_destinazione')->nullable();
             $table->text('annotazioni')->nullable();
-            $table->float('importo_totale_articolo');
+            $table->float('importo_totale');
             $table->timestamps();
 
             $table->foreign('cliente_id')->references('id')->on('clienti')->onDelete('set null');

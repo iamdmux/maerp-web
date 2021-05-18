@@ -18,9 +18,3 @@ form-url="{{route('fatture.store')}}"
 
 
 @endsection
-
-{{-- @php
-    $cliente_id = old('cliente_id') ? old('cliente_id') : '';
-    $denominazione = old('denominazione') ? old('denominazione') : '';
-    $old = compact($cliente_id, $denominazione);
-@endphp --}}

@@ -17,7 +17,7 @@ class ClientiImport implements ToModel
         if($this->rows > 1 && $this->rows < 1573){
 
             return new Cliente([
-              'denominazione' => $row[0],
+              'denominazione' => preg_replace('/\s+/', ' ', $row[0]),
               'user_id' => $this->convertToUserId($row[1]),
               'indirizzo' => $row[2],
               'citta' => $row[3],

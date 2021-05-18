@@ -15,45 +15,16 @@
   <label v-if="canCreareFatture" class="p-3 mt-2 mr-2 bg-gray-100 rounded">proforma
     <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="proforma">
   </label>
+  <label v-if="canCreareFatture" class="p-3 mt-2 mr-2 bg-gray-100 rounded">ddt
+    <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="ddt">
+  </label>
+  <label v-if="canCreareFatture" class="p-3 mt-2 mr-2 bg-gray-100 rounded">nota di credito
+    <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="nota_di_credito">
+  </label>
   <label v-if="canCreareFatture" class="p-3 mt-2 mr-2 bg-gray-100 rounded">fattura
     <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="fattura">
   </label>
-
-  <div v-if="method == 'show'" class="p-3 ml-8 mt-2 mr-2 bg-gray-300 rounded">
-    <form class="flex" action="/vendite/fatture/converti" method="POST">
-    <input type="hidden" name="_token" :value="csrf">
-    <input type="hidden" name="fattura_id" :value="fattura_id">
-      <label>converti in:</label>
-      <select name="converti" class="ml-2 h-6 py-0 text-sm">
-        <option value="preventivo">preventivo</option>
-        <option value="ordine">ordine</option>
-        <option v-if="canCreareFatture" value="proforma">proforma</option>
-        <option v-if="canCreareFatture" value="fattura">fattura</option>
-      </select>
-      <button class="ml-2 bg-gray-400 text-xs py-1 px-2 rounded">converti</button>
-    </form>
-  </div>
-
-  <form v-if="method == 'show'" :action="invioPdfUrl" method="POST">
-      <div class="p-3 ml-8 mt-2 mr-2 bg-gray-300 rounded">
-        <input type="hidden" name="fattura_id" :value="fattura_id">
-        <input type="hidden" name="_token" :value="csrf">
-        <button onclick="return confirm('Sei sicuro di inviare il pdf a questo cliente?')" target="_blank" href="#" class="flex">
-        invia pdf
-        <svg class="w-4 h-4 mx-2" style="margin-top:5px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-        </button>
-      </div>
-  </form>
-
-  <div v-if="method == 'show'" class="p-3 mt-2 ml-4 mr-2 bg-yellow-400 rounded">
-    <a target="_blank" :href="pdfShow" class="flex">anteprima pdf
-      <svg class="w-4 h-4 mx-2" style="margin-top:5px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-    </a>
-  </div>
-
 </div>
-
-
 
 <div v-if="canCreareFatture" class="my-5">
   <label class="p-3 bg-gray-100 rounded">fattura elettronica
@@ -61,13 +32,50 @@
   </label>
 </div>
 
-<input type="hidden" v-model="tab_show_cliente" name="tab_show_cliente">
+<div class="mb-4 flex flex-wrap justify-end" style="max-width: 1113px;">
+    <div v-if="method == 'show'" class="p-2 ml-5 mt-2 bg-gray-300 rounded">
+    <form class="flex" action="/vendite/fatture/converti" method="POST">
+    <input type="hidden" name="_token" :value="csrf">
+    <input type="hidden" name="fattura_id" :value="fattura_id">
+      <label class="text-sm pt-0.5">converti in:</label>
+      <select name="converti" class="ml-2 h-6 py-0 text-sm">
+        <option value="preventivo">preventivo</option>
+        <option value="ordine">ordine</option>
+        <option v-if="canCreareFatture" value="proforma">proforma</option>
+        <option v-if="canCreareFatture" value="fattura">fattura</option>
+      </select>
+      <button onclick="return confirm('Vuoi creare una nuova copia del documento?')" class="ml-2 bg-white text-xs py-1 px-2 rounded">converti</button>
+    </form>
+  </div>
+
+  <form v-if="method == 'show'" :action="invioClientePdfUrl" method="POST">
+      <div class="relative p-2 mt-2 ml-5 bg-gray-300 rounded">
+        <input type="hidden" name="fattura_id" :value="fattura_id">
+        <input type="hidden" name="_token" :value="csrf">
+        <p v-if="testInviaPdf" class="absolute top-0 -mt-6">MOD. TEST</p>
+        <button onclick="return confirm('Sei sicuro di inviare il pdf a questo cliente?')" target="_blank" href="#" class="flex text-sm">
+        invia pdf
+        <svg class="w-4 h-4 mx-2" style="margin-top:5px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+        </button>
+      </div>
+  </form>
+
+  <div v-if="method == 'show'" class="p-2 ml-5 mt-2 bg-yellow-400 rounded">
+    <a target="_blank" :href="pdfShow" class="flex text-sm">anteprima pdf
+      <svg class="w-4 h-4 mx-2" style="margin-top:5px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+    </a>
+  </div>
+</div>
+
+
+
+<!-- <input type="hidden" v-model="tab_show_cliente" name="tab_show_cliente">
 <input type="hidden" v-model="tab_show_dati_documento" name="tab_show_dati_documento">
 <input type="hidden" v-model="tab_show_contributi_ritenute" name="tab_show_contributi_ritenute">
 <input type="hidden" v-model="tab_show_opzioni_avanzate" name="tab_show_opzioni_avanzate">
 <input type="hidden" v-model="tab_show_personalizzazione" name="tab_show_personalizzazione">
 <input type="hidden" v-model="tab_show_note_doc" name="tab_show_note_doc">
-<input type="hidden" v-model="quantiArticoli" name="quantiArticoli">
+<input type="hidden" v-model="quantiArticoli" name="quantiArticoli"> -->
 
 <!-- wrapper 1 -->
 <div class="flex flex-wrap" style="max-width: 1113px;">
@@ -238,7 +246,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 codice destinatario
             </p>
-            <input :disabled="method == 'show'" v-model="el_codice_destinatario" class=" w-36" autocomplete="off" type="text" name="el_codice_destinatario">
+            <input :required="fattura_elettronica" :disabled="method == 'show'" v-model="el_codice_destinatario" class=" w-36" autocomplete="off" type="text" name="el_codice_destinatario">
           </div>
           <div class="mt-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
@@ -323,14 +331,14 @@
         <div class="m-6">
           <div class="mb-2"> 
             <div class="flex mb-2">
-              <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input :disabled="method == 'show' || fattura_elettronica" v-model="documento_di_trasporto" type="checkbox" value="true" name="documento_di_trasporto">
+              <label @click="keepActiveDdt" v-if="tipo_documento == 'ddt'" class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
+                  <input :disabled="method == 'show' || fattura_elettronica" v-model="documento_di_trasporto" type="checkbox" value="1" name="documento_di_trasporto">
                   documento di trasporto
               </label>
             </div>
             <div class="flex mb-1">
               <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input :disabled="method == 'show'" v-model="includi_marca_da_bollo" type="checkbox" value="true" name="includi_marca_da_bollo">
+                  <input :disabled="method == 'show'" v-model="includi_marca_da_bollo" type="checkbox" value="1" name="includi_marca_da_bollo">
                   includi marca da_bollo
               </label>
             </div>
@@ -343,21 +351,38 @@
               <input :disabled="method == 'show'" v-model="costo_bollo" autocomplete="off" class="" type="text" name="costo_bollo">
             </div>
           </div>
-            <div class="flex mb-1">
-              <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  <input :disabled="method == 'show'" v-model="includi_metodo_pagamento" type="checkbox" value="true" name="includi_metodo_pagamento">
-                  includi metodo di pagamento
-              </label>
-            </div>
-            <div v-show="includi_metodo_pagamento" class="mx-4 mb-4">
-              <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
-                  metodo di pagamento
-              </p>
-              <select :disabled="method == 'show'" v-model="metodo_pagamento" class=" rounded-md border-gray-200" name="metodo_pagamento">
-                <option class="px-3" value="non_specificato">non specificato</option>
-                <option class="px-3" value="contanti">contanti</option>
-              </select>
-            </div>
+          <div class="flex mb-1">
+            <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
+                <input :disabled="method == 'show'" v-model="includi_metodo_pagamento" type="checkbox" value="1" name="includi_metodo_pagamento">
+                includi metodo di pagamento
+            </label>
+          </div>
+          <div v-show="includi_metodo_pagamento" class="mx-4 mb-4">
+            <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
+                metodo di pagamento
+            </p>
+            <select :disabled="method == 'show'" v-model="metodo_pagamento" class=" rounded-md border-gray-200" name="metodo_pagamento">
+              <option class="px-3" value="bonifico">bonifico</option>
+              <option class="px-3" value="contanti">contanti</option>
+              <option class="px-3" value="assegno">assegno</option>
+              <option class="px-3" value="assegno_circolare">assegno circolare</option>
+              <option class="px-3" value="bollettino_bancario">bollettino bancario</option>
+              <option class="px-3" value="carta_di_pagamento">carta di pagamento</option>
+              <option class="px-3" value="bollettino_c_c">bollettino di c/c postale</option>
+            </select>
+          </div>
+          <div class="flex mb-1">
+            <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
+                <input :disabled="method == 'show'" v-model="includi_note_pagamento" type="checkbox" value="1" name="includi_note_pagamento">
+                includi note di pagamento
+            </label>
+          </div>
+          <div v-show="includi_note_pagamento" class="mx-4 mb-4">
+            <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
+                note pagamento
+            </p>
+           <textarea :disabled="method == 'show'" v-model="note_pagamento" rows="3" cols="60" class="text-sm" name="note_pagamento"></textarea>
+          </div>
             <!-- <div class="flex">
               <label class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   <input type="checkbox" name="applica_sconto_o_maggiorazione_sul_tot">
@@ -365,7 +390,7 @@
               </label>
             </div> -->
         </div>
-        <div v-show="documento_di_trasporto" class="m-6">
+        <div v-if="tipo_documento == 'ddt'" class="m-6">
           <div>
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
               DDT /fattura accompagnatoria
@@ -376,7 +401,7 @@
                   <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                       numero ddt
                   </p>
-                  <input :disabled="method == 'show'" v-model="numero_ddt" autocomplete="off" class="" type="text" name="numero_ddt">
+                  <input required :disabled="method == 'show'" v-model="numero_ddt" autocomplete="off" class="" type="text" name="numero_ddt">
                 </div>
               </div>
               <div>
@@ -405,7 +430,7 @@
 
           </div>
         </div>
-        <div v-show="documento_di_trasporto" class="m-6">
+        <div v-if="tipo_documento == 'ddt'" class="m-6">
           <div class="flex flex-wrap">
             <div>
               <div class="mr-2 mb-2">
@@ -470,7 +495,7 @@
 
 
 <div v-if="method == 'create'" class="flex justify-between">
-  <button @click="submitForm('action')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
+  <button @click="submitForm('savebutton')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
       salva fattura
   </button>
     <button @click="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
@@ -479,7 +504,7 @@
 </div>
 
 <div v-if="method == 'edit'" class="flex justify-between">
-  <button @click.prevent="submitForm('action')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
+  <button @click.prevent="submitForm('savebutton')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
       modifica fattura
   </button>
   <button @click="submitForm('pdf')" class="mt-4 px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">
@@ -528,11 +553,14 @@ export default {
       type: String,
       required: false
     },
-    invioPdfUrl:{
+    invioClientePdfUrl:{
       required: false
     },
     old:{
       type: Object,
+      required: false
+    },
+    testInviaPdf:{
       required: false
     }
   },
@@ -545,11 +573,12 @@ export default {
     const method = ref(props.method)
     const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     const route = ref(props.route)
-    const old = ref((props.old))
+    const old = ref(props.old)
     const fattura_id = ref(props.old.id)
     const pdfShow = ref(props.pdfShow)
-    const invioPdfUrl = ref(props.invioPdfUrl)
-    const canCreareFatture = ref((props.canCreareFatture))
+    const invioClientePdfUrl = ref(props.invioClientePdfUrl)
+    const canCreareFatture = ref(props.canCreareFatture)
+    const testInviaPdf = ref(props.testInviaPdf)
 
     const tipo_documento = ref(old.value.tipo_documento ? old.value.tipo_documento : 'preventivo')
 
@@ -592,7 +621,7 @@ export default {
     const nazione_sigla =   ref(get_nazione_sigla ? get_nazione_sigla : '')
     const partita_iva =     ref(get_partita_iva ? get_partita_iva : '')
     const codice_fiscale =  ref(get_codice_fiscale ? get_codice_fiscale : '')
-    
+
     const numero =          ref(old.value.numero ? old.value.numero : props.fatturaNextcounter)
     const data =            ref(old.value.data ? parseDate(old.value.data) : dateToday)
     const data_ddt =        ref(old.value.data_ddt ? parseDate(old.value.data_ddt) : dateToday)
@@ -600,7 +629,9 @@ export default {
     const includi_marca_da_bollo = ref(old.value.includi_marca_da_bollo ? old.value.includi_marca_da_bollo : false)
     const costo_bollo =     ref(old.value.costo_bollo ? old.value.costo_bollo : '2.00')
     const includi_metodo_pagamento = ref(old.value.includi_metodo_pagamento ? old.value.includi_metodo_pagamento : false)
-    const metodo_pagamento = ref(old.value.metodo_pagamento ? old.value.metodo_pagamento : 'non_specificato')
+    const includi_note_pagamento = ref(old.value.includi_note_pagamento ? old.value.includi_note_pagamento : false)
+    const note_pagamento = ref(old.value.note_pagamento ? old.value.note_pagamento : '')
+    const metodo_pagamento = ref(old.value.metodo_pagamento ? old.value.metodo_pagamento : 'bonifico')
     const lingua =          ref(old.value.lingua ? old.value.lingua : 'ita')
     const valuta =          ref(old.value.valuta ? old.value.valuta : 'euro')
 
@@ -625,6 +656,10 @@ export default {
 
     const note_documento = ref(old.value.note_documento ? old.value.note_documento : '')
     
+    
+
+
+
     function parseDate(data){
       return new Date(data).toISOString().split("T")[0]
     }
@@ -668,28 +703,24 @@ export default {
       if(tipo_documento.value != 'fattura'){
         fattura_elettronica.value = false
       }
+      if(tipo_documento.value == 'ddt'){
+        documento_di_trasporto.value = true
+        tab_show_opzioni_avanzate.value = true
+      }
       if(fattura_elettronica.value){
         console.log('fatt elett true')
-        console.log(documento_di_trasporto.value)
         documento_di_trasporto.value = false
       }
     }
-    //
-    // mounted
-    //  const settingOnmounting = async () => {
-    //    if(method.value == 'show'){
-    //       form.value.action = props.pdfUrl
-    //       form.value.target = "viewpdf"
-    //    }
-    //   }
-    // onMounted(settingOnmounting)
-
-
 
     // form
     const form = ref(null)
-    const formAction = ref('')
     const submitForm = (type) => {
+
+      if(type == 'pdfFromShow'){
+        form.value.action = props.pdfUrl
+        form.value.target = "viewpdf"
+      }
 
       if(type == 'pdf'){
 
@@ -701,29 +732,25 @@ export default {
           hiddenMethod.value = ''
           form.value.target = "_blank"
         }
-  
+
         form.value.action = props.pdfUrl
-        form.value.method = "POST"
       }
 
-      else if(type == 'pdfFromShow'){
-        form.value.action = props.pdfUrl
-        form.value.target = "viewpdf"
-        form.value.method = "POST"
-        // form.value.submit()
-      }
 
-      else if(type == 'action'){
+      else if(type == 'savebutton'){
         if(method.value == 'edit'){
           hiddenMethod.value = 'patch'
         }
 
         form.value.action = props.formUrl
         form.value.target = "_self"
-        setTimeout(() => {
-          form.value.submit()
-        }, 500);
-        
+
+        if (form.value.checkValidity()) {
+           form.value.submit()
+        } else {
+          form.value.reportValidity()
+          return
+        }
       }
     }
 
@@ -763,24 +790,38 @@ export default {
     }
     axios.defaults.withCredentials = true;
     
+    const keepActiveDdt = () => {
+      // vue mette false al posto di true?
+      if(documento_di_trasporto.value){
+        documento_di_trasporto.value  = false
+      }
+    }
 
+    
 
+    const onMountedFunc = () => {
+      if(method.value == 'show' && tipo_documento.value == 'ddt'){
+        tab_show_opzioni_avanzate.value = true
+      }
+    }
+
+  onMounted(onMountedFunc)
 
     return {
-      fattura_id, hiddenMethod,
+      fattura_id, hiddenMethod, testInviaPdf,
       // old_articoli
       lotto_id_arr, codice_arr, quantita_arr, unita_di_misura_arr, prezzo_netto_arr, descrizione_arr, iva_arr,
       //form
-      form, submitForm, formAction, tipo_documento, pdfShow, checkTipoDocumento, invioPdfUrl,
+      form, submitForm, tipo_documento, pdfShow, checkTipoDocumento, invioClientePdfUrl,
       // basics_and_switch
       method, canCreareFatture, route, csrf, tab_show_cliente, tab_show_fattura_elettronica, tab_show_dati_documento, tab_show_contributi_ritenute, tab_show_opzioni_avanzate, tab_show_personalizzazione, tab_show_note_doc,
       // methods/computed
-      searchCliente, confermaCliente,
+      searchCliente, confermaCliente,keepActiveDdt,
       // otherObjects
       listaClienti, filterCliente, quantiArticoli,
       // vmodels
       clienteId, fattura_elettronica, denominazione, indirizzo, citta, data, numero, data_ddt, numero_ddt, cap, provincia, email, nazione, nazione_sigla, partita_iva,
-      codice_fiscale, includi_marca_da_bollo, documento_di_trasporto, includi_metodo_pagamento, el_indirizzo_pec, lingua, note_documento, valuta,
+      codice_fiscale, includi_marca_da_bollo, documento_di_trasporto, includi_metodo_pagamento, note_pagamento, includi_note_pagamento, el_indirizzo_pec, lingua, note_documento, valuta,
       el_emesso_in_seguito_a, el_esigibilita_iva, el_metodo_pagamento, el_nome_istituto_di_credito,el_iban,el_nome_beneficiario,
       metodo_pagamento, costo_bollo, numero_colli_ddt, peso_ddt, casuale_trasporto,trasporto_a_cura_di,luogo_destinazione,annotazioni,
 

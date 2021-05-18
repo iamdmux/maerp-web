@@ -3,9 +3,12 @@
 use App\Mail\InvioClientePdf;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Vendite\FatturaAPI;
+use App\Http\Controllers\Shop\ShopController;
 use App\Models\Blackbox\BlackboxJsonResponse;
 use App\Http\Controllers\Blackbox\BlackboxAPI;
+use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Blackbox\CapoController;
+use App\Http\Controllers\Import\ImportController;
 use App\Http\Controllers\Blackbox\FerieController;
 use App\Http\Controllers\Magazzino\LottoController;
 use App\Http\Controllers\Magazzino\MarcaController;
@@ -22,23 +25,26 @@ use App\Http\Controllers\Impostazioni\ImpostazioneController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
 // TEST EMAIL
-Route::get('/mailable', function () {
-    return new App\Mail\InvioClientePdf();
-});
+// Route::get('/mailable', function () {
+//     return new App\Mail\InvioClientePdf();
+// });
 
-Route::group(['middleware' => 'auth'], function(){
+Route::get('/shop', [ShopController::class, 'index'])->name('home.shop');
+
+Route::group(['middleware' => ['auth']], function(){ //['prefix' => 'admin', 
 
     Route::group(['middleware' => ['can:dashboard']], function () {
         
-        Route::get('/', [DashboardController::class, 'view'])->name('home.page');
+        Route::get('/', [DashboardController::class, 'view'])->name('admin.home.page');
         Route::post('/ruolo', [DashboardController::class, 'ruolo']);
         
         //import
         Route::get('/importclienti', [DashboardController::class, 'importClienti']);
         Route::get('/importfornitori', [DashboardController::class, 'importFornitori']);
 
-        // test
-        Route::get('/test', [DashboardController::class, 'test']);
+        // Route::get('/import-doc-ddt', [ImportController::class, 'importDdt']); non più utilizzato
+        // Route::get('/import-doc-fatture', [ImportController::class, 'importFatture']); non più utilizzato
+
     });
 
     // impostazioni
@@ -53,7 +59,7 @@ Route::group(['middleware' => ['can:impostazioni']], function () {
         Route::resource('/vendite/clienti', ClienteController::class);                                              // --> filtra clienti by agente
 
         // Fatture
-        // Route::get('/vendite/fatture/pdf', [FatturaPdfController::class, 'get']); // get forbidden
+        Route::get('/fatture/pdf', [FatturaPdfController::class, 'get']); // get forbidden
         Route::post('/fatture/pdf', [FatturaPdfController::class, 'post'])->name('fatturapdf.postView');
         Route::get('/vendite/fatture/{fatturaId}/pdf', [FatturaPdfController::class, 'show'])->name('fatturapdf.show');
 

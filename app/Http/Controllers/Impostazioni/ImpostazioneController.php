@@ -22,6 +22,6 @@ class ImpostazioneController extends Controller
         $impostazioni = Impostazione::find(1);
         $impostazioni->numerazione_fattura = $request->numerazione_fattura;
         $impostazioni->update();
-        return redirect()->route('home.page')->with('success', 'Impostazioni modificate');
+        return redirect()->route('admin.home.page')->with('success', 'Impostazioni modificate');
     }
 }

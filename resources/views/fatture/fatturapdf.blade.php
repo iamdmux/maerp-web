@@ -74,7 +74,7 @@
 </head>
 <body>
   <div class="top">
-    @if($fattura->documento_di_trasporto)
+    @if($fattura->tipo_documento == 'ddt')
       <p style="text-align:right; font-size:14px; margin:0;">DOCUMENTO DI TRASPORTO<br> N° {{$fattura->numero_ddt}}/{{date('Y', strtotime($fattura->data_ddt))}} del {{date('d-m-Y', strtotime($fattura->data_ddt))}}</p>
     @else
       @php
@@ -88,6 +88,8 @@
             $dicitura = 'PROFORMA';
           } elseif ($fattura->tipo_documento == 'fattura') {
             $dicitura = 'FATTURA';
+          } elseif ($fattura->tipo_documento == 'nota_di_credito') {
+            $dicitura = 'NOTA DI CREDITO';
           }
       @endphp
       
@@ -105,7 +107,7 @@
           <p style="line-height: 12px;">
             <b>M&A EXPORT s.r.l</b><br>
             Via Italia 21<br>
-            10035 MAZZE' (TO)<br>
+            10035 MAZZÈ (TO)<br>
             BANCA intesa sanpaolo<br>
             IBAN: IT73C0306930210100000016183<br>
             swift code: BCITITMMXXX<br>
@@ -120,27 +122,27 @@
     	<td align="right" width="50%">
 
          <p style="margin-bottom: 7px;"><b>Spettabile</b><br></p>
-         <p style="line-height: 12px;">
+         <p style="line-height: 12px; text-transform: uppercase;">
           {{$cliente->denominazione}}<br>
           @if($cliente->partita_iva)
           {{$cliente->partita_iva}}<br>
           @endif
           {{$cliente->indirizzo}} {{$cliente->cap}} {{$cliente->provincia}}<br>
-          {{$cliente->email}}<br>
-          {{$cliente->telefono}}<br>
-          {{$cliente->nazione}}<br>
+          @if($cliente->email) {{$cliente->email}}<br> @endif
+          @if($cliente->telefono) {{$cliente->telefono}} <br> @endif
+          @if($cliente->nazione) {{$cliente->nazione}}<br> @endif
         </p>
           
 
-          @if($fattura->documento_di_trasporto)
+          @if($fattura->tipo_documento == 'ddt')
             <b>LUOGO DI DESTINAZIONE</b><br>
             @if($fattura->luogo_destinazione)
               {{$fattura->luogo_destinazione}}
               @else
-              {{$cliente->indirizzo}}<br>
-              {{$cliente->cap}}<br>
-              {{$cliente->provincia}}<br>
-              {{$cliente->nazione}}<br>
+                {{$cliente->indirizzo}} {{$cliente->cap}} {{$cliente->provincia}}<br>
+                @if($cliente->email) {{$cliente->email}}<br> @endif
+                @if($cliente->telefono) {{$cliente->telefono}} <br> @endif
+                @if($cliente->nazione) {{$cliente->nazione}}<br> @endif
               @if($cliente->note_extra)
                 {{$cliente->note_extra}}<br>
               @endif
@@ -151,21 +153,23 @@
 </table>
  
 
-@if($fattura->documento_di_trasporto && $fattura->casuale_trasporto)
-<p><b>CASUALE DEL TRASPORTO</p></p>
-<p>{{$fattura->casuale_trasporto}}</p>
+@if($fattura->tipo_documento == 'ddt' && $fattura->casuale_trasporto)
+  <p><b>CASUALE DEL TRASPORTO</p></p>
+  <p>{{$fattura->casuale_trasporto}}</p>
 @endif
-
+@php
+    $isDDT = $fattura->tipo_documento == 'ddt' ? true: false;
+@endphp
   <table class="fattura" width="100%" style="margin-top:20px;margin-right:20px;">
     <thead>
       <tr>
-        <th align="center" style="width:50px" class="title-small">CODICE</th>
-        <th align="left" class="title-small">DESCRIZIONE</th>
-        <th align="center" style="width:50px" class="title-small">PREZZO</th>
-        <th align="center" style="width:50px" class="title-small">QUANTITÀ</th>
-        <th align="center" style="width:50px" class="title-small">IMPORTO NETTO</th>
-        <th align="center" style="width:50px" class="title-small">22% IVA</th>
-        <th align="center" style="width:65px" class="title-small">IMPORTO TOTALE</th>
+                    <th align="center" style="width:50px" class="title-small">CODICE</th>
+                    <th align="left" class="title-small">DESCRIZIONE</th>
+        @if(!$isDDT)<th align="center" style="width:50px" class="title-small">PREZZO</th>@endif
+                    <th align="center" style="{{$isDDT ? 'width:100px' : 'width:50px'}}" class="title-small">QUANTITÀ</th>
+        @if(!$isDDT)<th align="center" style="width:50px" class="title-small">IMPORTO NETTO</th>@endif
+        @if(!$isDDT)<th align="center" style="width:50px" class="title-small">22% IVA</th>@endif
+        @if(!$isDDT)<th align="center" style="width:65px" class="title-small">IMPORTO TOTALE</th>@endif
       </tr>
     </thead>
     <tbody>
@@ -176,13 +180,13 @@
       @endphp
     @foreach ($fattura->articoli as $art)
         <tr>
-          <td>{{$art['codice']}}</td>
-          <td align="left">{{$art['descrizione']}}</td>
-          <td align="center">&#8364; {{number_format($art['prezzo_netto'], 2)}}</td>
-          <td align="center">{{$art['quantita']}} {{$art['unita_di_misura']}}</td>
-          <td align="center">&#8364; {{number_format($art['importo_netto'], 2)}}</td>
-          <td align="center">&#8364; {{number_format($art['iva'], 2)}}</td>
-          <td align="center">&#8364; {{number_format($art['importo_totale_articolo'], 2)}}</td>
+                      <td>{{$art['codice']}}</td>
+                      <td align="left">{{$art['descrizione']}}</td>
+          @if(!$isDDT)<td align="center">&#8364; {{number_format($art['prezzo_netto'], 2)}}</td>@endif
+                      <td align="center">{{$art['quantita']}} {{$art['unita_di_misura']}}</td>
+          @if(!$isDDT)<td align="center">&#8364; {{number_format($art['importo_netto'], 2)}}</td>@endif
+          @if(!$isDDT)<td align="center">&#8364; {{number_format($art['iva'], 2)}}</td>@endif
+          @if(!$isDDT)<td align="center">&#8364; {{number_format($art['importo_totale_articolo'], 2)}}</td>@endif
         </tr>
         
     @endforeach
@@ -198,13 +202,17 @@
 <p>Il presente documento non costituisce fattura, che verrà emessa al momento del pagamento.</p>
 @endif
 
-@if($fattura->includi_metodo_pagamento && $fattura->metodo_pagamento && $fattura->tipo_documento == 'fattura')
+@if($fattura->includi_metodo_pagamento && $fattura->metodo_pagamento)
 <p>MODALITÀ DI PAGAMENTO: {{$fattura->metodo_pagamento}}</p>
 @endif
 
-@if(!$fattura->documento_di_trasporto)
-<div class="bottom">
-  <table class="bottom-table" style="width:100%">
+@if($fattura->includi_note_pagamento && $fattura->note_pagamento)
+<p>{!!$fattura->note_pagamento!!}</p>
+@endif
+
+@if($fattura->tipo_documento != 'ddt')
+<div class="">
+  <table class="" style="width:100%">
     <tr>
       <table style="width:100%; margin-top:10px;">
         <tr>
@@ -234,11 +242,13 @@
               $totaleText = 'Totale importo';
             } elseif ($fattura->tipo_documento == 'fattura') {
               $totaleText = 'Totale importo';
+            } elseif ($fattura->tipo_documento == 'nota_di_credito') {
+              $totaleText = 'Totale dovuto';
             }
         @endphp
         <tr>
-          <td align="right" style="">{{$totaleText}}</td>
-          <td style="padding-right: 8px; text-align: right; font-size: 2rem">&#8364; {{number_format($fattura->totale, 2)}}</td>
+          <td align="right" style="font-weight:700; padding-top: 6px">{{$totaleText}}</td>
+          <td style="padding-right: 8px; padding-top: 6px; text-align: right; font-weight:700">&#8364; {{number_format($fattura->totale, 2)}}</td>
         </tr>
       </table>
       
@@ -249,8 +259,12 @@
 </div>
 @endif
 
+@if($fattura->tipo_documento == 'nota_di_credito')
+<p>Esenzioni IVA:
+  &#8364; {{number_format($fattura->totale, 2)}} <span style="font-style: italic;"> - Non Imp. Art.8<span></p>
+@endif
 
-@if($fattura->documento_di_trasporto && $fattura->casuale_trasporto)
+@if($fattura->tipo_documento == 'ddt')
 <table class="fattura" width="100%" style="margin-top:20px;">
   <thead>
     <tr>
@@ -271,7 +285,7 @@
 </table>
 @endif
 
-@if($fattura->documento_di_trasporto)
+@if($fattura->tipo_documento == 'ddt')
 <table width="100%" style="margin-top:20px;">
   <tr>
     <th>Data e firma mittente</th>

@@ -94,12 +94,12 @@ class FatturaPdfController extends Controller
 
         
         //  TEST la modifica è solo in questa pagina
-        $TESTEMAIL = true;
+        $TESTEMAIL = Fattura::TEST_INVIA_PDF_A_DESTINATARIO;
 
         if(!$TESTEMAIL){
-        if(!$cliente->email){
-            return back()->withErrors(['error' => ['Questo cliente non ha il campo \'email\' ']]); 
-        }
+            if(!$cliente->email){
+                return back()->withErrors(['error' => ['Questo cliente non ha il campo \'email\' ']]); 
+            }
         }
 
         $isElettronica = $fattura->uuid ? true : false;

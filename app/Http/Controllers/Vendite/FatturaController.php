@@ -17,9 +17,9 @@ class FatturaController extends Controller
         $u = auth()->user();
 
         if ($u->getRoleNames()[0] == 'agente'){
-            $fatture = $u->fatture()->with('cliente', 'articoli')->paginate(50);
+            $fatture = $u->fatture()->with('cliente', 'articoli')->orderBy('numero', 'DESC')->paginate(50);
         } else {
-            $fatture = Fattura::with('cliente', 'articoli')->paginate(50);
+            $fatture = Fattura::with('cliente', 'articoli')->orderBy('numero', 'DESC')->paginate(50);
         }
 
         return view('fatture.index', [
@@ -49,12 +49,16 @@ class FatturaController extends Controller
             $cliente = Cliente::findOrFail($fatturazione->cliente_id);
         }
 
+        // Check tipo_documento
+        $docConsenti = Fattura::DOC_CONSENTITI;
+        if(!in_array($fatturazione->tipo_documento, $docConsenti)){
+            return back()->withErrors(['error' => 'tipo di documento non valido'])->withInput();
+        }
 
-
+        // Acube
+        $invoicePostUiid = null;
+        
         if ($u->getRoleNames()[0] != 'agente'){
-            // Acube
-            $invoicePostUiid = null;
-
             if($fatturazione->fattura_elettronica){
                 $request['fattura_elettronica'] = 1; // setto true per DB
                 if($acube){
@@ -67,19 +71,22 @@ class FatturaController extends Controller
             }
         }
 
-        // true per DB
-        $request['includi_marca_da_bollo'] = $request['includi_marca_da_bollo'] ? true : false;
-        $request['includi_metodo_pagamento'] = $request['includi_metodo_pagamento'] ? true : false;
+        // fix checkbox true / false  per DB
+        
+        // $request['includi_marca_da_bollo'] = $request['includi_marca_da_bollo'] ? true : false;
+        // $request['includi_metodo_pagamento'] = $request['includi_metodo_pagamento'] ? true : false;
+        // $request['documento_di_trasporto'] = $request['documento_di_trasporto'] == 'true' ? true : false; // qua c'è un hidden input
+        // dd($request['documento_di_trasporto']);
 
         $nuovaFattura = Fattura::create( array_merge(
             $request->only([
                 'tipo_documento', 'fattura_elettronica', 'cliente_id', 'numero', 'data', 'lingua', 'valuta', 'note_documento', 'el_codice_destinatario', 
                 'el_indirizzo_pec', 'el_esigibilita_iva', 'el_emesso_in_seguito_a', 'el_metodo_pagamento', 'el_nome_istituto_di_credito', 
                 'el_iban', 'el_nome_beneficiario', 'documento_di_trasporto', 'includi_marca_da_bollo', 'costo_bollo', 'includi_metodo_pagamento',
-                'metodo_pagamento', 'numero_ddt', 'data_ddt', 'numero_colli_ddt', 'peso_ddt', 'casuale_trasporto', 'trasporto_a_cura_di',
-                'luogo_destinazione', 'annotazioni'
+                'includi_note_pagamento', 'note_pagamento', 'metodo_pagamento', 'numero_ddt', 'data_ddt', 'numero_colli_ddt', 'peso_ddt', 'casuale_trasporto',
+                'trasporto_a_cura_di', 'luogo_destinazione', 'annotazioni'
             ]),
-                ['importo_totale_articolo' =>  $fatturazione->totale],
+                ['importo_totale' =>  $fatturazione->totale],
                 ['uuid' =>  $invoicePostUiid]
             )
         );
@@ -103,7 +110,8 @@ class FatturaController extends Controller
         $canCreareFatture = auth()->user()->can('creare-fatture');
         return view('fatture.show', [
             'fattura' => $fattura,
-            'canCreareFatture' => $canCreareFatture
+            'canCreareFatture' => $canCreareFatture,
+            'test_invia_pdf' => Fattura::TEST_INVIA_PDF_A_DESTINATARIO
         ]);
     }
 
@@ -151,9 +159,10 @@ class FatturaController extends Controller
         }
 
 
-        // true per DB
-        $request['includi_marca_da_bollo'] = $request['includi_marca_da_bollo'] ? true : false;
-        $request['includi_metodo_pagamento'] = $request['includi_metodo_pagamento'] ? true : false;
+        // true checbox per DB
+        // $request['includi_marca_da_bollo'] = $request['includi_marca_da_bollo'] ? true : false;
+        // $request['includi_metodo_pagamento'] = $request['includi_metodo_pagamento'] ? true : false;
+        // $request['documento_di_trasporto'] = $request['documento_di_trasporto'] == 'true' ? true : false; // qua c'è un hidden input
 
         $fatturaDaAggiornare = Fattura::findOrFail($fatturaId);
         
@@ -165,7 +174,7 @@ class FatturaController extends Controller
                 'metodo_pagamento', 'numero_ddt', 'data_ddt', 'numero_colli_ddt', 'peso_ddt', 'casuale_trasporto', 'trasporto_a_cura_di',
                 'luogo_destinazione', 'annotazioni'
             ]),
-                ['importo_totale_articolo' =>  $fatturazione->totale],
+                ['importo_totale' =>  $fatturazione->totale],
                 ['uuid' =>  $invoicePostUiid]
             )
         );
@@ -220,15 +229,14 @@ class FatturaController extends Controller
         // replico con -tipo_documento-
         $clonaFattura = $fattura->replicate()->fill([
             'tipo_documento' => $data['converti'],
-            'uuid' => '',
+            'uuid' => null,
+            'fattura_elettronica' => false
         ]);
-        $clonaFattura->save();
+        
 
-        // attacco gli stessi articoli - meglio crearli di nuovi:
-        // $articoliIds = $fattura->articoli()->pluck('articoli.id');
-        // $clonaFattura->articoli()->attach($articoliIds);
+        if($clonaFattura->save()){
 
-        // clono gli articoli
+            // clono gli articoli
             foreach ($fattura->articoli as $articolo) {
                 $clonaFattura->articoli()->create([
                     'lotto_id' => $articolo->lotto_id,
@@ -240,10 +248,10 @@ class FatturaController extends Controller
                     'iva' => $articolo->iva,
                     'importo_netto' => $articolo->importo_netto,
                     'costo_iva_articolo' => $articolo->costo_iva_articolo,
-                    'importo_totale_articolo' => $articolo->importo_totale_articolo,
+                    'importo_totale' => $articolo->importo_totale_articolo,
                 ]);
             }
-
+        }
 
         return redirect()->route('fatture.index')->with('success', 'Il documento ' . $data['converti'] . ' è stato creato');
     }
