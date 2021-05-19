@@ -29,7 +29,8 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 //     return new App\Mail\InvioClientePdf();
 // });
 
-Route::get('/shop', [ShopController::class, 'index'])->name('home.shop');
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/shop/show', [ShopController::class, 'show'])->name('shop.show');
 
 Route::group(['middleware' => ['auth']], function(){ //['prefix' => 'admin', 
 
