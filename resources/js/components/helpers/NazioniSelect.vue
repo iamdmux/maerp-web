@@ -41,7 +41,7 @@ export default {
         const okSelect = ref(false)
         // show and edit
         const disable = ref(props.enabledisable)
-
+        disable.value = disable.value == 'disabled' ? true : false
 
         if(props.oldnazione && props.oldnazionesigla){
             okSelect.value = true

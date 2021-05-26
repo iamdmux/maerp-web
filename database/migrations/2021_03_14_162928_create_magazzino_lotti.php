@@ -23,6 +23,14 @@ class CreateMagazzinoLotti extends Migration
             $table->timestamp('venduto')->nullable();
             $table->integer('kg')->nullable();
             $table->string('codice_articolo')->nullable();
+            //eshop
+            $table->boolean('in_shop')->default(0);
+            $table->integer('shop_prezzo')->nullable();
+            $table->string('shop_image')->nullable();
+            $table->string('shop_video')->nullable();
+            $table->text('shop_descrizione')->nullable();
+            $table->string('visibilita')->nullable();
+            $table->text('nazioni_tranne')->nullable();
             $table->timestamps();
 
             $table->foreign('marca_id')->references('id')->on('magazzino_marche')->onDelete('set null');

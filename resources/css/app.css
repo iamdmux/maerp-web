@@ -2,8 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
-
 input[type='text'],
 input[type='password'],
 input[type='email'],
@@ -79,4 +77,8 @@ select {
 select::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
     @apply text-xs;
+} */
+
+/* .filepond--credits{
+    display: none !important;
 } */

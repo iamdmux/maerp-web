@@ -7,6 +7,7 @@ use App\Models\Magazzino\Marca;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+
 class Lotto extends Model
 {
     use HasFactory;
@@ -20,14 +21,22 @@ class Lotto extends Model
         'kg',
         'quantita',
         'venditore',
-        'codice_articolo'
+        'codice_articolo',
+        "in_shop",
+        "shop_prezzo",
+        "shop_descrizione",
+        "visibilita",
+        "nazioni_tranne",
+        "shop_image",
+        "shop_video"
     ];
 
+    // protected $casts = ['nazioni_tranne' => 'json'];
 
     const TIPOLOGIA = [
         ['val' => 'uomo',           'show'=> 'Uomo'],
         ['val' => 'donna',          'show'=> 'Donna'],
-        ['val' => 'bambino',        'show'=> 'Uomo'],
+        ['val' => 'bambino',        'show'=> 'Bambino'],
         ['val' => 'scarpe-bambino', 'show'=> 'Scarpe-Bambino'],
         ['val' => 'scarpe-adulto',  'show'=> 'Scarpe-Adulto'],
         ['val' => 'accessori',      'show'=> 'Accessori'],
@@ -43,7 +52,7 @@ class Lotto extends Model
         ['val' => 'difettato-uomo',  'show'=> 'Difettato-Uomo'],
         ['val' => 'difettato-donna', 'show'=> 'Difettato-Donna'],
         ['val' => 'difettato-bambino', 'show'=> 'Difettato-Bambino'],
-        ['val' => 'costumi',          'show'=> 'Donna'],
+        ['val' => 'costumi',          'show'=> 'Costumi'],
     ];
 
     public function marca(){

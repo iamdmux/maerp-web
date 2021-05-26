@@ -61,12 +61,12 @@
 
     @if(!$isclienti)
     <div>
-    <a class="text-yellow-600" href="/importclienti">importclienti</a>
+    <a class="text-yellow-600" href="erp/importclienti">importclienti</a>
     </div>
     @endif
     @if(!$isfornitori)
     <div>
-    <a class="text-yellow-600" href="/importfornitori">importfornitori</a>
+    <a class="text-yellow-600" href="erp/importfornitori">importfornitori</a>
     </div>
     @endif
 

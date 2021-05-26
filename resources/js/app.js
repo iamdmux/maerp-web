@@ -11,10 +11,17 @@ import CreateEditLavorazione from './components/blackbox/CreateEditLavorazione.v
 import LavorazioneGiornaliera from './components/blackbox/LavorazioneGiornaliera.vue'
 import ModificaPausaGiornaliera from './components/blackbox/ModificaPausaGiornaliera.vue'
 import NazioniSelect from './components/helpers/NazioniSelect.vue'
+import LottoNazioniSelect from './components/helpers/LottoNazioniSelect.vue'
 
 const app = createApp({
     components: {
-        CreateEditFattura, CreateEditLavorazione, LavorazioneGiornaliera, ModificaPausaGiornaliera, ModificaPausaGiornaliera, NazioniSelect
+        CreateEditFattura,
+        CreateEditLavorazione,
+        LavorazioneGiornaliera,
+        ModificaPausaGiornaliera,
+        ModificaPausaGiornaliera,
+        NazioniSelect,
+        LottoNazioniSelect
     }
 })
 

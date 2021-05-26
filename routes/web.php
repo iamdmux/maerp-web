@@ -3,7 +3,7 @@
 use App\Mail\InvioClientePdf;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Vendite\FatturaAPI;
-use App\Http\Controllers\Shop\ShopController;
+use App\Http\Controllers\Stock\StockPagesController;
 use App\Models\Blackbox\BlackboxJsonResponse;
 use App\Http\Controllers\Blackbox\BlackboxAPI;
 use App\Http\Controllers\Front\FrontController;
@@ -28,11 +28,16 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 // Route::get('/mailable', function () {
 //     return new App\Mail\InvioClientePdf();
 // });
+Route::get('/', function(){
+    return redirect()->to('/stocks');
+});
 
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/shop/show', [ShopController::class, 'show'])->name('shop.show');
+Route::get('/stocks', [StockPagesController::class, 'index'])->name('stock.home');
+Route::get('/stocks/{id}', [StockPagesController::class, 'show'])->name('stock.show');
 
-Route::group(['middleware' => ['auth']], function(){ //['prefix' => 'admin', 
+
+//axios.defaults.baseURL = '/erp/'; -> in app.js
+Route::group(['prefix' => 'erp', 'middleware' => ['auth']], function(){
 
     Route::group(['middleware' => ['can:dashboard']], function () {
         
@@ -90,6 +95,9 @@ Route::group(['middleware' => ['can:impostazioni']], function () {
     
     // MAGAZZINO
     Route::resource('/magazzino/lotti', LottoController::class, ['except' => ['show']]); // middleware in construct
+
+    // upload media
+    Route::post('/magazzino/lotti/media', [LottoController::class, 'fileUpload'])->name('lotto.store.media');
 
     // Status prenotazioni e vendite quantità
     Route::post('/api/magazzino/lotto/{id}', [LottoStatusController::class, 'cambiaStatusLotto'])->name('add.status.lotto');

@@ -30,9 +30,9 @@ class DashboardController extends Controller
 
         $users = User::with('clienti')->get();
         
-// TEMP
-$isclienti = Cliente::get()->count();
-$isfornitori = Fornitore::get()->count();
+        // TEMP
+        $isclienti = Cliente::get()->count();
+        $isfornitori = Fornitore::get()->count();
 
         return view('dashboard', [
             'numeroUtenti' => $numeroUtenti,
@@ -62,7 +62,7 @@ $isfornitori = Fornitore::get()->count();
     public function importClienti(){
         if(auth()->id() == 1 || auth()->id() == 2){
             Excel::import(new ClientiImport, storage_path('app/import/lista_clienti.xlsx'));
-            return redirect('/')->with('success', 'All good!');
+            return redirect('/erp')->with('success', 'All good!');
         } else {
             return 'Hello.';
         }
@@ -71,7 +71,7 @@ $isfornitori = Fornitore::get()->count();
     public function importFornitori(){
         if(auth()->id() == 1){
             Excel::import(new FornitoriImport, storage_path('app/import/lista_fornitori.xls'));
-            return redirect('/')->with('success', 'All good!');
+            return redirect('/erp')->with('success', 'All good!');
         } else {
             return 'Hello.';
         }

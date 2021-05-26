@@ -1,5 +1,11 @@
 <?php
 
+if (!function_exists('help_is_production')) {
+    function help_is_production(){ 
+        return (env('APP_ENV') == 'local') ? 0 : 1;
+    }
+}
+
 
 // svg colors
 if (!function_exists('help_svg_link')) {
@@ -39,6 +45,18 @@ if (!function_exists('help_mesi_array')) {
     }
 }
 
+// IMMAGINI
+// if (!function_exists('getStorageMedia')) {
+//     function getStorageMedia($lotto){
+//         if(!$lotto->shop_image){
+//             return null;
+//         } elseif(( $file = asset($lotto->shop_image) )){
+//             return $file;
+//         } else {
+//             return $file . 'no file';
+//         }
+//     }
+// }
 
 if (!function_exists('help_country_iso3166')){
     function help_country_iso3166(){

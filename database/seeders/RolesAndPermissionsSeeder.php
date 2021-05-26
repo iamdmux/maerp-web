@@ -25,12 +25,12 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'creare-fatture']);
         Permission::create(['name' => 'acquisti']);
         Permission::create(['name' => 'magazzino-blackbox']);
-        
+        Permission::create(['name' => 'utilizzare erp']);
 
         // create roles and assign created permissions
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
-        Role::create(['name' => 'agente'])->givePermissionTo(['dashboard', 'vendite', 'visualizzare-lotti']);
-        Role::create(['name' => 'resp. magazzino'])->givePermissionTo(['dashboard', 'magazzino-blackbox', 'visualizzare-lotti', 'modificare-lotti']);
+        Role::create(['name' => 'agente'])->givePermissionTo(['dashboard', 'vendite', 'visualizzare-lotti', 'utilizzare erp']);
+        Role::create(['name' => 'resp. magazzino'])->givePermissionTo(['dashboard', 'magazzino-blackbox', 'visualizzare-lotti', 'modificare-lotti', 'utilizzare erp']);
 
 
         User::find(1)->assignRole('admin');

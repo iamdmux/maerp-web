@@ -15,12 +15,13 @@ class LottoSeeder extends Seeder
     public function run()
     {
         DB::table('magazzino_lotti')->insert([
+            'codice_articolo' => 'abcdefg'
             'marca_id' => 1,
             'stagione' => 'primavera',
             'tipologia' => 'uomo',
             'quantita' => 2,
             'kg' => 2,
-            'codice_articolo' => 'abc'
+            'shop_descrizione' => 'Lorem ipsum, dolor sit, amet consectetur adipisicing elit. Vitae exercitationem porro saepe ea harum corrupti vero id laudantium enim, libero blanditiis expedita cupiditate a est.'
         ]
     );
     }

@@ -1,12 +1,12 @@
 <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-52 transition duration-300 transform bg-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
     <div class="mt-8 pl-4">
-        <a href="/"><img src="{{asset('img/logo-m&a.jpeg ')}}" class="w-24 h-24" alt="logo"></a>
+        <a href="/erp"><img src="{{asset('img/logo-m&a.jpeg ')}}" class="w-24 h-24" alt="logo"></a>
     </div>
 
         <nav class="mt-10">
 
             @can('dashboard')
-            <a class="flex items-center mt-2 py-1 px-6 bg-opacity-25 hover:bg-gray-700 text-gray-100 {{url()->current() == route('admin.home.page') ? 'bg-gray-700 text-blue-400' : ''}}" href="/">
+            <a class="flex items-center mt-2 py-1 px-6 bg-opacity-25 hover:bg-gray-700 text-gray-100 {{url()->current() == route('admin.home.page') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{route('admin.home.page')}}">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
@@ -150,10 +150,10 @@
                 @endcan
             @push('scripts')
             <script> 
-                let isMagazzino = window.location.pathname.split('/')[1] == 'magazzino' ? true : false;
-                let isVendite = window.location.pathname.split('/')[1] == 'vendite' ? true : false;
-                let isBlackbox = window.location.pathname.split('/')[1] == 'blackbox' ? true : false;
-                let isAcquisti = window.location.pathname.split('/')[1] == 'acquisti' ? true : false;
+                let isMagazzino = window.location.pathname.split('/')[2] == 'magazzino' ? true : false;
+                let isVendite = window.location.pathname.split('/')[2] == 'vendite' ? true : false;
+                let isBlackbox = window.location.pathname.split('/')[2] == 'blackbox' ? true : false;
+                let isAcquisti = window.location.pathname.split('/')[2] == 'acquisti' ? true : false;
                 function navigation() {
                     return {
                         sidebarOpen: false,
