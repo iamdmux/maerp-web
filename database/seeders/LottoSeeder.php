@@ -15,7 +15,7 @@ class LottoSeeder extends Seeder
     public function run()
     {
         DB::table('magazzino_lotti')->insert([
-            'codice_articolo' => 'abcdefg'
+            'codice_articolo' => 'abcdefg',
             'marca_id' => 1,
             'stagione' => 'primavera',
             'tipologia' => 'uomo',
