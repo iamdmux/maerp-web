@@ -190,7 +190,7 @@
                     @if($method == 'edit')
                         @if($lotto->shop_image)
                         <div class="h-56">
-                            <img src="{{asset($lotto->shop_image)}}" alt="" class="w-48 object-cover" style="max-height: 220px;">
+                            <img src="{{asset('storage/' . $lotto->shop_image)}}" alt="" class="w-48 object-cover" style="max-height: 220px;">
                         </div>
                         <div class="mb-6">
                             <label>
@@ -216,8 +216,8 @@
                         @if($lotto->shop_video)
                         <div class="h-56">
                         <video class="w-48 object-cover" style="max-height: 220px;" controls>
-                            <source src="{{asset($lotto->shop_video)}}" type="video/mp4">
-                            <source src="{{asset($lotto->shop_video)}}" type="video/ogg">
+                            <source src="{{asset('storage/' . $lotto->shop_video)}}" type="video/mp4">
+                            <source src="{{asset('storage/' . $lotto->shop_video)}}" type="video/ogg">
                             Your browser does not support the video tag.
                         </video>
                         </div>

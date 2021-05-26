@@ -10,7 +10,7 @@
                     <div>
                         <div class="relative group flex w-full h-auto md:w-80 md:h-60 rounded">
                             @if($lotto->shop_image)
-                            <img src="{{ asset($lotto->shop_image) }}" class="w-full object-cover">
+                            <img src="{{ asset('storage/' . $lotto->shop_image) }}" class="w-full object-cover">
                             @else
                             <div class="h-full flex-1 bg-gray-300 items-center justify-center">Lotto</div>
                             @endif

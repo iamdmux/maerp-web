@@ -14,7 +14,7 @@
                   <div class="px-2">
                     <button x-on:click="image = 1" :class="{ 'ring-2 ring-yellow-300 ring-inset': image === 1 }"
                     class="focus:outline-none mb-3 mr-3 w-full rounded-lg h-24 md:h-20 md:w-36 bg-gray-100 flex items-center justify-center">
-                      <img src="{{ asset($lotto->shop_image) }}" class="h-full object-cover">
+                      <img src="{{ asset('storage/'.$lotto->shop_image) }}" class="h-full object-cover">
                     </button>
                   </div>
                   @endif
@@ -32,15 +32,15 @@
               <div class="h-64 flex-1 md:h-80 rounded-lg bg-gray-100 mb-4">
                 @if($lotto->shop_image)
                 <div x-show="image === 1" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                  <img src="{{ asset($lotto->shop_image) }}" class="h-full object-cover">
+                  <img src="{{ asset('storage/'.$lotto->shop_image) }}" class="h-full object-cover">
                 </div>
                 @endif
 
                 @if($lotto->shop_video)
                 <div x-show="image === 2" style="display:none" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
                   <video class="w-full h-auto" controls>
-                    <source src="{{asset($lotto->shop_video)}}" type="video/mp4">
-                    <source src="{{asset($lotto->shop_video)}}" type="video/ogg">
+                    <source src="{{asset('storage/'.$lotto->shop_video)}}" type="video/mp4">
+                    <source src="{{asset('storage/'.$lotto->shop_video)}}" type="video/ogg">
                     Your browser does not support the video tag.
                   </video>
                 </div>
