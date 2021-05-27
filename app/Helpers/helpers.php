@@ -2,7 +2,7 @@
 
 if (!function_exists('help_is_production')) {
     function help_is_production(){ 
-        return (env('APP_ENV') == 'local') ? 0 : 1;
+        return (env('APP_ENV') == 'production') ? 1 : 0;
     }
 }
 

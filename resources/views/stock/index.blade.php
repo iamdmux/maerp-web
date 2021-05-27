@@ -24,7 +24,7 @@
                     <div class="w-80">
                         {{-- <p class="text-xs font-medium uppercase tracking-wider">lotto</p> --}}
                         <h3 class="font-semibold"> {{$lotto->codice_articolo}}</h3>
-                        <p class="uppercase tracking-wider">{{$lotto->shop_prezzo}}</p>
+                        <p class="uppercase tracking-wider">{{$lotto->shop_prezzo}} €</p>
                     </div>
                 </div>
             </a>

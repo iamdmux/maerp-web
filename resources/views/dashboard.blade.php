@@ -56,7 +56,7 @@
 </div>
 </div>
 
-@if(auth()->id() == 1 || auth()->id() == 2)
+@if(auth()->id() == 1)
     <div class="mt-8">
 
     @if(!$isclienti)

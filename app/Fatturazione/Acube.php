@@ -21,9 +21,17 @@ class Acube extends FatturaArray{
     public function __construct($user){
         $this->user = $user;
 
-        $this->acubeuser = env('ACUBEAPI_SANDBOX_USER');
-        $this->acubepass = env('ACUBEAPI_SANDBOX_PASSWORD');
-        $this->acubeurl = env('ACUBEAPI_SANDBOX_URL');
+        if(help_is_production){
+            $this->acubeuser = env('ACUBEAPI_USER');
+            $this->acubepass = env('ACUBEAPI_PASSWORD');
+            $this->acubeurl = env('ACUBEAPI_URL');
+        } else {
+            // sandbox
+            $this->acubeuser = env('ACUBEAPI_SANDBOX_USER');
+            $this->acubepass = env('ACUBEAPI_SANDBOX_PASSWORD');
+            $this->acubeurl = env('ACUBEAPI_SANDBOX_URL');
+        }
+
         $this->login();
     }
 
@@ -49,23 +57,27 @@ class Acube extends FatturaArray{
     }
 
     public function creaFatturaElettronica($fatturazione){
+        
         if($this->login()){
             $response = Http::withToken($this->token)->post($this->acubeurl . '/invoices', $this->compilaFattura($fatturazione));
         }
 
-        if($response->successful()){
-            $this->invoicePostUiid = $response->json()['uuid'];
-            return true;
-        } else {
-            //$response->getBody()->getContents();
-            if($error = collect(json_decode($response->body()))['hydra:description']){
-                $this->error = $error;
-                $this->error .= ' C\'è stato un errore e la fatturazione elettronica NON è stata creata.';
+        if(isset($response)){
+            if($response->successful()){
+                $this->invoicePostUiid = $response->json()['uuid'];
+                return true;
             } else {
-                $this->error = ' C\'è stato un errore e la fatturazione elettronica NON è stata creata.';
+                //$response->getBody()->getContents();
+                if($error = collect(json_decode($response->body()))['hydra:description']){
+                    $this->error = $error;
+                    $this->error .= ' C\'è stato un errore e la fatturazione elettronica NON è stata creata.';
+                } else {
+                    $this->error = ' C\'è stato un errore e la fatturazione elettronica NON è stata creata.';
+                }
+                return false;
             }
-            return false;
         }
+        $this->error = ' C\'è stato un problema nella autenticazione per la fatturazione elettronica';
         return false;
     }
 }

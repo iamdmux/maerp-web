@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Shop</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <title>Stock</title>
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <!-- toast -->
+    <link rel="stylesheet" href="{{ asset('css/toast-with-cheese.css')}}">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
 </head>
 <body>
     @if(!help_is_production())
@@ -179,19 +186,19 @@
                     <!-- Required Unicons (if you want) -->
                     <div class="md:flex-auto md:flex-row-reverse flex-row flex">
                         <a href="#" class="w-6 mx-1">
-                            <i class="uil uil-facebook-f">xx</i>
+                            <i class="uil uil-facebook-f"></i>
                         </a>
                         <a href="#" class="w-6 mx-1">
-                            <i class="uil uil-twitter-alt">xx</i>
+                            <i class="uil uil-twitter-alt"></i>
                         </a>
                         <a href="#" class="w-6 mx-1">
-                            <i class="uil uil-youtube">xx</i>
+                            <i class="uil uil-youtube"></i>
                         </a>
                         <a href="#" class="w-6 mx-1">
-                            <i class="uil uil-linkedin">xx</i>
+                            <i class="uil uil-linkedin"></i>
                         </a>
                         <a href="#" class="w-6 mx-1">
-                            <i class="uil uil-instagram">xx</i>
+                            <i class="uil uil-instagram"></i>
                         </a>
                     </div>
                 </div>

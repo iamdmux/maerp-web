@@ -41,7 +41,7 @@ select:disabled,
 select[multiple]:disabled,
 textarea:disabled
 {
-    @apply bg-gray-100;
+    background-color: #f7f7f7;
 }
 
 
