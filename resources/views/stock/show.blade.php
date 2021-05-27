@@ -13,7 +13,8 @@
                 @if($lotto->shop_image)
                   <div class="px-2">
                     <button x-on:click="image = 1" :class="{ 'ring-2 ring-yellow-300 ring-inset': image === 1 }"
-                    class="focus:outline-none mb-3 mr-3 w-full rounded-lg h-24 md:h-20 md:w-36 bg-gray-100 flex items-center justify-center">
+                    class="focus:outline-none mb-3 mr-3 w-full rounded-lg h-24 md:h-20 md:w-36 bg-gray-100 flex items-center justify-center"
+                    style="padding: 2px;">
                       <img src="{{ asset('storage/'.$lotto->shop_image) }}" class="h-full object-cover">
                     </button>
                   </div>
@@ -21,7 +22,8 @@
                   @if($lotto->shop_video)
                   <div class="px-2">
                     <button x-on:click="image = 2" :class="{ 'ring-2 ring-yellow-300 ring-inset': image === 2 }"
-                    class="focus:outline-none mb-3 mr-3 w-full rounded-lg h-24 md:h-20 md:w-36 bg-gray-100 flex items-center justify-center">
+                    class="focus:outline-none mb-3 mr-3 w-full rounded-lg h-24 md:h-20 md:w-36 bg-gray-100 flex items-center justify-center"
+                    style="padding: 2px;">
                       <p>video</p>
                     </button>
                   </div>
@@ -83,7 +85,7 @@
               <div class="relative">
                 <div class="text-center left-0 -mt-6 pt-1 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">Qty</div>
 
-                <select class="cursor-pointer appearance-none rounded-xl border border-gray-200 px-4 h-14">
+                <select class="cursor-pointer appearance-none rounded-xl border border-gray-200 px-8 h-14">
                   @for ($i = 1; $i <= $lotto->quantita; $i++)
                   <option>{{$i}}</option>
                   @endfor
