@@ -20,7 +20,7 @@ class CreateFattureTable extends Migration
             $table->string('tipo_documento');
             $table->boolean('fattura_elettronica')->default(false);
             $table->uuid('uuid')->nullable(); // acube uuid
-            $table->integer('numero');
+            $table->integer('numero')->unsigned();
             $table->timestamp('data');
             $table->string('lingua');
             $table->string('valuta');
@@ -45,7 +45,7 @@ class CreateFattureTable extends Migration
 
             $table->string('numero_ddt')->nullable();
             $table->timestamp('data_ddt')->nullable();
-            $table->integer('numero_colli_ddt')->nullable();
+            $table->integer('numero_colli_ddt')->unsigned()->nullable();
             $table->string('peso_ddt')->nullable();
             $table->text('casuale_trasporto')->nullable();
             $table->text('trasporto_a_cura_di')->nullable();

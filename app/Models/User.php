@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Stock\Order;
+use App\Models\Magazzino\Lotto;
+use App\Models\Stock\Cart\Cart;
 use App\Models\Vendite\Cliente;
 use App\Models\Vendite\Fattura;
 use Spatie\Permission\Traits\HasRoles;
@@ -37,5 +40,15 @@ class User extends Authenticatable
     
     public function fatture(){
         return $this->hasMany(Fattura::class);
+    }
+
+    public function cart(){
+        return $this->belongsToMany(Lotto::class, 'stocks_cart_user', 'user_id', 'lotto_id')
+        ->withPivot('id', 'quantita')
+        ->withTimestamps();
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
     }
 }

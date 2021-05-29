@@ -3,10 +3,11 @@
 use App\Mail\InvioClientePdf;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Vendite\FatturaAPI;
-use App\Http\Controllers\Stock\StockPagesController;
 use App\Models\Blackbox\BlackboxJsonResponse;
 use App\Http\Controllers\Blackbox\BlackboxAPI;
+use App\Http\Controllers\Stock\CartController;
 use App\Http\Controllers\Front\FrontController;
+use App\Http\Controllers\Stock\OrderController;
 use App\Http\Controllers\Blackbox\CapoController;
 use App\Http\Controllers\Import\ImportController;
 use App\Http\Controllers\Blackbox\FerieController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Magazzino\LottoController;
 use App\Http\Controllers\Magazzino\MarcaController;
 use App\Http\Controllers\Vendite\ClienteController;
 use App\Http\Controllers\Vendite\FatturaController;
+use App\Http\Controllers\Stock\StockPagesController;
 use App\Http\Controllers\Acquisti\FornitoreController;
 use App\Http\Controllers\Blackbox\OperatoreController;
 use App\Http\Controllers\Vendite\FatturaPdfController;
@@ -24,17 +26,24 @@ use App\Http\Controllers\Magazzino\LottoStatusController;
 use App\Http\Controllers\Impostazioni\ImpostazioneController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
-// TEST EMAIL
-// Route::get('/mailable', function () {
-//     return new App\Mail\InvioClientePdf();
-// });
+
+
+// STOCK 
 Route::get('/', function(){
     return redirect()->to('/stocks');
 });
 
-Route::get('/stocks', [StockPagesController::class, 'index'])->name('stock.home');
-Route::get('/stocks/{id}', [StockPagesController::class, 'show'])->name('stock.show');
+Route::get('/stocks/', [StockPagesController::class, 'homepage'])->name('stocks.home');
 
+Route::get('/stocks/lotti', [StockPagesController::class, 'index'])->name('stocks.index');
+Route::get('/stocks/lotti/{id}', [StockPagesController::class, 'show'])->name('stocks.show');
+
+Route::resource('/stocks/cart', CartController::class);
+Route::resource('/stocks/orders', OrderController::class)->middleware('auth');
+
+
+
+// ERP
 
 //axios.defaults.baseURL = '/erp/'; -> in app.js
 Route::group(['prefix' => 'erp', 'middleware' => ['auth']], function(){

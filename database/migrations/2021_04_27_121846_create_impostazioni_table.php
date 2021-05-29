@@ -15,7 +15,7 @@ class CreateImpostazioniTable extends Migration
     {
         Schema::create('impostazioni', function (Blueprint $table) {
             $table->id();
-            $table->integer('numerazione_fattura');
+            $table->integer('numerazione_fattura')->unsigned();
             $table->timestamps();
         });
     }

@@ -1,18 +1,17 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('stocks.layout.app-stock')
+@section('content')
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <div class="flex justify-center items-center h-screen bg-gray-200 px-6">
+            <div class="p-6 max-w-sm w-full bg-white shadow-md rounded-md">
+                <div class="flex justify-center items-center">
+                    <img src="{{asset('img/logo-m&a.webp')}}" class="w-24 h-24" alt="logo">
+                </div>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+                <form class="mt-4" method="POST" action="{{ route('register') }}">
 
-            <!-- Name -->
+                    @csrf
+
+                    <!-- Name -->
             <div>
                 <x-label for="name" :value="__('Name')" />
 
@@ -54,6 +53,10 @@
                     {{ __('Register') }}
                 </x-button>
             </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+                    
+                    <x-errors-component />
+                   
+                </form>
+            </div>
+        </div>
+@endsection

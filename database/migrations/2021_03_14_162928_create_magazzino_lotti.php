@@ -18,14 +18,14 @@ class CreateMagazzinoLotti extends Migration
             $table->unsignedBigInteger('marca_id')->index()->nullable();
             $table->string('stagione');
             $table->string('tipologia');
-            $table->integer('quantita');
+            $table->integer('quantita')->unsigned();
             $table->timestamp('prenotato')->nullable();
             $table->timestamp('venduto')->nullable();
-            $table->integer('kg')->nullable();
+            $table->integer('kg')->unsigned()->nullable();
             $table->string('codice_articolo')->nullable();
             //eshop
             $table->boolean('in_shop')->default(0);
-            $table->integer('shop_prezzo')->nullable();
+            $table->integer('shop_prezzo')->unsigned()->nullable();
             $table->string('shop_image')->nullable();
             $table->string('shop_video')->nullable();
             $table->text('shop_descrizione')->nullable();

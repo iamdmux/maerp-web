@@ -1,4 +1,4 @@
-@extends('stock.layout.app-stock')
+@extends('stocks.layout.app-stock')
 
 @section('content')
   
@@ -7,7 +7,6 @@
         <div class="flex flex-col md:flex-row -mx-4">
           <div class="md:flex-1 px-4">
             <div x-data="{ image: 1 }" class="flex flex-col md:flex-row" x-cloak>
-
               @if($lotto->shop_image || $lotto->shop_video)
               <div class="flex md:flex-col order-last md:order-first -mx-2 mb-4">
                 @if($lotto->shop_image)
@@ -52,54 +51,59 @@
           </div>
 
           <div class="md:flex-1 px-4">
-            <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">
-              {{$lotto->codice_articolo}}
-            </h2>
-          
-            <div>
-              <span class="font-bold text-gray-500 text-xl">
-                {{$lotto->kg}} 
-              </span>
-              Kg 
-            </div>
+            <form action="{{route('cart.store')}}" method="POST">
 
-            <p class="text-gray-500 text-sm">{{$lotto->marca->nome}}</p>
+              @csrf
 
-            <div class="flex items-center space-x-4 my-4">
+              <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">
+                {{$lotto->codice_articolo}}
+              </h2>
+            
               <div>
-                <div class="rounded-lg flex py-2">
-                  <span class="text-gray-400 mr-1 mt-1">€</span>
-                  <span class="font-bold text-gray-700 text-2xl">
-                    {{$lotto->shop_prezzo}}
-                  </span>
-                </div>
+                <span class="font-bold text-gray-500 text-xl">
+                  {{$lotto->kg}} 
+                </span>
+                Kg 
               </div>
-              <p class="text-gray-400 text-sm">Inclusive of all Taxes.</p>
-            </div>
-    
-            <p class="text-gray-800">
-              {{$lotto->shop_descrizione}}
-            </p>
-    
-            <div class="flex mt-6 py-4 space-x-4">
-              <div class="relative">
-                <div class="text-center left-0 -mt-6 pt-1 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">Qty</div>
 
-                <select class="cursor-pointer appearance-none rounded-xl border border-gray-200 px-8 h-14">
-                  @for ($i = 1; $i <= $lotto->quantita; $i++)
-                  <option>{{$i}}</option>
-                  @endfor
-                </select>
-    
-                {{-- <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                </svg> --}}
+              <p class="text-gray-500 text-sm">{{$lotto->marca->nome}}</p>
+
+              <div class="flex items-center space-x-4 my-4">
+                <div>
+                  <div class="rounded-lg flex py-2">
+                    <span class="text-gray-400 mr-1 mt-1">€</span>
+                    <span class="font-bold text-gray-700 text-2xl">
+                      {{$lotto->shop_prezzo}}
+                    </span>
+                  </div>
+                </div>
+                <p class="text-gray-400 text-sm">Inclusive of all Taxes.</p>
               </div>
-    
-              <button type="button" class="h-14 px-6 py-2 font-semibold rounded-xl bg-black hover:bg-gray-800 text-yellow-300 hover:text-yellow-200">
-                Add to Cart
-              </button>
-            </div>
+      
+              <p class="text-gray-800">
+                {{$lotto->shop_descrizione}}
+              </p>
+      
+              <div class="flex mt-6 py-4 space-x-4">
+                <div class="relative">
+                  <div class="text-center left-0 -mt-6 pt-1 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">Qt</div>
+
+                  <select name="quantita" class="cursor-pointer appearance-none rounded-xl border border-gray-200 px-8 h-14">
+                    @for ($i = 1; $i <= $lotto->quantita; $i++)
+                    <option>{{$i}}</option>
+                    @endfor
+                  </select>
+      
+                  {{-- <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                  </svg> --}}
+                </div>
+                <input type="hidden" name="lotto_id" value="{{$lotto->id}}">
+                <button type="submit" class="h-14 px-6 py-2 font-semibold rounded-xl bg-black hover:bg-gray-800 text-white hover:text-yellow-200">
+                  Add to Cart
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

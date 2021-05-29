@@ -18,7 +18,7 @@ class CreateArticoliTable extends Migration
             // $table->unsignedBigInteger('fattura_id')->index();
             $table->unsignedBigInteger('lotto_id')->nullable()->index();
             $table->string('codice');
-            $table->integer('quantita')->default(1);
+            $table->integer('quantita')->unsigned()->default(1);
             $table->string('unita_di_misura')->nullable();
             $table->text('descrizione')->nullable();
 

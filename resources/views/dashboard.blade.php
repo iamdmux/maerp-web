@@ -100,7 +100,7 @@
                     @foreach ($users as $user)
                     @php
                         $clientiCount = $user->clienti->count();
-                        if($user->id == 1 || $user->id == 2){
+                        if($user->id == 1 || $user->id == 2 || !$user->hasPermissionTo('erp user')){
                             continue;
                         }
                     @endphp

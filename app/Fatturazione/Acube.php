@@ -21,7 +21,7 @@ class Acube extends FatturaArray{
     public function __construct($user){
         $this->user = $user;
 
-        if(help_is_production){
+        if((help_is_production())){
             $this->acubeuser = env('ACUBEAPI_USER');
             $this->acubepass = env('ACUBEAPI_PASSWORD');
             $this->acubeurl = env('ACUBEAPI_URL');

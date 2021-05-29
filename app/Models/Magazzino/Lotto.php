@@ -3,6 +3,7 @@
 namespace App\Models\Magazzino;
 
 use App\Models\User;
+use App\Models\Stock\Order;
 use App\Models\Magazzino\Marca;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,4 +64,11 @@ class Lotto extends Model
         return $this->belongsToMany(User::class, 'magazzino_lotti_status', 'lotto_id', 'user_id')
         ->withPivot('id', 'tipo');
     }
+
+    public function usersCart(){
+        return $this->belongsToMany(User::class, 'stocks_cart_user', 'lotto_id', 'user_id')
+        ->withPivot('id', 'quantita')
+        ->withTimestamps();
+    }
+
 }

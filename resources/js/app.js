@@ -4,6 +4,7 @@ require('alpinejs');
 
 
 import { createApp } from "vue";
+import Glide from '@glidejs/glide';
 
 //components
 import CreateEditFattura from './components/fattura/CreateEditFattura.vue'
@@ -27,3 +28,4 @@ const app = createApp({
 
 app.mount("#app")
 
+window.Glide = Glide;
