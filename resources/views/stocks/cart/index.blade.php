@@ -9,7 +9,7 @@
             <h1 class="font-semibold  text-2xl pb-3 text-center sm:text-left">Carrello</h1>
             <div class="pt-8">
                 @if($cart->count())
-                <div class="hidden sm:block">
+                <div class="sm:block">
                     <div class="flex justify-between border-b border-grey-darker">
                         <div class="w-1/2 lg:w-3/5 xl:w-1/2 pl-8 sm:pl-12 pb-2">
                             <span class="font-semibold  text-sm uppercase">Prodotto</span>
@@ -17,10 +17,16 @@
                         <div class="w-1/4 sm:w-1/6 lg:w-1/5 xl:w-1/4 pb-2 text-center sm:mr-2 md:mr-18 lg:mr-12 xl:mr-18">
                             <span class="font-semibold  text-sm uppercase">Quantità</span>
                         </div>
-                        <div class="w-1/4 lg:w-1/5 xl:w-1/4 pb-2 text-right md:pr-10">
+                        <div class="w-1/4 sm:w-1/6 lg:w-1/5 xl:w-1/4 pb-2 text-center sm:mr-2 md:mr-18 lg:mr-12 xl:mr-18">
                             <span class="font-semibold  text-sm uppercase">Prezzo</span>
                         </div>
+                        <div class="w-1/4 lg:w-1/5 xl:w-1/4 pb-2 text-right md:pr-10">
+                            <span class="font-semibold  text-sm uppercase">Totale Articolo</span>
+                        </div>
                     </div>
+                </div>
+                <div>
+                    
                 </div>
                 @endif
                 @forelse ($cart as $item)
@@ -28,7 +34,7 @@
                     $costoTotale = 0;
                     $costoTotale = ($costoTotale+($item->shop_prezzo*$item->pivot->quantita));
                 @endphp
-                <div class="py-3 border-b border-grey-dark flex-row justify-between items-center mb-0 hidden md:flex">
+                <div class="py-3 border-b border-grey-dark flex-row justify-between items-center mb-0 md:flex">
                     <form action="{{route('cart.update', $item->pivot->id)}}" method="POST">
                         @csrf
                         @method('PATCH')
@@ -75,7 +81,7 @@
                         </div>
                     </div>
                     <div class="w-1/4 lg:w-1/5 xl:w-1/4 text-right pr-10 xl:pr-10 pb-4">
-                        <span class="font-hk ">{{$item->shop_prezzo}}</span>
+                        <span class="font-hk ">{{$item->shop_prezzo*$item->pivot->quantita}}</span>
                     </div>
                 </div>
                 @empty
@@ -107,6 +113,7 @@
                     <textarea rows="5" cols="50"
                             placeholder="Enter your text"
                             class="form-textarea"
+                            name="annotazioni"
                             id="cart_note"></textarea>
                 </div>
                 <div class="pt-4">

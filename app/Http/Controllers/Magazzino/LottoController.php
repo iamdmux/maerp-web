@@ -230,8 +230,8 @@ class LottoController extends Controller
             //shop
             "in_shop" => 'nullable',
             "shop_prezzo" => Rule::requiredIf($request->in_shop), 'numeric',
-            "shop_image" => 'required|image',
-            "shop_video" => 'nullable|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
+            "shopimage" => 'nullable|image',
+            "shopvideo" => 'nullable|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
             "shop_descrizione" => Rule::requiredIf($request->in_shop), 'max:65535',
             "visibilita" => Rule::requiredIf($request->in_shop),
             "nazioni_tranne" => 'nullable',

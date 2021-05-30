@@ -92,7 +92,7 @@
 
                                 <div class="px-2 py-2 text-center bg-white rounded-md shadow">
                                     @if(auth()->user()->account()->exists())
-                                    <a class="{{$dropDownClass}}" href="{{route('account.edit', auth()->id())}}">Il mio account</a>
+                                    <a class="{{$dropDownClass}}" href="{{route('account.edit', auth()->user()->slug)}}">Il mio account</a>
                                     @else
                                     <a class="{{$dropDownClass}}" href="{{route('account.create')}}">Il mio account</a>
                                     @endif

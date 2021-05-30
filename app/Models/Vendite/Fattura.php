@@ -18,6 +18,7 @@ class Fattura extends Model
     protected $guarded = [];
     protected $dates = ['data'];
 
+
     const DOC_CONSENTITI = ['preventivo', 'ordine', 'proforma', 'fattura', 'ddt', 'nota_di_credito'];
     const TEST_INVIA_PDF_A_DESTINATARIO = false;
 

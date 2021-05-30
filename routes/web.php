@@ -36,7 +36,7 @@ Route::get('/', function(){
 
 Route::get('/stocks/', [StockPagesController::class, 'homepage'])->name('stocks.home');
 
-Route::resource('/stocks/account', AccountController::class, ['except' => ['index']])->middleware('auth');
+Route::resource('/stocks/account', AccountController::class, ['except' => ['index', 'show', 'destroy']])->middleware('auth');
 
 Route::get('/stocks/lotti', [StockPagesController::class, 'index'])->name('stocks.index');
 Route::get('/stocks/lotti/{id}', [StockPagesController::class, 'show'])->name('stocks.show');

@@ -19,6 +19,7 @@ class CreateFattureTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable()->index(); // agente_id
             $table->string('tipo_documento');
             $table->boolean('fattura_elettronica')->default(false);
+            $table->boolean('is_from_stocks')->default(false);
             $table->uuid('uuid')->nullable(); // acube uuid
             $table->integer('numero')->unsigned();
             $table->timestamp('data');

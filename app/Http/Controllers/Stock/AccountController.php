@@ -27,8 +27,9 @@ class AccountController extends Controller
 
     public function store(Request $request){
         $data = $this->validation($request);
-        $data['is_stocks_user'] = true;
+
         $data['stock_user_id'] = auth()->id();
+        $data['user_id'] = auth()->id(); // può dare errore in fattura
         Cliente::create($data);
         return redirect()->route('stocks.home')->with('success', 'Il profilo è stato creato');
     }
@@ -40,43 +41,51 @@ class AccountController extends Controller
     // }
 
 
-    public function edit($id){
+    public function edit($slug){
 
-        $user = auth()->user();
-        if($id !== $user->id || !$user->account()->exists){
-            return back();
+        $user = auth()->user()->where('slug', $slug)->first();
+
+        if($user){
+            if($slug !== $user->slug || !$user->account()->exists()){
+                return back();
+            }
+        
+            return view('stocks.account.create-edit', [
+                'userAccount' => auth()->user()->account,
+                'edit' => true,
+                'tipologia' => Cliente::TIPOLOGIA,
+                'nazioniArray' => help_country_iso3166()
+            ]);
         }
-
-        return view('stocks.account.create-edit', [
-            'userAccount' => auth()->user()->account,
-            'edit' => true,
-            'tipologia' => Cliente::TIPOLOGIA,
-            'nazioniArray' => help_country_iso3166()
-        ]);
+        abort(404);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $slug){
         $data = $this->validation($request);
 
-        $user = auth()->user();
-        if($id !== $user->id || !$user->account()->exists){
-            return back();
-        }
+        $user = auth()->user()->where('slug', $slug)->first();
+        if($user){
 
-        if($id == $user->id){
-            $user->account()->update($data);
-        } else {
-            return back()->withErrors(['error' => ["Qualcosa è andato storto"]]); 
-        }
+            if($slug !== $user->slug || !$user->account()->exists()){
+                return back();
+            }
+        
+            if($slug == $user->slug){
+                $user->account()->update($data);
+            } else {
+                return back()->withErrors(['error' => ["Qualcosa è andato storto"]]); 
+            }
 
-        return redirect()->route('stocks.home')->with('success', 'Il profilo è stato aggiornato');
+            return redirect()->route('stocks.home')->with('success', 'Il profilo è stato aggiornato');
+        }
+        abort(404);
     }
 
 
-    public function destroy($id)
-    {
-        //
-    }
+    // public function destroy($id)
+    // {
+    //     //
+    // }
 
     public function validation(Request $request){
         return $request->validate([

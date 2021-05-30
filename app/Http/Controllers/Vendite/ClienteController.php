@@ -117,8 +117,8 @@ class ClienteController extends Controller
             $cliente = Cliente::findOrFail($clienteId);
         }
 
-        if($cliente->is_stocks_user){
-            return back()->withErrors(['error' => ["Questo cliente è un utente stocks"]]); 
+        if($cliente->stock_user_id){
+            return back()->withErrors(['error' => ["Non è possibile proseguire, questo cliente è un utente stocks"]]); 
         }
 
         $cliente->delete();

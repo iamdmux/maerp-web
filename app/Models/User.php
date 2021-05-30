@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Stock\Order;
+use Illuminate\Support\Str;
 use App\Models\Magazzino\Lotto;
 use App\Models\Stock\Cart\Cart;
 use App\Models\Vendite\Cliente;
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'slug'
     ];
 
     protected $hidden = [
@@ -33,6 +35,32 @@ class User extends Authenticatable
     ];
 
     const RESPONSABILE_MAGAZZINO_ID = 11;
+    const SLUGLENGTH = 7;
+
+    // SLUG
+    public function getRouteKeyName(){
+        return 'slug';
+    }
+
+    private static function createUid($num){
+        return Str::random($num);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+    
+        // auto-sets values on creation
+        static::creating(function ($user) {
+            $uniqid = static::createUid($this->SLUGLENGTH);
+
+            do {
+                $uniqid = static::createUid($this->SLUGLENGTH);
+            }
+            while ($uniqid == self::where('slug', $uniqid)->exists());
+            $user->slug = $uniqid;
+        });
+    }
 
     public function clienti(){
         return $this->hasMany(Cliente::class);

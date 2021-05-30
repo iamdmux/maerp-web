@@ -225,7 +225,7 @@
           
         </tr>
         
-        @if($fattura->includi_marca_da_bollo == 'on')
+        @if($fattura->includi_marca_da_bollo)
         <tr>
           <td align="right">Non imponibile, bollo</td>
           <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{number_format($fattura->costo_bollo, 2)}}</td>

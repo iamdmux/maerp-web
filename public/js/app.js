@@ -24841,7 +24841,7 @@ var _hoisted_75 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 
 var _hoisted_76 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
   "class": "px-3",
-  value: "ita"
+  value: "it"
 }, "italiano", -1
 /* HOISTED */
 );
@@ -25292,7 +25292,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.fattura_elettronica = $event;
     }),
     type: "checkbox",
-    value: "true",
+    value: "1",
     name: "fattura_elettronica"
   }, null, 40
   /* PROPS, HYDRATE_EVENTS */

@@ -28,7 +28,7 @@
 
 <div v-if="canCreareFatture" class="my-5">
   <label class="p-3 bg-gray-100 rounded">fattura elettronica
-    <input @change="checkTipoDocumento" :disabled="method == 'show' || tipo_documento != 'fattura'" v-model="fattura_elettronica" type="checkbox" value="true" name="fattura_elettronica">
+    <input @change="checkTipoDocumento" :disabled="method == 'show' || tipo_documento != 'fattura'" v-model="fattura_elettronica" type="checkbox" value="1" name="fattura_elettronica">
   </label>
 </div>
 
@@ -206,7 +206,7 @@
                   lingua
               </p>
               <select :disabled="method == 'show'" v-model="lingua" class=" rounded-md border-gray-200" name="lingua">
-                <option class="px-3" value="ita">italiano</option>
+                <option class="px-3" value="it">italiano</option>
               </select>
           </div>
           <div class="mb-2">

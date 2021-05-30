@@ -13,7 +13,7 @@
     if($create){
         $formAction = route('account.store');
     } elseif($edit){
-        $formAction = route('account.update', auth()->id());
+        $formAction = route('account.update', auth()->user()->slug);
     }
 @endphp
 
