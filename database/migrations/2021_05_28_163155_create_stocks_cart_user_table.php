@@ -18,6 +18,7 @@ class CreateStocksCartUserTable extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('lotto_id')->index();
             $table->integer('quantita')->unsigned();
+            $table->integer('prezzo')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

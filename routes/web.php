@@ -10,6 +10,7 @@ use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Stock\OrderController;
 use App\Http\Controllers\Blackbox\CapoController;
 use App\Http\Controllers\Import\ImportController;
+use App\Http\Controllers\Stock\AccountController;
 use App\Http\Controllers\Blackbox\FerieController;
 use App\Http\Controllers\Magazzino\LottoController;
 use App\Http\Controllers\Magazzino\MarcaController;
@@ -35,10 +36,12 @@ Route::get('/', function(){
 
 Route::get('/stocks/', [StockPagesController::class, 'homepage'])->name('stocks.home');
 
+Route::resource('/stocks/account', AccountController::class, ['except' => ['index']])->middleware('auth');
+
 Route::get('/stocks/lotti', [StockPagesController::class, 'index'])->name('stocks.index');
 Route::get('/stocks/lotti/{id}', [StockPagesController::class, 'show'])->name('stocks.show');
 
-Route::resource('/stocks/cart', CartController::class);
+Route::resource('/stocks/cart', CartController::class)->middleware('auth');
 Route::resource('/stocks/orders', OrderController::class)->middleware('auth');
 
 

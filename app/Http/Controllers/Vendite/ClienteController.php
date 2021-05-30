@@ -117,6 +117,10 @@ class ClienteController extends Controller
             $cliente = Cliente::findOrFail($clienteId);
         }
 
+        if($cliente->is_stocks_user){
+            return back()->withErrors(['error' => ["Questo cliente è un utente stocks"]]); 
+        }
+
         $cliente->delete();
         return redirect()->route('clienti.index')->with('success', 'Il cliente è stato cancellato');
     }

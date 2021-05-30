@@ -31,7 +31,7 @@ class ClientiSeeder extends Seeder
                 'termini_tipo' => 'ggfinemese',
                 'metodo_pagamento_predef' => 'vaglia postale',
                 'iban' => '123456789',
-                'fax' => '',
+                // 'fax' => '',
                 'indirizzo_spedizione' => 'Via del Tesoro, 18',
             ],
         );
@@ -58,7 +58,7 @@ class ClientiSeeder extends Seeder
                 'termini_tipo' => 'ggfinemese',
                 'metodo_pagamento_predef' => 'vaglia postale',
                 'iban' => '123456789',
-                'fax' => '',
+                // 'fax' => '',
                 'indirizzo_spedizione' => 'Via del Tesoro, 18',
             ],
         );

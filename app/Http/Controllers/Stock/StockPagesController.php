@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Stock;
 use Illuminate\Http\Request;
 use App\Models\Magazzino\Lotto;
 use App\Http\Controllers\Controller;
+use Stevebauman\Location\Facades\Location;
 
 class StockPagesController extends Controller
 {
@@ -13,9 +14,45 @@ class StockPagesController extends Controller
     }
 
     public function index(){
+
         $lotti = Lotto::where('in_shop', true)->paginate(25);
+
+        // $userlocale = request()->getLocale();
+
+        $position = Location::get();
+        $userlocale = $position->countryCode;
+
+        if($position){
+            $filteredByCountry = $lotti->filter(function ($value, $key) use ($userlocale) {
+                $nazArray = json_decode($value->nazioni_tranne);
+                
+                if(in_array($userlocale, $nazArray)){
+                    // tutti tranne (scarto quello nell'array)
+                    if($value->visibilita == 'tutti'){
+                        return;
+                    }
+                    // tutti tranne (scarto quello nell'array)
+                    if($value->visibilita == 'nessuno'){
+                        return $value;
+                    }
+                }
+
+                // i lotti non nell'array
+                if($value->visibilita == 'tutti'){
+                    return $value;
+                }
+                if($value->visibilita == 'nessuno'){
+                    return;
+                }
+
+            });
+        }
+        else {
+            $filteredByCountry = [];
+        }
+        
         return view('stocks.index', [
-            'lotti' => $lotti
+            'lotti' => $filteredByCountry,
         ]);
     }
 

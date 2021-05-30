@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <p class="flex pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+        <p :class="cssLab">
             nazione
             <svg v-if="okSelect" class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             <span class="ml-1" v-if="nazioneSigla">{{nazioneSigla}}</span>
@@ -30,6 +30,9 @@ export default {
         },
         oldnazione:{
             required: false
+        },
+        classLabel:{
+            required: false
         }
     },
 
@@ -39,6 +42,11 @@ export default {
         const nazioniFiltered = ref([])
         const nazioneSigla = ref('')
         const okSelect = ref(false)
+
+        const cssLab = ref("flex pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider")
+        if(props.classLabel){
+            cssLab.value = props.classLabel
+        }
         // show and edit
         const disable = ref(props.enabledisable)
         disable.value = disable.value == 'disabled' ? true : false
@@ -63,7 +71,7 @@ export default {
             nazioniFiltered.value = []
             okSelect.value = true
         }
-        return { nazione, nazioniArray, nazioniFiltered, findNazione, selectTheNazione, nazioneSigla, okSelect, disable}
+        return { nazione, nazioniArray, nazioniFiltered, findNazione, selectTheNazione, nazioneSigla, okSelect, disable, cssLab}
     }
 
 }

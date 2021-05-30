@@ -22,6 +22,10 @@ class OrderController extends Controller
 
         ]);
 
+        if(!auth()->user()->account()->exists()){
+            return back()->withErrors(['error' => ["E' possibile creare l'ordine dopo il completamento del profilo"]]); 
+        }
+
         if(auth()->check()){
 
             $user = auth()->user();
@@ -31,9 +35,15 @@ class OrderController extends Controller
                 return back()->withErrors(['error' => ['Il tuo carrello è vuoto']]);    
             }
 
+            //subtotal
+            $subtotal = 0;
+            foreach ($cart as $item) {
+                $subtotal = $subtotal+($item->pivot->prezzo*$item->pivot->quantita);
+            }
+
             if($order = $user->orders()->create([
                 'user_id' => $user->id,
-                'subtotal' => 999
+                'subtotal' => $subtotal
             ])){
                 foreach ($cart as $item) {
                     $order->items()->attach( $order->id, [

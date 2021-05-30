@@ -56,6 +56,23 @@ class Lotto extends Model
         ['val' => 'costumi',          'show'=> 'Costumi'],
     ];
 
+    public static function cambiaQuantita($lotto, $quantita, $addOrRemove){
+        if($addOrRemove == 'add'){
+            $lotto->quantita = ($lotto->quantita+$quantita);
+            $lotto->save();
+            return true;
+        }
+        if($addOrRemove == 'remove'){
+            $lotto->quantita = ($lotto->quantita-$quantita);
+            if($lotto->quantita >= 0){
+                $lotto->save();
+                return true;
+            }
+            return back()->withErrors(['error' => ['Qualcosa è andato storto']]);
+        }
+        return back()->withErrors(['error' => ['Qualcosa è andato storto']]);
+    }
+
     public function marca(){
         return $this->belongsTo(Marca::class);
     }
@@ -67,7 +84,7 @@ class Lotto extends Model
 
     public function usersCart(){
         return $this->belongsToMany(User::class, 'stocks_cart_user', 'lotto_id', 'user_id')
-        ->withPivot('id', 'quantita')
+        ->withPivot('id', 'quantita', 'prezzo')
         ->withTimestamps();
     }
 

@@ -266,13 +266,13 @@
                 value="{{old('iban') ? old('iban') : (($edit || $show) ? $cliente->iban : '')}}">
             </div>
 
-            <div>
+            {{-- <div>
                 <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                     fax
                 </p>
                 <input {{$disable}} autocomplete="off" type="text" name="fax" placeholder="fax"
                 value="{{old('fax') ? old('fax') : (($edit || $show) ? $cliente->fax : '')}}">
-            </div>
+            </div> --}}
 
             <div>
                 <p class="pt-5 pb-1 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">

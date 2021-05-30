@@ -16,7 +16,9 @@ class CreateClienti extends Migration
         Schema::create('clienti', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->index()->nullable();
+            $table->unsignedBigInteger('stock_user_id')->index()->nullable();
             $table->string('denominazione');
+            // $table->boolean('is_stocks_user')->default(0);
             $table->string('codice_sdi')->nullable();
             $table->string('tipologia')->nullable();
             $table->string('referente')->nullable();
@@ -38,12 +40,13 @@ class CreateClienti extends Migration
             $table->string('termini_tipo')->nullable();
             $table->string('metodo_pagamento_predef')->nullable();
             $table->string('iban')->nullable();
-            $table->string('fax')->nullable();
+            // $table->string('fax')->nullable();
             $table->text('indirizzo_spedizione')->nullable();
 
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('stock_user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

@@ -68,6 +68,12 @@
 
               <p class="text-gray-500 text-sm">{{$lotto->marca->nome}}</p>
 
+              @if($lotto->quantita < 1)
+              <p class="my-4 font-bold text-yellow-500 text-xl">
+                prodotto non disponibile
+              </p>
+              @endif
+
               <div class="flex items-center space-x-4 my-4">
                 <div>
                   <div class="rounded-lg flex py-2">
@@ -89,9 +95,13 @@
                   <div class="text-center left-0 -mt-6 pt-1 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">Qt</div>
 
                   <select name="quantita" class="cursor-pointer appearance-none rounded-xl border border-gray-200 px-8 h-14">
-                    @for ($i = 1; $i <= $lotto->quantita; $i++)
-                    <option>{{$i}}</option>
-                    @endfor
+                    @if($lotto->quantita > 0)
+                      @for ($i = 1; $i <= $lotto->quantita; $i++)
+                      <option>{{$i}}</option>
+                      @endfor
+                    @else
+                      <option>0</option>
+                    @endif
                   </select>
       
                   {{-- <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -99,7 +109,7 @@
                   </svg> --}}
                 </div>
                 <input type="hidden" name="lotto_id" value="{{$lotto->id}}">
-                <button type="submit" class="h-14 px-6 py-2 font-semibold rounded-xl bg-black hover:bg-gray-800 text-white hover:text-yellow-200">
+                <button type="submit" {{$lotto->quantita == 0 ? 'disabled' : ''}} class="h-14 px-6 py-2 font-semibold rounded-xl bg-black hover:bg-gray-800 text-white hover:text-yellow-200">
                   Add to Cart
                 </button>
               </div>

@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stocks</title>
 
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}"  type='image/x-icon'>
+    
     {{-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"> --}}
     <!-- toast -->
     <link rel="stylesheet" href="{{ asset('css/toast-with-cheese.css')}}">
@@ -67,9 +69,9 @@
                 @endguest
 
                 @auth
-                @php
-                    $dropDownClass = "block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                @endphp
+                    @php
+                        $dropDownClass = "block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                    @endphp
                     <div @click.away="open = false" class="relative z-50" x-data="{ open: false }">
                         <button @click="open = !open" class="{{$menu_a_class}}">
                             <span>
@@ -89,6 +91,12 @@
                             class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
 
                                 <div class="px-2 py-2 text-center bg-white rounded-md shadow">
+                                    @if(auth()->user()->account()->exists())
+                                    <a class="{{$dropDownClass}}" href="{{route('account.edit', auth()->id())}}">Il mio account</a>
+                                    @else
+                                    <a class="{{$dropDownClass}}" href="{{route('account.create')}}">Il mio account</a>
+                                    @endif
+                                    
                                     <a class="{{$dropDownClass}}" href="{{route('orders.index')}}">I miei ordini</a>
                                     @can('erp user')
                                     <a class="{{$dropDownClass}}" href="/erp">Torna su Erp</a>
@@ -105,8 +113,6 @@
                                 </div>
                             </div> 
                     </div> 
-
-                    
                 @endauth
             </nav>
             </div>

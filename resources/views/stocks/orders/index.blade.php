@@ -6,7 +6,7 @@
     <div class="lg:w-3/5">
         <div class="pt-10">
             
-            <h1 class="font-hkbold text-secondary text-2xl pb-3 text-center sm:text-left">I miei ordini</h1>
+            <h1 class="font-semibold  text-2xl pb-3 text-center sm:text-left">I miei ordini</h1>
             <div class="pt-8">
                 @forelse ($orders as $order)
                 
@@ -22,13 +22,13 @@
                     <div class="hidden sm:block">
                         <div class="flex justify-between border-b border-grey-darker">
                             <div class="w-1/2 lg:w-3/5 xl:w-1/2 pl-8 sm:pl-12 pb-2">
-                                <span class="font-hkbold text-secondary text-sm uppercase">Prodotto</span>
+                                <span class="font-semibold  text-sm uppercase">Prodotto</span>
                             </div>
                             <div class="w-1/4 sm:w-1/6 lg:w-1/5 xl:w-1/4 pb-2 text-center sm:mr-2 md:mr-18 lg:mr-12 xl:mr-18">
-                                <span class="font-hkbold text-secondary text-sm uppercase">Quantità</span>
+                                <span class="font-semibold  text-sm uppercase">Quantità</span>
                             </div>
                             <div class="w-1/4 lg:w-1/5 xl:w-1/4 pb-2 text-right md:pr-10">
-                                <span class="font-hkbold text-secondary text-sm uppercase">Prezzo</span>
+                                <span class="font-semibold  text-sm uppercase">Prezzo</span>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <span class="font-hk text-secondary text-base mt-2 ml-4">{{$lotto->codice_articolo}}</span>
+                            <span class="font-semibold  text-base mt-2 ml-4">{{$lotto->codice_articolo}}</span>
                         </div>
 
                         <div class="w-full sm:w-1/5 xl:w-1/4 text-center border-b-0 border-grey-dark pb-0">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="w-1/4 lg:w-1/5 xl:w-1/4 text-right pr-10 xl:pr-10 pb-4">
-                            <span class="font-hk text-secondary">$1045</span>
+                            <span class="font-semibold ">{{$lotto->shop_prezzo}} €</span>
                         </div>
                     </div>
                     @endforeach
@@ -64,8 +64,8 @@
                     <div class="hidden sm:block">
                         <div class="flex justify-end border-b border-grey-darker">
                             <div class="w-1/4 lg:w-1/5 xl:w-1/4 pb-2 text-right md:pr-10">
-                                <p class="font-hkbold text-secondary text-sm uppercase font-bold">Totale</p>
-                                <p class="font-hkbold text-secondary text-sm uppercase font-bold">{{$order->subtotal}}</p>
+                                <p class="font-semibold my-3 uppercase">Totale</p>
+                                <p class="font-semibold my-3 uppercase">{{$order->subtotal}} €</p>
                             </div>
                         </div>
                     </div>
