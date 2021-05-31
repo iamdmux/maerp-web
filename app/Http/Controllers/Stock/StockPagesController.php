@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Stock;
 use Illuminate\Http\Request;
 use App\Models\Magazzino\Lotto;
 use App\Http\Controllers\Controller;
-use Stevebauman\Location\Facades\Location;
+use Torann\GeoIP\Facades\GeoIP;
+// use Stevebauman\Location\Facades\Location;
 
 class StockPagesController extends Controller
 {
@@ -14,23 +15,17 @@ class StockPagesController extends Controller
     }
 
     public function index(){
-
+        
         $lotti = Lotto::where('in_shop', true)->paginate(25);
 
-        // $userlocale = request()->getLocale();
-
-        $position = Location::get();
-        if(isset($position->countryCode)){
-            $userlocale = $position->countryCode;
-        } else {
-            abort(405);
-        }
+        $geo = geoip()->getLocation();
+        $countryCode = $geo->iso_code;
         
 
-        $filteredByCountry = $lotti->filter(function ($value, $key) use ($userlocale) {
+        $filteredByCountry = $lotti->filter(function ($value, $key) use ($countryCode) {
             $nazArray = json_decode($value->nazioni_tranne);
             
-            if(in_array($userlocale, $nazArray)){
+            if(in_array($countryCode, $nazArray)){
                 // tutti tranne (scarto quello nell'array)
                 if($value->visibilita == 'tutti'){
                     return;
@@ -53,7 +48,7 @@ class StockPagesController extends Controller
 
         return view('stocks.index', [
             'lotti' => $filteredByCountry,
-            'countryCode' => $position->countryCode
+            'countryCode' => $countryCode
         ]);
     }
 
