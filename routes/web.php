@@ -30,9 +30,9 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
 
 // STOCK 
-Route::get('/', function(){
-    return redirect()->to('/stocks');
-});
+// Route::get('/', function(){
+//     return redirect()->to('/stocks');
+// });
 
 Route::get('/stocks/', [StockPagesController::class, 'homepage'])->name('stocks.home');
 
