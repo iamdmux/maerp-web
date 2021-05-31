@@ -35,25 +35,26 @@
                     $costoTotale = ($costoTotale+($item->shop_prezzo*$item->pivot->quantita));
                 @endphp
                 <div class="flex flex-row items-center py-3 border-b border-grey-dark justify-between mb-0 md:flex">
-                    <div class="w-1/4 relative">
-                        <form class="absolute left-0 top-0 md:mt-5 -ml-2 md:-ml-7" action="{{route('cart.update', $item->pivot->id)}}" method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <button onclick="return confirm('Vuoi togliere questo prodotto dal carrello?')">
-                                <svg class="w-6 h-6 text-grey-800 mr-2 md:mr-6 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                            </button>
-                        </form>
-                        <div class="w-1/4 text-left">
-                            <div class="w-20 mx-0 relative pr-0 hidden md:block">
-                                <div class="h-20 rounded flex items-center justify-center">
+                    <div class="w-1/4">
+                        <div class="text-left">
+                            <div class="relative w-20 mx-auto pr-0">
+                                <form class="absolute left-0 top-0 md:mt-6 -ml-5 md:-ml-8" action="{{route('cart.update', $item->pivot->id)}}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button onclick="return confirm('Vuoi togliere questo prodotto dal carrello?')">
+                                        <svg class="w-6 h-6 text-grey-800 mr-2 md:mr-6 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    </button>
+                                </form>
+                                <div class="hidden md:flex h-20 rounded items-center justify-center">
                                     <div class="aspect-w-1 aspect-h-1 w-full">
                                         <img src="{{ asset('storage/' . $item->shop_image) }}"
                                             alt="product image"
                                             class="object-cover"/>
                                     </div>
                                 </div>
+                                <span class="text-base mt-2 ml-4">{{$item->codice_articolo}}</span>
                             </div>
-                            <span class="  text-base mt-2 ml-4">{{$item->codice_articolo}}</span>
+                            
                         </div>
                     </div>
                     <div class="w-1/4 text-center border-b-0 border-grey-dark pb-0">
