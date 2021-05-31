@@ -9,6 +9,10 @@
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}"  type='image/x-icon'>
     
     {{-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"> --}}
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet"> 
+
     <!-- toast -->
     <link rel="stylesheet" href="{{ asset('css/toast-with-cheese.css')}}">
     <!-- Styles -->
@@ -17,7 +21,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
 </head>
-<body>
+<body class="font-sans">
     @if(!help_is_production())
     <div class="absolute bg-red-700 p-1 rounded-bl text-xs right-0">
         <p class="block md:hidden">sm</p>

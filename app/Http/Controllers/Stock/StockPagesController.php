@@ -20,37 +20,37 @@ class StockPagesController extends Controller
         // $userlocale = request()->getLocale();
 
         $position = Location::get();
-        $userlocale = $position->countryCode;
-
-        if($position){
-            $filteredByCountry = $lotti->filter(function ($value, $key) use ($userlocale) {
-                $nazArray = json_decode($value->nazioni_tranne);
-                
-                if(in_array($userlocale, $nazArray)){
-                    // tutti tranne (scarto quello nell'array)
-                    if($value->visibilita == 'tutti'){
-                        return;
-                    }
-                    // tutti tranne (scarto quello nell'array)
-                    if($value->visibilita == 'nessuno'){
-                        return $value;
-                    }
-                }
-
-                // i lotti non nell'array
-                if($value->visibilita == 'tutti'){
-                    return $value;
-                }
-                if($value->visibilita == 'nessuno'){
-                    return;
-                }
-
-            });
-        }
-        else {
-            $filteredByCountry = [];
+        if(isset($position->countryCode)){
+            $userlocale = $position->countryCode;
+        } else {
+            abort(405);
         }
         
+
+        $filteredByCountry = $lotti->filter(function ($value, $key) use ($userlocale) {
+            $nazArray = json_decode($value->nazioni_tranne);
+            
+            if(in_array($userlocale, $nazArray)){
+                // tutti tranne (scarto quello nell'array)
+                if($value->visibilita == 'tutti'){
+                    return;
+                }
+                // tutti tranne (scarto quello nell'array)
+                if($value->visibilita == 'nessuno'){
+                    return $value;
+                }
+            }
+
+            // i lotti non nell'array
+            if($value->visibilita == 'tutti'){
+                return $value;
+            }
+            if($value->visibilita == 'nessuno'){
+                return;
+            }
+        });
+        
+
         return view('stocks.index', [
             'lotti' => $filteredByCountry,
         ]);

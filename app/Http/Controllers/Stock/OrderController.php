@@ -58,7 +58,7 @@ class OrderController extends Controller
                 // CREA DOC ORDINE
                 $this->creaFatturazioneOrdine($user, $subtotal, $request->annotazioni, $cart);
 
-                return back()->with('success', "L'ordine è stato creato");
+                return back()->with('success', "L'ordine è stato creato, visualizza l'ordine dal menu a sx, 'i miei ordini'");
             }
 
             return back()->withErrors(['error' => ['Qualcosa è andato storto']]);   

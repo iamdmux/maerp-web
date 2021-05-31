@@ -22,7 +22,7 @@ class CreateBlackboxlavorazioneOperatore extends Migration
             $table->timestamp('alle')->nullable();
             $table->string('tipo');
 
-            $table->foreign('lavorazione_id')->references('id')->on('blackbox_operatori')->onDelete('cascade');
+            $table->foreign('lavorazione_id')->references('id')->on('blackbox_lavorazioni')->onDelete('cascade');
             $table->foreign('operatore_id')->references('id')->on('blackbox_operatori')->onDelete('cascade');
         });
     }

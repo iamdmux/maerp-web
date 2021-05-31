@@ -110,20 +110,19 @@
         <form action="{{route('orders.store')}}" method="POST">
             @csrf
             <div class="bg-gray-200 py-8 px-8 rounded">
-                <h4 class="font-semibold  text-2xl pb-3 text-center sm:text-left">Cart Totals</h4>
+                <h4 class="font-semibold  text-2xl pb-3 text-center sm:text-left">Totale Carrello</h4>
                 <div>
-                    <p class="font-semibold  pt-1 pb-2">Cart Note</p>
-                    <p class="  text-sm pb-4">Special instructions for us</p>
-                    <label for="cart_note"
-                        class="block relative h-0 w-0 overflow-hidden">Cart Note</label>
+                    <p class="font-semibold  pt-1 pb-2">Annotazioni</p>
+                    <p class="  text-sm pb-4">Puoi inserire una nota per l'ordine</p>
+
                     <textarea rows="5"
-                            placeholder="Enter your text"
+                            placeholder="Scrivi qui una nota"
                             class="form-textarea w-full"
                             name="annotazioni"
-                            id="cart_note"></textarea>
+                            ></textarea>
                 </div>
-                <div class="pt-4">
-                    {{-- <p class="font-semibold  pt-1 pb-4">Add Coupon</p> --}}
+                {{--<div class="pt-4">
+                     <p class="font-semibold  pt-1 pb-4">Add Coupon</p> --}}
                     {{-- <div class="flex justify-between">
                         <label for="discount_code"
                             class="block relative h-0 w-0 overflow-hidden">Discount Code</label>
@@ -133,11 +132,11 @@
                             id="discount_code"/>
                         <button class="w-2/5 xl:w-1/3 ml-4 lg:ml-2 xl:ml-4 btn btn-outline btn-sm"
                                 aria-label="Apply button">Apply</button>
-                    </div> --}}
-                </div>
+                    </div> 
+                </div>--}}
                 
                 <div class="mb-12 pt-4">
-                    <p class="font-semibold  pt-1 pb-2">Cart Total</p>
+                    <p class="font-semibold  pt-1 pb-2">Totale Articoli</p>
                     {{-- <div class="border-b border-grey-darker pb-1 flex justify-between">
                         <span class=" ">Subtotal</span>
                         <span class=" ">$236</span>
@@ -148,12 +147,13 @@
                     </div> --}}
                     
                     <div class="pt-3 flex justify-between">
-                        <span class="font-semibold ">Total</span>
-                        <span class="font-semibold ">{{$costoTotale}} €</span>
+                        <span class="font-semibold">Totale</span>
+                        <span class="font-semibold">{{$costoTotale}} €</span>
                     </div>
                 </div>
 
-                <button class="px-6 py-2 font-semibold rounded-xl bg-black text-white hover:bg-gray-800">order now</button>
+                <button class="px-6 py-2 font-semibold rounded-xl bg-black text-white hover:bg-gray-800">Crea l'ordine</button>
+                <p class="mt-8 mb-4 text-sm">L'operazione è definitiva</p>
                 @endif
             </div>
         </form>
