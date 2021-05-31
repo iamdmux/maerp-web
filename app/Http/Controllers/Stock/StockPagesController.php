@@ -53,6 +53,7 @@ class StockPagesController extends Controller
 
         return view('stocks.index', [
             'lotti' => $filteredByCountry,
+            'countryCode' => $position->countryCode
         ]);
     }
 

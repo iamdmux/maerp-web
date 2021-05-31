@@ -2,8 +2,12 @@
 
 @section('content')
 
+@if(auth()->id() == 1)
+<p>countryCode: {{$countryCode}}</p>
+@endif
+
         <div class="flex flex-wrap mt-10 mb-40">
-            
+
             
                 @forelse ($lotti as $lotto)
                 <div class="mr-6 mb-6 w-full lg:w-2/5 border border-grey-dark group shadow-none hover:shadow-lg rounded-lg transition-shadow">
