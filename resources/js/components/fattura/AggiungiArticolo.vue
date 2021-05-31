@@ -62,7 +62,6 @@
             </p>
             <select :disabled="method == 'show'" v-model="iva" name="iva[]" autocomplete="off" class=" rounded-md border-gray-200">
               <option :selected="iva == 22" value="22">22</option>
-              <option :selected="iva == 4" value="4">4</option>
             </select>
           </div>
           <div class="mb-2">

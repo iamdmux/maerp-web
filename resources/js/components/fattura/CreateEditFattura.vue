@@ -632,7 +632,7 @@ export default {
     const includi_note_pagamento = ref(old.value.includi_note_pagamento ? old.value.includi_note_pagamento : false)
     const note_pagamento = ref(old.value.note_pagamento ? old.value.note_pagamento : '')
     const metodo_pagamento = ref(old.value.metodo_pagamento ? old.value.metodo_pagamento : 'bonifico')
-    const lingua =          ref(old.value.lingua ? old.value.lingua : 'ita')
+    const lingua =          ref(old.value.lingua ? old.value.lingua : 'it')
     const valuta =          ref(old.value.valuta ? old.value.valuta : 'euro')
 
     // ddt

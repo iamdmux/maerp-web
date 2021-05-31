@@ -18,7 +18,6 @@
                             status: {{$order->status}}
                         </p>
                     </div>
-                    @foreach ($order->items as $lotto)
                     <div class="hidden sm:block">
                         <div class="flex justify-between border-b border-grey-darker">
                             <div class="w-1/2 lg:w-3/5 xl:w-1/2 pl-8 sm:pl-12 pb-2">
@@ -32,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-
+                    @foreach ($order->items as $lotto)
                     <div class="py-3 border-b border-grey-dark flex-row justify-between items-center mb-0 hidden md:flex">
                         <div class="w-1/2 lg:w-3/5 xl:w-1/2 flex flex-row items-center border-b-0 border-grey-dark pt-0 pb-0 text-left">
                             <div class="w-20 mx-0 relative pr-0">

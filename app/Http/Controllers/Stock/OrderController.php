@@ -67,8 +67,6 @@ class OrderController extends Controller
 
     protected function creaFatturazioneOrdine($user, $subtotal, $annotazioni, $cart){
 
-
-
     $fatturaOrdine = Fattura::create([
             'tipo_documento' => 'ordine',
             'cliente_id' => $user->account->id,
@@ -92,7 +90,7 @@ class OrderController extends Controller
                     'codice' => $lotto->codice_articolo,
                     'quantita' => $item->pivot->quantita,
                     'unita_di_misura' => $lotto->unita_di_misura,
-                    'descrizione' => $lotto->descrizione,
+                    // 'descrizione' => $lotto->descrizione,
         
                     'prezzo_netto' => $lotto->shop_prezzo,
                     'iva' => 22,

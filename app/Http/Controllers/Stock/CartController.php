@@ -63,7 +63,10 @@ class CartController extends Controller
    }
 
    public function update(Request $request, $pivotCartId){
-
+    //
+    // togli dal carrello
+    //
+    
     $cartItem = Cart::findOrFail($pivotCartId);
 
     // update lotto quantità

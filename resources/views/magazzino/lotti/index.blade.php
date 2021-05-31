@@ -59,12 +59,12 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->kg}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                                 @foreach ($prenotatoList as $status)
-                                    <p class="{{$loop->iteration > $lotto->quantita ? 'line-through' : ''}}">
+                                    <p>
                                         {{$loop->iteration}} - {{$status->name}}
                                     </p>
                                 @endforeach
 
-                                @if($prenotatoList->count() < $lotto->quantita)
+                                @if($lotto->quantita > 0)
                                 <div>
                                     <form action="{{route('add.status.lotto', $lotto->id)}}" method="POST">
                                         @csrf
@@ -76,12 +76,12 @@
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                                 @foreach ($vendutoList as $status)
-                                    <p class="{{$loop->iteration > $lotto->quantita ? 'line-through' : ''}}">
+                                    <p>
                                         {{$loop->iteration}} - {{$status->name}}
                                     </p>
                                 @endforeach
 
-                                @if($vendutoList->count() < $lotto->quantita)
+                                @if($prenotatoList->count() && ($vendutoList->count() < $prenotatoList->count()) )
                                 <div>
                                     <form action="{{route('add.status.lotto', $lotto->id)}}" method="POST">
                                         @csrf

@@ -67,7 +67,7 @@ export default {
         const nazioniFiltered = ref([])
         const nazioneSigla = ref('')
         const okSelect = ref(false)
-        const tipo_visibilità = ref(props.oldTipoVisibilita ? props.oldTipoVisibilita : 'tutti')
+        const tipo_visibilità = ref('tutti')
         const lista_nazioni = ref([])
         
         const isJson = (str) => {
@@ -94,7 +94,7 @@ export default {
             })
         }
 
-        if(props.oldVisibilita){
+        if(props.oldVisibilita.length){
             tipo_visibilità.value = props.oldVisibilita
         }
 

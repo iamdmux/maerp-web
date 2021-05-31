@@ -222,7 +222,6 @@
         <tr>
           <td align="right">Iva 22% su &#8364; {{$fattura->totaleImponibile}}</td>
           <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{number_format($fattura->totaleIva, 2)}}</td>
-          
         </tr>
         
         @if($fattura->includi_marca_da_bollo)

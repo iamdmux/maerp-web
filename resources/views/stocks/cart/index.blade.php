@@ -29,9 +29,12 @@
                     
                 </div>
                 @endif
-                @forelse ($cart as $item)
                 @php
                     $costoTotale = 0;
+                @endphp
+                
+                @forelse ($cart as $item)
+                @php
                     $costoTotale = ($costoTotale+($item->shop_prezzo*$item->pivot->quantita));
                 @endphp
                 <div class="py-3 border-b border-grey-dark flex-row justify-between items-center mb-0 md:flex">
@@ -79,6 +82,9 @@
                             </div>
 
                         </div>
+                    </div>
+                    <div class="w-1/4 lg:w-1/5 xl:w-1/4 text-right pr-10 xl:pr-10 pb-4">
+                        <span class="font-hk ">{{$item->shop_prezzo}}</span>
                     </div>
                     <div class="w-1/4 lg:w-1/5 xl:w-1/4 text-right pr-10 xl:pr-10 pb-4">
                         <span class="font-hk ">{{$item->shop_prezzo*$item->pivot->quantita}}</span>

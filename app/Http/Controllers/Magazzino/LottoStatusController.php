@@ -19,12 +19,11 @@ class LottoStatusController extends Controller
         if(!$request->tipo == 'prenotato' || !$request->tipo == 'venduto'){
             return back()->withErrors(['error' => 'Qualcosa è andato storto. Si prega di riprovare'])->withInput();  
         }
-
-
+        
         $prenotatoCount = $lotto->status->filter(function ($item) {
             return $item->pivot->tipo == 'prenotato';
         })->count();
-
+        
         $vendutoCount = $lotto->status->filter(function ($item) {
             return $item->pivot->tipo == 'venduto';
         })->count();
@@ -32,17 +31,22 @@ class LottoStatusController extends Controller
 
         // Prenotato
         if($request->tipo == 'prenotato'){
-            if($prenotatoCount >= $lotto->quantita){
-                return back()->withErrors(['error' => 'Qualcosa è andato storto. Si prega di riprovare'])->withInput();
+            
+            if($lotto->quantita <= 0){
+                return back()->withErrors(['error' => 'Qualcosa è andato storto. Si prega di riprovare 1'])->withInput();
             } else {
                 $lotto->status()->attach(auth()->id(), ['tipo' => $request->tipo]);
+                // update lotto quantità
+                Lotto::cambiaQuantita($lotto, 1, 'remove');
             }
         }
 
         // Venduto
+        // guardo se c'è stata prima una prenotazione
+
         if($request->tipo == 'venduto'){
-            if($vendutoCount >= $lotto->quantita){
-                return back()->withErrors(['error' => 'Qualcosa è andato storto. Si prega di riprovare'])->withInput();
+            if($vendutoCount >= $prenotatoCount){
+                return back()->withErrors(['error' => 'Qualcosa è andato storto. Si prega di riprovare 2'])->withInput();
             } else {
                 $lotto->status()->attach(auth()->id(), ['tipo' => $request->tipo]);
             }
@@ -56,8 +60,17 @@ class LottoStatusController extends Controller
         $row = LottoStatus::find($pivotId);
 
         if($row->user_id == auth()->id() || auth()->user()->hasRole('admin')){
-            $row->delete();
-            return back()->with('success', 'il valore prenotato/venduto è stato modificato ');
+            $tipo = $row->tipo;
+
+            if($row->delete()){
+                if($tipo == 'prenotato'){
+                    // update lotto quantità
+                    $lotto = Lotto::findOrFail($row->lotto_id);
+                    Lotto::cambiaQuantita($lotto, 1, 'add');
+                }
+            };
+
+            return back()->with('success', "il valore $tipo è stato modificato ");
         } else {
             return back()->with('success', 'Qualcosa è andato storto');
         }

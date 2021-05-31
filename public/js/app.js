@@ -22991,7 +22991,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var includi_note_pagamento = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_1__.ref)(old.value.includi_note_pagamento ? old.value.includi_note_pagamento : false);
     var note_pagamento = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_1__.ref)(old.value.note_pagamento ? old.value.note_pagamento : '');
     var metodo_pagamento = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_1__.ref)(old.value.metodo_pagamento ? old.value.metodo_pagamento : 'bonifico');
-    var lingua = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_1__.ref)(old.value.lingua ? old.value.lingua : 'ita');
+    var lingua = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_1__.ref)(old.value.lingua ? old.value.lingua : 'it');
     var valuta = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_1__.ref)(old.value.valuta ? old.value.valuta : 'euro'); // ddt
 
     var documento_di_trasporto = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_1__.ref)(old.value.documento_di_trasporto ? old.value.documento_di_trasporto : false);
@@ -23304,7 +23304,7 @@ __webpack_require__.r(__webpack_exports__);
     var nazioniFiltered = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var nazioneSigla = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var okSelect = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
-    var tipo_visibilità = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_0__.ref)(props.oldTipoVisibilita ? props.oldTipoVisibilita : 'tutti');
+    var tipo_visibilità = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_0__.ref)('tutti');
     var lista_nazioni = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
 
     var isJson = function isJson(str) {
@@ -23334,7 +23334,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
-    if (props.oldVisibilita) {
+    if (props.oldVisibilita.length) {
       tipo_visibilità.value = props.oldVisibilita;
     }
 
@@ -24389,11 +24389,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     selected: $setup.iva == 22,
     value: "22"
   }, "22", 8
-  /* PROPS */
-  , ["selected"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
-    selected: $setup.iva == 4,
-    value: "4"
-  }, "4", 8
   /* PROPS */
   , ["selected"])], 8
   /* PROPS */
