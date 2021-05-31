@@ -30,11 +30,11 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
 
 // STOCK 
-// Route::get('/', function(){
-//     return redirect()->to('/stocks');
-// });
+Route::get('/', function(){
+    return redirect()->to('/stocks');
+});
 
-Route::get('/stocks/', [StockPagesController::class, 'homepage'])->name('stocks.home');
+Route::get('/stocks', [StockPagesController::class, 'homepage'])->name('stocks.home');
 
 Route::resource('/stocks/account', AccountController::class, ['except' => ['index', 'show', 'destroy']])->middleware('auth');
 
@@ -49,7 +49,7 @@ Route::resource('/stocks/orders', OrderController::class)->middleware('auth');
 // ERP
 
 //axios.defaults.baseURL = '/erp/'; -> in app.js
-Route::group(['prefix' => 'erp', 'middleware' => ['auth']], function(){
+Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], function(){
 
     Route::group(['middleware' => ['can:dashboard']], function () {
         
