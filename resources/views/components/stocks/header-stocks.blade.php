@@ -31,7 +31,7 @@
     
     <div class="w-full">
         <div class="container mx-auto">
-            <div x-data="{ open: false }" class="flex flex-col mx-auto md:items-center md:justify-between md:flex-row">
+            <div x-data="{ open: false }" class="flex flex-col mx-auto px-2 md:items-center md:justify-between md:flex-row">
             <div class="py-1 flex flex-row items-center justify-between">
                 <a href="/stocks" class="text-lg font-semibold ">
                     <img src="{{asset('img/logo-mea.png')}}" class="w-24 h-24 my-3" alt="logo">
@@ -55,11 +55,13 @@
                 
                 {{-- cart --}}
                 @auth
-                <a class="relative {{$menu_a_class}}" href="{{route('cart.index')}}">
+                <a class="{{$menu_a_class}}" href="{{route('cart.index')}}">
+                    <div class="relative mx-auto w-8">
                     @if($cartItems)
-                        <div class="flex items-center justify-center absolute left-0 ml-3 -mt-4 w-4 h-4 rounded-full bg-yellow-300">{{$cartItems}}</div>
+                        <div class="flex items-center justify-center absolute left-0 top-0 -ml-2 -mt-3 w-5 h-4 rounded-full bg-yellow-300">{{$cartItems}}</div>
                     @endif
                     <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
                 </a>
                 @endauth
 

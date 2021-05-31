@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="flex flex-col-reverse lg:flex-row justify-between pb-16 sm:pb-20 lg:pb-24">
+<div class="flex px-4 flex-col-reverse lg:flex-row justify-between pb-16 sm:pb-20 lg:pb-24">
     <div class="lg:w-3/5">
         <div class="pt-10">
             
@@ -18,54 +18,58 @@
                             status: {{$order->status}}
                         </p>
                     </div>
-                    <div class="hidden sm:block">
-                        <div class="flex justify-between border-b border-grey-darker">
-                            <div class="w-1/2 lg:w-3/5 xl:w-1/2 pl-8 sm:pl-12 pb-2">
-                                <span class="font-semibold  text-sm uppercase">Prodotto</span>
+                    <div class="block px-4">
+                        <div class="flex text-xs text-center py-3 md:text-sm justify-between border-b border-grey-darker">
+                            <div class="w-1/4">
+                                <span class="font-semibold uppercase">Prodotto</span>
                             </div>
-                            <div class="w-1/4 sm:w-1/6 lg:w-1/5 xl:w-1/4 pb-2 text-center sm:mr-2 md:mr-18 lg:mr-12 xl:mr-18">
-                                <span class="font-semibold  text-sm uppercase">Quantità</span>
+                            <div class="w-1/4">
+                                <span class="font-semibold uppercase">Quantità</span>
                             </div>
-                            <div class="w-1/4 lg:w-1/5 xl:w-1/4 pb-2 text-right md:pr-10">
-                                <span class="font-semibold  text-sm uppercase">Prezzo</span>
+                            <div class="w-1/4">
+                                <span class="font-semibold uppercase">Prezzo</span>
+                            </div>
+                            <div class="w-1/4">
+                                <span class="font-semibold uppercase">Totale Articolo</span>
                             </div>
                         </div>
                     </div>
                     @foreach ($order->items as $lotto)
-                    <div class="py-3 border-b border-grey-dark flex-row justify-between items-center mb-0 hidden md:flex">
-                        <div class="w-1/2 lg:w-3/5 xl:w-1/2 flex flex-row items-center border-b-0 border-grey-dark pt-0 pb-0 text-left">
-                            <div class="w-20 mx-0 relative pr-0">
-                                <div class="h-20 rounded flex items-center justify-center">
-                                    <div class="aspect-w-1 aspect-h-1 w-full">
-                                        <img src="{{ asset('storage/' . $lotto->shop_image) }}"
-                                            alt="product image"
-                                            class="object-cover"/>
+                        <div class="flex flex-row items-center py-3 border-b border-grey-dark justify-between mb-0 md:flex">
+                        <div class="w-1/4 relative">
+                            <div class="w-1/4 text-left">
+                                <div class="w-20 mx-0 relative pr-0 hidden md:block">
+                                    <div class="h-20 rounded flex items-center justify-center">
+                                        <div class="aspect-w-1 aspect-h-1 w-full">
+                                            <img src="{{ asset('storage/' . $lotto->shop_image) }}"
+                                                alt="product image"
+                                                class="object-cover"/>
+                                        </div>
                                     </div>
                                 </div>
+                                <span class="text-base mt-2 ml-4">{{$lotto->codice_articolo}}</span>
                             </div>
-                            <span class="font-semibold  text-base mt-2 ml-4">{{$lotto->codice_articolo}}</span>
                         </div>
-
-                        <div class="w-full sm:w-1/5 xl:w-1/4 text-center border-b-0 border-grey-dark pb-0">
+                        <div class="w-1/4 text-center border-b-0 border-grey-dark pb-0">
                             <div class="mx-auto mr-8 xl:mr-4">
                                 <div class="flex justify-center">
                                     {{$lotto->pivot->quantita}}
                                 </div>
-
                             </div>
                         </div>
-                        <div class="w-1/4 lg:w-1/5 xl:w-1/4 text-right pr-10 xl:pr-10 pb-4">
-                            <span class="font-semibold ">{{$lotto->shop_prezzo}} €</span>
+                        <div class="w-1/4 text-center">
+                            <span>{{$lotto->shop_prezzo}}</span>
+                        </div>
+                        <div class="w-1/4 text-center">
+                            <span>{{$lotto->shop_prezzo*$lotto->pivot->quantita}}</span>
                         </div>
                     </div>
                     @endforeach
                     {{-- totale --}}
-                    <div class="hidden sm:block">
-                        <div class="flex justify-end border-b border-grey-darker">
-                            <div class="w-1/4 lg:w-1/5 xl:w-1/4 pb-2 text-right md:pr-10">
-                                <p class="font-semibold my-3 uppercase">Totale</p>
-                                <p class="font-semibold my-3 uppercase">{{$order->subtotal}} €</p>
-                            </div>
+                    <div class="px-8 text-right">
+                        <div class="border-b border-grey-darker">
+                            <p class="font-semibold my-3 uppercase">Totale</p>
+                            <p class="font-semibold my-3 uppercase">{{$order->subtotal}} €</p>
                         </div>
                     </div>
 
@@ -75,11 +79,12 @@
             </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center pt-8 sm:pt-12">
+        <div class="flex flex-wrap justify-between mt-16">
             <a href="{{route('stocks.index')}}"
-               class="px-6 py-2 font-semibold rounded-xl border border-black hover:bg-gray-200">torna su stocks</a>
+               class="mb-4 px-6 py-2 font-semibold rounded-xl border border-black hover:bg-gray-200">torna su stocks
+            </a>
             <a href="{{route('orders.index')}}"
-                class="px-6 py-2 font-semibold rounded-xl bg-black text-white hover:bg-gray-800">Aggiorna pagina ordine
+                class="mb-4 px-6 py-2 font-semibold rounded-xl bg-black text-white hover:bg-gray-800">Aggiorna pagina ordine
             </a>
         </div>
     </div>
