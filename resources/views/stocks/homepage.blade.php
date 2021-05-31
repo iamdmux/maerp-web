@@ -11,7 +11,7 @@
             <div class="glide__slides">
                 <div class="glide__slide">
                     <div class="bg-left sm:bg-center bg-no-repeat bg-gray-300 bg-cover rounded"
-                    style="background-image:url(/stocks/home/hero-slide-01.jpg)">
+                    style="background-image:url(/stocks-media/home/hero-slide-01.jpg)">
                         <div class="py-48 px-5 sm:px-10 md:px-12 xl:px-24 text-center sm:text-left sm:w-5/6 lg:w-3/4 xl:w-2/3" style="height: 528px;">
                             <h3 class="font-butler font-medium  text-3xl sm:text-4xl md:text-5xl lg:text-6xl">New Men’s <br/> Outdoor Collection</h3>
                             <a href="#" class="absolute mt-8 py-3 px-6 bg-black text-white rounded">Know more</a>
@@ -21,7 +21,7 @@
                 
                 <div class="glide__slide">
                     <div class="bg-left sm:bg-center bg-no-repeat bg-gray-300 bg-cover rounded"
-                    style="background-image:url(/stocks/home/hero-slide-02.jpg)">
+                    style="background-image:url(/stocks-media/home/hero-slide-02.jpg)">
                         <div class="py-48 px-5 sm:px-10 md:px-12 xl:px-24 text-center sm:text-left sm:w-5/6 lg:w-3/4 xl:w-2/3" style="height: 528px;">
                             <h3 class=" font-butler font-medium  text-3xl sm:text-4xl md:text-5xl lg:text-6xl">Blake by <br/> 30% off</h3>
                             <a href="#" class="absolute mt-8 py-3 px-6 bg-black text-white rounded">Know more</a>
@@ -31,7 +31,7 @@
                 
                 <div class="glide__slide">
                     <div class="bg-left sm:bg-center bg-no-repeat bg-gray-300 bg-cover rounded"
-                    style="background-image:url(/stocks/home/hero-slide-03.jpg)">
+                    style="background-image:url(/stocks-media/home/hero-slide-03.jpg)">
                         <div class="py-48 px-5 sm:px-10 md:px-12 xl:px-24 text-center sm:text-left sm:w-5/6 lg:w-3/4 xl:w-2/3" style="height: 528px;">
                             <h3 class=" font-butler font-medium  text-3xl sm:text-4xl md:text-5xl lg:text-6xl">Hoodie your way! <br/> For Men</h3>
                             <a href="#" class="absolute mt-8 py-3 px-6 bg-black text-white rounded">Know more</a>
@@ -41,7 +41,7 @@
                 
                 <div class="glide__slide">
                     <div class="bg-left sm:bg-center bg-no-repeat bg-gray-300 bg-cover rounded" 
-                    style="background-image:url(/stocks/home/hero-slide-04.jpg)">
+                    style="background-image:url(/stocks-media/home/hero-slide-04.jpg)">
                         <div class="py-48 px-5 sm:px-10 md:px-12 xl:px-24 text-center sm:text-left sm:w-5/6 lg:w-3/4 xl:w-2/3" style="height: 528px;">
                             <h3 class=" font-butler font-medium  text-3xl sm:text-4xl md:text-5xl lg:text-6xl">Match and play Women’s Dresses</h3>
                             <a href="#" class="absolute mt-8 py-3 px-6 bg-black text-white rounded">Know more</a>
@@ -51,7 +51,7 @@
                 
                 <div class="glide__slide">
                     <div class="bg-left sm:bg-center bg-no-repeat bg-gray-300 bg-cover rounded"
-                    style="background-image:url(/stocks/home/hero-slide-05.jpg)">
+                    style="background-image:url(/stocks-media/home/hero-slide-05.jpg)">
                         <div class="py-48 px-5 sm:px-10 md:px-12 xl:px-24 text-center sm:text-left sm:w-5/6 lg:w-3/4 xl:w-2/3" style="height: 528px;">
                             <h3 class=" font-butler font-medium  text-3xl sm:text-4xl md:text-5xl lg:text-6xl">Back to school, <br/> the stylish way</h3>
                             <a href="#" class="absolute mt-8 py-3 px-6 bg-black text-white rounded">Know more</a>
@@ -84,7 +84,7 @@
     <div class="flex flex-col md:flex-row py-20 md:py-24">
         <div class="w-4/5 sm:w-1/2 md:w-2/5 lg:w-1/3 mx-auto lg:mx-0 flex md:flex-col lg:flex-row items-start md:items-center justify-start md:justify-center md:text-center lg:text-left md:border-r-2 last:border-r-0 md:border-primary-lighter pb-3 md:pb-0">
             <div>
-                <img src="{{asset('stocks/home/icon-shipping.svg')}}"
+                <img src="{{asset('stocks-media/home/icon-shipping.svg')}}"
                     class="w-12 h-12 object-contain object-center"
                     alt="icon"/>
             </div>
@@ -98,7 +98,7 @@
         
         <div class="w-4/5 sm:w-1/2 md:w-2/5 lg:w-1/3 mx-auto lg:mx-0 flex md:flex-col lg:flex-row items-start md:items-center justify-start md:justify-center md:text-center lg:text-left md:border-r-2 last:border-r-0 md:border-primary-lighter pb-3 md:pb-0">
             <div>
-                <img src="{{asset('stocks/home/icon-support.svg')}}"
+                <img src="{{asset('stocks-media/home/icon-support.svg')}}"
                     class="w-12 h-12 object-contain object-center"
                     alt="icon"/>
             </div>
@@ -112,7 +112,7 @@
         
         <div class="w-4/5 sm:w-1/2 md:w-2/5 lg:w-1/3 mx-auto lg:mx-0 flex md:flex-col lg:flex-row items-start md:items-center justify-start md:justify-center md:text-center lg:text-left md:border-r-2 last:border-r-0 md:border-primary-lighter pb-3 md:pb-0">
             <div>
-                <img src="{{asset('stocks/home/icon-return.svg')}}"
+                <img src="{{asset('stocks-media/home/icon-return.svg')}}"
                     class="w-12 h-12 object-contain object-center"
                     alt="icon"/>
             </div>
@@ -134,7 +134,7 @@
         </div>
         <div class="mt-6 sm:mt-10 lg:mt-0">
             <div class="px-10 h-56 sm:h-80 bg-left sm:bg-center bg-no-repeat bg-cover rounded relative"
-                 style="background-image:url(/stocks/home/collection-01.jpg)">
+                 style="background-image:url(/stocks-media/home/collection-01.jpg)">
                 <div class="w-2/3 absolute inset-0 px-6 md:px-10 py-14 ">
                     <h3 class="font-hk font-semibold  text-xl sm:text-2xl md:text-3xl">Passion Pearl <br/> Collection</h3>
                     <a href="#"
@@ -149,7 +149,7 @@
             </div>
         </div>
         <div class="bg-left sm:bg-center bg-no-repeat bg-cover rounded relative h-56 sm:h-80 lg:h-68"
-             style="background-image:url(/stocks/home/collection-02.jpg)">
+             style="background-image:url(/stocks-media/home/collection-02.jpg)">
             <div class="md:w-2/3 absolute inset-0 px-6 md:px-10 py-14">
                 <h3 class="font-hk font-semibold  text-xl sm:text-2xl md:text-3xl">Hoodie your way! For Men</h3>
                 <a href="#"
@@ -163,7 +163,7 @@
             </div>
         </div>
         <div class="px-10 lg:row-span-2 bg-left sm:bg-center bg-no-repeat bg-cover rounded relative h-56 sm:h-80 lg:h-auto"
-             style="background-image:url(/stocks/home/collection-shoes.jpg)">
+             style="background-image:url(/stocks-media/home/collection-shoes.jpg)">
             <div class="w-2/3 absolute inset-0 px-6 md:px-10 py-14 sm:py-16">
                 <h3 class="font-hk font-semibold  text-xl sm:text-2xl md:text-3xl">
                     W.W. Shoes <br/> by Zara
@@ -179,7 +179,7 @@
             </div>
         </div>
         <div class="bg-left sm:bg-center bg-no-repeat bg-cover rounded relative h-56 sm:h-80 lg:h-68"
-             style="background-image:url(/stocks/home/collection-03.jpg)">
+             style="background-image:url(/stocks-media/home/collection-03.jpg)">
             <div class="w-2/3 absolute inset-0 px-6 md:px-10 py-14">
                 <h3 class="font-hk font-semibold  text-xl sm:text-2xl md:text-3xl">Anabelle Purses</h3>
                 <a href="#"
@@ -198,27 +198,27 @@
         <h4 class="font-hk text-xl  uppercase text-center">Alcuni dei nostri marchi</h4>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 pt-8 gap-5">
             
-            <img src="{{asset('stocks/home/logo-Benetton.png')}}"
+            <img src="{{asset('stocks-media/home/logo-Benetton.png')}}"
                 alt="brand logo"
                 class="h-24 w-auto mb-8 sm:mb-10 lg:mb-0"/>
             
-            <img src="{{asset('stocks/home/logo-Bershka.png')}}"
+            <img src="{{asset('stocks-media/home/logo-Bershka.png')}}"
                 alt="brand logo"
                 class="h-24 w-auto mb-8 sm:mb-10 lg:mb-0"/>
             
-            <img src="{{asset('stocks/home/logo-desigual.png')}}"
+            <img src="{{asset('stocks-media/home/logo-desigual.png')}}"
                 alt="brand logo"
                 class="h-24 w-auto mb-8 sm:mb-10 lg:mb-0"/>
             
-            <img src="{{asset('stocks/home/logo-Diesel.png')}}"
+            <img src="{{asset('stocks-media/home/logo-Diesel.png')}}"
                 alt="brand logo"
                 class="h-24 w-auto mb-8 sm:mb-10 lg:mb-0"/>
             
-            <img src="{{asset('stocks/home/logo-guess.png')}}"
+            <img src="{{asset('stocks-media/home/logo-guess.png')}}"
                 alt="brand logo"
                 class="h-24 w-auto mb-8 sm:mb-10 lg:mb-0"/>
             
-            <img src="{{asset('stocks/home/logo-hem.png')}}"
+            <img src="{{asset('stocks-media/home/logo-hem.png')}}"
                 alt="brand logo"
                 class="h-24 w-auto mb-8 sm:mb-10 lg:mb-0"/>
         </div>
