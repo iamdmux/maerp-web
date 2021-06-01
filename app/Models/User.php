@@ -52,10 +52,10 @@ class User extends Authenticatable
     
         // auto-sets values on creation
         static::creating(function ($user) {
-            $uniqid = static::createUid($this->SLUGLENGTH);
+            $uniqid = static::createUid(self::SLUGLENGTH);
 
             do {
-                $uniqid = static::createUid($this->SLUGLENGTH);
+                $uniqid = static::createUid(self::SLUGLENGTH);
             }
             while ($uniqid == self::where('slug', $uniqid)->exists());
             $user->slug = $uniqid;
