@@ -52,10 +52,10 @@
                     $menu_a_class = "w-full md:w-auto text-center md:text-left self-start px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg  hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                 @endphp
 
-                <a class="{{$menu_a_class}}" href="/stocks">Home</a>
-                <a class="{{$menu_a_class}}" href="{{route('stocks.index')}}">Stocks</a>
-                <a class="{{$menu_a_class}}" href="#">About</a>
-                <a class="{{$menu_a_class}}" href="#">Contact</a>
+                <a class="{{$menu_a_class}} {{url()->current() == route('stocks.home') ? 'bg-gray-100' : ''}}" href="{{route('stocks.home')}}">Home</a>
+                <a class="{{$menu_a_class}} {{url()->current() == route('stocks.index') ? 'bg-gray-100' : ''}}" href="{{route('stocks.index')}}">Stocks</a>
+                <a class="{{$menu_a_class}} {{url()->current() == route('stocks.company') ? 'bg-gray-100' : ''}}" href="{{route('stocks.company')}}">Chi siamo</a>
+                <a class="{{$menu_a_class}} {{url()->current() == route('stocks.contacts') ? 'bg-gray-1d00' : ''}}" href="{{route('stocks.contacts')}}">Contatti</a>
                 
                 {{-- cart --}}
                 @auth

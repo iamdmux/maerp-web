@@ -54,8 +54,50 @@ class StockPagesController extends Controller
 
     public function show($id){
         $lotto = Lotto::with('marca')->findOrFail($id);
+
+        $geo = geoip()->getLocation();
+        $countryCode = $geo->iso_code;
+
+
+        $nazArray = json_decode($lotto->nazioni_tranne);
+
+        
+        if($lotto->visibilita == 'tutti'){
+            // tutti tranne (scarto quello nell'array)
+            if(in_array($countryCode, $nazArray)){
+                abort(401);
+            }
+        }
+
+        if($lotto->visibilita == 'nessuno'){
+            // nessumo ma includi ..
+            if(!in_array($countryCode, $nazArray)){
+                abort(401);
+            }
+        }
+
         return view('stocks.show', [
             'lotto' => $lotto
         ]);
     }
+
+    public function contacts(){
+        return view('stocks.contacts');
+    }
+
+    public function contactSendEmail(Request $request){
+        $request->validate([
+            'nome' => ('required|max:255'),
+            'email' => ('required|email'),
+            'oggetto' => ('required||max:255'),
+            'messaggio' => ('required||max:10000'),
+        ]);
+    }
+
+
+    public function company(){
+        return view('stocks.company');
+    }
+
+   
 }

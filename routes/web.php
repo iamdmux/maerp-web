@@ -44,7 +44,8 @@ Route::get('stocks/lotti/{id}', [StockPagesController::class, 'show'])->name('st
 Route::resource('stocks/cart', CartController::class)->middleware('auth');
 Route::resource('stocks/orders', OrderController::class)->middleware('auth');
 
-
+Route::get('contacts', [StockPagesController::class, 'contacts'])->name('stocks.contacts');
+Route::get('company', [StockPagesController::class, 'company'])->name('stocks.company');
 
 // ERP
 
