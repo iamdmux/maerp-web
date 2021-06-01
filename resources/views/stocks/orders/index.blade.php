@@ -2,6 +2,18 @@
 
 @section('content')
 
+            {{-- errors message --}}
+            @if ($errors->any())
+                <div class="w-full text-white rounded" style="background-color: #b79871;">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li class="px-6 py-3 my-3">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            
 <div class="flex px-4 flex-col-reverse lg:flex-row justify-between pb-16 sm:pb-20 lg:pb-24">
     <div class="lg:w-3/5">
         <div class="pt-10">   

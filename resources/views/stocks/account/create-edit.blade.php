@@ -52,7 +52,7 @@
     <div class="mt-8 flex flex-wrap {{$rowMargin}} border-t">
         <div class="{{$inputSpace}}">
             <p class="{{$labelClass}}">
-                denominazione
+                denominazione *
             </p>
             <input class="placeholder-red-300" {{$disable}} required autocomplete="off" type="text" name="denominazione" placeholder="ragione sociale"
             value="{{old('denominazione') ? old('denominazione') : (($edit || $show) ? $userAccount->denominazione : '')}}">
@@ -103,7 +103,7 @@
     <div class="flex flex-wrap {{$rowMargin}} border-t">
         <div class="{{$inputSpace}}">
             <p class="{{$labelClass}}">
-                email
+                email *
             </p>
             <input {{$disable}} autocomplete="off" type="email" name="email" placeholder="email"
             value="{{old('email') ? old('email') : (($edit || $show) ? $userAccount->email : '')}}">
@@ -127,7 +127,7 @@
     <div class="flex flex-wrap {{$rowMargin}} border-t">
         <div class="{{$inputSpace}}">
             <p class="{{$labelClass}}">
-                partita iva
+                partita iva *
             </p>
             <input {{$disable}} autocomplete="off" type="text" name="partita_iva" placeholder="partita_iva"
             value="{{old('partita_iva') ? old('partita_iva') : (($edit || $show) ? $userAccount->partita_iva : '')}}">
@@ -155,7 +155,7 @@
 
         <div class="{{$inputSpace}}">
             <p class="{{$labelClass}}">
-                indirizzo
+                indirizzo *
             </p>
             <input {{$disable}} autocomplete="off" type="text" name="indirizzo" placeholder="indirizzo"
             value="{{old('indirizzo') ? old('indirizzo') : (($edit || $show) ? $userAccount->indirizzo : '')}}">
@@ -163,7 +163,7 @@
 
         <div class="{{$inputSpace}}">
             <p class="{{$labelClass}}">
-                citta
+                citta *
             </p>
             <input {{$disable}} autocomplete="off" type="text" name="citta" placeholder="citta"
             value="{{old('citta') ? old('citta') : (($edit || $show) ? $userAccount->citta : '')}}">
@@ -171,7 +171,7 @@
 
         <div class="{{$inputSpace}}">
             <p class="{{$labelClass}}">
-                cap
+                cap *
             </p>
             <input {{$disable}} autocomplete="off" type="text" name="cap" placeholder="cap"
             value="{{old('cap') ? old('cap') : (($edit || $show) ? $userAccount->cap : '')}}">
