@@ -15,10 +15,14 @@ class FatturaAPI extends Controller
         ]);
 
         if (auth()->user()->getRoleNames()[0] == 'agente'){
-            return auth()->user()->clienti()->where('denominazione', 'like', '%' . $data['query_cliente'] . '%')
-            ->orWhere('partita_iva', 'like', '%' . $data['query_cliente'] . '%')
-            ->limit(10)
-            ->get();
+            return auth()->user()->clienti()
+                ->where('clienti.user_id', auth()->id())
+                ->where(function ($query) use ($data) {
+                    $query->where('denominazione', 'like', '%' . $data['query_cliente'] . '%')
+                            ->orWhere('partita_iva', 'like', '%' . $data['query_cliente'] . '%');
+                })
+                ->limit(10)
+                ->get();
         } else {
             return Cliente::where('denominazione', 'like', '%' . $data['query_cliente'] . '%')
             ->orWhere('partita_iva', 'like', '%' . $data['query_cliente'] . '%')

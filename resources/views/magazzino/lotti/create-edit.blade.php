@@ -315,7 +315,7 @@
         </div>
     </div>
 
-
+@can('modificare-lotti')
 <form action="{{route('lotti.destroy', [$lotto->id])}}" method="POST">
     @csrf
     @method('DELETE')
@@ -323,6 +323,8 @@
         cancella lotto
     </button>
 </form>
+@endcan
+
 @endif
 
 

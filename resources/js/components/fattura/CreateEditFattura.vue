@@ -12,7 +12,7 @@
   <label class="p-3 mt-2 mr-2 bg-gray-100 rounded">ordine
     <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="ordine">
   </label>
-  <label v-if="canCreareFatture" class="p-3 mt-2 mr-2 bg-gray-100 rounded">proforma
+  <label class="p-3 mt-2 mr-2 bg-gray-100 rounded">proforma
     <input @change="checkTipoDocumento" :disabled="method == 'show'" v-model="tipo_documento" type="radio" name="tipo_documento" value="proforma">
   </label>
   <label v-if="canCreareFatture" class="p-3 mt-2 mr-2 bg-gray-100 rounded">ddt
@@ -41,7 +41,7 @@
       <select name="converti" class="ml-2 h-6 py-0 text-sm">
         <option value="preventivo">preventivo</option>
         <option value="ordine">ordine</option>
-        <option v-if="canCreareFatture" value="proforma">proforma</option>
+        <option value="proforma">proforma</option>
         <option v-if="canCreareFatture" value="fattura">fattura</option>
       </select>
       <button onclick="return confirm('Vuoi creare una nuova copia del documento?')" class="ml-2 bg-white text-xs py-1 px-2 rounded">converti</button>

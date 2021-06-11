@@ -55,11 +55,11 @@ Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], func
     Route::group(['middleware' => ['can:dashboard']], function () {
         
         Route::get('/', [DashboardController::class, 'view'])->name('admin.home.page');
-        Route::post('/ruolo', [DashboardController::class, 'ruolo']);
+        Route::post('ruolo', [DashboardController::class, 'ruolo']);
         
         //import
-        Route::get('/importclienti', [DashboardController::class, 'importClienti']);
-        Route::get('/importfornitori', [DashboardController::class, 'importFornitori']);
+        Route::get('importclienti', [DashboardController::class, 'importClienti']);
+        Route::get('importfornitori', [DashboardController::class, 'importFornitori']);
 
         // Route::get('/import-doc-ddt', [ImportController::class, 'importDdt']); non più utilizzato
         // Route::get('/import-doc-fatture', [ImportController::class, 'importFatture']); non più utilizzato
@@ -80,9 +80,11 @@ Route::group(['middleware' => ['can:impostazioni']], function () {
         // Fatture
         Route::get('/fatture/pdf', [FatturaPdfController::class, 'get']); // get forbidden
         Route::post('/fatture/pdf', [FatturaPdfController::class, 'post'])->name('fatturapdf.postView');
+        Route::resource('/vendite/fatture', FatturaController::class);                                              // --> agente: solo preventivi e ordini
+        
         Route::get('/vendite/fatture/{fatturaId}/pdf', [FatturaPdfController::class, 'show'])->name('fatturapdf.show');
 
-        Route::resource('/vendite/fatture', FatturaController::class);                                              // --> agente: solo preventivi e ordini
+        
 
         // Conversione
         Route::post('/vendite/fatture/converti', [FatturaController::class, 'convertiFattura']);

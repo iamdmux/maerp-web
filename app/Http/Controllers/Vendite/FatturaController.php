@@ -87,7 +87,8 @@ class FatturaController extends Controller
                 'trasporto_a_cura_di', 'luogo_destinazione', 'annotazioni'
             ]),
                 ['importo_totale' =>  $fatturazione->totale],
-                ['uuid' =>  $invoicePostUiid]
+                ['uuid' =>  $invoicePostUiid],
+                ['user_id' => auth()->id()]
             )
         );
     

@@ -63,7 +63,7 @@ class User extends Authenticatable
     }
 
     public function clienti(){
-        return $this->hasMany(Cliente::class);
+        return $this->hasMany(Cliente::class, 'user_id', 'id');
     }
     
     public function fatture(){

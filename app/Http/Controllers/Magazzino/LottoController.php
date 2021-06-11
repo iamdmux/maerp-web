@@ -17,6 +17,9 @@ class LottoController extends Controller
 {
     public function __construct(){
         $this->middleware(['permission:visualizzare-lotti'])->only('index');
+        $this->middleware(['permission:modificare-lotti'], ['only' => [
+            'destroy',
+        ]]);
     }
 
     public function index(){

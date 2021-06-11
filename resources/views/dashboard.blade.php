@@ -71,7 +71,7 @@
     @endif
 
         ora sei: {{$role}}
-        <form action="/ruolo" method="POST">
+        <form action="/erp/ruolo" method="POST">
             @csrf
             <select name="ruolo">
                 <option value="admin" {{$role == 'admin' ?  'selected' : ''}}>admin</option>
