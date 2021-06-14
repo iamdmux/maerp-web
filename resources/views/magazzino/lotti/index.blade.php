@@ -57,43 +57,50 @@
                             @if(isset($lotto->marca->nome))
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->marca->nome}}</td>
                             @else
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">-</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 bg-gray-100 text-red-500">-non assegnato-</td>
                             @endif
                             
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->stagione}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->tipologia}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->quantita}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->kg}}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                            <td class="relative align-top px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                                 @foreach ($prenotatoList as $status)
+                                @php
+                                    $daysFromNow = $status->pivot->created_at->diffInDays(now());
+
+                                @endphp
                                     <p>
-                                        {{$loop->iteration}} - {{$status->name}}
+                                        {{$loop->iteration}} - {{$status->name}} - 
+                                        <span style="font-size: 0.75rem;" class="{{$daysFromNow > 15 ? 'bg-yellow-500' : 'bg-red-600'}} px-1 text-white rounded">
+                                            {{$status->pivot->created_at->format('d-m-y')}}
+                                        </span>
                                     </p>
                                 @endforeach
 
                                 @if($lotto->quantita > 0)
-                                <div>
+                                <div style="height: 5px;" class="mt-1">
                                     <form action="{{route('add.status.lotto', $lotto->id)}}" method="POST">
                                         @csrf
                                         <input type="hidden" name="tipo" value="prenotato">
-                                    <button class="text-xs bg-gray-300 hover:bg-gray-400 rounded px-1">prenota</button>
+                                    <button class="absolute text-xs bg-gray-300 hover:bg-gray-400 rounded px-1">prenota</button>
                                     </form>
                                 </div>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                            <td class="px-6 py-4 align-top whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                                 @foreach ($vendutoList as $status)
                                     <p>
-                                        {{$loop->iteration}} - {{$status->name}}
+                                        {{$loop->iteration}} - {{$status->name}} - <span style="font-size: 0.75rem;" class="bg-gray-600 px-1 text-white rounded">{{$status->pivot->created_at->format('d-m-y')}}</span>
                                     </p>
                                 @endforeach
 
                                 @if($prenotatoList->count() && ($vendutoList->count() < $prenotatoList->count()) )
-                                <div>
+                                <div style="height: 5px;" class="mt-1">
                                     <form action="{{route('add.status.lotto', $lotto->id)}}" method="POST">
                                         @csrf
                                         <input type="hidden" name="tipo" value="venduto">
-                                    <button class="text-xs bg-gray-300 hover:bg-gray-400 rounded px-1">vendi</button>
+                                    <button class="absolute text-xs bg-gray-300 hover:bg-gray-400 rounded px-1">vendi</button>
                                     </form>
                                 </div>
                                 @endif

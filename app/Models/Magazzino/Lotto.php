@@ -79,6 +79,7 @@ class Lotto extends Model
 
     public function status(){
         return $this->belongsToMany(User::class, 'magazzino_lotti_status', 'lotto_id', 'user_id')
+        ->withTimestamps()
         ->withPivot('id', 'tipo');
     }
 

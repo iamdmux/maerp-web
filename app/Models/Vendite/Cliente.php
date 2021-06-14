@@ -3,6 +3,7 @@
 namespace App\Models\Vendite;
 
 use App\Models\User;
+use App\Models\Vendite\Fattura;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -21,5 +22,9 @@ class Cliente extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function fattura(){
+        return $this->hasMany(Fattura::class);
     }
 }

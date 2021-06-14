@@ -2,6 +2,7 @@
 
 use App\Mail\InvioClientePdf;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dev\DevController;
 use App\Http\Controllers\Vendite\FatturaAPI;
 use App\Models\Blackbox\BlackboxJsonResponse;
 use App\Http\Controllers\Blackbox\BlackboxAPI;
@@ -33,11 +34,13 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
                  
                 - magazzino_lotti ok    ($lotto->marca->nome)
                 - clienti ok            ($cliente->user)
-                - fatture ok            ($fattura->cliente)
+                        // in cliente destroy non è possibile cancellare il cliente se è associato la fattura
+                - fatture ok            ($fattura->cliente) 
                 - articoli              - sembra ok
                 - stocks_orders         - sembra ok
 */
 
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware(['auth', 'isDeveloper']);
 
 // STOCK 
 Route::get('/', function(){
@@ -68,8 +71,10 @@ Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], func
         Route::post('ruolo', [DashboardController::class, 'ruolo']);
         
         //import
-        Route::get('importclienti', [DashboardController::class, 'importClienti']);
-        Route::get('importfornitori', [DashboardController::class, 'importFornitori']);
+        Route::get('importclienti', [DashboardController::class, 'importClienti'])->middleware(['isDeveloper']);
+        Route::get('importfornitori', [DashboardController::class, 'importFornitori'])->middleware(['isDeveloper']);
+
+        Route::get('devs/creamagazzinoaccount', [DevController::class, 'magazzino'])->middleware(['isDeveloper']);
 
         // Route::get('/import-doc-ddt', [ImportController::class, 'importDdt']); non più utilizzato
         // Route::get('/import-doc-fatture', [ImportController::class, 'importFatture']); non più utilizzato

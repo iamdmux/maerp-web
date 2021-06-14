@@ -117,6 +117,10 @@ class ClienteController extends Controller
             $cliente = Cliente::findOrFail($clienteId);
         }
 
+        if($cliente->fattura->count()){
+            return back()->withErrors(['error' => ["Non è possibile proseguire, questo cliente è associato ad un doc/fattura"]]); 
+        }
+
         if($cliente->stock_user_id){
             return back()->withErrors(['error' => ["Non è possibile proseguire, questo cliente è un utente stocks"]]); 
         }

@@ -31,7 +31,7 @@ class DashboardController extends Controller
         $users = User::with('clienti')->get();
         
         // TEMP
-        $isclienti = Cliente::get()->count();
+        $isclienti = Cliente::get()->count()-1;
         $isfornitori = Fornitore::get()->count();
 
         return view('dashboard', [

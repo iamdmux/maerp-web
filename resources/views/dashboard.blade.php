@@ -59,7 +59,7 @@
 @if(auth()->id() == 1)
     <div class="mt-8">
 
-    @if(!$isclienti)
+    @if($isclienti == 0 ||$isclienti == -1 )
     <div>
     <a class="text-yellow-600" href="erp/importclienti">importclienti</a>
     </div>
