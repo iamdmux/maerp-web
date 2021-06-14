@@ -78,7 +78,12 @@
                 Kg 
               </div>
 
+              {{-- #DEV: SET NULL --}}
+              @if(isset($lotto->marca->nome))
               <p class="text-gray-500 text-sm">{{$lotto->marca->nome}}</p>
+              @else
+              <p class="text-gray-500 text-sm">-</p>
+              @endif
 
               @if($lotto->quantita < 1)
               <p class="my-4 font-bold text-yellow-500 text-xl">

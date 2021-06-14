@@ -28,6 +28,13 @@ use App\Http\Controllers\Impostazioni\ImpostazioneController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
 
+/* INFO
+ #DEV: SET NULL -- controllo per la relazione nella constrain del db ON DELETE set  null
+                 
+                - magazzino_lotti ok
+
+*/
+
 
 // STOCK 
 Route::get('/', function(){
