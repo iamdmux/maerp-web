@@ -215,7 +215,7 @@ class LottoController extends Controller
 
 
     public function destroy($lottoId){
-        // vedi Observer per la cancellazione dei media
+        // vedi LottoObserver per la cancellazione dei media
         Lotto::findOrFail($lottoId)->delete();
         return redirect()->route('lotti.index')->with('success', 'Il lotto è stata cancellato');
     }

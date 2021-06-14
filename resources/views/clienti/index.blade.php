@@ -42,6 +42,7 @@
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"><b>{{$cliente->denominazione}}</b></td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"><b>{!!$cliente->stock_user_id ? $checked : ''!!}</b></td>
+                            {{-- #DEV: SET NULL --}}
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{ isset($cliente->user) ? $cliente->user->name : '-'}} </td>
                             {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->codice_sdi}}</td> --}}
                             {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$cliente->tipologia}}</td> --}}

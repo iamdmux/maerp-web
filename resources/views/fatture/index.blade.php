@@ -44,7 +44,13 @@
                     @endphp
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fattura->tipo_documento}}</td>
+
+                            {{-- #DEV: SET NULL --}}
+                            @if(isset($fattura->cliente))
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fattura->cliente->denominazione}} {!! $fattura->is_from_stocks ?  $fromStocks : '' !!}</td>
+                            @else
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">-- {!! $fattura->is_from_stocks ?  $fromStocks : '' !!}</td>    
+                            @endif
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fattura->data_ita}} / {{$fattura->numero}}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{!!$fattura->fattura_elettronica ? $checked : '' !!}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$fattura->articoli->count()}} / {{$quantita}}</td>

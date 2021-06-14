@@ -31,8 +31,11 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 /* INFO
  #DEV: SET NULL -- controllo per la relazione nella constrain del db ON DELETE set  null
                  
-                - magazzino_lotti ok
-
+                - magazzino_lotti ok    ($lotto->marca->nome)
+                - clienti ok            ($cliente->user)
+                - fatture ok            ($fattura->cliente)
+                - articoli              - sembra ok
+                - stocks_orders         - sembra ok
 */
 
 

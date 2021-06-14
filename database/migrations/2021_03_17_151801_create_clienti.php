@@ -45,8 +45,8 @@ class CreateClienti extends Migration
 
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('stock_user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');        // riferito all'agente
+            $table->foreign('stock_user_id')->references('id')->on('users')->onDelete('set null');  // riferito al cliente stocks
         });
     }
 
