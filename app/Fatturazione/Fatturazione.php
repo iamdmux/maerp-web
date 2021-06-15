@@ -2,7 +2,9 @@
 namespace App\Fatturazione;
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
+use App\Models\Magazzino\Lotto;
+use App\Models\Magazzino\Marca;
+use Barryvdh\Debugbar\Facade as Debugbar;
 
 class Fatturazione {
 
@@ -12,6 +14,7 @@ class Fatturazione {
     public $totaleIva = 0.00;
     public $totale = 0.00;
     public $articoli = [];
+    public $marcheArticoli = [];
 
     public $note_documento;
     public $includi_metodo_pagamento;
@@ -136,6 +139,19 @@ class Fatturazione {
         }
         foreach ($this->request->lotto_id as $key => $value) {
             $this->articoli[$key]['lotto_id'] = $value;
+
+            // prendo nazioni da inserire in doc  per esclusione importaziione
+            if($art = $this->articoli[$key]['lotto_id']){
+                $lotto = Lotto::find($art);
+
+                if($lotto){
+                    $marca = Marca::find($lotto->marca_id);
+                    if($marca){
+                        $this->marcheArticoli[$key]['marca'] = $marca->nome;
+                        $this->marcheArticoli[$key]['nazioni_marca_non_import'] = json_decode($marca->nazioni_selez, true);
+                    }
+                }
+            }
         }
         foreach ($this->request->quantita as $key => $value) {
             $this->articoli[$key]['quantita'] = $value;
@@ -176,6 +192,10 @@ class Fatturazione {
                 $this->totale = ($this->totale+$bol);
             }
         }
+
+        //dump
+
     }
+
 
 }

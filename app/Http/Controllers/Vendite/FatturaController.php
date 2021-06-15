@@ -9,6 +9,7 @@ use App\Models\Vendite\Fattura;
 use App\Fatturazione\Fatturazione;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FatturaPostRequest;
+use Barryvdh\Debugbar\Facade as Debugbar;
 
 class FatturaController extends Controller
 {
@@ -37,10 +38,11 @@ class FatturaController extends Controller
     }
 
     public function store(FatturaPostRequest $request, Acube $acube){
+        
 
         $fatturazione = new Fatturazione($request);
         $fatturazione->handle();
-
+        
         // filter by roles
         $u = auth()->user();
         if ($u->getRoleNames()[0] == 'agente'){
@@ -48,7 +50,7 @@ class FatturaController extends Controller
         } else {
             $cliente = Cliente::findOrFail($fatturazione->cliente_id);
         }
-
+        
         // Check tipo_documento
         $docConsenti = Fattura::DOC_CONSENTITI;
         if(!in_array($fatturazione->tipo_documento, $docConsenti)){
@@ -91,7 +93,7 @@ class FatturaController extends Controller
                 ['user_id' => auth()->id()]
             )
         );
-    
+        
         $nuovaFattura->articoli()->createMany($fatturazione->articoli);
 
         return redirect()->route('fatture.index')->with('success', 'La fattura è stata creata');
@@ -141,7 +143,7 @@ class FatturaController extends Controller
     }
 
     public function update(Request $request, $fatturaId){
-
+        
         $fatturazione = new Fatturazione($request);
         $fatturazione->handle();
 
@@ -199,10 +201,15 @@ class FatturaController extends Controller
             return redirect()->route('fatture.index')->withErrors(['Non è possibile cancellare questa fattura']);
         }
         
-        $fattura->articoli()->delete();
-        $fattura->articoli()->detach();
-        $fattura->delete();
-        return redirect()->route('fatture.index')->with('success', 'La fattura è stata cancellata');
+        $del = $fattura->articoli()->delete();
+        
+        if($del){
+            $fattura->delete();
+            $det = $fattura->articoli()->detach();
+            return redirect()->route('fatture.index')->with('success', 'La fattura è stata cancellata');
+        } 
+
+        return redirect()->route('fatture.index')->withErrors(['Non è possibile cancellare questa fattura']);
     }
 
 

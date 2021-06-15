@@ -194,6 +194,27 @@
   </table>
 </div>
 
+@foreach ($fattura->marcheArticoli as $art)
+  @if(isset($art['nazioni_marca_non_import']))
+    <div style="max-width: 500px">
+        <p>NOTE IMPORTAZIONE:<br>
+        per la marca '{{$art['marca']}}' non è permessa l'importazione in questi paesi:<br>
+        @php
+            $length = count($art['nazioni_marca_non_import']);
+            $i = 1;
+        @endphp
+
+        @foreach ($art['nazioni_marca_non_import'] as $naz)
+          {{$naz['nazione']}}{{$i == $length ? '.' : ','}}
+          @php
+              $i++;
+          @endphp
+        @endforeach
+      </p>
+    </div>
+  @endif
+@endforeach
+
 @if($fattura->note_documento)
 <p>NOTE: {{$fattura->note_documento}}</p>
 @endif

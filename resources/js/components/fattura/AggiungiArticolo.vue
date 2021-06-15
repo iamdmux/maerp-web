@@ -13,7 +13,7 @@
                     <p @click="confermaArticolo(articolo.id)" class="hover:bg-blue-400 cursor-pointer">{{articolo.codice_articolo}}</p>
                   </div>
                 </div>
-                <input type="hidden" name="lotto_id[]" :value="articoloId">
+                <input type="hidden" name="lotto_id[]" :value="lottoChecked ? articoloId : ''">
                  <div class="text-xs">
                   <input type="checkbox" :disabled="!articoloId" v-model="lottoChecked">lotto
                 </div>
@@ -22,7 +22,8 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   quantita
               </p>
-              <div v-if="quantita > quantitaMax && lottoChecked" class="absolute top-0 mt-1 text-xs text-red-500">quantità superata</div>
+              <!-- non usato al momento -->
+              <!-- <div v-if="quantita > quantitaMax && lottoChecked" class="absolute top-0 mt-1 text-xs text-red-500">quantità superata</div> -->
               <input :disabled="method == 'show'" v-model="quantita" class=" w-24" min="0" name="quantita[]" autocomplete="off" type="number"><!--  min="0" :max="quantitaMax" -->
             </div>
             <div class="mr-2">

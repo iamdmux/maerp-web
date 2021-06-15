@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Vendite;
 
 use Carbon\Carbon;
 use App\Fatturazione\Acube;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\InvioClientePdf;
 use App\Models\Vendite\Cliente;
@@ -15,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\FatturaPostRequest;
+
 
 class FatturaPdfController extends Controller
 {
