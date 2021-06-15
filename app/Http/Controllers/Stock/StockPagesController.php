@@ -16,18 +16,19 @@ class StockPagesController extends Controller
 
     public function index(){
         
-        $lotti = Lotto::where('in_shop', true)->paginate(25);
+        $lotti = Lotto::where('in_shop', true)->paginate(10);
 
         $geo = geoip()->getLocation();
         $countryCode = $geo->iso_code;
         
 
-        $filteredByCountry = $lotti->filter(function ($value, $key) use ($countryCode) {
+        $lotti->filter(function ($value, $key) use ($lotti, $countryCode) {
             $nazArray = json_decode($value->nazioni_tranne);
             
             if(in_array($countryCode, $nazArray)){
                 // tutti tranne (scarto quello nell'array)
                 if($value->visibilita == 'tutti'){
+                    $lotti->forget($key);
                     return;
                 }
                 // tutti tranne (scarto quello nell'array)
@@ -41,13 +42,14 @@ class StockPagesController extends Controller
                 return $value;
             }
             if($value->visibilita == 'nessuno'){
+                $lotti->forget($key);
                 return;
             }
         });
         
 
         return view('stocks.index', [
-            'lotti' => $filteredByCountry,
+            'lotti' => $lotti,
             'countryCode' => $countryCode
         ]);
     }
