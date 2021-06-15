@@ -194,6 +194,7 @@
   </table>
 </div>
 
+@isset($fattura->marcheArticoli)
 @foreach ($fattura->marcheArticoli as $art)
   @if(isset($art['nazioni_marca_non_import']))
     <div style="max-width: 500px">
@@ -214,6 +215,7 @@
     </div>
   @endif
 @endforeach
+@endisset
 
 @if($fattura->note_documento)
 <p>NOTE: {{$fattura->note_documento}}</p>
