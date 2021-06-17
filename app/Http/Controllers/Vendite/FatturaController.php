@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Vendite;
 
-use App\Models\Vendite\Cliente;
 use App\Fatturazione\Acube;
 use Illuminate\Http\Request;
+use App\Models\Vendite\Cliente;
 use App\Models\Vendite\Fattura;
 use App\Fatturazione\Fatturazione;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FatturaPostRequest;
 use Barryvdh\Debugbar\Facade as Debugbar;
@@ -110,11 +111,31 @@ class FatturaController extends Controller
             $fattura = Fattura::with('articoli', 'cliente')->findOrFail($id);
         }
 
+        //converto gli articoli similmente agli input array del form 'articolo'
+        $articoliConv = [];
+            foreach($fattura->articoli as $articolo){
+
+                $articoliConv['lotto_id'][] = $articolo->lotto_id;
+                $articoliConv['codice'][] = $articolo->codice;
+                
+                $articoliConv['quantita'][] = $articolo->quantita;
+                $articoliConv['unita_di_misura'][] = $articolo->unita_di_misura;
+                $articoliConv['descrizione'][] = $articolo->descrizione;
+                $articoliConv['prezzo_netto'][] = $articolo->prezzo_netto;
+                $articoliConv['iva'][] = $articolo->iva;
+                $articoliConv['importo_netto'][] = $articolo->importo_netto;
+                $articoliConv['costo_iva_articolo'][] = $articolo->costo_iva_articolo;
+                $articoliConv['importo_totale_articolo'][] = $articolo->importo_totale_articolo;
+
+            };
+
+
         $canCreareFatture = auth()->user()->can('creare-fatture');
         return view('fatture.show', [
             'fattura' => $fattura,
             'canCreareFatture' => $canCreareFatture,
-            'test_invia_pdf' => Fattura::TEST_INVIA_PDF_A_DESTINATARIO
+            'test_invia_pdf' => Fattura::TEST_INVIA_PDF_A_DESTINATARIO,
+            'articoliConv' => $articoliConv
         ]);
     }
 
@@ -133,12 +154,32 @@ class FatturaController extends Controller
             return redirect()->route('fatture.index')->withErrors(['Non è possibile modificare questa fattura']);
         }
 
+
+        //converto gli articoli similmente agli input array del form 'articolo'
+        $articoliConv = [];
+            foreach($fattura->articoli as $articolo){
+
+                $articoliConv['lotto_id'][] = $articolo->lotto_id;
+                $articoliConv['codice'][] = $articolo->codice;
+                
+                $articoliConv['quantita'][] = $articolo->quantita;
+                $articoliConv['unita_di_misura'][] = $articolo->unita_di_misura;
+                $articoliConv['descrizione'][] = $articolo->descrizione;
+                $articoliConv['prezzo_netto'][] = $articolo->prezzo_netto;
+                $articoliConv['iva'][] = $articolo->iva;
+                $articoliConv['importo_netto'][] = $articolo->importo_netto;
+                $articoliConv['costo_iva_articolo'][] = $articolo->costo_iva_articolo;
+                $articoliConv['importo_totale_articolo'][] = $articolo->importo_totale_articolo;
+
+            };
+
         $fatturaNextCounter = Fattura::fatturaNextCounter();
         $canCreareFatture = auth()->user()->can('creare-fatture');
         return view('fatture.edit', [
             'fattura' => $fattura,
             'canCreareFatture' => $canCreareFatture,
-            'fatturaNextCounter' => $fatturaNextCounter
+            'fatturaNextCounter' => $fatturaNextCounter,
+            'articoliConv' => $articoliConv
         ]);
     }
 
@@ -146,7 +187,7 @@ class FatturaController extends Controller
         
         $fatturazione = new Fatturazione($request);
         $fatturazione->handle();
-
+        
         if($fatturazione->uuid){
             return redirect()->route('fatture.index')->withErrors(['Non è possibile modificare questa fattura']);
         }
@@ -184,8 +225,7 @@ class FatturaController extends Controller
     
         // Cancello gli articoli e li risalvo
         foreach ($fatturaDaAggiornare->articoli as $articolo) {
-            $fatturaDaAggiornare->articoli()->detach($articolo->id);
-            $articolo->delete();
+            $fatturaDaAggiornare->articoli()->delete($articolo->id);
         }
   
         $fatturaDaAggiornare->articoli()->createMany($fatturazione->articoli);
@@ -201,26 +241,24 @@ class FatturaController extends Controller
             return redirect()->route('fatture.index')->withErrors(['Non è possibile cancellare questa fattura']);
         }
         
-        $del = $fattura->articoli()->delete();
-        
-        if($del){
-            $fattura->delete();
-            $det = $fattura->articoli()->detach();
+        if($fattura->delete()){
             return redirect()->route('fatture.index')->with('success', 'La fattura è stata cancellata');
         } 
 
-        return redirect()->route('fatture.index')->withErrors(['Non è possibile cancellare questa fattura']);
+        return Log::error("Fattura $fatturaId è stata cancellata, vedere gli articoli" );
     }
 
 
 
     public function convertiFattura(Request $request){
+
         $data = $request->validate([
             'fattura_id' => 'required',
             'converti' => 'required',
         ]);
 
-        $datiAmmessi = ['preventivo', 'ordine', 'proforma', 'fattura'];
+        
+        $datiAmmessi = Fattura::DOC_CONSENTITI;
 
         if(!in_array($data['converti'], $datiAmmessi)){
             return back()->withErrors(['error' => ['Qualcosa è andato storto nella clonazione del documento']]); 
@@ -256,7 +294,7 @@ class FatturaController extends Controller
                     'iva' => $articolo->iva,
                     'importo_netto' => $articolo->importo_netto,
                     'costo_iva_articolo' => $articolo->costo_iva_articolo,
-                    'importo_totale' => $articolo->importo_totale_articolo,
+                    'importo_totale_articolo' => $articolo->importo_totale_articolo,
                 ]);
             }
         }

@@ -102,7 +102,7 @@ Route::group(['middleware' => ['can:impostazioni']], function () {
         
 
         // Conversione
-        Route::post('/vendite/fatture/converti', [FatturaController::class, 'convertiFattura']);
+        Route::post('/vendite/fatture/converti', [FatturaController::class, 'convertiFattura'])->name('fattura.converti');
         // Invia pdf per email
         Route::post('/vendite/fatture/invia-pdf', [FatturaPdfController::class, 'inviaPdfFattura'])->name('inviaPdf.email');
 

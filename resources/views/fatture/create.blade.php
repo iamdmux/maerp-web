@@ -8,7 +8,7 @@
 
 <x-page-title text="Crea nuova fattura / doc" />
 
-<create-edit-fattura method="create"
+<create-edit-fattura m-view="create"
 fattura-nextcounter="{{$fatturaNextCounter}}"
 :can-creare-fatture="{{$canCreareFatture ? 'true' : 'false'}}"
 pdf-url="{{route('fatturapdf.postView')}}"

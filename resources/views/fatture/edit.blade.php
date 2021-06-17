@@ -8,12 +8,20 @@
 
 <x-errors-component />
 
-<create-edit-fattura method="edit"
+
+<create-edit-fattura m-view="edit"
 fattura-nextcounter="{{$fatturaNextCounter}}"
 :can-creare-fatture="{{$canCreareFatture ? 'true' : 'false'}}"
 form-url="{{route('fatture.update', $fattura->id )}}"
 pdf-url="{{route('fatturapdf.postView')}}"
-:old="{{ json_encode($fattura) }}">
+:load-data="{{ json_encode($fattura) }}"
+:articoli-conv="{{ json_encode($articoliConv) }}"
+:old = {{ json_encode(session()->getOldInput()) }}
+{{-- json mi cambia la data --}}
+data-fattura="{{$fattura->data}}"
+>
+
+
 </create-edit-fattura>
 
 <form class="mt-4" action="{{route('fatture.destroy', [$fattura->id])}}" method="POST">

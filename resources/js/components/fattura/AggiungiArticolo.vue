@@ -7,7 +7,7 @@
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   codice articolo
               </p>
-              <input :disabled="method == 'show'" required v-model="codice" @input="searchArticolo" class=" w-36" autocomplete="off" type="text" name="codice[]">
+              <input :disabled="mView == 'show'" required v-model="codice" @input="searchArticolo" class=" w-36" autocomplete="off" type="text" name="codice[]">
                 <div v-if="filterArticolo.length" class="z-10 text-sm p-4 bg-white rounded border border-gray-400">
                   <div v-for="articolo in filterArticolo" :key="articolo.id">
                     <p @click="confermaArticolo(articolo.id)" class="hover:bg-blue-400 cursor-pointer">{{articolo.codice_articolo}}</p>
@@ -24,19 +24,19 @@
               </p>
               <!-- non usato al momento -->
               <!-- <div v-if="quantita > quantitaMax && lottoChecked" class="absolute top-0 mt-1 text-xs text-red-500">quantità superata</div> -->
-              <input :disabled="method == 'show'" v-model="quantita" class=" w-24" min="0" name="quantita[]" autocomplete="off" type="number"><!--  min="0" :max="quantitaMax" -->
+              <input :disabled="mView == 'show'" v-model="quantita" class=" w-24" min="0" name="quantita[]" autocomplete="off" type="number"><!--  min="0" :max="quantitaMax" -->
             </div>
             <div class="mr-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   unita di misura
               </p>
-              <input :disabled="method == 'show'" v-model="unita_di_misura" class=" w-28" name="unita_di_misura[]" autocomplete="off" type="text">
+              <input :disabled="mView == 'show'" v-model="unita_di_misura" class=" w-28" name="unita_di_misura[]" autocomplete="off" type="text">
             </div>
             <div class="mr-2">
               <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                   prezzo_netto
               </p>
-              <input :disabled="method == 'show'" v-model="prezzo_netto" name="prezzo_netto[]" class=" w-24" autocomplete="off" type="text">
+              <input :disabled="mView == 'show'" v-model="prezzo_netto" name="prezzo_netto[]" class=" w-24" autocomplete="off" type="text">
             </div>
         </div>
         <div class="m-6 flex flex-wrap">
@@ -44,7 +44,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 descrizione
             </p>
-            <textarea required :disabled="method == 'show'" v-model="descrizione" rows="4" cols="50" name="descrizione[]" class="text-sm"></textarea>
+            <textarea required :disabled="mView == 'show'" v-model="descrizione" rows="4" cols="50" name="descrizione[]" class="text-sm"></textarea>
           </div>
 
               <!-- <div class="flex mt-6">
@@ -61,7 +61,7 @@
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 iva
             </p>
-            <select :disabled="method == 'show'" v-model="iva" name="iva[]" autocomplete="off" class=" rounded-md border-gray-200">
+            <select :disabled="mView == 'show'" v-model="iva" name="iva[]" autocomplete="off" class=" rounded-md border-gray-200">
               <option :selected="iva == 22" value="22">22</option>
             </select>
           </div>
@@ -102,7 +102,7 @@ export default {
     numeroArticolo:{
       required: true
     },
-    method:{
+    mView:{
       required: true
     },
     lotto_id:{

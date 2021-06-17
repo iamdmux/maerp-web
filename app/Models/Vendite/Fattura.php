@@ -23,7 +23,7 @@ class Fattura extends Model
     const TEST_INVIA_PDF_A_DESTINATARIO = false;
 
     public function articoli(){
-        return $this->belongsToMany(Articolo::class, 'fattura_articolo');
+        return $this->hasMany(Articolo::class);
     }
 
     public function cliente(){

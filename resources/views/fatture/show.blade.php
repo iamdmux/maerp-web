@@ -8,13 +8,23 @@
 
 <x-errors-component />
 
-<create-edit-fattura method="show"
-:can-creare-fatture="{{$canCreareFatture ? 'true' : 'false'}}"
+
+<create-edit-fattura m-view="show"
+{{-- fattura-nextcounter="{{$fatturaNextCounter}}" --}}
 pdf-show="{{route('fatturapdf.show', $fattura->id)}}"
+:can-creare-fatture="{{$canCreareFatture ? 'true' : 'false'}}"
+form-url="{{route('fatture.update', $fattura->id )}}"
 pdf-url="{{route('fatturapdf.postView')}}"
-invio-cliente-pdf-url="{{route('inviaPdf.email')}}"
-:old="{{ json_encode($fattura) }}"
-test-invia-pdf="{{$test_invia_pdf}}">
+:load-data="{{ json_encode($fattura) }}"
+:articoli-conv="{{ json_encode($articoliConv) }}"
+:old = {{ json_encode(session()->getOldInput()) }}
+{{-- json mi cambia la data --}}
+data-fattura="{{$fattura->data}}"
+
+fattura-converti-url="{{route('fattura.converti')}}"
+>
+
+
 </create-edit-fattura>
 
 

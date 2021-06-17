@@ -6,6 +6,7 @@ require('alpinejs');
 import { createApp } from "vue";
 import Glide from '@glidejs/glide';
 
+
 //components
 import CreateEditFattura from './components/fattura/CreateEditFattura.vue'
 import CreateEditLavorazione from './components/blackbox/CreateEditLavorazione.vue'
