@@ -126,7 +126,16 @@
                             
                             <td x-data="{ open: false }" class="relative px-6 py-4 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium">
                                 <button x-on:click="open = !open" class="px-2 rounded" x-bind:class="open ? 'bg-yellow-300' : ''">cambia password</button>
-                                  <div x-on:click.away="open = false" x-show="open" class="z-50 absolute bottom-0 left-0 ml-28 p-2 bg-gray-200 rounded" style="margin-bottom: -150px; max-width: 165px;">
+                                  <div x-on:click.away="open = false" x-show="open"
+                                        class="z-10 mt-2 mx-auto relative p-2 bg-gray-200 rounded"
+                                        style="max-width: 165px;"
+                                        x-transition:enter="transition ease-out duration-300"
+                                        x-transition:enter-start="transform opacity-0 scale-95"
+                                        x-transition:enter-end="transform opacity-100 scale-100"
+                                        x-transition:leave="transition ease-in duration-300"
+                                        x-transition:leave-start="transform opacity-100 scale-100"
+                                        x-transition:leave-end="transform opacity-0 scale-95"
+                                        >
                                       <p class="text-xs">La password deve essere almeno di 8 caratteri</p>
                                         <form action="{{route('bacheca.cambia.userpassword')}}" method="POST">
                                             @csrf
@@ -135,10 +144,17 @@
                                             <input type="password" name="password_confirmation" class="my-3 w-32 h-6 text-sm">
                                             <input type="hidden" name="user_slug" value="{{$user->slug}}">
                                             <div>
-                                                <button onclick="return confirm('Confermi la modifica della password?')" class="text-xs px-1 bg-gray-200 hover:bg-gray-300 rounded">Cambia</button>
+                                                <button onclick="return confirm('Confermi la modifica della password?')" class="text-xs px-1 bg-gray-300 hover:bg-gray-400 rounded">
+                                                    Cambia password
+                                                </button>
                                             </div>
                                         </form>
                                   </div>
+
+                                  {{-- <div x-on:click.away="open = false" x-show="open">
+TEST
+                                  </div> --}}
+
                             </td>
                         </tr>
                     @endforeach
