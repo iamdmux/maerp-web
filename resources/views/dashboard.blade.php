@@ -83,6 +83,10 @@
     </div>
 @endif
 
+
+<x-errors-component />
+
+
 <div class="flex flex-col mt-8">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
@@ -92,14 +96,14 @@
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Nome</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Ruolo</th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">N. Clienti</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Password</th>
                     </tr>
                 </thead>
 
                 <tbody class="bg-white">
                     @foreach ($users as $user)
                     @php
-                        $clientiCount = $user->clienti->count();
+                        $clientiCount = $user->clienti->count() ? $user->clienti->count() : '-';
                         if($user->id == 1 || $user->id == 2 || !$user->hasPermissionTo('erp user')){
                             continue;
                         }
@@ -120,8 +124,21 @@
                                 <div class="text-sm leading-5 text-gray-500">{{$clientiCount}}</div>
                             </td>
                             
-                            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                {{-- <a href="#" class="{{help_svg_link()}}">Modif.</a> --}}
+                            <td x-data="{ open: false }" class="relative px-6 py-4 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium">
+                                <button x-on:click="open = !open" class="px-2 rounded" x-bind:class="open ? 'bg-yellow-300' : ''">cambia password</button>
+                                  <div x-on:click.away="open = false" x-show="open" class="z-50 absolute bottom-0 left-0 ml-28 p-2 bg-gray-200 rounded" style="margin-bottom: -150px; max-width: 165px;">
+                                      <p class="text-xs">La password deve essere almeno di 8 caratteri</p>
+                                        <form action="{{route('bacheca.cambia.userpassword')}}" method="POST">
+                                            @csrf
+                                            <input type="password" name="password" class="my-1 w-32 h-6 text-sm">
+                                            <p class="text-xs m-0 p-0">Conferma password</p>
+                                            <input type="password" name="password_confirmation" class="my-3 w-32 h-6 text-sm">
+                                            <input type="hidden" name="user_slug" value="{{$user->slug}}">
+                                            <div>
+                                                <button onclick="return confirm('Confermi la modifica della password?')" class="text-xs px-1 bg-gray-200 hover:bg-gray-300 rounded">Cambia</button>
+                                            </div>
+                                        </form>
+                                  </div>
                             </td>
                         </tr>
                     @endforeach

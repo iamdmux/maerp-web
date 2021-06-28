@@ -70,11 +70,14 @@ Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], func
         Route::get('/', [DashboardController::class, 'view'])->name('admin.home.page');
         Route::post('ruolo', [DashboardController::class, 'ruolo']);
         
+
+        Route::post('ruolo', [DashboardController::class, 'changeUserPassword'])->name('bacheca.cambia.userpassword');
+
         //import
         Route::get('importclienti', [DashboardController::class, 'importClienti'])->middleware(['isDeveloper']);
         Route::get('importfornitori', [DashboardController::class, 'importFornitori'])->middleware(['isDeveloper']);
-
-        Route::get('devs/creamagazzinoaccount', [DevController::class, 'magazzino'])->middleware(['isDeveloper']);
+        
+        // Route::get('devs/creamagazzinoaccount', [DevController::class, 'magazzino'])->middleware(['isDeveloper']); non più utilizzato
 
         // Route::get('/import-doc-ddt', [ImportController::class, 'importDdt']); non più utilizzato
         // Route::get('/import-doc-fatture', [ImportController::class, 'importFatture']); non più utilizzato

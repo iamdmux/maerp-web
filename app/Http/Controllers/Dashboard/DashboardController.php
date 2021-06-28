@@ -7,14 +7,19 @@ use Illuminate\Http\Request;
 use App\Imports\ClientiImport;
 use App\Models\Magazzino\Lotto;
 use App\Models\Vendite\Cliente;
+use App\Models\Vendite\Fattura;
 use App\Imports\FornitoriImport;
 use App\Models\Acquisti\Fornitore;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\Vendite\Fattura;
 
 class DashboardController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['role:admin'])->only('changeUserPassword');
+    }
+
     public function view(){
         $role = auth()->user()->getRoleNames()[0];
 
@@ -75,6 +80,21 @@ class DashboardController extends Controller
         } else {
             return 'Hello.';
         }
+    }
+
+    public function changeUserPassword(Request $request){
+        $request->validate([
+            'password' => 'required|string|confirmed|min:8',
+            'user_slug' => 'required'
+        ]);
+
+        $user = User::where('slug', $request->user_slug)->first();
+        $password = Hash::make($request->password);
+
+        $user->password = $password;
+        $user->save();
+
+        return redirect('/erp')->with('success', "La password per l'utente $user->name è stata ggiornata");
     }
 }
 

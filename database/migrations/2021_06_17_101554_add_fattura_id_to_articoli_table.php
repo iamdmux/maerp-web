@@ -13,11 +13,11 @@ class AddFatturaIdToArticoliTable extends Migration
      */
     public function up()
     {
-        // Schema::table('articoli', function (Blueprint $table) {
-        //     $table->unsignedBigInteger('fattura_id')->after('lotto_id')->nullable()->index();
+        Schema::table('articoli', function (Blueprint $table) {
+            $table->unsignedBigInteger('fattura_id')->after('lotto_id')->nullable()->index();
 
-        //     $table->foreign('fattura_id')->references('id')->on('fatture')->onDelete('cascade');
-        // });
+            $table->foreign('fattura_id')->references('id')->on('fatture')->onDelete('cascade');
+        });
     }
 
     /**
@@ -28,7 +28,7 @@ class AddFatturaIdToArticoliTable extends Migration
     public function down()
     {
         Schema::table('articoli', function (Blueprint $table) {
-            // $table->dropColumn('fattura_id');
+            $table->dropColumn('fattura_id');
         });
     }
 }
