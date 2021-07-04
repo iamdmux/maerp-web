@@ -127,7 +127,7 @@
                             <td x-data="{ open: false }" class="relative px-6 py-4 whitespace-no-wrap text-center border-b border-gray-200 text-sm leading-5 font-medium">
                                 <button x-on:click="open = !open" class="px-2 rounded" x-bind:class="open ? 'bg-yellow-300' : ''">cambia password</button>
                                   <div x-on:click.away="open = false" x-show="open"
-                                        class="z-10 mt-2 mx-auto relative p-2 bg-gray-200 rounded"
+                                        class="z-10 mt-2 mx-auto absolute p-2 bg-gray-200 rounded"
                                         style="max-width: 165px;"
                                         x-transition:enter="transition ease-out duration-300"
                                         x-transition:enter-start="transform opacity-0 scale-95"

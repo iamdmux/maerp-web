@@ -7,6 +7,7 @@ use App\Http\Controllers\Vendite\FatturaAPI;
 use App\Models\Blackbox\BlackboxJsonResponse;
 use App\Http\Controllers\Blackbox\BlackboxAPI;
 use App\Http\Controllers\Stock\CartController;
+use App\Http\Controllers\Stock\FormController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Stock\OrderController;
 use App\Http\Controllers\Blackbox\CapoController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\Vendite\FatturaPdfController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Blackbox\LavorazioneController;
 use App\Http\Controllers\Blackbox\PauseTotaliController;
+use App\Http\Controllers\Stock\StockFormEmailController;
 use App\Http\Controllers\Magazzino\LottoStatusController;
 use App\Http\Controllers\Impostazioni\ImpostazioneController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
@@ -39,6 +41,13 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
                 - articoli              - sembra ok
                 - stocks_orders         - sembra ok
 */
+
+
+// Route::get('/mailable', function () {
+//     $formtext = App\Models\Stock\StocksForm::find(1);
+//     return new App\Mail\Stocks\StocksFormInformations($formtext);
+// })->middleware(['auth', 'isDeveloper']);
+
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware(['auth', 'isDeveloper']);
 
@@ -59,6 +68,8 @@ Route::resource('stocks/orders', OrderController::class)->middleware('auth');
 
 Route::get('contacts', [StockPagesController::class, 'contacts'])->name('stocks.contacts');
 Route::get('company', [StockPagesController::class, 'company'])->name('stocks.company');
+
+Route::post('/form', [ FormController::class, 'store'])->name('formEmail.store');
 
 // ERP
 
@@ -164,6 +175,12 @@ Route::group(['middleware' => ['can:impostazioni']], function () {
         Route::post('/api/blackbox/lavorazione/{id}/modifica-pausa', [BlackboxAPI::class, 'modificaPause']);
 
     });
+
+    //Stocks
+    Route::get('/stocks/forms', [FormController::class, 'index'])->name('erp.stocksforms.index');
+    Route::get('/stocks/forms/{id}', [FormController::class, 'show'])->name('erp.stocksforms.show');
+    Route::delete('/stocks/forms/{id}', [FormController::class, 'delete'])->name('erp.stocksforms.delete');
+
 });
 
 require __DIR__.'/auth.php';

@@ -2,6 +2,10 @@
 
 @section('content')
 <div class="p-4">
+    @dd($uffVendite,
+    $uffAcquisti,
+    $uffContabile,
+    $uffManagement)
     
     <h1 class="my-6 font-semibold text-3xl">Contatti</h1>
     <p style="max-width: 500px">

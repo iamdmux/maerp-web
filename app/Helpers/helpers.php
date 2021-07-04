@@ -6,7 +6,6 @@ if (!function_exists('help_is_production')) {
     }
 }
 
-
 // svg colors
 if (!function_exists('help_svg_link')) {
     function help_svg_link(){ 
@@ -57,6 +56,131 @@ if (!function_exists('help_mesi_array')) {
 //         }
 //     }
 // }
+
+
+// TESTI PER STOCKS
+if (!function_exists('help_contacts_text_uff_vendite')) {
+    function help_contacts_text_uff_vendite(){ 
+        return [
+            0 => [
+                'regione' => 'Regione: Italia',
+                'man' => 'Elia Sanfilippo (italiano)',
+                'ruolo' => 'Responsabile Vendite',
+                'tel' => '+39 349 8617739',
+                'email' => 'elia.sanfilippo@maexportsrl.com '
+            ],
+            1 => [
+                'regione' => 'Regione: Italia',
+                'man' => 'Roberto Pitetti (italiano)',
+                'ruolo' => 'Responsabile Vendite',
+                'tel' => '+39 3337100290',
+                'email' => 'roberto.pitetti@maexportsrl.com'
+            ],
+            2 => [
+                'regione' => 'Regione: Egitto, Libia, Algeria, Belgio, Francia',
+                'man' => 'Bessem Tabarki (arabo, francese)',
+                'ruolo' => 'Responsabile Vendite',
+                'tel' => '+39 320 3635836',
+                'email' => 'bessem.tabarki@maexportsrl.com'
+            ],
+            3 => [
+                'regione' => 'Regione: Romania, Bulgaria, Ungheria, Grecia',
+                'man' => 'Elena Aprofirei (rumeno, inglese) ',
+                'ruolo' => 'Responsabile Vendite',
+                'tel' => '+39 3203635834',
+                'email' => 'elena.aprofirei@maexportsrl.com'
+            ],
+            4 => [
+                'regione' => 'Regione: Lituania, Estonia, Lettonia, Georgia, Ucraina, Russia',
+                'man' => 'Alona Dereklieieva (russo, italiano)',
+                'ruolo' => 'Responsabile Vendite',
+                'tel' => '+39 344 1805012',
+                'email' => 'alona.dereklieieva@maexportsrl.com'
+            ],
+            5 => [
+                'regione' => 'Regione: Polonia, Repubblica Ceca, Germania',
+                'man' => 'Anna Fafara (inglese, polacco, tedesco, italiano)',
+                'ruolo' => 'Responsabile Vendite',
+                'tel' => '+39 335 5258993',
+                'email' => 'anna.fafara@maexportsrl.com'
+            ],
+            6 => [
+                'regione' => 'Regione: Spagna, Portogallo, Sud America',
+                'man' => 'Fabio Cutrì (spagnolo, inglese, italiano)',
+                'ruolo' => 'Responsabile Vendite',
+                'tel' => '+39 344 0798335',
+                'email' => 'fabio.cutri@maexportsrl.com '
+            ],
+        ];
+    }
+}
+
+if (!function_exists('help_contacts_text_uff_acquisti')) {
+    function help_contacts_text_uff_acquisti(){
+        return [
+            0 => [
+                'man' => 'Erika Lionello (Inglese)',
+                'ruolo' => 'Ufficio Acquisti ',
+                'tel' => '+39 3426685569',
+                'email' => 'erika.lionello@maexportsrl.com'
+            ],
+            1 => [
+                'man' => 'Giuseppe Stabile (Inglese)',
+                'ruolo' => 'Ufficio Acquisti ',
+                'tel' => '+39 3487867675',
+                'email' => 'giuseppe.stabile@maexportsrl.com'
+            ],
+            1 => [
+                'man' => 'Oleg Shyich (Inglese)',
+                'ruolo' => 'Ufficio Acquisti ',
+                'tel' => '+39 3463281421',
+                'email' => 'oleg.shyich@maexportsrl.com'
+            ],
+        ];
+    }
+}
+
+if (!function_exists('help_contacts_text_contabile')) {
+    function help_contacts_text_contabile(){
+        return [
+            0 => [
+                'man' => 'Marco Capris (italiano, inglese)',
+                'ruolo' => 'Ufficio Amministrativo',
+                'tel' => '+39 3459706112',
+                'email' => 'marco.capris@maexportsrl.com',
+                'email2' => 'info@maexportsrl.com'
+            ],
+        ];
+    }
+}
+
+if (!function_exists('help_contacts_text_management')) {
+    function help_contacts_text_management(){
+        return [
+            0 => [
+                'man' => 'Alex Mazzucco (italiano, spagnolo)',
+                'ruolo' => 'Amministratore',
+                'tel' => '+39 3336321195',
+                'email' => 'alex.mazzurco@maexportsrl.com'
+            ],
+            1 => [
+                'man' => 'Andrei Alaverdov (russo, italiano)',
+                'ruolo' => 'Amministratore',
+                'tel' => '+39 3897622477',
+                'email' => 'andrei.alaverdov@maexportsrl.com'
+            ],
+            2 => [
+                'man' => 'Davide Ricupero (italiano)',
+                'ruolo' => 'Responsabile Vendite - Team Manager',
+                'area' => 'italia',
+                'tel' => '+39 329 7883215',
+                'email' => 'davide.ricupero@maexportsrl.com'
+            ],
+        ];
+    }
+}
+
+
 
 if (!function_exists('help_country_iso3166')){
     function help_country_iso3166(){

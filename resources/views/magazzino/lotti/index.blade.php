@@ -68,7 +68,6 @@
                                 @foreach ($prenotatoList as $status)
                                 @php
                                     $daysFromNow = $status->pivot->created_at->diffInDays(now());
-
                                 @endphp
                                     <p>
                                         {{$loop->iteration}} - {{$status->name}} - 

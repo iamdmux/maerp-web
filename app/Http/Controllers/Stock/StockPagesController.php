@@ -21,6 +21,12 @@ class StockPagesController extends Controller
         $geo = geoip()->getLocation();
         $countryCode = $geo->iso_code;
         
+        // placeholder per il form
+        $userEmail = '';
+        if(auth()->check()){
+            $user = auth()->user();
+            $userEmail = $user->email;
+        }
 
         $lotti->filter(function ($value, $key) use ($lotti, $countryCode) {
             $nazArray = json_decode($value->nazioni_tranne);
@@ -50,7 +56,8 @@ class StockPagesController extends Controller
 
         return view('stocks.index', [
             'lotti' => $lotti,
-            'countryCode' => $countryCode
+            'countryCode' => $countryCode,
+            'userEmail' => $userEmail
         ]);
     }
 
@@ -84,7 +91,12 @@ class StockPagesController extends Controller
     }
 
     public function contacts(){
-        return view('stocks.contacts');
+        return view('stocks.contacts', [
+            'uffVendite' => help_contacts_text_uff_vendite(),
+            'uffAcquisti' => help_contacts_text_uff_acquisti(),
+            'uffContabile' => help_contacts_text_contabile(),
+            'uffManagement' => help_contacts_text_management(),
+        ]);
     }
 
     public function contactSendEmail(Request $request){

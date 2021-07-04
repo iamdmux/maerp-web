@@ -148,12 +148,34 @@
                     <span class="mx-3">Ferie</span>
                 </a>
                 @endcan
+
+                <hr class="mt-2" style="background-color: #242424; height: 1px; border: 0;">
+                
+                {{-- Stocks Informazioni --}}
+                <div @click="open('stocks')" class="cursor-pointer flex items-center mt-2 py-1 px-6 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+
+                    <span class="mx-3">Stocks</span>
+                </div>
+
+                <a x-show="isOpenStocks()" style="display:none" class="flex items-center mt-2 py-1 pl-8 text-gray-100 hover:bg-gray-700 bg-opacity-25 hover:text-gray-100 {{url()->current() == route('erp.stocksforms.index') ? 'bg-gray-700 text-blue-400' : ''}}" href="{{ route('erp.stocksforms.index') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+
+                    <span class="mx-3">Messaggi</span>
+                </a>
+
+
             @push('scripts')
             <script> 
                 let isMagazzino = window.location.pathname.split('/')[2] == 'magazzino' ? true : false;
                 let isVendite = window.location.pathname.split('/')[2] == 'vendite' ? true : false;
                 let isBlackbox = window.location.pathname.split('/')[2] == 'blackbox' ? true : false;
                 let isAcquisti = window.location.pathname.split('/')[2] == 'acquisti' ? true : false;
+                let isStocks = window.location.pathname.split('/')[2] == 'stocks' ? true : false;
                 function navigation() {
                     return {
                         sidebarOpen: false,
@@ -161,6 +183,7 @@
                         showVendite: isVendite,
                         showBlackbox: isBlackbox,
                         showAcquisti: isAcquisti,
+                        showStocks: isStocks,
                         open(menu) {
                             if(menu == 'magazzino'){
                                 this.showMagazzino = !this.showMagazzino
@@ -170,6 +193,8 @@
                                 this.showBlackbox = !this.showBlackbox
                             } else if(menu == 'acquisti'){
                                 this.showAcquisti = !this.showAcquisti
+                            } else if(menu == 'stocks'){
+                                this.showStocks = !this.showStocks
                             }
                             
                             },
@@ -177,6 +202,7 @@
                         isOpenVendite() { return this.showVendite === true },
                         isOpenBlackbox() { return this.showBlackbox === true },
                         isOpenAcquisti() { return this.showAcquisti === true },
+                        isOpenStocks() { return this.showStocks === true },
                     }
                 }
             </script>

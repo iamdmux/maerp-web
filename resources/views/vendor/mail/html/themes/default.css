@@ -288,3 +288,7 @@ img {
 .break-all {
     word-break: break-all;
 }
+
+.dark-text {
+    color: rgb(36, 36, 36)
+}
