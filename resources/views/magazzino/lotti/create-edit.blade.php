@@ -82,20 +82,16 @@
             @if($method == 'create')
             <select name="stagione">
                 <option {{old('stagione') ? '' : 'selected'}} value> -- seleziona -- </option>
-                <option {{old('stagione') == 'primavera' ? 'selected' : ''}} value="primavera">Primavera</option>
-                <option {{old('stagione') == 'estate' ? 'selected' : ''}} value="estate">Estate</option>
-                <option {{old('stagione') == 'autunno' ? 'selected' : ''}} value="autunno">Autunno</option>
-                <option {{old('stagione') == 'inverno' ? 'selected' : ''}} value="inverno">Inverno</option>
-                <option {{old('stagione') == 'nessuna' ? 'selected' : ''}} value="nessuna">Nessuna</option>
+                @foreach ($stagioni as $stagione)
+                    <option {{old('stagione') == $stagione ? 'selected' : ''}} value="{{$stagione}}">{{$stagione}}</option>
+                @endforeach
             </select>
             @elseif($method == 'edit')
             <select name="stagione">
                 <option {{old('stagione') ? '' : 'selected'}} value> -- seleziona -- </option>
-                <option {{old('stagione') == 'primavera' ? 'selected' : ($lotto->stagione == 'primavera' ? 'selected' : '')}} value="primavera">Primavera</option>
-                <option {{old('stagione') == 'estate' ? 'selected' : ($lotto->stagione == 'estate' ? 'selected' : '')}} value="estate">Estate</option>
-                <option {{old('stagione') == 'autunno' ? 'selected' : ($lotto->stagione == 'autunno' ? 'selected' : '')}} value="autunno">Autunno</option>
-                <option {{old('stagione') == 'inverno' ? 'selected' : ($lotto->stagione == 'inverno' ? 'selected' : '')}} value="inverno">Inverno</option>
-                <option {{old('stagione') == 'nessuna' ? 'selected' : ($lotto->stagione == 'nessuna' ? 'selected' : '')}} value="nessuna">Nessuna</option>
+                @foreach ($stagioni as $stagione)
+                    <option {{old('stagione') == $stagione ? 'selected' : ($lotto->stagione == $stagione ? 'selected' : '')}} value="{{$stagione}}">{{$stagione}}</option>
+                @endforeach
             </select>
             @endif
         </div>
