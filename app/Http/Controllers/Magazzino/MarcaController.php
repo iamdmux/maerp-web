@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class MarcaController extends Controller
 {
     public function index(){
-        $marche = Marca::with('lotti')->get();
+        $marche = Marca::with('lotti')->orderBy('nome', 'ASC')->get();
         return view('magazzino.marche.index', [
             'marche' => $marche
         ]);

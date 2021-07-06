@@ -73,11 +73,9 @@
             </p>
             @php
             $stagioni = [
-                'primavera',
                 'estate',
-                'autunno',
                 'inverno',
-                'nessuna'
+                'mix'
             ]   
             @endphp
             
