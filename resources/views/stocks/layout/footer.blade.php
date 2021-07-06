@@ -1,4 +1,4 @@
-<footer class="bg-black pt-10 sm:mt-10">
+<footer class="bg-black pt-10 sm:mt-24">
     <div class="container flex flex-wrap m-auto text-gray-800  justify-left">
         
         <!-- Col-1 -->

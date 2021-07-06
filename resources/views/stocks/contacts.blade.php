@@ -2,98 +2,154 @@
 
 @section('content')
 <div class="p-4">
-    @dd($uffVendite,
-    $uffAcquisti,
-    $uffContabile,
-    $uffManagement)
+    <h1 class="mt-12 mb-6 font-semibold text-3xl">Contatti</h1>
+    <p>Il nostro team multilingue è a disposizione di clienti, fornitori e partner.</p>
     
-    <h1 class="my-6 font-semibold text-3xl">Contatti</h1>
-    <p style="max-width: 500px">
-        Se hai bisogno di aiuto o delle semplici richieste di informazioni non esitare a contattarci inviandoci una email contattandoci telefonicamente ad uno dei nostri numeri.
-    </p>
-    <div class="my-16">
-        <a class="-ml-3 px-3 py-2 text-gray-600 hover:bg-yellow-300 rounded" href="mailto:info@maerp.app">info@maerp.app</a>
-    </div>
-
-
-    {{-- <div style="max-width:900px" class="p-8 border-2 rounded-lg">
-        <form action="" method="POST">
-            <div class="mt-3 flex flex-col">
-                <label>Nome *</label>
-                <input type="text" name="nome" value="{{old('nome') ? old('nome') : ''}}">
-            </div>
-
-            <div class="mt-3 flex flex-col">
-                <label>Email *</label>
-                <input type="text" name="email" value="{{old('email') ? old('email') : ''}}">
-            </div>
-
-            <div class="mt-3 flex flex-col">
-                <label>Oggetto *</label>
-                <input type="text" name="oggetto" value="{{old('oggetto') ? old('oggetto') : ''}}">
-            </div>
-
-            <div class="mt-3 flex flex-col">
-                <label>Messaggio *</label>
-                <textarea name="messaggio" cols="15" rows="5">{{old('messaggio') ? old('messaggio') : ''}}</textarea>
-            </div>
-
-            <div class="mt-3">
-                <button class="py-2 px-4 text-center bg-black rounded-md text-white text-sm hover:bg-gray-700">
-                    Invia messaggio
-                </button>
-            </div>
-        </form>
-    </div> --}}
+    @php
+        $cssUfficioTitle = "my-6 font-semibold text-xl uppercase";
+    @endphp
 
     <div class="mt-10">
-        <h1 class="my-6 font-semibold text-3xl">Dove siamo</h1>
-        <p class="font-semibold">
-            Indirizzo dell'azienda: Via Duca d'Abruzzi, 1, 10014 Caluso (TO) ITALIA <br>
-            Telefono: (+ 039 ) 333 63 21 195 <br>
-            Email: info@maexportsrl.com <br>
-        </p>
+        <h2 class="{{$cssUfficioTitle}}">Ufficio Vendite</h2> 
+        <section class="flex flex-wrap">
+            @foreach ($uffVendite as $uff)
+                <div class="flex flex-col justify-between pr-12 pl-6 my-8 mr-4 border-l-4 border-gray-200" style="width:22rem;">
+                    {{-- <p class="font-xs">regione</p> --}}
+                    <div class="mb-3">
+                        <h3 class="font-semibold uppercase text-xl">{{$uff['regione']}}</h3>
+                    </div>
+
+                    <div>
+                        <p><b>{{$uff['ruolo']}}</b></p>
+                        <p class="text-sm">({{$uff['lang']}})</p>
+
+                        <div class="my-3">
+                            <p class="text-2xl">
+                                {{$uff['man']}}
+                            </p>
+                        </div>
+                        <div>
+                            <a href="tel:{{$uff['tel']}}" class="relative inline-block hover:bg-gray-300 rounded px-1">
+                                <svg class="absolute w-4 h-4 mt-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <span class="ml-6">{{$uff['tel']}}</span>
+                            </a>
+                        </div>
+                        <div class="mt-1">
+                            <a href="mailto:{{$uff['email']}}" class="relative inline-block hover:bg-gray-300 rounded px-1">
+                                <svg class="absolute w-4 h-4 mt-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span class="ml-6">{{$uff['email']}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </section>
+    </div>
+    <div class="mt-10">
+        <h2 class="{{$cssUfficioTitle}}">Ufficio Acquisti</h2>
+        <section class="flex flex-wrap">
+            @foreach ($uffAcquisti as $uff)
+                <div class="flex flex-col justify-between pr-12 pl-6 my-8 mr-4 border-l-4 border-gray-200" style="width:22rem;">
+                    <div>
+                        <p><b>{{$uff['ruolo']}}</b></p>
+                        <p class="text-sm">({{$uff['lang']}})</p>
+
+                        <div class="my-3">
+                            <p class="text-2xl">
+                                {{$uff['man']}}
+                            </p>
+                        </div>
+                        <div>
+                            <a href="tel:{{$uff['tel']}}" class="relative inline-block hover:bg-gray-300 rounded px-1">
+                                <svg class="absolute w-4 h-4 mt-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <span class="ml-6">{{$uff['tel']}}</span>
+                            </a>
+                        </div>
+                        <div class="mt-1">
+                            <a href="mailto:{{$uff['email']}}" class="relative inline-block hover:bg-gray-300 rounded px-1">
+                                <svg class="absolute w-4 h-4 mt-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span class="ml-6">{{$uff['email']}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </section>
+    </div>
+    <div class="mt-10">
+        <h2 class="{{$cssUfficioTitle}}">Amministrazione contabile</h2>
+        <section class="flex flex-wrap">
+            @foreach ($uffContabile as $uff)
+                <div class="flex flex-col justify-between pr-12 pl-6 my-8 mr-4 border-l-4 border-gray-200" style="width:22rem;">
+                    <div>
+                        <p><b>{{$uff['ruolo']}}</b></p>
+                        <p class="text-sm">({{$uff['lang']}})</p>
+                        <div class="my-3">
+                            <p class="text-2xl">
+                                {{$uff['man']}}
+                            </p>
+                        </div>
+                        <div>
+                            <a href="tel:{{$uff['tel']}}" class="relative inline-block hover:bg-gray-300 rounded px-1">
+                                <svg class="absolute w-4 h-4 mt-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <span class="ml-6">{{$uff['tel']}}</span>
+                            </a>
+                        </div>
+                        <div class="mt-1">
+                            <a href="mailto:{{$uff['email']}}" class="relative inline-block hover:bg-gray-300 rounded px-1">
+                                <svg class="absolute w-4 h-4 mt-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span class="ml-6">{{$uff['email']}}</span>
+                            </a>
+                        </div>
+                        <div class="mt-1">
+                            <a href="mailto:{{$uff['email']}}" class="relative inline-block hover:bg-gray-300 rounded px-1">
+                                <svg class="absolute w-4 h-4 mt-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span class="ml-6">{{$uff['email2']}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </section>
+    </div>
+    <div class="mt-10">
+        <h2 class="{{$cssUfficioTitle}}">Management</h2>
+        <section class="flex flex-wrap">
+            @foreach ($uffManagement as $uff)
+                <div class="flex flex-col justify-between pr-12 pl-6 my-8 mr-4 border-l-4 border-gray-200" style="width:22rem;">
+                    <div>
+                        <p><b>{{$uff['ruolo']}}</b></p>
+                        <p class="text-sm">({{$uff['lang']}})</p>
+                        <div class="my-3">
+                            <p class="text-2xl">
+                                {{$uff['man']}}
+                            </p>
+                        </div>
+                        @isset( $uff['area'] )
+                            <p class="my-2">area: {{$uff['area']}}</p>
+                        @endisset
+                    </div>
+                    <div>
+                        <div>
+                            <a href="tel:{{$uff['tel']}}" class="relative inline-block hover:bg-gray-300 rounded px-1">
+                                <svg class="absolute w-4 h-4 mt-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <span class="ml-6">{{$uff['tel']}}</span>
+                            </a>
+                        </div>
+                        <div class="mt-1">
+                            <a href="mailto:{{$uff['email']}}" class="relative inline-block hover:bg-gray-300 rounded px-1">
+                                <svg class="absolute w-4 h-4 mt-1.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span class="ml-6">{{$uff['email']}}</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+            @endforeach
+        </section>
     </div>
 
-
-    <div class="mt-10 flex flex-wrap">
-        <div class="block">
-            @php 
-            $title = "font-semibold mt-2";
-            $tex = "normal-case";
-            @endphp
-
-            <p class="leading-loose font-lg font-semibold mt-2 uppercase">Sede di Torino (Caluso)</p>
-                <br>
-                <p class="leading-loose">
-                <span class="{{$title}}">Ufficio Vendite</span><br>
-
-                <span class="{{$tex}} mt-1">Sara (English, Deutsch): +393203635839</span><br>
-                <span class="{{$tex}}">Elena (Român, English) +393203635834</span><br>
-                <span class="{{$tex}}">Bassem +393203635836 (العربية - français)</span><br>
-                <span class="{{$tex}}">Davide (Italiano) +393297883215</span><br>
-
-                <span class="{{$title}}">Ufficio Acquisti</span><br>
-                <span class="{{$tex}} mt-1">Oleg (русский, English, Italiano) +393463281421</span>
-            </p>
-        </div>
-
-        <div class="mr-0 md:ml-12 mt-8 md:mt-0 w-1/2 sm:w-4/12 md:w-3/12" style="min-width: 250px">
-
-            <div class="block duration-700">
-            <p class="leading-loose font-lg font-semibold mt-2 uppercase">Sede di Verona (Colognola ai Colli)</p>
-            <br>
-            <p class="leading-loose">
-                <span class="{{$title}}">Ufficio Vendite</span><br>
-                <span class="{{$tex}} mt-1">Roberto (Italiano) +393337100290</span><br>
-                <span class="{{$tex}}">Isolda (русский, Italiano) +393473181020</span><br>
-                <span class="{{$title}} mt-10">Sede Amministrativa</span><br>
-                <span class="{{$tex}} mt-1">Alex (Italiano, Epol) +393336321195</span><br>
-                <span class="{{$tex}}">Andrei (русский, Italiano) +393897622477</span>
-            </p>
-            </div>
-        </div>
-    </div>
 </div>
+
 
 @endsection

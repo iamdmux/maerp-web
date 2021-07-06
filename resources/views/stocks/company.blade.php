@@ -4,7 +4,7 @@
 <div class="p-4 w-full xl:w-3/4">
     
     <h1 class="my-6 font-semibold text-3xl">Chi siamo</h1>
-    <div class="bg-gray-200 w-full" style="height:400px"></div>
+    <img src="{{asset('img/chisiamo-magazzino.jpg')}}" alt="magaazzino" class="w-full rounded">
     <p class="mt-10">
         Noi di M&A Export Srl, nati nel 2015, siamo diventati azienda leader riconosciuta nello stock di abbigliamento, calzature e accessori dei migliori marchi italiani e internazionali.
     </p>
@@ -62,23 +62,27 @@
     </section>
 
     <div class="flex flex-wrap">
-        <div class="w-full lg:w-1/2 lg:pr-6">
-            <h3 class="text-2xl font-semibold">Dove acquistiamo</h3>
-            <p class="mb-8">Acquistiamo principalmente in Europa e organizziamo anche il ritiro delle merci direttamente dalle sedi internazionali con conseguente abbattimento dei costi di dogana e di logistica.</p>
-            
-            <h3 class="text-2xl font-semibold">Dove vendiamo</h3>
-            <p class="mb-8">Esportiamo il 90% in Paesi fuori dall’Italia, coprendo oltre 60 nazioni.</p>
-
-            <h3 class="text-2xl font-semibold">La nostra missione</h3>
-            <p>La nostra missione è la sostenibilità ambientale con lo scopo preciso di ridurre i rifiuti e contenere l’impatto ambientale. Per questo motivo acquistiamo stock di stagioni passate, resi da negozi, resi da e-commerce, sovraproduzioni, prodotti difettosi alla produzione e prodotti danneggiati.</p>
+        <div class="flex flex-col justify-center w-full lg:w-1/2 lg:pr-6">
+            <div>
+                <h3 class="text-2xl font-semibold">Dove acquistiamo</h3>
+                <p class="mb-8">Acquistiamo principalmente in Europa e organizziamo anche il ritiro delle merci direttamente dalle sedi internazionali con conseguente abbattimento dei costi di dogana e di logistica.</p>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold">Dove vendiamo</h3>
+                <p class="mb-8">Esportiamo il 90% in Paesi fuori dall’Italia, coprendo oltre 60 nazioni.</p>
+            </div>
+            <div class="mb-6">
+                <h3 class="text-2xl font-semibold">La nostra missione</h3>
+                <p>La nostra missione è la sostenibilità ambientale con lo scopo preciso di ridurre i rifiuti e contenere l’impatto ambientale. Per questo motivo acquistiamo stock di stagioni passate, resi da negozi, resi da e-commerce, sovraproduzioni, prodotti difettosi alla produzione e prodotti danneggiati.</p>
+            </div>
         </div>
         <div class="w-full lg:w-1/2">
-            <div class="bg-gray-200 w-full" style="height:400px"></div>
+            <img src="{{asset('img/chisiamo-export.jpg')}}" alt="magaazzino" class="w-full rounded">
         </div>
     </div>
 
-    <div class="my-10">
-        <h3 class="text-2xl font-semibold">I vantaggi per i nostri fornitori partner</h3>
+    <div class="my-24 p-8 bg-gray-100 border border-black rounded">
+        <h3 class="text-2xl font-semibold mb-1">I vantaggi per i nostri fornitori partner</h3>
         <p>Collaboriamo con le aziende partner ritirando le loro merci obsolete e reimettendole in un nuovo ciclo commerciale, attraverso i nostri canali internazionali consolidati, nei distretti geografici più ricettivi.</p>
     </div>
     <div class="flex flex-wrap">
@@ -96,16 +100,17 @@
                    'Disponibilità a contrattualizzare gli acquisti periodici e continuativi'
             ];
            @endphp
-            <p>In particolare, offriamo:</p>
-
-            <ul>
-                @foreach ($list as $li)
-                    <li style="list-style-type: disc;">{{$li}}</li>
-                @endforeach
-            </ul>
+            <h4 class="font-semibold text-lg">In particolare, offriamo:</h4>
+            <div class="pl-6 mt-16 mb-6">
+                <ul>
+                    @foreach ($list as $li)
+                        <li style="list-style-type: disc;" class="mb-1">{{$li}}</li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
         <div class="w-full lg:w-1/2">
-            <div class="bg-gray-200 w-full" style="height:400px"></div>
+            <img src="{{asset('img/chisiamo-vetrina.jpg')}}" alt="magaazzino" class="w-full rounded">
         </div>
     </div>
 @endsection

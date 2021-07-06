@@ -4,17 +4,17 @@
 richiesta da 
 <span class="dark-text">
     <b>
-        {{ucfirst($form['nome'])}} {{ucfirst($form['cognome'])}}
+        {{ucfirst($form['name'])}} {{ucfirst($form['surname'])}}
     </b>
 </span>  
 Azienda:
 <span class="dark-text">
     <b>
-        {{ucfirst($form['azienda'])}}
+        {{ucfirst($form['company'])}}
     </b>
 </span>
 
-Messaggio: {{ucfirst($form['messaggio'])}}
+Messaggio: {{ucfirst($form['textbody'])}}
 
 
 {{-- <p style="margin-top:100px">

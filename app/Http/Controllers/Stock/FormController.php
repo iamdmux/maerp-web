@@ -20,6 +20,16 @@ class FormController extends Controller
             "textbody" => 'required|max:65535',
         ]);
 
+        $data['tipo_form'] = 'stocks';
+        
+        try {
+            Mail::to( env('MAIL_FROM_ADDRESS') )->send(new StocksFormInformations($data));
+        }
+        catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage() . '<br> Ci scusiamo ma non è stato possibile invare la email. Si prega di riprovare più tardi.'])->withInput();  
+        }
+
+
         if(auth()->check()){
             $userId = auth()->id();
         } else {
@@ -34,10 +44,8 @@ class FormController extends Controller
             'azienda' => $data['company'],
             'oggetto' => $data['object'],
             'messaggio' => $data['textbody'],
-            'tipo_form' => 'stocks',
+            'tipo_form' => $data['tipo_form']
         ]);
-
-        Mail::to( env('MAIL_FROM_ADDRESS') )->send(new StocksFormInformations($form));
 
         return back()->with('success', 'L\'email è stata inviata. Grazie per averci contattato, risponederemo il prima possibile.');
 

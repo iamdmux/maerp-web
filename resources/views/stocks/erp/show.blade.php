@@ -14,32 +14,32 @@
         @endphp
 
     <div class="{{$div}}">
-        <p>pagina del form:</p>
-        <p><b>{{$form->tipo_form}}</b></p>
+        <p><b>pagina del form:</b></p>
+        <p>{{$form->tipo_form}}</p>
     </div>
     <div class="{{$div}}">
-        <p>nome:</p>
-        <p><b>{{$form->nome}}</b></p>
+        <p><b>nome:</b></p>
+        <p>{{$form->nome}}</p>
     </div>
     <div class="{{$div}}">
-        <p>cognome</p>
-        <p><b>{{$form->cognome}}</b></p>
+        <p><b>cognome</b></p>
+        <p>{{$form->cognome}}</p>
     </div>
     <div class="{{$div}}">
-        <p>email:</p>
-        <p><b>{{$form->email}}</b></p>
+        <p><b>email:</b></p>
+        <p>{{$form->email}}</p>
     </div>
     <div class="{{$div}}">
-        <p>azienda:</p>
-        <p><b>{{$form->azienda}}</b></p>
+        <p><b>azienda:</b></p>
+        <p>{{$form->azienda}}</p>
     </div>
     <div class="{{$div}}">
-        <p>oggetto:</p>
-        <p><b>{{$form->oggetto}}</b></p>
+        <p><b>oggetto:</b></p>
+        <p>{{$form->oggetto}}</p>
     </div>
     <div class="{{$div}}">
-        <p>messaggio:</p>
-        <p><b>{{$form->messaggio}}</b></p>
+        <p><b>messaggio:</b></p>
+        <p>{{$form->messaggio}}</p>
     </div>
 
 </div>

@@ -13,9 +13,9 @@ class StocksFormInformations extends Mailable
 
     public $form;
 
-    public function __construct($formCollection)
+    public function __construct($formData)
     {
-        $this->form = $formCollection->toArray();
+        $this->form = $formData;
     }
 
     /**
@@ -26,7 +26,7 @@ class StocksFormInformations extends Mailable
     public function build()
     {
         return $this->from($this->form['email'])
-                    ->subject($this->form['oggetto'])
+                    ->subject($this->form['object'])
                     ->markdown('emails.stocks.formInformations', [
                         'form' => $this->form,
                     ]);
