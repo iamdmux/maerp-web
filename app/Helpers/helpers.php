@@ -139,7 +139,7 @@ if (!function_exists('help_contacts_text_uff_acquisti')) {
                 'tel' => '+39 3487867675',
                 'email' => 'giuseppe.stabile@maexportsrl.com'
             ],
-            1 => [
+            2 => [
                 'man' => 'Oleg Shyich',
                 'lang' => 'Inglese',
                 'ruolo' => 'Ufficio Acquisti ',
