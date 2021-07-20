@@ -49,6 +49,8 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 // })->middleware(['auth', 'isDeveloper']);
 
 
+
+// LOGS
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware(['auth', 'isDeveloper']);
 
 // STOCK 
@@ -88,7 +90,8 @@ Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], func
         Route::get('importclienti', [DashboardController::class, 'importClienti'])->middleware(['isDeveloper']);
         Route::get('importfornitori', [DashboardController::class, 'importFornitori'])->middleware(['isDeveloper']);
         
-        // Route::get('devs/creamagazzinoaccount', [DevController::class, 'magazzino'])->middleware(['isDeveloper']); non più utilizzato
+        // TEMP
+        Route::get('devs/creamagazzinoaccount', [DevController::class, 'magazzino'])->middleware(['isDeveloper']); // TIENE USER FREE FINO A 20
 
         // Route::get('/import-doc-ddt', [ImportController::class, 'importDdt']); non più utilizzato
         // Route::get('/import-doc-fatture', [ImportController::class, 'importFatture']); non più utilizzato

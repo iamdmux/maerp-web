@@ -33,7 +33,7 @@ class DashboardController extends Controller
         
         $numeroLotti = Lotto::get()->count();
 
-        $users = User::with('clienti')->get();
+        $users = User::with('roles', 'permissions', 'clienti')->get();
         
         // TEMP
         $isclienti = Cliente::get()->count()-1;
