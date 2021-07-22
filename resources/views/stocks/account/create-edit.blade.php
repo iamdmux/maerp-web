@@ -11,9 +11,9 @@
 
     $formAction = '';
     if($create){
-        $formAction = route('account.store');
+        $formAction = route('account.store', app()->getLocale());
     } elseif($edit){
-        $formAction = route('account.update', auth()->user()->slug);
+        $formAction = route('account.update', app()->getLocale() , auth()->user()->slug);
     }
 @endphp
 

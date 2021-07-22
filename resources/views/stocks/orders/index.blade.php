@@ -91,10 +91,10 @@
         </div>
 
         <div class="flex flex-wrap justify-between mt-16">
-            <a href="{{route('stocks.index')}}"
+            <a href="{{route('stocks.index', app()->getLocale())}}"
                class="mb-4 px-6 py-2 font-semibold rounded-xl border border-black hover:bg-gray-200">torna su stocks
             </a>
-            <a href="{{route('orders.index')}}"
+            <a href="{{route('orders.index', app()->getLocale())}}"
                 class="mb-4 px-6 py-2 font-semibold rounded-xl bg-black text-white hover:bg-gray-800">Aggiorna pagina ordine
             </a>
         </div>

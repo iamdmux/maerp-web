@@ -232,11 +232,17 @@ class LottoController extends Controller
             'codice_articolo' => 'required',
             //shop
             "in_shop" => 'nullable',
-            "shop_prezzo" => Rule::requiredIf($request->in_shop), 'numeric',
+            "shop_prezzo" => Rule::requiredIf(function () use ($request) {
+                return $request->in_shop;
+            }), 'numeric',
             "shopimage" => 'nullable|image',
             "shopvideo" => 'nullable|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
-            "shop_descrizione" => Rule::requiredIf($request->in_shop), 'max:65535',
-            "visibilita" => Rule::requiredIf($request->in_shop),
+            "shop_descrizione" => Rule::requiredIf(function () use ($request) {
+                return $request->in_shop;
+            }), 'max:65535',
+            "visibilita" => Rule::requiredIf(function () use ($request) {
+                return $request->in_shop;
+            }),
             "nazioni_tranne" => 'nullable',
             'delete_image' => 'nullable',
             'delete_video' => 'nullable',

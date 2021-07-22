@@ -63,7 +63,7 @@
           </div>
 
           <div class="md:flex-1 px-4">
-            <form action="{{route('cart.store')}}" method="POST">
+            <form action="{{route('cart.store', app()->getLocale())}}" method="POST">
 
               @csrf
 

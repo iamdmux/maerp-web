@@ -62,11 +62,11 @@ class CartController extends Controller
     return back()->with('success', 'Il lotto è stato aggiunto nel carrello');
    }
 
-   public function update(Request $request, $pivotCartId){
+   public function update(Request $request, $lang, $pivotCartId){
     //
     // togli dal carrello
     //
-    
+
     $cartItem = Cart::findOrFail($pivotCartId);
 
     // update lotto quantità

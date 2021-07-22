@@ -89,7 +89,7 @@
 
                             <div class="px-2 py-2 text-center bg-white rounded-md shadow">
                                 @if(auth()->user()->account()->exists())
-                                <a class="{{$dropDownClass}}" href="{{route('account.edit', app()->getLocale(), auth()->user()->slug)}}">{{ __('pages.My account')}}</a>
+                                <a class="{{$dropDownClass}}" href="{{route('account.edit', [app()->getLocale(), auth()->user()->slug])}}">{{ __('pages.My account')}}</a>
                                 @else
                                 <a class="{{$dropDownClass}}" href="{{route('account.create', app()->getLocale())}}">{{ __('pages.My account')}}</a>
                                 @endif

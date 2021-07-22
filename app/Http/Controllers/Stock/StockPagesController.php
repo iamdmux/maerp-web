@@ -61,7 +61,7 @@ class StockPagesController extends Controller
         ]);
     }
 
-    public function show($id){
+    public function show($lang, $id){
         $lotto = Lotto::with('marca')->findOrFail($id);
 
         $geo = geoip()->getLocation();

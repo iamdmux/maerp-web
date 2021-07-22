@@ -10,10 +10,9 @@
         <div class="flex flex-wrap my-10">
 
                 @forelse ($lotti as $lotto)
-
                 <div class="w-full lg:w-1/2">
                     <div class="mr-6 mb-6 border border-grey-dark group shadow-none hover:shadow-lg rounded-lg transition-shadow">
-                    <a href="{{route('stocks.show', app()->getLocale(), $lotto->id)}}">
+                    <a href="{{'/' . app()->getLocale() . "/stocks/lotti/$lotto->id"}}">  {{-- TO FIX  usare l'array per [param1, param2]  --}}
                         <div class="flex flex-col md:flex-row">
                             <div class="relative">
                                 <div class="relative">

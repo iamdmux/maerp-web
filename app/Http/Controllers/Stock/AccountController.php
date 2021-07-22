@@ -31,7 +31,7 @@ class AccountController extends Controller
         $data['stock_user_id'] = auth()->id();
         $data['user_id'] = auth()->id(); // può dare errore in fattura
         Cliente::create($data);
-        return redirect()->route('stocks.home')->with('success', 'Il profilo è stato creato');
+        return redirect()->route('stocks.home', app()->getLocale())->with('success', 'Il profilo è stato creato');
     }
 
 
@@ -76,7 +76,7 @@ class AccountController extends Controller
                 return back()->withErrors(['error' => ["Qualcosa è andato storto"]]); 
             }
 
-            return redirect()->route('stocks.home')->with('success', 'Il profilo è stato aggiornato');
+            return redirect()->route('stocks.home', app()->getLocale())->with('success', 'Il profilo è stato aggiornato');
         }
         abort(404);
     }
