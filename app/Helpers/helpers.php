@@ -57,64 +57,70 @@ if (!function_exists('help_mesi_array')) {
 //     }
 // }
 
+// LANGUAGE LOCALE ALLOWED
+if (!function_exists('help_language_locale_array')) {
+    function help_language_locale_array(){ 
+        return [ 'ar', 'en', 'fr', 'ru', 'es', 'it'];
+    }
+}
 
 // TESTI PER STOCKS
 if (!function_exists('help_contacts_text_uff_vendite')) {
     function help_contacts_text_uff_vendite(){ 
         return [
             0 => [
-                'regione' => 'Italia',
+                'regione' => __('pages.Italia'),
                 'man' => 'Elia Sanfilippo',
-                'lang' => 'italiano',
-                'ruolo' => 'Responsabile Vendite',
+                'lang' => __('pages.italiano'),
+                'ruolo' => __('pages.Responsabile Vendite'),
                 'tel' => '+39 349 8617739',
                 'email' => 'elia.sanfilippo@maexportsrl.com '
             ],
             1 => [
-                'regione' => 'Italia',
+                'regione' => __('pages.Italia'),
                 'man' => 'Roberto Pitetti',
-                'lang' => 'italiano',
-                'ruolo' => 'Responsabile Vendite',
+                'lang' => __('italiano'),
+                'ruolo' => __('pages.Responsabile Vendite'),
                 'tel' => '+39 3337100290',
                 'email' => 'roberto.pitetti@maexportsrl.com'
             ],
             2 => [
-                'regione' => 'Egitto, Libia, Algeria, Belgio, Francia',
+                'regione' =>  __('pages.Egitto') .', '. __('pages.Libia').', '. __('pages.Algeria').', '.  __('pages.Belgio').', '.  __('pages.Francia'),
                 'man' => 'Bessem Tabarki',
-                'lang' => 'arabo, francese',
-                'ruolo' => 'Responsabile Vendite',
+                'lang' =>  __('pages.arabo').', '.  __('pages.francese'),
+                'ruolo' => __('pages.Responsabile Vendite'),
                 'tel' => '+39 320 3635836',
                 'email' => 'bessem.tabarki@maexportsrl.com'
             ],
             3 => [
-                'regione' => 'Romania, Bulgaria, Ungheria, Grecia',
+                'regione' => __('pages.Romania').', '. __('pages.Bulgaria').', '. __('pages.Ungheria').', '. __('pages.Grecia'),
                 'man' => 'Elena Aprofirei',
-                'lang' => 'rumeno, inglese',
-                'ruolo' => 'Responsabile Vendite',
+                'lang' => __('pages.rumeno').', '. __('pages.inglese'),
+                'ruolo' => __('pages.Responsabile Vendite'),
                 'tel' => '+39 3203635834',
                 'email' => 'elena.aprofirei@maexportsrl.com'
             ],
             4 => [
-                'regione' => 'Lituania, Estonia, Lettonia, Georgia, Ucraina, Russia',
+                'regione' => __('pages.Lituania').', '. __('pages.Estonia').', '. __('pages.Lettonia').', '. __('pages.Georgia').', '. __('pages.Ucraina').', '. __('pages.Russia'),
                 'man' => 'Alona Dereklieieva',
-                'lang' => 'russo, italiano',
-                'ruolo' => 'Responsabile Vendite',
+                'lang' => __('pages.russo').', '. __('pages.italiano'),
+                'ruolo' => __('pages.Responsabile Vendite'),
                 'tel' => '+39 344 1805012',
                 'email' => 'alona.dereklieieva@maexportsrl.com'
             ],
             5 => [
-                'regione' => 'Polonia, Repubblica Ceca, Germania',
+                'regione' => __('pages.Polonia').', '. __('pages.Repubblica Ceca').', '. __('pages.Germania'),
                 'man' => 'Anna Fafara',
-                'lang' => 'inglese, polacco, tedesco, italiano',
-                'ruolo' => 'Responsabile Vendite',
+                'lang' => __('pages.inglese').', '. __('pages.polacco').', '. __('pages.tedesco').', '. __('pages.italiano'),
+                'ruolo' => __('pages.Responsabile Vendite'),
                 'tel' => '+39 335 5258993',
                 'email' => 'anna.fafara@maexportsrl.com'
             ],
             6 => [
-                'regione' => 'Spagna, Portogallo, Sud America',
+                'regione' => __('pages.Spagna').', '. __('pages.Portogallo').', '. __('pages.Sud America'),
                 'man' => 'Fabio Cutrì',
-                'lang' => 'spagnolo, inglese, italiano',
-                'ruolo' => 'Responsabile Vendite',
+                'lang' => __('pages.spagnolo').', '. __('pages.inglese').', '. __('pages.italiano'),
+                'ruolo' => __('pages.Responsabile Vendite'),
                 'tel' => '+39 344 0798335',
                 'email' => 'fabio.cutri@maexportsrl.com '
             ],
@@ -127,22 +133,22 @@ if (!function_exists('help_contacts_text_uff_acquisti')) {
         return [
             0 => [
                 'man' => 'Erika Lionello',
-                'lang' => 'Inglese',
-                'ruolo' => 'Ufficio Acquisti ',
+                'lang' => __('pages.inglese'),
+                'ruolo' => __('pages.Ufficio Acquisti'),
                 'tel' => '+39 3426685569',
                 'email' => 'erika.lionello@maexportsrl.com'
             ],
             1 => [
                 'man' => 'Giuseppe Stabile',
-                'lang' => 'Inglese',
-                'ruolo' => 'Ufficio Acquisti ',
+                'lang' => __('pages.inglese'),
+                'ruolo' => __('pages.Ufficio Acquisti'),
                 'tel' => '+39 3487867675',
                 'email' => 'giuseppe.stabile@maexportsrl.com'
             ],
             2 => [
                 'man' => 'Oleg Shyich',
-                'lang' => 'Inglese',
-                'ruolo' => 'Ufficio Acquisti ',
+                'lang' => __('pages.inglese'),
+                'ruolo' => __('pages.Ufficio Acquisti'),
                 'tel' => '+39 3463281421',
                 'email' => 'oleg.shyich@maexportsrl.com'
             ],
@@ -155,8 +161,8 @@ if (!function_exists('help_contacts_text_contabile')) {
         return [
             0 => [
                 'man' => 'Marco Capris',
-                'lang' => 'italiano, inglese',
-                'ruolo' => 'Ufficio Amministrativo',
+                'lang' => __('pages.italiano') .', '. __('pages.inglese'),
+                'ruolo' => __('pages.Ufficio Amministrativo'),
                 'tel' => '+39 3459706112',
                 'email' => 'marco.capris@maexportsrl.com',
                 'email2' => 'info@maexportsrl.com'
@@ -170,23 +176,23 @@ if (!function_exists('help_contacts_text_management')) {
         return [
             0 => [
                 'man' => 'Alex Mazzucco',
-                'lang' => 'italiano, spagnolo',
-                'ruolo' => 'Amministratore',
+                'lang' => __('pages.italiano') .', '. __('pages.spagnolo'),
+                'ruolo' => __('pages.Amministratore'),
                 'tel' => '+39 3336321195',
                 'email' => 'alex.mazzurco@maexportsrl.com'
             ],
             1 => [
                 'man' => 'Andrei Alaverdov',
-                'lang' => 'russo, italiano',
-                'ruolo' => 'Amministratore',
+                'lang' => __('pages.russo').', '. __('pages.italiano'),
+                'ruolo' => __('pages.Amministratore'),
                 'tel' => '+39 3897622477',
                 'email' => 'andrei.alaverdov@maexportsrl.com'
             ],
             2 => [
                 'man' => 'Davide Ricupero',
                 'lang' => 'italiano',
-                'ruolo' => 'Responsabile Vendite - Team Manager',
-                'area' => 'italia',
+                'ruolo' => __('pages.Responsabile Vendite - Team Manager'),
+                'area' => __('pages.Italia'),
                 'tel' => '+39 329 7883215',
                 'email' => 'davide.ricupero@maexportsrl.com'
             ],
@@ -194,7 +200,18 @@ if (!function_exists('help_contacts_text_management')) {
     }
 }
 
+if (!function_exists('help_replace_url_with_locale')){
+    function help_replace_url_with_locale($url, $locale){
+        if(in_array($locale, help_language_locale_array())){
+            $urlArray = explode('/', $url);
+            $urlArray[3] = $locale;
+            $finalUrl = implode('/', $urlArray);
 
+            return $finalUrl;
+        }
+        return '#';
+    }
+}
 
 if (!function_exists('help_country_iso3166')){
     function help_country_iso3166(){

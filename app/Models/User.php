@@ -34,7 +34,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    const STAFF_ERP = [];
+    const STAFF_ERP = [1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+    const EMPTY_ERP_USER_SLOT = [15,16,17,18,19,20,21,22,23,24,25];
+    
     const RESPONSABILE_MAGAZZINO_ID = 11;
     const SLUGLENGTH = 7;
 

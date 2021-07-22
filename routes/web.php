@@ -55,23 +55,36 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->m
 
 // STOCK 
 Route::get('/', function(){
-    return redirect()->to('/stocks');
+    $user =  auth()->user();
+    if($user){
+        if($user->hasAnyRole(['admin', 'agente', 'resp. magazzino'])){
+            return redirect()->to('/erp');
+        } else {
+            return redirect()->to( app()->getLocale() . '/stocks');
+        }
+    }
+    return redirect()->to( app()->getLocale() . '/stocks');
 });
 
-Route::get('stocks', [StockPagesController::class, 'homepage'])->name('stocks.home');
+Route::group(['prefix' => '{language}'], function(){
+    Route::get('stocks', [StockPagesController::class, 'homepage'])->name('stocks.home');
 
-Route::resource('stocks/account', AccountController::class, ['except' => ['index', 'show', 'destroy']])->middleware('auth');
+    Route::resource('stocks/account', AccountController::class, ['except' => ['index', 'show', 'destroy']])->middleware('auth');
 
-Route::get('stocks/lotti', [StockPagesController::class, 'index'])->name('stocks.index');
-Route::get('stocks/lotti/{id}', [StockPagesController::class, 'show'])->name('stocks.show');
+    Route::get('stocks/lotti', [StockPagesController::class, 'index'])->name('stocks.index');
+    Route::get('stocks/lotti/{id}', [StockPagesController::class, 'show'])->name('stocks.show');
 
-Route::resource('stocks/cart', CartController::class)->middleware('auth');
-Route::resource('stocks/orders', OrderController::class)->middleware('auth');
+    Route::resource('stocks/cart', CartController::class)->middleware('auth');
+    Route::resource('stocks/orders', OrderController::class)->middleware('auth');
 
-Route::get('contacts', [StockPagesController::class, 'contacts'])->name('stocks.contacts');
-Route::get('company', [StockPagesController::class, 'company'])->name('stocks.company');
+    Route::get('contacts', [StockPagesController::class, 'contacts'])->name('stocks.contacts');
+    Route::get('company', [StockPagesController::class, 'company'])->name('stocks.company');
 
-Route::post('/form', [ FormController::class, 'store'])->name('formEmail.store');
+    Route::post('/form', [ FormController::class, 'store'])->name('formEmail.store');
+});
+
+
+
 
 // ERP
 
@@ -91,7 +104,7 @@ Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], func
         Route::get('importfornitori', [DashboardController::class, 'importFornitori'])->middleware(['isDeveloper']);
         
         // TEMP
-        Route::get('devs/creamagazzinoaccount', [DevController::class, 'magazzino'])->middleware(['isDeveloper']); // TIENE USER FREE FINO A 20
+        // Route::get('devs/creamagazzinoaccount', [DevController::class, 'magazzino'])->middleware(['isDeveloper']); // TIENE USER FREE FINO A 25
 
         // Route::get('/import-doc-ddt', [ImportController::class, 'importDdt']); non più utilizzato
         // Route::get('/import-doc-fatture', [ImportController::class, 'importFatture']); non più utilizzato
@@ -99,12 +112,12 @@ Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], func
     });
 
     // impostazioni
-Route::group(['middleware' => ['can:impostazioni']], function () {
-    Route::get('/impostazioni', [ImpostazioneController::class, 'edit'])->name('impostazioni.edit');
-    Route::patch('/impostazioni', [ImpostazioneController::class, 'update'])->name('impostazioni.update');
-});
+    Route::group(['middleware' => ['can:impostazioni']], function () {
+        Route::get('/impostazioni', [ImpostazioneController::class, 'edit'])->name('impostazioni.edit');
+        Route::patch('/impostazioni', [ImpostazioneController::class, 'update'])->name('impostazioni.update');
+    });
 
-// VENDITE
+    // VENDITE
     Route::group(['middleware' => ['can:vendite']], function () {
         // Clienti
         Route::resource('/vendite/clienti', ClienteController::class);                                              // --> filtra clienti by agente
@@ -129,17 +142,13 @@ Route::group(['middleware' => ['can:impostazioni']], function () {
     });
 
 
-// ACQUISTI
+    // ACQUISTI
     Route::group(['middleware' => ['can:acquisti']], function () {
         //fornitori
         Route::resource('/acquisti/fornitori', FornitoreController::class);
     });
     
-
-// AGENTI
-    // Route::resource('/agenti', AgenteController::class); ??
-
-    
+   
     // MAGAZZINO
     Route::resource('/magazzino/lotti', LottoController::class, ['except' => ['show']]); // middleware in construct
 
@@ -179,7 +188,7 @@ Route::group(['middleware' => ['can:impostazioni']], function () {
 
     });
 
-    //Stocks
+    // erp - Stocks
     Route::get('/stocks/forms', [FormController::class, 'index'])->name('erp.stocksforms.index');
     Route::get('/stocks/forms/{id}', [FormController::class, 'show'])->name('erp.stocksforms.show');
     Route::delete('/stocks/forms/{id}', [FormController::class, 'delete'])->name('erp.stocksforms.delete');

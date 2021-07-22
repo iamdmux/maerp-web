@@ -13,7 +13,7 @@
 
                 <div class="w-full lg:w-1/2">
                     <div class="mr-6 mb-6 border border-grey-dark group shadow-none hover:shadow-lg rounded-lg transition-shadow">
-                    <a href="{{route('stocks.show', $lotto->id)}}">
+                    <a href="{{route('stocks.show', app()->getLocale(), $lotto->id)}}">
                         <div class="flex flex-col md:flex-row">
                             <div class="relative">
                                 <div class="relative">
@@ -52,7 +52,7 @@
       </div>
 
 
-      <form action="{{route('formEmail.store')}}" method="POST">
+      <form action="{{route('formEmail.store', app()->getLocale())}}" method="POST">
         @csrf
       <div x-data="{ open: {{$errors->any() ? 'true' : 'false'}} }"  class="lg:ml-auto my-16 py-8 px-4 lg:px-16 bg-gray-200 rounded" style="max-width: 450px;">
         <div x-on:click.prevent="open = !open" class="pb-6">

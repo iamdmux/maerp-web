@@ -49,7 +49,7 @@
                     <div class="w-1/4">
                         <div class="text-left">
                             <div class="relative w-20 mx-auto pr-0">
-                                <form class="absolute left-0 top-0 md:mt-6 -ml-5 md:-ml-8" action="{{route('cart.update', $item->pivot->id)}}" method="POST">
+                                <form class="absolute left-0 top-0 md:mt-6 -ml-5 md:-ml-8" action="{{route('cart.update', app()->getLocale(), $item->pivot->id)}}" method="POST">
                                     @csrf
                                     @method('PATCH')
                                     <button onclick="return confirm('Vuoi togliere questo prodotto dal carrello?')">
@@ -107,10 +107,10 @@
         </div>
 
         <div class="flex flex-wrap justify-between mt-16">
-            <a href="{{route('stocks.index')}}"
+            <a href="{{route('stocks.index', app()->getLocale())}}"
                class="mb-4 px-6 py-2 font-semibold rounded-xl border border-black hover:bg-gray-200">torna su stocks
             </a>
-            <a href="{{route('cart.index')}}"
+            <a href="{{route('cart.index', app()->getLocale())}}"
                 class="mb-4 px-6 py-2 font-semibold rounded-xl bg-black text-white hover:bg-gray-800">Aggiorna Carrello
             </a>
         </div>
@@ -118,7 +118,7 @@
 
     @if($cart->count())
     <div class="w-full lg:w-1/3 mx-auto lg:mx-0 mt-16 lg:mt-0">
-        <form action="{{route('orders.store')}}" method="POST">
+        <form action="{{route('orders.store', app()->getLocale())}}" method="POST">
             @csrf
             <div class="bg-gray-200 py-8 px-8 rounded">
                 <h4 class="font-semibold  text-2xl pb-3 text-center sm:text-left">Totale Carrello</h4>

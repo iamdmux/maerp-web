@@ -87,5 +87,20 @@ class RolesAndPermissionsSeeder extends Seeder
             'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
         ]);
         User::find($u3->id)->assignRole('resp. magazzino');
+
+
+        // EXTRA
+
+        for ($i=15; $i <=25 ; $i++) { 
+
+           $user = User::create([
+                'id' => $i,
+                'name' => 'magazzino',
+                'slug' => Str::random($slugLength),
+                'email' => "magazzino$i@maerp.app",
+                'password' => '$2y$10$crLa4.YcqNmUD5/y9Gi2e.iKNolvCiBJnG26SIfZwJxPJs0xwUdGS',
+            ]);
+            User::find($user->id)->assignRole('resp. magazzino');
+        }
     }
 }

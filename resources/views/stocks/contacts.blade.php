@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="p-4">
-    <h1 class="mt-12 mb-6 font-semibold text-3xl">Contatti</h1>
-    <p>Il nostro team multilingue è a disposizione di clienti, fornitori e partner.</p>
+    <h1 class="mt-12 mb-6 font-semibold text-3xl">{{ __('pages.Contatti') }}</h1>
+    <p>{{ __('pages.contacts_intro')}} </p>
     
     @php
         $cssUfficioTitle = "my-6 font-semibold text-xl uppercase";
     @endphp
 
     <div class="mt-10">
-        <h2 class="{{$cssUfficioTitle}}">Ufficio Vendite</h2> 
+        <h2 class="{{$cssUfficioTitle}}">{{ __('pages.Ufficio Vendite')}}</h2> 
         <section class="flex flex-wrap">
             @foreach ($uffVendite as $uff)
                 <div class="flex flex-col justify-between pr-12 pl-6 my-8 mr-4 border-l-4 border-gray-200" style="width:22rem;">
@@ -46,7 +46,7 @@
         </section>
     </div>
     <div class="mt-10">
-        <h2 class="{{$cssUfficioTitle}}">Ufficio Acquisti</h2>
+        <h2 class="{{$cssUfficioTitle}}">{{ __('pages.Ufficio Acquisti')}}</h2>
         <section class="flex flex-wrap">
             @foreach ($uffAcquisti as $uff)
                 <div class="flex flex-col justify-between pr-12 pl-6 my-8 mr-4 border-l-4 border-gray-200" style="width:22rem;">
@@ -77,7 +77,7 @@
         </section>
     </div>
     <div class="mt-10">
-        <h2 class="{{$cssUfficioTitle}}">Amministrazione contabile</h2>
+        <h2 class="{{$cssUfficioTitle}}">{{ __('pages.Amministrazione contabile')}}</h2>
         <section class="flex flex-wrap">
             @foreach ($uffContabile as $uff)
                 <div class="flex flex-col justify-between pr-12 pl-6 my-8 mr-4 border-l-4 border-gray-200" style="width:22rem;">
@@ -113,7 +113,7 @@
         </section>
     </div>
     <div class="mt-10">
-        <h2 class="{{$cssUfficioTitle}}">Management</h2>
+        <h2 class="{{$cssUfficioTitle}}">{{ __('pages.Management')}}</h2>
         <section class="flex flex-wrap">
             @foreach ($uffManagement as $uff)
                 <div class="flex flex-col justify-between pr-12 pl-6 my-8 mr-4 border-l-4 border-gray-200" style="width:22rem;">
@@ -148,7 +148,14 @@
             @endforeach
         </section>
     </div>
-
+    <div class="mt-10">
+        <h2 class="{{$cssUfficioTitle}}">{{ __('pages.contact_sedi_title')}}</h2>
+        <section>
+            <p>{{ __('pages.contact_sedi_line1') }}</p>
+            <p>{{ __('pages.contact_sedi_line2') }}</p>
+            <p>{{ __('pages.contact_sedi_line3') }}</p>
+        </section>
+    </div>
 </div>
 
 

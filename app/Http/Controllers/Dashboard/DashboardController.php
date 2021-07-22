@@ -29,16 +29,16 @@ class DashboardController extends Controller
             $numeroClienti = Cliente::with('user')->get()->count();
         }
         
-        $numeroUtenti = (User::get()->count()-2);
-        
+        $doNotCountUsers = count(USER::EMPTY_ERP_USER_SLOT);
+        $numeroUtenti = (User::get()->count()-2-$doNotCountUsers);
         $numeroLotti = Lotto::get()->count();
 
-        $users = User::with('roles', 'permissions', 'clienti')->get();
-        
+        $users = User::whereIn('id', USER::STAFF_ERP)->with('roles', 'permissions', 'clienti')->get();
+
         // TEMP
         $isclienti = Cliente::get()->count()-1;
         $isfornitori = Fornitore::get()->count();
-
+        
         return view('dashboard', [
             'numeroUtenti' => $numeroUtenti,
             'numeroClienti' => $numeroClienti,

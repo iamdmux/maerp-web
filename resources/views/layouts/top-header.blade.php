@@ -72,11 +72,11 @@
         <div x-show="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden border border-gray-300 shadow-xl z-10" style="display:none">
             {{-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a> --}}
-            <a href="{{route('stocks.index')}}" target="_blank" class="flex px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
+            <a href="{{route('stocks.index', app()->getLocale())}}" target="_blank" class="flex px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
                 Stocks home page <svg style="margin-top: 3px;" class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
             </a>
             @can('impostazioni')
-            <a href="{{route('impostazioni.edit')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Impostazioni</a>
+            <a href="{{route('impostazioni.edit', app()->getLocale())}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Impostazioni</a>
             @endcan
             <form class="px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white" action="{{route('logout')}}" method="POST">
                 @csrf
