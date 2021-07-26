@@ -41,10 +41,8 @@ class AccountController extends Controller
     // }
 
 
-    public function edit($slug){
-
+    public function edit($lang, $slug){
         $user = auth()->user()->where('slug', $slug)->first();
-
         if($user){
             if($slug !== $user->slug || !$user->account()->exists()){
                 return back();

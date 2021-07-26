@@ -28,7 +28,8 @@ class FatturaPdfController extends Controller
         PDF::setOptions(['defaultFont' => 'serif']);
         $pdf = PDF::loadView('fatture.fatturapdf', [
             'fattura' => $fatturazione,
-            'cliente' => $cliente
+            'cliente' => $cliente,
+            'zeroPercentoIvaArray' => Fattura::ZERO_PERCENTO_INFO
             ]);
         return $pdf->stream();
     }
@@ -49,7 +50,8 @@ class FatturaPdfController extends Controller
         PDF::setOptions(['defaultFont' => 'serif']);
         $pdf = PDF::loadView('fatture.fatturapdf', [
             'fattura' => $fattura,
-            'cliente' => $cliente
+            'cliente' => $cliente,
+            'zeroPercentoIvaArray' => Fattura::ZERO_PERCENTO_INFO
             ]);
         return $pdf->stream();
     }
@@ -89,7 +91,8 @@ class FatturaPdfController extends Controller
         PDF::setOptions(['defaultFont' => 'serif']);
         $pdf = PDF::loadView('fatture.fatturapdf', [
             'fattura' => $fattura,
-            'cliente' => $cliente
+            'cliente' => $cliente,
+            'zeroPercentoIvaArray' => Fattura::ZERO_PERCENTO_INFO
         ]);
 
         

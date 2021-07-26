@@ -13,7 +13,7 @@
     if($create){
         $formAction = route('account.store', app()->getLocale());
     } elseif($edit){
-        $formAction = route('account.update', app()->getLocale() , auth()->user()->slug);
+        $formAction = route('account.update', [app()->getLocale() , auth()->user()->slug]);
     }
 @endphp
 
@@ -58,7 +58,8 @@
             value="{{old('denominazione') ? old('denominazione') : (($edit || $show) ? $userAccount->denominazione : '')}}">
         </div>
 
-        <div class="{{$inputSpace}}">
+        <div class="relative {{$inputSpace}}">
+            <span class="absolute ml-0 -mt-3 text-xs text-gray-500">* Non obbligatorio per extra Italia</span>
             <p class="{{$labelClass}}">
                 codice_sdi
             </p>

@@ -16,6 +16,8 @@ class Fatturazione {
     public $articoli = [];
     public $marcheArticoli = [];
 
+    public $scorporoIva = [];
+
     public $note_documento;
     public $includi_metodo_pagamento;
     public $metodo_pagamento;
@@ -133,7 +135,7 @@ class Fatturazione {
 
     public function handle(){
         // $articoliLenght = count($this->request->codice);
-
+        // SISTEMAZIONE ARTICOLI ARRAY
         foreach ($this->request->codice as $key => $value) {
             $this->articoli[$key]['codice'] = $value;
         }
@@ -172,10 +174,22 @@ class Fatturazione {
         }
         foreach ($this->request->iva as $key => $value) {
             $this->articoli[$key]['iva'] = $value;
+
+            // scorporo iva
+            // assegno il corrente articolo l'iva, poi sommo tutto
+            if( !isset($this->scorporoIva[$value])) {
+                $this->scorporoIva[$value] = ['key' =>$key, 'iva' => $value, 'tot' => 0];
+            }
+
+        }
+        foreach ($this->request->zero_percento_iva as $key => $value) {
+            $this->articoli[$key]['zero_percento_iva'] = $value;
         }
         foreach ($this->request->costo_iva_articolo as $key => $value) {
             $this->articoli[$key]['costo_iva_articolo'] = $value;
 
+            // Scorporo iva: sommo le ive
+            // $this->scorporoIva[$key]['tot'] = $this->scorporoIva[$key]['tot']+$value;
             // tot iva
             $this->totaleIva = ($this->totaleIva+$value);
         }

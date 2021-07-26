@@ -123,6 +123,7 @@ class FatturaController extends Controller
                 $articoliConv['descrizione'][] = $articolo->descrizione;
                 $articoliConv['prezzo_netto'][] = $articolo->prezzo_netto;
                 $articoliConv['iva'][] = $articolo->iva;
+                $articoliConv['zero_percento_iva'][] = $articolo->zero_percento_iva;
                 $articoliConv['importo_netto'][] = $articolo->importo_netto;
                 $articoliConv['costo_iva_articolo'][] = $articolo->costo_iva_articolo;
                 $articoliConv['importo_totale_articolo'][] = $articolo->importo_totale_articolo;
@@ -167,6 +168,7 @@ class FatturaController extends Controller
                 $articoliConv['descrizione'][] = $articolo->descrizione;
                 $articoliConv['prezzo_netto'][] = $articolo->prezzo_netto;
                 $articoliConv['iva'][] = $articolo->iva;
+                $articoliConv['zero_percento_iva'][] = $articolo->zero_percento_iva;
                 $articoliConv['importo_netto'][] = $articolo->importo_netto;
                 $articoliConv['costo_iva_articolo'][] = $articolo->costo_iva_articolo;
                 $articoliConv['importo_totale_articolo'][] = $articolo->importo_totale_articolo;

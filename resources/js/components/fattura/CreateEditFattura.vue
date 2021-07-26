@@ -480,6 +480,7 @@
     :prezzo_netto="prezzo_netto_arr[numero-1]"
     :descrizione="descrizione_arr[numero-1]"
     :iva="iva_arr[numero-1]"
+    :zero-percento-iva="zero_percento_iva_arr[numero-1]"
     :key="numero" 
     />
   </div>
@@ -742,6 +743,7 @@ export default {
     const prezzo_netto_arr =    ref(getRef('prezzo_netto', [''], 'articoli'))
     const descrizione_arr =     ref(getRef('descrizione', [''], 'articoli'))
     const iva_arr =             ref(getRef('iva', [''], 'articoli'))
+    const zero_percento_iva_arr =   ref(getRef('zero_percento_iva', [''], 'articoli'))
 
     function parseDate(data){
       // console.log(data)
@@ -879,6 +881,7 @@ export default {
       // elettronica v-model
       el_codice_destinatario, el_indirizzo_pec, el_esigibilita_iva, el_emesso_in_seguito_a, el_metodo_pagamento, el_nome_istituto_di_credito, el_iban, el_nome_beneficiario,
       //articoli
+      zero_percento_iva_arr
       // storeArticoli
     }
   }

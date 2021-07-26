@@ -168,7 +168,8 @@
         @if(!$isDDT)<th align="center" style="width:50px" class="title-small">PREZZO</th>@endif
                     <th align="center" style="{{$isDDT ? 'width:100px' : 'width:50px'}}" class="title-small">QUANTITÀ</th>
         @if(!$isDDT)<th align="center" style="width:50px" class="title-small">IMPORTO NETTO</th>@endif
-        @if(!$isDDT)<th align="center" style="width:50px" class="title-small">22% IVA</th>@endif
+        @if(!$isDDT)<th align="center" style="width:50px" class="title-small">IVA</th>@endif
+        @if(!$isDDT)<th align="center" style="width:50px" class="title-small">% IVA</th>@endif
         @if(!$isDDT)<th align="center" style="width:65px" class="title-small">IMPORTO TOTALE</th>@endif
       </tr>
     </thead>
@@ -185,7 +186,8 @@
           @if(!$isDDT)<td align="center">&#8364; {{number_format($art['prezzo_netto'], 2)}}</td>@endif
                       <td align="center">{{$art['quantita']}} {{$art['unita_di_misura']}}</td>
           @if(!$isDDT)<td align="center">&#8364; {{number_format($art['importo_netto'], 2)}}</td>@endif
-          @if(!$isDDT)<td align="center">&#8364; {{number_format($art['iva'], 2)}}</td>@endif
+          @if(!$isDDT)<td align="center">{{$art['iva']}}%</td>@endif
+          @if(!$isDDT)<td align="center">&#8364; {{number_format($art['costo_iva_articolo'], 2)}}</td>@endif
           @if(!$isDDT)<td align="center">&#8364; {{number_format($art['importo_totale_articolo'], 2)}}</td>@endif
         </tr>
         
@@ -193,6 +195,26 @@
       </tbody>
   </table>
 </div>
+
+{{-- note 0% iva --}}
+@php
+    $ifZeroPercento = false;
+    foreach($fattura->articoli as $art) {
+      if($art['iva'] == 0){
+        $ifZeroPercento = true;
+        break;
+      }
+    }
+@endphp
+@if($ifZeroPercento)
+<br>
+<span style="color:gray;">NOTE PER ARTICOLI CON O% IVA:</span><br>
+@endif
+@foreach ($fattura->articoli as $art)
+    @if($art['iva'] == 0)
+    Cod. {{$art['codice']}}: <span style="color:gray;">{{ $zeroPercentoIvaArray[$art['zero_percento_iva']]}}</span> <br>
+    @endif
+@endforeach
 
 @isset($fattura->marcheArticoli)
 @foreach ($fattura->marcheArticoli as $art)
@@ -233,6 +255,24 @@
 <p>{!!$fattura->note_pagamento!!}</p>
 @endif
 
+
+
+@php
+    // SCORPORO IVA
+    $scorporo = [];
+    foreach($fattura->articoli as $art) {
+      $iv = $art['iva'];
+
+      if(!isset($scorporo[$iv])){
+        $scorporo[$iv] = $art['costo_iva_articolo'];
+      } else {
+        $scorporo[$iv] = $scorporo[$iv] + $art['costo_iva_articolo'];
+      }
+      
+    }
+@endphp
+
+
 @if($fattura->tipo_documento != 'ddt')
 <div class="">
   <table class="" style="width:100%">
@@ -242,8 +282,14 @@
           <td align="right">Imponibile</td>
           <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{number_format($fattura->totaleImponibile, 2)}}</td>
         </tr>
+        @foreach ($scorporo as $key => $value)
         <tr>
-          <td align="right">Iva 22% su &#8364; {{$fattura->totaleImponibile}}</td>
+          <td align="right">Iva al {{$key}}&#8364;</td>
+          <td style="width: 120px; padding-right: 8px" align="right">&#8364;  {{number_format($value, 2)}}</td>
+        </tr>
+        @endforeach
+        <tr>
+          <td align="right">Totale iva su &#8364; {{$fattura->totaleImponibile}}</td>
           <td style="width: 120px; padding-right: 8px" align="right">&#8364; {{number_format($fattura->totaleIva, 2)}}</td>
         </tr>
         
@@ -280,6 +326,7 @@
   </table>
 </div>
 @endif
+
 
 @if($fattura->tipo_documento == 'nota_di_credito')
 <p>Esenzioni IVA:

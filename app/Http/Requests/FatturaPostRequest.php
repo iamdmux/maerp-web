@@ -90,6 +90,7 @@ class FatturaPostRequest extends FormRequest
             'iva.*' =>'',
             'costo_iva_articolo.*' =>'',
             'importo_totale_articolo.*' =>'',
+            'zero_percento_iva.*' => ''
         ];
         return $rules;
     }

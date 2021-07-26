@@ -49,8 +49,7 @@
                     <div class="w-1/4">
                         <div class="text-left">
                             <div class="relative w-20 mx-auto pr-0">
-                                 {{-- TO FIX  usare l'array per [param1, param2] --}}
-                                <form class="absolute left-0 top-0 md:mt-6 -ml-5 md:-ml-8" action="{{'/' . app()->getLocale() . "/stocks/cart/" . $item->pivot->id}} " method="POST">
+                                <form class="absolute left-0 top-0 md:mt-6 -ml-5 md:-ml-8" action="{{route('cart.update', [app()->getLocale(), $item->pivot->id])}} " method="POST">
                                     @csrf
                                     @method('PATCH')
                                     <button onclick="return confirm('Vuoi togliere questo prodotto dal carrello?')">

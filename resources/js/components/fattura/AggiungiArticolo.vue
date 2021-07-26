@@ -55,17 +55,29 @@
               </div> -->
         </div>
       </div>
-      <div class="my-6">
+      <div class="my-6 flex flex-wrap">
         <div class="flex flex-col">
           <div class="mb-2">
             <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
                 iva
             </p>
-            <select :disabled="mView == 'show'" v-model="iva" name="iva[]" autocomplete="off" class=" rounded-md border-gray-200">
-              <option :selected="iva == 22" value="22">22</option>
-              <option :selected="iva == 10" value="10">10</option>
-              <option :selected="iva == 5" value="5">5</option>
-              <option :selected="iva == 4" value="4">4</option>
+            <select :disabled="mView == 'show'" v-model="iva" name="iva[]" class="rounded-md border-gray-200">
+              <option :selected="iva == 24" :value="24">24%</option>
+              <option :selected="iva == 23" :value="23">23%</option>
+              <option :selected="iva == 22" :value="22">22%</option>
+              <option :selected="iva == 21" :value="21">21%</option>
+              <option :selected="iva == 20" :value="20">20%</option>
+              <option :selected="iva == 19" :value="19">19%</option>
+              <option :selected="iva == 15" :value="15">15%</option>
+              <option :selected="iva == 10" :value="10">10%</option>
+              <option :selected="iva == 8" :value="8">8%</option>
+              <option :selected="iva == 7" :value="7">7%</option>
+              <option :selected="iva == 5" :value="5">5%</option>
+              <option :selected="iva == 4" :value="4">4%</option>
+              <option :selected="iva == 3.8" :value="3.8">3.8%</option>
+              <option :selected="iva == 3" :value="3">3%</option>
+              <option :selected="iva == 2.5" :value="2.5">2.5%</option>
+              <option :selected="iva == 0" :value="0">0%</option>
             </select>
           </div>
           <div class="mb-2">
@@ -88,6 +100,16 @@
             </p>
             <input disabled v-model="importo_totale_articolo" name="importo_totale_articolo[]" class=" w-36" autocomplete="off" type="text">
             <input type="hidden" name="importo_totale_articolo[]" :value="importo_totale_articolo">
+          </div>
+        </div>
+        <div v-if="iva == 0">
+          <div class="mb-2">
+            <p class="pb-1 text-left text-xs leading-4 font-medium text-gray-800 uppercase tracking-wider">
+                0% iva
+            </p>
+            <select :disabled="mView == 'show'" name="zero_percento_iva[]" v-model="zeroPercentoIva" autocomplete="off" class="w-72 rounded-md border-gray-200">
+              <option v-for="perc in listaZeroPercento" :key="perc.cod" :value="perc.cod">{{perc.val}}</option>
+            </select>
           </div>
         </div>
       </div>
@@ -128,6 +150,9 @@ export default {
     },
     iva:{
       required: false
+    },
+    zeroPercentoIva:{
+      required: false
     }
   },
   setup(props){
@@ -135,15 +160,30 @@ export default {
     // props
     const numeroArticolo = ref(Number(props.numeroArticolo))
 
+    // const lotto_id      = toRefs(props).lotto_id ?? ''
+    // const codice        = toRefs(props).codice ?? ''
+    // const quantita      = toRefs(props).quantita ?? 1
+    // const unita_di_misura = toRefs(props).unita_di_misura ? toRefs(props).unita_di_misura : ''
+    // const prezzo_netto  = toRefs(props).prezzo_netto ? toRefs(props).prezzo_netto : 0.00
+    // const descrizione   = toRefs(props).descrizione ? toRefs(props).descrizione : ''
+    // const iva           = toRefs(props).iva ?? '22'
+    // const zeroPercentoIva = toRefs(props).zeroPercentoIva ?? 'N1'
+
     const lotto_id      = ref(props.lotto_id ? props.lotto_id : '')
     const codice        = ref(props.codice ? props.codice : '')
     const quantita      = ref(props.quantita ? props.quantita : 1)
-    const unita_di_misura = ref(props.unita_di_misura ? props.unita_di_misura: '')
-    const prezzo_netto  = ref(props.prezzo_netto ? props.prezzo_netto : 0.00)
+    const unita_di_misura = ref(props.unita_di_misura ? props.unita_di_misura : '')
+    const prezzo_netto  = ref(props.prezzo_netto ? Number(props.prezzo_netto) : 0.00)
     const descrizione   = ref(props.descrizione ? props.descrizione : '')
-    const iva           = ref(props.iva ? props.iva : 22)
+    const iva           = ref(props.iva ? Number(props.iva) : 22) // in edit, non riesca a caricare la prop -> vedi patch sotto
+    const zeroPercentoIva = ref(props.zeroPercentoIva ? props.zeroPercentoIva : 'N1')
 
+    //patch iva
+    if(props.iva != undefined){
+      iva.value =  Number(props.iva)
+    }
     
+
     const articoloId = ref('') // se è i lotto dal db
     const listaArticoli = ref({})
     const filterArticolo = ref('')
@@ -153,11 +193,28 @@ export default {
     const importo_netto =ref(0)
     const costo_iva_articolo = ref(0)
 
-    // onmounted
-    // const log = async () => {
-    //     console.log(numeroArticolo.value, lotto_id.value, codice.value, quantita.value, unita_di_misura.value, prezzo_netto.value, descrizione.value, iva.value)
-    //   }
-    // onMounted(log)
+    const listaZeroPercento = [
+            {cod: 'N1', val: 'N1 – escluse ex art. 15'},
+            {cod: 'N2.1', val: 'N2.1 non soggette ad IVA ai sensi degli artt. da 7 a 7-septies del DPR 633/72'},
+            {cod: 'N2.2', val: 'N2.2 non soggette – altri casi'},
+            {cod: 'N3.1', val: 'N3.1 non imponibili – esportazioni'},
+            {cod: 'N3.2', val: 'N3.2 non imponibili – cessioni intracomunitarie'},
+            {cod: 'N3.3', val: 'N3.3 non imponibili – cessioni verso San Marino'},
+            {cod: 'N3.4', val: 'N3.4 non imponibili – operazioni assimilate alle cessioni all’esportazione'},
+            {cod: 'N3.5', val: 'N3.5 non imponibili – a seguito di dichiarazioni d’intento'},
+            {cod: 'N3.6', val: 'N3.6 non imponibili – altre operazioni che non concorrono alla formazione del plafond'},
+            {cod: 'N4', val: 'N4 – esenti'},
+            {cod: 'N5', val: 'N5 – regime del margine / IVA non esposta in fattura'},
+            {cod: 'N6.1', val: 'N6.1 inversione contabile – cessione di rottami e altri materiali di recupero'},
+            {cod: 'N6.2', val: 'N6.2 inversione contabile – cessione di oro e argento puro'},
+            {cod: 'N6.3', val: 'N6.3 inversione contabile – subappalto nel settore edile'},
+            {cod: 'N6.4', val: 'N6.4 inversione contabile – cessione di fabbricati'},
+            {cod: 'N6.5', val: 'N6.5 inversione contabile – cessione di telefoni cellulari'},
+            {cod: 'N6.6', val: 'N6.6 inversione contabile – cessione di prodotti elettronici'},
+            {cod: 'N6.7', val: 'N6.7 inversione contabile – prestazioni comparto edile e settori connessi'},
+            {cod: 'N6.8', val: 'N6.8 inversione contabile – operazioni settore energetico'},
+            {cod: 'N6.9', val: 'N6.9 inversione contabile – altri casi'}
+    ]
 
     const searchArticolo = () => {
       if(codice){
@@ -200,7 +257,7 @@ export default {
 
     return { 
       articoloId, lotto_id, descrizione, numeroArticolo, codice, filterArticolo, iva, costo_iva_articolo, quantita, unita_di_misura,
-      quantitaMax, prezzo_netto, importo_netto, searchArticolo, confermaArticolo, importo_totale_articolo, lottoChecked
+      quantitaMax, prezzo_netto, importo_netto, searchArticolo, confermaArticolo, importo_totale_articolo, lottoChecked, zeroPercentoIva, listaZeroPercento
       }
   }
 }

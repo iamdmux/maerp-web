@@ -53,7 +53,7 @@ use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 // LOGS
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware(['auth', 'isDeveloper']);
 
-// STOCK 
+// redirect if ERP on NOT
 Route::get('/', function(){
     $user =  auth()->user();
     if($user){
@@ -66,6 +66,7 @@ Route::get('/', function(){
     return redirect()->to( app()->getLocale() . '/stocks');
 });
 
+// STOCK
 Route::group(['prefix' => '{language}'], function(){
     Route::get('stocks', [StockPagesController::class, 'homepage'])->name('stocks.home');
 
@@ -151,6 +152,7 @@ Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], func
    
     // MAGAZZINO
     Route::resource('/magazzino/lotti', LottoController::class, ['except' => ['show']]); // middleware in construct
+    Route::delete('/magazzino/bulk/lotti', [LottoController::class, 'bulkDelete'])->name('lotti.bulkDelete');
 
     // upload media
     Route::post('/magazzino/lotti/media', [LottoController::class, 'fileUpload'])->name('lotto.store.media');

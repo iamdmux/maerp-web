@@ -220,6 +220,22 @@ class LottoController extends Controller
         return redirect()->route('lotti.index')->with('success', 'Il lotto è stata cancellato');
     }
 
+    public function bulkDelete(Request $request){
+        $request->validate([
+            'eliminaInBloccoLotti' => 'array',
+            'azioneMultipla' => 'nullable|string'
+        ]);
+        
+        if($request->azioneMultipla == 'elimina' && $request->eliminaInBloccoLotti){
+            foreach ($request->eliminaInBloccoLotti as $idLotto) {
+                Lotto::findOrFail($idLotto)->delete();
+            }
+            return redirect()->route('lotti.index')->with('success', 'I lotti sono stati cancellati');
+        } else {
+            return redirect()->route('lotti.index')->with('success', 'Non è stata selezionata nessuna azione');
+        }
+        
+    }
 
     protected function validation(Request $request){
 
