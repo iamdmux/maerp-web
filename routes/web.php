@@ -140,6 +140,7 @@ Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], func
         //Fattura Json Response
         Route::post('/api/fattura/clienti', [FatturaAPI::class, 'getClienti']);
         Route::post('/api/fattura/articoli', [FatturaAPI::class, 'getArticoli']);
+        Route::post('/api/fattura/vies/{clienteId}', [FatturaAPI::class, 'checkVies']);
     });
 
 

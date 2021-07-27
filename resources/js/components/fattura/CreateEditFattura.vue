@@ -839,7 +839,20 @@ export default {
 
         filterCliente.value = ''
         }
+
+        checkVies(cliente.id)
     }
+
+    const checkVies = (clienteId) => {
+        // axios.post(`/api/fattura/vies/${clienteId}`, {})
+        // .then( (res) => {
+        //   console.log(res.data)
+        // })
+        
+    }
+
+
+
     axios.defaults.withCredentials = true;
     
     const keepActiveDdt = () => {

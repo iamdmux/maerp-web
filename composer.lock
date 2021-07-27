@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cac0f15072f9394777243e97ff8cc0ca",
+    "content-hash": "83f00326fa7d9d85028fc617a3f42766",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -848,6 +848,70 @@
                 "source": "https://github.com/dompdf/dompdf/tree/v1.0.2"
             },
             "time": "2021-01-08T14:18:52+00:00"
+        },
+        {
+            "name": "dragonbe/vies",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DragonBe/vies.git",
+                "reference": "a6bfc40c93d05c999721442e5f1aa07ff47d8b32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DragonBe/vies/zipball/a6bfc40c93d05c999721442e5f1aa07ff47d8b32",
+                "reference": "a6bfc40c93d05c999721442e5f1aa07ff47d8b32",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-soap": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "ext-pcntl": "*",
+                "infection/infection": "^0.8",
+                "pdepend/pdepend": "^2.5",
+                "phing/phing": "^2.16",
+                "phploc/phploc": "^4.0",
+                "phpmd/phpmd": "^2.6",
+                "phpunit/php-invoker": "^2.0",
+                "phpunit/phpunit": "^7.1",
+                "sebastian/phpcpd": "^4.0",
+                "sensiolabs/security-checker": "^5.0",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "tool",
+            "autoload": {
+                "psr-4": {
+                    "DragonBe\\Vies\\": "src/Vies"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michelangelo van Dam",
+                    "email": "dragonbe@gmail.com",
+                    "homepage": "http://dragonbe.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "EU VAT numbers validation using the VIES Service of the European Commission",
+            "homepage": "https://github.com/DragonBe/vies",
+            "keywords": [
+                "ec",
+                "eu",
+                "vat",
+                "vies"
+            ],
+            "support": {
+                "issues": "https://github.com/DragonBe/vies/issues",
+                "source": "https://github.com/DragonBe/vies/tree/2.2.0"
+            },
+            "time": "2021-04-03T18:19:32+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
