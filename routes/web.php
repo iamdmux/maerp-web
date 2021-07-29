@@ -31,24 +31,13 @@ use App\Http\Controllers\Impostazioni\ImpostazioneController;
 use App\Http\Controllers\Blackbox\LavorazioneDelGiornoController;
 
 
-/* INFO
- #DEV: SET NULL -- controllo per la relazione nella constrain del db ON DELETE set  null
-                 
-                - magazzino_lotti ok    ($lotto->marca->nome)
-                - clienti ok            ($cliente->user)
-                        // in cliente destroy non è possibile cancellare il cliente se è associato la fattura
-                - fatture ok            ($fattura->cliente) 
-                - articoli              - sembra ok
-                - stocks_orders         - sembra ok
-*/
-
 
 // Route::get('/mailable', function () {
 //     $formtext = App\Models\Stock\StocksForm::find(1);
 //     return new App\Mail\Stocks\StocksFormInformations($formtext);
 // })->middleware(['auth', 'isDeveloper']);
 
-
+Route::get('devs/shippo', [DevController::class, 'shippo'])->middleware(['isDeveloper']); // TIENE USER FREE FINO A 25
 
 // LOGS
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware(['auth', 'isDeveloper']);
@@ -140,7 +129,7 @@ Route::group(['prefix' => 'erp', 'middleware' => ['auth', 'can:erp user']], func
         //Fattura Json Response
         Route::post('/api/fattura/clienti', [FatturaAPI::class, 'getClienti']);
         Route::post('/api/fattura/articoli', [FatturaAPI::class, 'getArticoli']);
-        Route::post('/api/fattura/vies/{clienteId}', [FatturaAPI::class, 'checkVies']);
+        Route::post('/api/fattura/vies/{clienteId}', [FatturaAPI::class, 'check_vat']);
     });
 
 

@@ -169,6 +169,9 @@
             <input :value="email" class=" w-36" autocomplete="off" type="hidden" name="email">
           </div>
         </div>
+        <div v-if="ckeckViesMessage" class="text-xs mt-4">
+          <p>{{ckeckViesMessage}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -529,7 +532,7 @@
 import { ref } from '@vue/reactivity'
 // import { computed } from '@vue/runtime-core'
 import AggiungiArticolo from './AggiungiArticolo.vue'
-import { onMounted } from '@vue/runtime-core'
+import { computed, onMounted } from '@vue/runtime-core'
 // import storeArticoli from '../../composable/storeArticoli'
 import moment from 'moment-timezone';
 
@@ -605,6 +608,8 @@ export default {
     const fatturaConvertiUrl = props.fatturaConvertiUrl ? props.fatturaConvertiUrl : ''
 
     const dateToday = new Date().toISOString().split("T")[0]
+
+    const ckeckVies = ref('')
 
     const getRef = (key, defaultVal = '', type = null) => {
 
@@ -813,6 +818,7 @@ export default {
         axios.post('/api/fattura/clienti', {}, { params: { query_cliente: denominazione.value }})
         .then(res => {
           listaClienti.value = res.data
+          ckeckVies.value = ''
         })
         .then( ()=>{
           filterCliente.value = listaClienti.value.filter(cliente => cliente.denominazione.toLowerCase().indexOf(denominazione.value.toLowerCase()) > -1)
@@ -844,12 +850,32 @@ export default {
     }
 
     const checkVies = (clienteId) => {
-        // axios.post(`/api/fattura/vies/${clienteId}`, {})
-        // .then( (res) => {
-        //   console.log(res.data)
-        // })
-        
+        axios.post(`/api/fattura/vies/${clienteId}`, {})
+        .then( (res) => {
+          console.log(res.data)
+          ckeckVies.value = (res.data)
+        })
     }
+
+    const ckeckViesMessage = computed(() => {
+      switch (ckeckVies.value) {
+        case 0:
+          return 'Vies: non valido'
+          break;
+        case 1:
+          return 'Vies: valido'
+          break;
+        case 2:
+          return 'non è stato possibilie verificare la p.iva'
+          break;
+        case 3:
+          return 'Vies, mancano dei dati per la verifica p.iva'
+          break;
+        default:
+          ''
+          break;
+      }
+    })
 
 
 
@@ -894,7 +920,7 @@ export default {
       // elettronica v-model
       el_codice_destinatario, el_indirizzo_pec, el_esigibilita_iva, el_emesso_in_seguito_a, el_metodo_pagamento, el_nome_istituto_di_credito, el_iban, el_nome_beneficiario,
       //articoli
-      zero_percento_iva_arr
+      zero_percento_iva_arr, ckeckViesMessage
       // storeArticoli
     }
   }

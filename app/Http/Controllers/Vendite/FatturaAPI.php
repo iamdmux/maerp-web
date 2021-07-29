@@ -44,76 +44,47 @@ class FatturaAPI extends Controller
        ->get();
     }
 
-    public function checkVies($clienteId){
+
+    /**
+     * Check a given VAT number with the europe VIES check
+    *
+    * @param string $country The country code to check with the VAT number.
+    * @param string $vat_nr The VAT number to check.
+    *
+    * @return bool|null
+    */
+    public function check_vat($clienteId) //$country, $vat_nr
+    {
+
         $cliente = Cliente::find($clienteId);
-        if($cliente){
+            if($cliente){
 
-            $vies = new Vies();
+                $country = $cliente->nazione_sigla;
+                $vat_nr = $cliente->partita_iva;
 
-            if (false === $vies->getHeartBeat()->isAlive()) {
-                return 'Service is not available at the moment, please try again later.';
+                // Strip all spaces from the VAT number to improve usability of the VAT field.
+                $vat_nr = str_replace(' ', '', $vat_nr);
+                if (0 === strpos($vat_nr, $country)) {
+                    $vat_nr = trim(substr($vat_nr, strlen($country)));
+                }
+                try {
+                    // Do the remote request.
+                    $client = new \SoapClient('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl');
+                    $returnVat = $client->checkVat(array('countryCode' => $country, 'vatNumber' => $vat_nr));
+                } catch (\Exception $e) {
+                    error_log('VIES API Error for ' . $country . ' - ' . $vat_nr . ': ' . $e->getMessage());
+                    return 3;
+                }
+                // Return the response.
+                if (isset($returnVat)) {
+                    if (true == $returnVat->valid) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+                // Return null if the service is down.
+                return 2;
             }
-
-            $company = [
-                'country_code' => $cliente->nazione_sigla,
-                'vat_id' => $cliente->partita_iva,
-                'trader_name' => $cliente->denominazione,
-                'trader_company_type' => '',
-                'trader_street' => $cliente->indirizzo,
-                'trader_postcode' => $cliente->cap,
-                'trader_city' => $cliente->citta,
-             ];
-             
-             try {
-                 $vatResult = $vies->validateVat(
-                     $company['country_code'],        // Trader country code
-                     $company['vat_id'],              // Trader VAT ID
-                     'IT',                            // Requester country code (your country code)
-                     '11320520015',                    // Requester VAT ID (your VAT ID)
-                     $company['trader_name'],         // Trader name
-                     $company['trader_company_type'], // Trader company type
-                     $company['trader_street'],       // Trader street address
-                     $company['trader_postcode'],     // Trader postcode
-                     $company['trader_city']          // Trader city
-                 );
-             } catch (ViesException $viesException) {
-                return 'Cannot process VAT validation: ' . $viesException->getMessage();
-                exit (2);
-             } catch (ViesServiceException $viesServiceException) {
-                return 'Cannot process VAT validation: ' . $viesServiceException->getMessage();
-                exit (2);
-             }
-
-            return 'res: ' . $vatResult->getName()  . ' ' . $vatResult->getCityMatch() . ' ' . $vatResult->getPostcodeMatch() . ' ' .  $vatResult->getCompanyTypeMatch() ;
         }
-        
     }
-}
-
-
-/*
-aliquota_iva: null
-cap: "61-332"
-citta: "Poznań"
-codice_fiscale: null
-codice_sdi: null
-denominazione: "\"Amber\" Katarzyna Adamczyk"
-fattura_id: null
-iban: null
-id: 1
-indirizzo: "ul. Pawła Strzeleckiego 9"
-indirizzo_spedizione: null
-metodo_pagamento_predef: null
-nazione: "Polonia"
-nazione_sigla: "PL"
-note_extra: null
-note_indirizzo: null
-partita_iva: "PL559-179-02-77"
-pec: null
-provincia: null
-referente: null
-stock_user_id: null
-telefono: null
-termini_pagamento: null
-termini_tipo: null
-*/
