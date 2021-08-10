@@ -55,36 +55,8 @@
                 $tex = "normal-case";
                @endphp
 
-            <p class="leading-loose font-semibold mt-2 uppercase">Sede di Torino (Caluso)</p>
-                <br>
-                <p class="leading-loose">
-                <span class="{{$title}}">Ufficio Vendite</span><br>
-
-                <span class="{{$tex}} mt-1">Sara (English, Deutsch): +393203635839</span><br>
-                <span class="{{$tex}}">Elena (Român, English) +393203635834</span><br>
-                <span class="{{$tex}}">Bassem +393203635836 (العربية - français)</span><br>
-                <span class="{{$tex}}">Davide (Italiano) +393297883215</span><br>
-
-                <span class="{{$title}}">Ufficio Acquisti</span><br>
-                <span class="{{$tex}} mt-1">Oleg (русский, English, Italiano) +393463281421</span>
-            </p>
-           </div>
-        </div>
-
-        <!-- Col-4 -->
-        <div class="p-5 w-1/2 sm:w-4/12 md:w-3/12" style="min-width: 250px">
-
-           <div class="my-3 lg:pt-8 block  text-gray-300 hover:text-gray-100 text-sm  duration-700">
-            <p class="leading-loose font-semibold mt-2 uppercase">Sede di Verona (Colognola ai Colli)</p>
-            <br>
-            <p class="leading-loose">
-                <span class="{{$title}}">Ufficio Vendite</span><br>
-                <span class="{{$tex}} mt-1">Roberto (Italiano) +393337100290</span><br>
-                <span class="{{$tex}}">Isolda (русский, Italiano) +393473181020</span><br>
-                <span class="{{$title}} mt-10">Sede Amministrativa</span><br>
-                <span class="{{$tex}} mt-1">Alex (Italiano, Epol) +393336321195</span><br>
-                <span class="{{$tex}}">Andrei (русский, Italiano) +393897622477</span>
-            </p>
+                <p><a class="leading-loose font-semibold mt-2 uppercase" href="{{route('stocks.contacts', app()->getLocale())}}">Sede di Torino (Caluso)</a></p>
+                <p><a class="leading-loose font-semibold mt-2 uppercase" href="{{route('stocks.contacts', app()->getLocale())}}">Sede di Verona (Colognola ai Colli)</a></p>
            </div>
         </div>
     </div>
