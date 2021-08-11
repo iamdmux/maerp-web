@@ -15,9 +15,12 @@
     <a href="{{route('lotti.create')}}" class="px-6 py-3 bg-blue-500 rounded-md text-white font-medium tracking-wide hover:bg-blue-400">Crea nuovo lotto</a>
 </div>
 @endcan
-<form action="{{route('lotti.bulkDelete')}}" method="POST">
+
+<form id="bulkform" action="{{route('lotti.bulkDelete')}}" method="POST">
     @csrf
     @method('DELETE')
+</form>
+
     <div class="flex flex-col mt-8">
         <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
             <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
@@ -54,7 +57,7 @@
                                 @endphp
                                 
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"><input type="checkbox" name="eliminaInBloccoLotti[]" value="{{$lotto->id}}" x-bind:checked="selectAll"></td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"><input type="checkbox" form="bulkform" name="eliminaInBloccoLotti[]" value="{{$lotto->id}}" x-bind:checked="selectAll"></td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->id}}</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{{$lotto->codice_articolo}}</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{!!$lotto->in_shop ? $checked : '' !!}</td>
@@ -75,8 +78,8 @@
                                         @php
                                             $daysFromNow = $status->pivot->created_at->diffInDays(now());
                                         @endphp
-                                            <p>
-                                                {{$loop->iteration}} - {{$status->name}} - 
+                                            <p title="{{$status->name}}">
+                                                <span class="absolute -ml-2">{{$loop->iteration}}</span> - {{ substr_replace($status->name, "..", 5)}} - 
                                                 <span style="font-size: 0.75rem;" class="{{$daysFromNow > 15 ? 'bg-yellow-500' : 'bg-red-600'}} px-1 text-white rounded">
                                                     {{$status->pivot->created_at->format('d-m-y')}}
                                                 </span>
@@ -95,8 +98,9 @@
                                     </td>
                                     <td class="px-6 py-4 align-top whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                                         @foreach ($vendutoList as $status)
-                                            <p>
-                                                {{$loop->iteration}} - {{$status->name}} - <span style="font-size: 0.75rem;" class="bg-gray-600 px-1 text-white rounded">{{$status->pivot->created_at->format('d-m-y')}}</span>
+                                            <p title="{{$status->name}}">
+                                                <span class="absolute -ml-2">{{$loop->iteration}}</span> - {{ substr_replace($status->name, "..", 5)}} -
+                                                <span style="font-size: 0.75rem;" class="bg-gray-600 px-1 text-white rounded">{{$status->pivot->created_at->format('d-m-y')}}</span>
                                             </p>
                                         @endforeach
 
@@ -130,13 +134,13 @@
     </div>
     @if($lotti->count())
     <div class="mt-6">
-        <select name="azioneMultipla">
+        <select name="azioneMultipla" form="bulkform">
             <option value="">--Azione multipla--</option>
             <option value="elimina">Elimina lotti</option>
         </select>
-        <button class="ml-4 px-3 py-1 bg-gray-500 rounded-md text-white font-medium tracking-wide hover:bg-gray-400" onclick="return confirm('Sei sicuro di cancellarei lotti selezionati?')" type="submit">Vai</button>
+        <button form="bulkform" class="ml-4 px-3 py-1 bg-gray-500 rounded-md text-white font-medium tracking-wide hover:bg-gray-400" onclick="return confirm('Sei sicuro di cancellarei lotti selezionati?')" type="submit">Vai</button>
     </div>
     @endif
-</form>
+
 
 @endsection
